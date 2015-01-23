@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="C:\Program Files\Android\Android Studio\gradle\gradle-2.2.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Aviary-SDK" />
+            <option value="$PROJECT_DIR$/FacebookSDK" />
+            <option value="$PROJECT_DIR$/Handyboy" />
+            <option value="$PROJECT_DIR$/ImageSliderLibrary" />
+            <option value="$PROJECT_DIR$/Simple Facebook" />
+            <option value="$PROJECT_DIR$/android-support-v7-appcompat" />
+            <option value="$PROJECT_DIR$/google-play-services_lib" />
+            <option value="$PROJECT_DIR$/libraryPTR" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
+

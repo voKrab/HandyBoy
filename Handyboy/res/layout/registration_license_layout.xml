@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/topbarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/backImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="13dp"
+                android:padding="8dp"
+                android:src="@drawable/back_icon_topbar" />
+
+            <TextView
+                android:id="@+id/backTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/screenTextView"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/license"
+                android:textColor="@color/white"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="13dp"
+                android:padding="8dp"
+                android:src="@drawable/back_icon_topbar"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/dark_red" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/massageTrainerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/massageTrainerTitle"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/certified_massage"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:text="@string/licence_number"
+                            android:textColor="@color/dark_blue_pressed"
+                            android:textSize="10sp" />
+
+                        <EditText
+                            android:id="@+id/massageLicenceNumber"
+                            android:layout_width="130dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/grey_rect"
+                            android:gravity="center_vertical"
+                            android:hint="1243-23-3445"
+                            android:inputType="number"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_blue"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:text="@string/license_state"
+                            android:textColor="@color/dark_blue_pressed"
+                            android:textSize="10sp" />
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" >
+
+                            <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                                android:id="@+id/stateSpinner"
+                                android:layout_width="84dp"
+                                android:layout_height="34dp"
+                                android:background="@drawable/spinner_selector" />
+
+                            <TextView
+                                android:id="@+id/stateTextView"
+                                android:layout_width="50dp"
+                                android:layout_height="34dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_text_white_background_selector"
+                                android:ems="10"
+                                android:gravity="center"
+                                android:paddingLeft="13dp"
+                                android:paddingRight="13dp"
+                                android:textColor="@color/dark_blue"
+                                android:textColorHint="@color/text_hint"
+                                android:textSize="13sp" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/massageExpirationDate"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/expiration_date"
+                    android:textColor="@color/dark_blue_pressed"
+                    android:textSize="10sp" />
+
+                <LinearLayout
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/massageMonthTextView"
+                        android:layout_width="50dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/grey_rect"
+                        android:gravity="center"
+                        android:hint="MM"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="/"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/massageDayTextView"
+                        android:layout_width="50dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/grey_rect"
+                        android:gravity="center"
+                        android:hint="DD"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="/"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/massageYearTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="34dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/grey_rect"
+                        android:gravity="left|center"
+                        android:hint="YYYY"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/personalTrainerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/personalTrainerTitle"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/certified_personal_trainer"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="13sp" />
+
+                <RelativeLayout
+                    android:id="@+id/additionalInfoContainer"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/you_must_be_insured_to_perform_this_service"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/TextView01"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/upload_proof_of_current_personal_trainers_insurance"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/chooseFileButton"
+                        android:layout_width="110dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/textView3"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/dark_blue_rect_selector"
+                        android:minHeight="48dp"
+                        android:text="@string/choose_file"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/chooseFileButton"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/must_be_pdf_or_jpeg"
+                        android:textColor="@color/grey"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/showHelpTextView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_above="@+id/textView4"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/chooseFileButton"
+                        android:background="@drawable/dark_blue_circle_selector"
+                        android:gravity="center"
+                        android:text="\?"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/fileStatusTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/textView4"
+                        android:layout_alignTop="@+id/chooseFileButton"
+                        android:layout_toLeftOf="@+id/showHelpTextView"
+                        android:layout_toRightOf="@+id/chooseFileButton"
+                        android:gravity="center"
+                        android:text="@string/no_file"
+                        android:textColor="@color/grey"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/textView4"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/dark_grey"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="136dp"
+                        android:layout_height="24dp"
+                        android:layout_alignBottom="@+id/fileStatusTextView"
+                        android:layout_alignTop="@+id/chooseFileButton"
+                        android:layout_toLeftOf="@+id/showHelpTextView"
+                        android:layout_toRightOf="@+id/chooseFileButton" >
+
+                        <ImageView
+                            android:id="@+id/proofFileImageView"
+                            android:layout_width="89dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/nojnici_a" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/massageExpirationDateTitle"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/expiration_date"
+                    android:textColor="@color/dark_blue_pressed"
+                    android:textSize="10sp" />
+
+                <LinearLayout
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/trainerMonthTextView"
+                        android:layout_width="50dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/grey_rect"
+                        android:gravity="center"
+                        android:hint="MM"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="/"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/trainerDayTextView"
+                        android:layout_width="50dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/grey_rect"
+                        android:gravity="center"
+                        android:hint="DD"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="/"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/trainerYearTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="34dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/grey_rect"
+                        android:gravity="left|center"
+                        android:hint="YYYY"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/submitButton"
+                android:layout_width="200dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/dark_blue_shape_selector"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

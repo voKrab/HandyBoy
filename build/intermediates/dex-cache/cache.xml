@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\android-support-v7-appcompat\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="42fda132f4167d0903e0ec9f941f6b260cd2e40c">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-5bb9942e330f08d66a7fe2fd3aa0aee36c7400b3.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\android-support-v7-appcompat\unspecified\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="99ed5d680aab22742ebc275ec95e3f4936a5971c">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-5bb9942e330f08d66a7fe2fd3aa0aee36c7400b3.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\abtest.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9144da7d7e2021b6d2efea20560f920c45d6f234">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\abtest-6ac003ab60c3419b2a4b60925b6b44c9d215ac7f.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\abtest.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="9144da7d7e2021b6d2efea20560f920c45d6f234">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\abtest-6ac003ab60c3419b2a4b60925b6b44c9d215ac7f.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="efec67655f6db90757faa37201efcee2a9ec3507">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\android-support-v4-b719201dc61ec749984de702be3db2694e61bbac.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\android-support-v4.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="efec67655f6db90757faa37201efcee2a9ec3507">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\android-support-v4-b719201dc61ec749984de702be3db2694e61bbac.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-common-library.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="03ebfd5493b19ef958c0b967d33cee772d980919">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-common-library-82c428f80d7b4a4b882724cd0dd9d5efadb13473.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\bcprov-jdk15on-1.47.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b6f5d9926b0afbde9f4dbe3db88c5247be7794bb">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\bcprov-jdk15on-1.47-5bf7f426d572cdbabe90ac2bcb1eb375afc3e630.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\bcprov-jdk15on-1.47.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="b6f5d9926b0afbde9f4dbe3db88c5247be7794bb">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\bcprov-jdk15on-1.47-5bf7f426d572cdbabe90ac2bcb1eb375afc3e630.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-common-library.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="03ebfd5493b19ef958c0b967d33cee772d980919">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-common-library-82c428f80d7b4a4b882724cd0dd9d5efadb13473.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-codec-1.6.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-codec-1.6-5dd565ffd320249d2366ba763155de99dd153c80.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\json-simple-1.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5e303a03d04e6788dddfa3655272580ae0fc13bb">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\json-simple-1.1-73f2169bf30d068d37bcfce065ec94790e20be14.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\json-simple-1.1.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="5e303a03d04e6788dddfa3655272580ae0fc13bb">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\json-simple-1.1-73f2169bf30d068d37bcfce065ec94790e20be14.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-sdk-library.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="763ec2ea87c186151237684d7acbf7ccea92ddd7">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-sdk-library-c6f18c964936199679f6db1d742889f37f0ba351.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-sdk-library.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="763ec2ea87c186151237684d7acbf7ccea92ddd7">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-sdk-library-c6f18c964936199679f6db1d742889f37f0ba351.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-codec-1.6.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-codec-1.6-5dd565ffd320249d2366ba763155de99dd153c80.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-io-2.4.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-io-2.4-7144b88403b9b47e058884ef4155d0426c9818be.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-io-2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-io-2.4-7144b88403b9b47e058884ef4155d0426c9818be.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpclient-4.3.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9783d89b8eea20a517a4afc5f979bd2882b54c44">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpclient-4.3.5-bc376f9c18f8f7cc37172f6feae542834fab39e8.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpclient-4.3.5.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="9783d89b8eea20a517a4afc5f979bd2882b54c44">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpclient-4.3.5-bc376f9c18f8f7cc37172f6feae542834fab39e8.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-headless-library.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0cf8462a2eca35d5d8ee90a6a0d5d3c237fb13ae">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-headless-library-5a629a4f408152aff3ce49c7a7ebcc83142a6b95.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-headless-library.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="0cf8462a2eca35d5d8ee90a6a0d5d3c237fb13ae">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-headless-library-5a629a4f408152aff3ce49c7a7ebcc83142a6b95.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-lang3-3.3.2.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="659861b4acde07a0527211e40d256119face1d15">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-185ca466e8dbbbbd217fa3406ea555c5063dd8bd.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-lang3-3.3.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="659861b4acde07a0527211e40d256119face1d15">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-185ca466e8dbbbbd217fa3406ea555c5063dd8bd.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\horizontallistview.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4615408747fb1aca953709873b326f09609e37e6">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\horizontallistview-8b70a4c1715288271cdf45c1bd266abbbcba1125.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\horizontallistview.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="4615408747fb1aca953709873b326f09609e37e6">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\horizontallistview-8b70a4c1715288271cdf45c1bd266abbbcba1125.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\android-support-v7-appcompat.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="aaa3ec7d7bfb3446a9190c5b1f601f1eb94745e7">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\android-support-v7-appcompat-e772053e7e514bc0ea97b126a6251418d6e4e5a7.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\android-support-v7-appcompat.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="aaa3ec7d7bfb3446a9190c5b1f601f1eb94745e7">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\android-support-v7-appcompat-e772053e7e514bc0ea97b126a6251418d6e4e5a7.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\FacebookSDK\unspecified\libs\bolts.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="1e5ba33c837d05dcca9dc40a0ab458f8599d7aef">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\bolts-cc7f1124d76e2007b1c529b190a9154c0f0b6dd9.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\ImageSliderLibrary\unspecified\libs\nineoldandroids-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-6e09a41c0325815714a6e85fdcc0723c81ac7176.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\FacebookSDK\unspecified\libs\bolts.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1e5ba33c837d05dcca9dc40a0ab458f8599d7aef">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\bolts-cc7f1124d76e2007b1c529b190a9154c0f0b6dd9.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\google-play-services_lib\unspecified\libs\google-play-services-gcm.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="ab67ceb7cac39f1ff40c2dfe615e916bc66ad413">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\google-play-services-gcm-1be9a5ae8faa413e37c73ae93ee1e8ba9cbecdef.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\ImageSliderLibrary\unspecified\libs\nineoldandroids-2.4.0.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-6e09a41c0325815714a6e85fdcc0723c81ac7176.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\google-play-services_lib\unspecified\libs\google-play-services-gcm.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ab67ceb7cac39f1ff40c2dfe615e916bc66ad413">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\google-play-services-gcm-1be9a5ae8faa413e37c73ae93ee1e8ba9cbecdef.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\stickylistheaders_lib.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="33ad2d9e9065ee528d81cb8de94eaab220022bfc">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\stickylistheaders_lib-8d8d7e936ed5cb0cf2aa23bcd59c1171e85a259d.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\stickylistheaders_lib.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="33ad2d9e9065ee528d81cb8de94eaab220022bfc">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\stickylistheaders_lib-8d8d7e936ed5cb0cf2aa23bcd59c1171e85a259d.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\annotations-10.0.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="58b262ff50129466ebdf920ffc393ba6f1a5bcff">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\annotations-10.0.2-e8902842c92f38a0c3c4d12eb7569d8d8a5b2842.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\annotations-10.0.2.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="58b262ff50129466ebdf920ffc393ba6f1a5bcff">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\annotations-10.0.2-e8902842c92f38a0c3c4d12eb7569d8d8a5b2842.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-tracking.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b47896885bd75fde0823a55a0b05d57841301712">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-tracking-2ccebda7b30cee50d99d2a0d984e2c62d3ada6d9.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-tracking.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="b47896885bd75fde0823a55a0b05d57841301712">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-tracking-2ccebda7b30cee50d99d2a0d984e2c62d3ada6d9.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpmime-4.3.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1dd0d38df9c6d21e893f2e52403f1cd99e91cd81">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpmime-4.3.5-e5cd6e4f2404dfe0bf685666f1feea6b4c804fa8.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpmime-4.3.5.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="1dd0d38df9c6d21e893f2e52403f1cd99e91cd81">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpmime-4.3.5-e5cd6e4f2404dfe0bf685666f1feea6b4c804fa8.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\FacebookSDK\unspecified\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="bb77c89647e53685371c1de2f24839e15a2b0f19">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-ea62b20a3f0c3253b3b03605d329ba942e6edf58.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-cds-library.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="0e2fb09a3026315f4f62ce761b4248929ff0b3b1">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-cds-library-1cffa8c6e23cdec847bad37f1f326d18a99a21e4.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\google-play-services_lib\unspecified\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="e2d334b61665b2c0c885a9f339ec5ed6b5d49e28">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-b8f5a857e3df93ea69e9da4a19bda3824d6d7385.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\FacebookSDK\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4383499dc7df7970893c2ec1f794151e5f4ac8a2">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-ea62b20a3f0c3253b3b03605d329ba942e6edf58.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-cds-library.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0e2fb09a3026315f4f62ce761b4248929ff0b3b1">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-cds-library-1cffa8c6e23cdec847bad37f1f326d18a99a21e4.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\Pubnub-Android-3.6.3.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="5100a60f930a673693dd08fb092e47d7a53345e0">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\Pubnub-Android-3.6.3-1c1ca954ebce787b6327fbe43fb439f66435a302.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\Pubnub-Android-3.6.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5100a60f930a673693dd08fb092e47d7a53345e0">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\Pubnub-Android-3.6.3-1c1ca954ebce787b6327fbe43fb439f66435a302.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\libraryPTR\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0f2374f29a17f052fb1d064887e51055ff014bd8">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-d4bc1affdc8634e7a11dea8d945e436e1e2ac64c.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\libraryPTR\unspecified\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="c646a1bad51292004460d57797ffe0e85a3787cf">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-d4bc1affdc8634e7a11dea8d945e436e1e2ac64c.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\fluent-hc-4.3.5.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="a5fc1041491f3c5cfcc37ad7e6a226189f94161b">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\fluent-hc-4.3.5-f21836e2313947517b9af7180fc67ddb32780995.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\fluent-hc-4.3.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a5fc1041491f3c5cfcc37ad7e6a226189f94161b">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\fluent-hc-4.3.5-f21836e2313947517b9af7180fc67ddb32780995.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\okhttp-1.2.1-jar-with-dependencies.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="bb54543ab6effc7af755ce8a28566e6d563fb7bf">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\okhttp-1.2.1-jar-with-dependencies-bc164b9bfcd9d35817036972bedceb04bfe6b6d2.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\imageviewtouch.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a5e04969960a18103d696620e7361b64c7b8acb6">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\imageviewtouch-1a8ce8c88db1ce9461e163e7b960e123222e23b8.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\imageviewtouch.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="a5e04969960a18103d696620e7361b64c7b8acb6">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\imageviewtouch-1a8ce8c88db1ce9461e163e7b960e123222e23b8.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\library-listviewanimations.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="fe456c21e77ee0378e3a2c4ad0d4c8408f650639">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\library-listviewanimations-61768bd3e8bbabc2471c325a935364c9bfc15010.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\library-listviewanimations.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fe456c21e77ee0378e3a2c4ad0d4c8408f650639">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\library-listviewanimations-61768bd3e8bbabc2471c325a935364c9bfc15010.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\ImageSliderLibrary\unspecified\libs\picasso.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="b67b18ee5758ca0afd6ffdf2da246a03dcfdcf93">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\picasso-e8ec1290d4704d3bef94da9283c84d24037e85bb.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-logging-1.1.3.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-logging-1.1.3-efee2be987b587bf3109ea4a76e5f21371f373b0.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpcore-4.3.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="31fbbff1ddbf98f3aa7377c94d33b0447c646b6e">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpcore-4.3.2-1e84c1a7fd4c5c421f52d73ad0e37a6049a9e0f2.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\commons-logging-1.1.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\commons-logging-1.1.3-efee2be987b587bf3109ea4a76e5f21371f373b0.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpcore-4.3.2.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="31fbbff1ddbf98f3aa7377c94d33b0447c646b6e">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpcore-4.3.2-1e84c1a7fd4c5c421f52d73ad0e37a6049a9e0f2.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\okhttp-1.2.1-jar-with-dependencies.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="bb54543ab6effc7af755ce8a28566e6d563fb7bf">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\okhttp-1.2.1-jar-with-dependencies-bc164b9bfcd9d35817036972bedceb04bfe6b6d2.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="b17e4cfcc14b2b1db620bba3a21169382dfd3b4a">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-f777b8e96eee253a745b8ab2bc07388df382751d.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpclient-cache-4.3.5.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="d96ec3034bd8429deaba77229183ffb1532edc1b">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpclient-cache-4.3.5-a19494e24271849c3a93432ef55264d0b48a4b59.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\httpclient-cache-4.3.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d96ec3034bd8429deaba77229183ffb1532edc1b">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\httpclient-cache-4.3.5-a19494e24271849c3a93432ef55264d0b48a4b59.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f34ad1239829964ffaa7644ac0d25ef0342263d6">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-f777b8e96eee253a745b8ab2bc07388df382751d.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\ImageSliderLibrary\unspecified\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="f6fb302ac3efb8f60b9a9125f49eefabbdfc07d3">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-9013deb26c90b18eb4774896854821c7be1af819.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\universal-image-loader-1.9.3.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-e8a1a36a82cf762dda99307e02b82bc509b99f5d.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\ImageSliderLibrary\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="de8b0a5e5b5a7966540ebb5698392f549ae5cf2c">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-9013deb26c90b18eb4774896854821c7be1af819.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\universal-image-loader-1.9.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-e8a1a36a82cf762dda99307e02b82bc509b99f5d.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\jackson-all-1.9.9.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6a6ffa8ada733458efb4999793dcc5b4b7b64e81">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\jackson-all-1.9.9-a26c210a147135dd3f8740fa46681548fd099fad.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\libs\jackson-all-1.9.9.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="6a6ffa8ada733458efb4999793dcc5b4b7b64e81">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\jackson-all-1.9.9-a26c210a147135dd3f8740fa46681548fd099fad.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-receipt-library.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b32b149d1ba4398fc3691eb6850a7e832d90acd1">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-receipt-library-91aa509543bc70d1209439a6cc7815fa352b31f5.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Aviary-SDK\unspecified\libs\aviary-receipt-library.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="b32b149d1ba4398fc3691eb6850a7e832d90acd1">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\aviary-receipt-library-91aa509543bc70d1209439a6cc7815fa352b31f5.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Simple Facebook\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="987c7be2a37f74fb10c96772e8b17f408951631d">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-c81b0254a9f182dbc9c9ea2f15ea3a05f1ca61fc.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\Simple Facebook\unspecified\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="03b9b14684a56127b4bf2e68b29a150426b49428">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-c81b0254a9f182dbc9c9ea2f15ea3a05f1ca61fc.jar" />
+    </item>
+    <item
+        jar="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\exploded-aar\HandyBoyWorkspace\google-play-services_lib\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="37bd9707e13c96032bb651136a224295d71f8cae">
+        <dex dex="D:\vallverk\HandyBoyWorkspace\Handyboy\build\intermediates\pre-dexed\debug\classes-b8f5a857e3df93ea69e9da4a19bda3824d6d7385.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white"
+    android:clickable="false"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topbarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/red" >
+
+        <TextView
+            android:id="@+id/screenTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/add_address_title"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/backImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:padding="8dp"
+            android:src="@drawable/back_icon_topbar" />
+
+        <TextView
+            android:id="@+id/backTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/backImageView"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="21dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/address_description_title"
+                android:textColor="@color/dark_blue"
+                android:textSize="9sp" />
+
+            <EditText
+                android:id="@+id/addressDescriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/edit_text_selector"
+                android:ems="10"
+                android:hint="@string/address_description_hint"
+                android:inputType="text"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_hint"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/address_field_title"
+                android:textColor="@color/dark_blue"
+                android:textSize="9sp" />
+
+            <EditText
+                android:id="@+id/addressEditText"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/edit_text_selector"
+                android:ems="10"
+                android:hint="@string/address_field_hint"
+                android:inputType="text"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_hint"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/subAddressEditText"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/edit_text_selector"
+                android:ems="10"
+                android:hint="@string/address_sub_field_hint"
+                android:inputType="text"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_hint"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="235dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/address_city_field_title"
+                        android:textColor="@color/dark_blue_pressed"
+                        android:textSize="10sp" />
+
+                    <EditText
+                        android:id="@+id/cityEditText"
+                        android:layout_width="130dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/grey_rect"
+                        android:gravity="center_vertical"
+                        android:hint="@string/address_city_field_hint"
+                        android:inputType="text"
+                        android:paddingLeft="13dp"
+                        android:paddingRight="13dp"
+                        android:singleLine="true"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/license_state"
+                        android:textColor="@color/dark_blue_pressed"
+                        android:textSize="10sp" />
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                            android:id="@+id/stateSpinner"
+                            android:layout_width="84dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/spinner_selector" />
+
+                        <TextView
+                            android:id="@+id/stateTextView"
+                            android:layout_width="50dp"
+                            android:layout_height="34dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_text_white_background_selector"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:paddingLeft="13dp"
+                            android:paddingRight="13dp"
+                            android:textColor="@color/dark_blue"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="13sp" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/address_zip_field_title"
+                android:textColor="@color/dark_blue"
+                android:textSize="9sp" />
+
+            <EditText
+                android:id="@+id/zipEditText"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/edit_text_selector"
+                android:ems="10"
+                android:hint="@string/address_zip_field_hint"
+                android:inputType="number"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_hint"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/addAddressButton"
+                android:layout_width="221dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="18dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/dark_blue_shape_selector"
+                android:text="@string/add_new_destination_save"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+           
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

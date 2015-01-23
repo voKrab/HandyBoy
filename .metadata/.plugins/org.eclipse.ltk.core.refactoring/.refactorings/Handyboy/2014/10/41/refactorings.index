@@ -1,0 +1,31 @@
+1412686440104	Encapsulate field 'attach'
+1412687108598	Wrap in Container
+1412692465584	Encapsulate field 'bitmap'
+1412856684833	Copy compilation unit
+1412856797555	Copy file
+1412860506411	Extracts string 'null' into R.string.selphie
+1412863801135	Extracts string 'null' into R.string.have_fun_and_be_yourself
+1412864061131	Wrap in Container
+1412864350732	Copy compilation unit
+1412865108996	Copy file
+1412865282151	Extracts string 'null' into R.string.contract
+1412865397429	Extracts string 'null' into R.string.terms_text_1
+1412865573559	Extracts string 'null' into R.string.terms_text_2
+1412865902070	Extracts string 'null' into R.string.i_agree
+1412867276663	Copy compilation unit
+1412867290307	Rename type 'CopyOfRegistrationServiceVideoViewFragment'
+1412867334477	Copy file
+1412867800871	Extracts string 'null' into R.string.video
+1412870651472	Extracts string 'null' into R.string.yout_must_accept_our
+1412870737032	Wrap in Container
+1412872886624	Extracts string 'null' into R.string.terms_of_service_underline
+1412872939612	Extracts string 'null' into R.string.and
+1412872980331	Extracts string 'null' into R.string.privacy_policy_underline
+1412873405365	Copy compilation unit
+1412873426968	Copy file
+1412873444926	Extracts string 'null' into R.string.terms
+1412874513320	Copy compilation unit
+1412874555917	Copy file
+1412931271365	Encapsulate field 'debug'
+1412931352326	Rename method 'isDebug'
+1412931359260	Rename method 'setDebug'

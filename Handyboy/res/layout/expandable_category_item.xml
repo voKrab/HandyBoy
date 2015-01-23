@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/expandable_category_item"
+    android:gravity="center_vertical"
+    android:paddingLeft="13dp"
+    android:layout_width="match_parent"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:layout_height="41dp"
+    android:orientation="vertical" />

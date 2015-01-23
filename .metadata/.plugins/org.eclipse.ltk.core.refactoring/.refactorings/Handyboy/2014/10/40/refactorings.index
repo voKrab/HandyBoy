@@ -1,0 +1,26 @@
+1412260863153	Rename type 'ChatMessage'
+1412261220304	Encapsulate field 'id'
+1412261223246	Encapsulate field 'firstUserId'
+1412261226104	Encapsulate field 'secondUserId'
+1412261228876	Encapsulate field 'amountUnreadMessages'
+1412261232441	Encapsulate field 'lastMessage'
+1412261288516	Encapsulate field 'createdAt'
+1412261298536	Encapsulate field 'senderName'
+1412261301280	Encapsulate field 'senderAvatar'
+1412261307604	Encapsulate field 'createdAt'
+1412261310320	Encapsulate field 'message'
+1412263198699	Encapsulate field 'senderId'
+1412341006340	Copy file
+1412345352733	Copy compilation unit
+1412345894847	Copy file
+1412345945087	Extracts string 'null' into R.string.dashboard
+1412346243840	Extracts string 'null' into R.string.im_available_now
+1412346715235	Extracts string 'null' into R.string.free_to_work_for_the_next_3_hours
+1412347208521	Copy file
+1412347264716	Copy file
+1412347301869	Copy file
+1412347328543	Copy file
+1412347531177	Extracts string 'null' into R.string.gig_list
+1412347772283	Extracts string 'null' into R.string.your_schedule
+1412347843406	Extracts string 'null' into R.string.your_money
+1412347877095	Extracts string 'null' into R.string.job_descriptions

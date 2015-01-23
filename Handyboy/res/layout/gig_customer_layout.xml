@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white"
+    android:clickable="false"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topbarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/red" >
+
+        <TextView
+            android:id="@+id/screenTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/gig"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/backImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:padding="8dp"
+            android:src="@drawable/back_icon_topbar" />
+
+        <TextView
+            android:id="@+id/backTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/backImageView"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical" >
+
+            <com.vallverk.handyboy.view.booking.BookingDetailsView
+                android:id="@+id/bookingDetailsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </com.vallverk.handyboy.view.booking.BookingDetailsView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey_semi_alpha" />
+
+            <Button
+                android:id="@+id/reportProblemButton"
+                android:layout_width="221dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/skull_button_selector"
+                android:text="@string/report_problem"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/cancelButton"
+                android:layout_width="150dp"
+                android:visibility="gone"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="18dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/dark_blue_shape_selector"
+                android:drawableLeft="@drawable/cancel_circle2_icon"
+                android:drawablePadding="25dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

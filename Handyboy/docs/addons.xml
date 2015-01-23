@@ -1,0 +1,309 @@
+<xml>
+
+    <jobType
+        name="Bartender"
+        category="Party Boy"
+        description="Making, mixing and serving up cocktails, beer and wine.  Possibly some setup and breakdown services, depending on your client&apos;s needs."
+        icon=""
+        maxCost="50"
+        minCost="20"
+        minTime="2" >
+
+        <addons>
+
+            <addon
+                name="Shirtless"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="Car Wash"
+        category="House Boy"
+        description="Washing, waxing, polishing and any other vehicle cleaning services your client needs.  You will need to bring your own supplies for this job.  Please be respectful of the environment and use only biodegradable soaps!"
+        icon=""
+        maxCost="20"
+        minCost="10"
+        minTime="0" >
+
+        <addons>
+
+            <addon
+                name="Shirtless"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+
+            <addon
+                name="Truck/SUV"
+                maxCost="10"
+                minCost="5" >
+            </addon>
+
+            <addon name="Exterior" >
+
+                <options>
+
+                    <option
+                        name="Wax"
+                        maxCost="15"
+                        minCost="5" >
+                    </option>
+
+                    <option
+                        name="Tire Dressing"
+                        maxCost="5"
+                        minCost="5" >
+                    </option>
+                </options>
+            </addon>
+
+            <addon
+                name="Detailing"
+                maxCost="100"
+                minCost="20" >
+            </addon>
+
+            <addon name="Attire" >
+
+                <options>
+
+                    <option
+                        name="Shirtless"
+                        maxCost="30"
+                        minCost="5" >
+                    </option>
+
+                    <option name="Bathing Suit" >
+
+                        <options>
+
+                            <option
+                                name="Board shorts"
+                                maxCost="5"
+                                minCost="5" >
+                            </option>
+
+                            <option
+                                name="Trunks"
+                                maxCost="5"
+                                minCost="5" >
+                            </option>
+
+                            <option
+                                name="Speedo"
+                                maxCost="20"
+                                minCost="5" >
+                            </option>
+                        </options>
+                    </option>
+                </options>
+            </addon>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="Gardner"
+        category="House Boy"
+        description="Mowing lawns, planting, trimming, edging, blowing or any other yard work your client may need.  Client provides tools for these jobs unless otherwise stated or negotiated"
+        icon=""
+        maxCost="30"
+        minCost="15"
+        minTime="2" >
+
+        <addons>
+
+            <addon
+                name="Shirtless"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="Housekeeper"
+        category="House Boy"
+        description="Mopping, vacuuming, sweeping, dusting or any other house work your client may need.  You will need to provide the supplies for this service, unless otherwise noted."
+        icon=""
+        maxCost="30"
+        minCost="15"
+        minTime="3" >
+
+        <addons>
+
+            <addon
+                name="Windows"
+                maxCost="5"
+                minCost="5" >
+            </addon>
+
+            <addon
+                name="Laundry"
+                maxCost="5"
+                minCost="5" >
+            </addon>
+
+            <addon
+                name="Brings own cleaning supplies"
+                maxCost="5"
+                minCost="5" >
+            </addon>
+
+            <addon
+                name="Eco-friendly"
+                maxCost="5"
+                minCost="5" >
+            </addon>
+
+            <addon
+                name="Shirtless"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="Pool Boy"
+        category="House Boy"
+        description="Skimming, vacuuming or any other pool related services your client requests.  Client provides supplies and tools for this service unless otherwise negotiated."
+        icon=""
+        maxCost="30"
+        minCost="15"
+        minTime="1" >
+
+        <addons>
+
+            <addon
+                name="Shirtless"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+
+            <option name="Bathing Suit" >
+
+                <options>
+
+                    <option
+                        name="Board shorts"
+                        maxCost="5"
+                        minCost="5" >
+                    </option>
+
+                    <option
+                        name="Trunks"
+                        maxCost="5"
+                        minCost="5" >
+                    </option>
+
+                    <option
+                        name="Speedo"
+                        maxCost="20"
+                        minCost="5" >
+                    </option>
+                </options>
+            </option>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="GoGo Boy"
+        category="Party Boy"
+        description="Dancing, prancing and romancing!  (haha jk)  Dancing, flirting, entertaining.  You know you&apos;ve always wanted to try it!"
+        icon=""
+        maxCost="30"
+        minCost="15"
+        minTime="2" >
+
+        <addons>
+
+            <addon name="Attire" >
+
+                <options>
+
+                    <option
+                        name="Boxers"
+                        maxCost="5"
+                        minCost="5" >
+                    </option>
+
+                    <option
+                        name="Briefs"
+                        maxCost="10"
+                        minCost="5" >
+                    </option>
+
+                    <option
+                        name="Jockstrap"
+                        maxCost="20"
+                        minCost="5" >
+                    </option>
+                </options>
+            </addon>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="Personal Trainer"
+        category="Muscle Boy"
+        description="Providing various types of personalized fitness training for your client. You must be licensed and insured to provide these services."
+        icon=""
+        maxCost="70"
+        minCost="40"
+        minTime="1" >
+
+        <addons>
+
+            <addon
+                name="Shirtless in Gym"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+
+            <addon
+                name="Shirtless in Other Location"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+
+            <addon
+                name="Shirtless in Your Location"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="Masseur"
+        MassageTypes="Swedish,Deep Tissu,Non-Therapeutic,Combination,Hot Stone,Sports,Thai,Aromatheraphy,Reflexology,Trigger point,Foot,Reiki,Acupressure,Ashiatsu,Chair,Couples,Craniosacral,Asalen,Lymphatic,Medical,Myofascial release,Shiatsu,Structural integration,Other"
+        category="Muscle Boy"
+        description="Performing any one of several types of massage on your client.  You must be licensed to provide these services.  Out calls only"
+        icon=""
+        maxCost="70"
+        minCost="40"
+        minTime="1" >
+
+        <addons>
+
+            <addon
+                name="Shirtless"
+                maxCost="20"
+                minCost="5" >
+            </addon>
+        </addons>
+    </jobType>
+
+    <jobType
+        name="Errand Boy"
+        category="House Boy"
+        description="Performing any one of a number of miscellanous tasks your client may ask for. From picking up some groceries at the store to dropping off his dry cleaning.  Client will provide details."
+        icon=""
+        maxCost="20"
+        minCost="15"
+        minTime="1" >
+    </jobType>
+</xml>

@@ -1,0 +1,253 @@
+package com.vallverk.handyboy.view.booking;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.animation.LayoutTransition;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
+import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
+import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
+import com.vallverk.handyboy.model.job.AddonId;
+import com.vallverk.handyboy.model.job.TypeJobEnum;
+import com.vallverk.handyboy.server.ServerManager;
+import com.vallverk.handyboy.view.base.BaseFragment;
+import com.vallverk.handyboy.view.controller.BookingController;
+
+public class ChooseAddonsViewFragment extends BaseFragment
+{
+	private View backImageView;
+	private View backTextView;
+	private View specialReqeustContainer;
+	private EditText specialReqeustEditText;
+	private BookingController bookingController;
+	private List < AddonServiceAPIObject > addons;
+	private LinearLayout addonsContainer;
+	private LinearLayout mainContainer;
+	private List < AddonServiceAPIObject > selectedAddons;
+	private View saveButton;
+
+	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+	{
+		View view = inflater.inflate ( R.layout.choose_addons_layout, null );
+
+		backImageView = view.findViewById ( R.id.backImageView );
+		backTextView = view.findViewById ( R.id.backTextView );
+		addonsContainer = ( LinearLayout ) view.findViewById ( R.id.addonsContainer );
+		specialReqeustEditText = ( EditText ) view.findViewById ( R.id.specialReqeustEditText );
+		specialReqeustContainer = view.findViewById ( R.id.specialReqeustContainer );
+		mainContainer = ( LinearLayout ) view.findViewById ( R.id.mainContainer );
+		mainContainer.getLayoutTransition ().enableTransitionType ( LayoutTransition.CHANGING );
+		saveButton = view.findViewById ( R.id.saveButton );
+		return view;
+	}
+
+	@Override
+	protected void init ()
+	{
+		new AsyncTask < Void, Void, String > ()
+		{
+			@Override
+			protected String doInBackground ( Void... params )
+			{
+				String result = "";
+				try
+				{
+					List < AddonServiceAPIObject > allAddons = APIManager.getInstance ().loadList ( ServerManager.ADDONS_SERVICE_GET.replace ( "serviceId=1", "serviceId=" + bookingController.getHandyBoy ().getString ( UserParams.SERVICE_ID ) ), AddonServiceAPIObject.class );
+					addons = new ArrayList < AddonServiceAPIObject > ();
+					for ( AddonServiceAPIObject addon : allAddons )
+					{
+						if ( addon.getString ( AddonServiceAPIParams.TYPE_JOB_SERVICE_ID ).equals ( bookingController.getJob ().getId () ) )
+						{
+							if ( bookingController.getJob ().getTypeJob ().getEnumValue () == TypeJobEnum.PERSONAL_TRAINER )
+							{
+								if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.SHIRTLESS_8 ) )
+								{
+									addons.add ( addon );
+								}
+							} else
+							{
+								addons.add ( addon );
+							}
+						}
+					}
+					selectedAddons = bookingController.getAddons ();
+				} catch ( Exception e )
+				{
+					result = e.getMessage ();
+					e.printStackTrace ();
+				}
+				return result;
+			}
+
+			public void onPreExecute ()
+			{
+				super.onPreExecute ();
+				controller.showLoader ();
+			}
+
+			public void onPostExecute ( String result )
+			{
+				super.onPostExecute ( result );
+				controller.hideLoader ();
+				if ( result.isEmpty () )
+				{
+					updateComponents ();
+					addListeners ();
+				} else
+				{
+					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+					controller.onBackPressed ();
+				}
+			}
+		}.execute ();
+	}
+
+	protected void clearFields ()
+	{
+		// jobContainer.setVisibility ( View.INVISIBLE );
+		// priceTextView.setVisibility ( View.INVISIBLE );
+	}
+
+	private void updateComponents ()
+	{
+		final LayoutInflater inflater = ( LayoutInflater ) controller.getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
+		for ( AddonServiceAPIObject addon : addons )
+		{
+			final View view = inflater.inflate ( R.layout.choose_addons_row_layout, null );
+			TextView addonTextView = ( TextView ) view.findViewById ( R.id.addonTextView );
+			TextView priceTextView = ( TextView ) view.findViewById ( R.id.priceTextView );
+			ImageView selectImageView = ( ImageView ) view.findViewById ( R.id.selectImageView );
+			selectImageView.setVisibility ( View.GONE );
+			addonTextView.setText ( controller.getAddonName ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ) ) );
+			priceTextView.setText ( "$" + addon.getString ( AddonServiceAPIParams.PRICE ) );
+			view.setTag ( addon );
+			view.setOnClickListener ( new OnClickListener ()
+			{
+				@Override
+				public void onClick ( View view )
+				{
+					AddonServiceAPIObject addon = ( AddonServiceAPIObject ) view.getTag ();
+					addonSelected ( addon );
+					updateSelectionComponents ();
+				}
+			} );
+			addonsContainer.addView ( view );
+		}
+
+		if ( bookingController.getSpecialRequest ().length () > 0 )
+		{
+			specialReqeustEditText.setVisibility ( View.VISIBLE );
+		} else
+		{
+			specialReqeustEditText.setVisibility ( View.GONE );
+		}
+		updateSelectionComponents ();
+	}
+
+	protected void updateSelectionComponents ()
+	{
+		for ( int i = 0; i < addonsContainer.getChildCount (); i++ )
+		{
+			View view = addonsContainer.getChildAt ( i );
+			ImageView selectImageView = ( ImageView ) view.findViewById ( R.id.selectImageView );
+			selectImageView.setVisibility ( selectedAddons.contains ( view.getTag () ) ? View.VISIBLE : View.GONE );
+		}
+	}
+
+	protected void addonSelected ( AddonServiceAPIObject addon )
+	{
+		if ( selectedAddons.contains ( addon ) )
+		{
+			selectedAddons.remove ( addon );
+		} else
+		{
+			selectedAddons.add ( addon );
+		}
+	}
+
+	@Override
+	public void onActivityCreated ( Bundle savedInstanceState )
+	{
+		super.onActivityCreated ( savedInstanceState );
+		bookingController = controller.getBookingController ();
+	}
+
+	@Override
+	protected void updateFonts ()
+	{
+		// FontUtils.getInstance ( getActivity () ).applyStyle ( line1TextView,
+		// FontStyle.EXTRA_BOLD );
+		// FontUtils.getInstance ( getActivity () ).applyStyle ( line2TextView,
+		// FontStyle.REGULAR );
+		//
+		// FontUtils.getInstance ( getActivity () ).applyStyle (
+		// weeklyScheduleButton, FontStyle.SEMIBOLD );
+		// FontUtils.getInstance ( getActivity () ).applyStyle (
+		// customScheduleButton, FontStyle.SEMIBOLD );
+		// FontUtils.getInstance ( getActivity () ).applyStyle (
+		// yourMoneyButton, FontStyle.SEMIBOLD );
+		// FontUtils.getInstance ( getActivity () ).applyStyle (
+		// jobDescriptionsButton, FontStyle.SEMIBOLD );
+	}
+
+	private void addListeners ()
+	{
+		saveButton.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View v )
+			{
+				bookingController.setAddons ( selectedAddons );
+				bookingController.setSpecialRequest ( specialReqeustEditText.getText ().toString ().trim () );
+				controller.onBackPressed ();
+			}
+		} );
+		backImageView.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View v )
+			{
+				controller.onBackPressed ();
+			}
+		} );
+		backTextView.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View v )
+			{
+				controller.onBackPressed ();
+			}
+		} );
+
+		specialReqeustContainer.setOnClickListener ( new OnClickListener ()
+		{
+
+			@Override
+			public void onClick ( View view )
+			{
+				if ( specialReqeustEditText.getVisibility () == View.GONE )
+				{
+					specialReqeustEditText.setVisibility ( View.VISIBLE );
+				} else
+				{
+					specialReqeustEditText.setVisibility ( View.GONE );
+				}
+			}
+		} );
+	}
+}

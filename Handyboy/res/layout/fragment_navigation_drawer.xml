@@ -1,0 +1,132 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/slide_menu_background"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/closeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="13dp"
+        android:padding="10dp"
+        android:src="@drawable/swipe_menu_icon_dark_menu" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_blue" />
+
+    <TextView
+        android:id="@+id/dashboardButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="21dp"
+        android:drawableLeft="@drawable/speedometer_icon_left_menu_a"
+        android:drawablePadding="21dp"
+        android:gravity="center_vertical"
+        android:text="@string/dashboard"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/dashboardDevider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_blue" />
+
+    <TextView
+        android:id="@+id/searchButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="21dp"
+        android:drawableLeft="@drawable/dots_icon_left_menu_na"
+        android:drawablePadding="21dp"
+        android:gravity="center_vertical"
+        android:text="@string/search"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/searchDevider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_blue" />
+
+    <TextView
+        android:id="@+id/profileButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="21dp"
+        android:drawableLeft="@drawable/profile_icon_left_manu"
+        android:drawablePadding="21dp"
+        android:gravity="center_vertical"
+        android:text="@string/profile"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_blue" />
+
+    <TextView
+        android:id="@+id/accountButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="21dp"
+        android:drawableLeft="@drawable/account_icon_left_menu"
+        android:drawablePadding="21dp"
+        android:gravity="center_vertical"
+        android:text="@string/account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_blue" />
+
+    <TextView
+        android:id="@+id/helpButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="21dp"
+        android:drawableLeft="@drawable/question_mark_icon_left_menu"
+        android:drawablePadding="21dp"
+        android:gravity="center_vertical"
+        android:text="@string/help"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_blue" />
+
+    <TextView
+        android:id="@+id/exitButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="21dp"
+        android:drawableLeft="@drawable/logout_icon_left_menu"
+        android:drawablePadding="21dp"
+        android:gravity="center_vertical"
+        android:text="@string/logout"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_blue" />
+
+</LinearLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="89dp"
+    android:background="@color/white"
+    android:clickable="false"
+    tools:context=".TutorialWelcomeViewFragment" >
+
+    <com.vallverk.handyboy.view.base.DownloadableImageView
+        android:id="@+id/avatarImageView"
+        android:layout_width="89dp"
+        android:layout_height="89dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/avatarImageView"
+        android:text="TextView"
+        android:textColor="@color/dark_blue"
+        android:textSize="21sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lastMessageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_alignLeft="@+id/nameTextView"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="13dp"
+        android:layout_toLeftOf="@+id/imageView1"
+        android:text="TextView"
+        android:textColor="@color/grey"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/abc_ic_go_search_api_holo_light" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="13dp"
+        android:gravity="center"
+        android:text="4:15 AM"
+        android:textColor="@color/dark_blue"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/unreadedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lastMessageTextView"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="8"
+        android:textColor="@color/dark_blue"
+        android:textSize="13sp" />
+
+</RelativeLayout>

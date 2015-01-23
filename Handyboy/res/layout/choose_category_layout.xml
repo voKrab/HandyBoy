@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="false"
+    android:gravity="center_vertical"
+    tools:context=".TutorialWelcomeViewFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:padding="7dp"
+            android:text="@string/i_need_a"
+            android:textColor="@color/dark_blue"
+            android:textSize="34sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:id="@+id/partyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp" >
+
+            <TextView
+                android:id="@+id/partyTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:text="@string/party"
+                android:textColor="@color/dark_blue"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/partyTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boy"
+                android:textColor="@color/dark_blue"
+                android:textSize="34sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey_semi_alpha" />
+
+        <LinearLayout
+            android:id="@+id/homeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp" >
+
+            <TextView
+                android:id="@+id/homeTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:text="@string/home"
+                android:textColor="@color/dark_blue"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/homeTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boy"
+                android:textColor="@color/dark_blue"
+                android:textSize="34sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey_semi_alpha" />
+
+        <LinearLayout
+            android:id="@+id/muscleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp" >
+
+            <TextView
+                android:id="@+id/muscleTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:text="@string/muscle"
+                android:textColor="@color/dark_blue"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/muscleTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boy"
+                android:textColor="@color/dark_blue"
+                android:textSize="34sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey_semi_alpha" />
+
+        <LinearLayout
+            android:id="@+id/prettyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp" >
+
+            <TextView
+                android:id="@+id/prettyTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:text="@string/pretty"
+                android:textColor="@color/grey_semi_alpha"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/prettyTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boy"
+                android:textColor="@color/grey_semi_alpha"
+                android:textSize="34sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

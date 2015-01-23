@@ -1,0 +1,4 @@
+"list":"
+[
+	{\"id\":\"4\",\"jobId\":\"1\",\"name\":\"Personal Trainer\",\"icon\":\"{\\\"A\\\":\\\"\\\/uploads\\\/icon\\\/dumbbels_A.png\\\",\\\"NA\\\":\\\"\\\/uploads\\\/icon\\\/dumbbels_NA.png\\\"}\",\"description\":\"Providing various types of personalized fitness training for your client. You must be licensed and insured to provide these services.\",\"minCost\":\"20\",\"maxCost\":\"300\",\"minTime\":\"60\",\"minCostDistance\":\"20\",\"maxCostDistance\":\"20\",\"license\":\"1\",\"serviceId\":\"6\",\"typeJobId\":\"2\",\"price\":\"160\",\"priceDistance\":\"0\",\"level\":\"Some Experience\",\"aproveFile\":\"http:\\\/\\\/142.4.217.86\\\/uploads\\\/media_68_11393611112014.png\",\"options\":null}
+]"

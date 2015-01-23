@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hair_colors">
+        <item>Auburn</item>
+        <item>Black</item>
+        <item>Brown</item>
+        <item>Blond</item>
+        <item>Chestnut</item>
+        <item>Ginger</item>
+        <item>Gray</item>
+        <item>White</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="eye_colors">
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Gray</item>
+        <item>Hazel</item>
+        <item>Violet</item>
+    </string-array>
+    <string-array name="body_types">
+        <item>Toned</item>
+        <item>Slim</item>
+        <item>Muscular</item>
+        <item>Beefy</item>
+        <item>Average</item>
+        <item>Hairy</item>
+        <item>Shaved</item>
+        <item>Smooth</item>
+        <item>Stocky</item>
+        <item>Athletic</item>
+        <item>Large</item>
+    </string-array>
+    <string-array name="sexuality">
+        <item>Gay</item>
+        <item>Bi</item>
+        <item>Straight</item>
+        <item>Other</item>
+        <item>Unspecified</item>
+    </string-array>
+    <string-array name="ethentity">
+        <item>White</item>
+        <item>Asian</item>
+        <item>Latino</item>
+        <item>African American</item>
+        <item>Middle Eastern</item>
+        <item>Native American</item>
+        <item>Mixed</item>
+        <item>South Asian</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="massage_types">
+        <item>Swedish</item>
+        <item>Deep Tissue</item>
+        <item>Non-Therapeutic</item>
+        <item>Combination</item>
+        <item>Hot Stone</item>
+        <item>Sports</item>
+        <item>Thai</item>
+        <item>Aromatheraphy</item>
+        <item>Reflexology</item>
+        <item>Trigger point</item>
+        <item>Foot</item>
+        <item>Reiki</item>
+        <item>Acupressure</item>
+        <item>Ashiatsu</item>
+        <item>Chair</item>
+        <item>Couples</item>
+        <item>Craniosacral</item>
+        <item>Asalen</item>
+        <item>Lymphatic</item>
+        <item>Medical</item>
+        <item>Myofascial release</item>
+        <item>Shiatsu</item>
+        <item>Structural integration</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="states">
+        <item>AL</item>
+        <item>AK</item>
+        <item>AZ</item>
+        <item>AR</item>
+        <item>CA</item>
+        <item>CO</item>
+        <item>CT</item>
+        <item>DE</item>
+        <item>FL</item>
+        <item>GA</item>
+        <item>HI</item>
+        <item>ID</item>
+        <item>IL</item>
+        <item>IN</item>
+        <item>IA</item>
+        <item>KS</item>
+        <item>KY</item>
+        <item>LA</item>
+        <item>ME</item>
+        <item>MD</item>
+        <item>MA</item>
+        <item>MI</item>
+        <item>MN</item>
+        <item>MS</item>
+        <item>MO</item>
+        <item>MT</item>
+        <item>NE</item>
+        <item>NV</item>
+        <item>NH</item>
+        <item>NJ</item>
+        <item>NM</item>
+        <item>NY</item>
+        <item>NC</item>
+        <item>ND</item>
+        <item>OH</item>
+        <item>OK</item>
+        <item>OR</item>
+        <item>PA</item>
+        <item>RI</item>
+        <item>SC</item>
+        <item>SD</item>
+        <item>TN</item>
+        <item>TX</item>
+        <item>UT</item>
+        <item>VT</item>
+        <item>VA</item>
+        <item>WA</item>
+        <item>WV</item>
+        <item>WI</item>
+        <item>WY</item>
+        <item>AS</item>
+        <item>DC</item>
+        <item>FM</item>
+        <item>GU</item>
+        <item>MH</item>
+        <item>MP</item>
+        <item>PW</item>
+        <item>PR</item>
+        <item>VI</item>
+        <item>AE</item>
+        <item>AA</item>
+        <item>AE</item>
+        <item>AE</item>
+        <item>AE</item>
+        <item>AP</item>
+    </string-array>
+
+    <string name="aviary_key">18d9a94cf8a7125f</string>
+    <string name="aviary_secret">65dee2c76a62e2c7</string>
+    <string name="app_name">Handy Boy</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="file_size_more_than_10_mb">The file size exceeds 10 mb</string>
+    <string name="error">Error</string>
+    <string name="signin">Sign-In</string>
+    <string name="login_with_facebook">Login with facebook</string>
+    <string name="email_address">Email Address</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="learn_more">Learn More</string>
+    <string name="log_in">Log in</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="skip">Skip</string>
+    <string name="sign_up">Sign-Up</string>
+    <string name="back">back</string>
+    <string name="first">First</string>
+    <string name="last">Last</string>
+    <string name="accept">Accept</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="phone">Phone</string>
+    <string name="your_must_accept_our_terms_of_service_and_privacy_policy">"Your must accept our terms of service and Privacy Policy "</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="mobile_verification_text">We need to verify your mobile number for security reasons. We absolutely never share or sell your data.</string>
+    <string name="send_phone_verification">SEND PHONE VERIFICATION</string>
+    <string name="first_name_is_empty">First name is empty</string>
+    <string name="enter_your_code_here">Enter your code here</string>
+    <string name="code">Code</string>
+    <string name="registration">REGISTRATION</string>
+    <string name="please_enter_code">Please enter code</string>
+    <string name="loading">Loading</string>
+    <string name="profile">Profile</string>
+    <string name="account">Account</string>
+    <string name="help">Help</string>
+    <string name="logout">Logout</string>
+    <string name="fb_app_id">1460655034217478</string>
+    <string name="restore_password">Restore password</string>
+    <string name="restore_password_text_1">Please enter Your Email address to retrieve password</string>
+    <string name="forgot_password_text_2">When you press the \"Restore\" button. You will receive a new password to your email</string>
+    <string name="restore">RESTORE</string>
+    <string name="password_successfully_restored_please_check_your_email">Password successfully restored, please check your email</string>
+    <string name="looking_to">Looking to</string>
+    <string name="hire">Hire?</string>
+    <string name="here_to_work">Here to Work?</string>
+    <string name="here_to">Here to</string>
+    <string name="work_h">Work?</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="height">Height</string>
+    <string name="feet">Feet</string>
+    <string name="inches">Inches</string>
+    <string name="retrieve">RETRIEVE</string>
+    <string name="weight">Weight</string>
+    <string name="hair_color">Hair Color</string>
+    <string name="eye_color">Eye Color</string>
+    <string name="body_type">Body Type</string>
+    <string name="sexuality">Sexuality</string>
+    <string name="location">Location</string>
+    <string name="massage_types">Massage Types:</string>
+    <string name="ethentity">Ethnicity</string>
+    <string name="select_job">Select job</string>
+    <string name="why_you_handy_boy">Why do you want to be a HandyBoy</string>
+    <string name="save_information">Save Information</string>
+    <string name="choose_avatar">Choose avatar</string>
+    <string name="how_tall_are_you">How tall are you?</string>
+    <string name="all">All</string>
+    <string name="what_is_your_body">What is your body?</string>
+    <string name="what_is_your_sexuality">What is your sexuality?</string>
+    <string name="what_is_your_ethentity">What is your ethentity?</string>
+    <string name="what_is_your_jobs">Please select you jobs</string>
+    <string name="what_is_your_location">What is your location?</string>
+    <string name="null_value">null value</string>
+    <string name="job_description">Job Description</string>
+    <string name="next">NEXT</string>
+    <string name="details">Details</string>
+    <string name="details_qustion">Details?</string>
+    <string name="personal_trainer">Personal Trainer</string>
+    <string name="you_must_be_insured_to_perform_this_service">You must be insured to perform this service*</string>
+    <string name="upload_proof_of_current_personal_trainers_insurance">Upload proof file insurance (Min 500k)</string>
+    <string name="choose_file">CHOOSE FILE</string>
+    <string name="must_be_pdf_or_jpeg">(Must be PDF or JPEG)</string>
+    <string name="no_file">No File</string>
+    <string name="what_will_you_charge">"What will you charge? "</string>
+    <string name="you_can_customize_this_at_any_time">You can customize this at any time</string>
+    <string name="total">Total</string>
+    <string name="price_per_hour">Price per Hour</string>
+    <string name="we_suggest_anywhere_between">We suggest anywhere between</string>
+    <string name="describe_your_services">Describe your services</string>
+    <string name="describe_your_services_hint">Tell the client about your skills and experience. Please be as accurate and honest as possible</string>
+    <string name="internet_connection_exception">Internet connection exception</string>
+    <string name="choose_job_type">Choose job type</string>
+    <string name="full_name">- Full Name</string>
+    <string name="city">- City</string>
+    <string name="state">- State</string>
+    <string name="license_number">- License number</string>
+    <string name="license">License</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="my_visa">My VISA</string>
+    <string name="visas_name">Visa\'s name</string>
+    <string name="visas_number_hint">xxxx-xxxx-xxxx-xxxx</string>
+    <string name="visas_number">Visa\'s number</string>
+    <string name="date">Date</string>
+    <string name="date_hint">12/16</string>
+    <string name="cvv2_code">CVV2 code</string>
+    <string name="cvv2_code_hint">123</string>
+    <string name="not_implemented">Not implemented</string>
+    <string name="no_data">No data</string>
+    <string name="i_need_a">I Need a...</string>
+    <string name="party">PARTY</string>
+    <string name="boy">BOY</string>
+    <string name="home">HOME</string>
+    <string name="home_lower">Home</string>
+    <string name="work">Work</string>
+    <string name="add_address">+Add New Address</string>
+    <string name="muscle">MUSCLE</string>
+    <string name="pretty">PRETTY</string>
+    <string name="_for">For:</string>
+    <string name="message">Message</string>
+    <string name="send">SEND</string>
+    <string name="type_your_text_here">Type yout text here...</string>
+    <string name="message_is_empty">Message is empty</string>
+    <string name="chat">Chat</string>
+    <string name="search">Search</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="im_available_now">I\'m Available Now!</string>
+    <string name="free_to_work_for_the_next_3_hours">Free to work for the next 3 hours</string>
+    <string name="gig_list">Gig List</string>
+    <string name="your_schedule">Your Schedule</string>
+    <string name="cuctom_schedule">Custom Schedule</string>
+    <string name="your_money">Your Money</string>
+    <string name="job_descriptions">Job Descriptions</string>
+    <string name="your_sms_limit_per_day_is_maxed">Your sms limit per day is maxed</string>
+    <string name="selphie">Selfie</string>
+    <string name="please_make_selphie">Please make selphie</string>
+    <string name="have_fun_and_be_yourself">This will not show up on \n You profile</string>
+    <string name="contract">Contract</string>
+    <string name="terms_text_1">BY APPLYING TO BECOME A HANDYBOY YOU AGREE TO:</string>
+    <string name="terms_text_2">FC Dynamo Kyiv player Jeremain Lens is getting ready for two forthcoming fixtures with the Netherlands national team. The White-Blues Congolese striker Dieumerci Mbokani keeps reconditioning after knee injury in France. Kyivans’ doctor Andriy Shmorhun followed the player’s rehabilitation for some time. He has told Dynamo official web site when one should expect the forward’s return to Kyiv: - Mbokani’s recovery runs to plan. He’ll keep undergoing treatment in France till October 15. After that he’ll consult the doctor</string>
+    <string name="i_agree">I Agree</string>
+    <string name="video">Video</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="yout_must_accept_our">Yout must accept our</string>
+    <string name="terms_of_service_underline"><u>Terms of Service</u></string>
+    <string name="and">and</string>
+    <string name="privacy_policy_underline"><u>Privacy Policy</u></string>
+    <string name="terms">Terms</string>
+    <string name="you_use_illegal_characters">Вы ввели недопустимые символы</string>
+    <string name="you_are_still_young">You are still young</string>
+    <string name="available_now">Available now</string>
+    <string name="are_you_available_now">Are you available now?</string>
+    <string name="by_clicking_accept_you_agree_to">By clicking accept, you agree to:</string>
+    <string name="be_on_call_for_the_next_3_hours">Be on call for the next 3 hours</string>
+    <string name="respond_to_inquiries_within_10_minutes_ideally_in_5">Respond to inquiries within 10 minutes, ideally in 5</string>
+    <string name="discount_your_services">Discount your services for the next three hours?</string>
+    <string name="introduce_youself">Introduce youself</string>
+    <string name="save">SAVE</string>
+    <string name="saveTopBar">Save</string>
+    <string name="would_you_like_to_charge_for_distance">Would you like to charge for distance?</string>
+    <string name="gym">Gym</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="add_address_title">Add address</string>
+    <string name="update_address_title">Update address</string>
+    <string name="bank_account">Bank account</string>
+    <string name="shirtless">Shirtless</string>
+    <string name="attire">Attire</string>
+    <string name="bathing_suit">Bathing Suit</string>
+    <string name="board_shorts">Board shorts</string>
+    <string name="trunks">Trunks</string>
+    <string name="speedo">Speedo</string>
+    <string name="jockstrap">Jockstrap</string>
+    <string name="briefs">Briefs</string>
+    <string name="truck_suv">Truck/SUV</string>
+    <string name="wax">Wax?</string>
+    <string name="detailing">Detailing</string>
+    <string name="exterior">Exterior</string>
+    <string name="boxers">Boxers</string>
+    <string name="tire_dressing">Tire Dressing?</string>
+    <string name="windows">Windows</string>
+    <string name="laundry">Laundry</string>
+    <string name="brings_own_cleaning_supplies">Brings own cleaning supplies</string>
+    <string name="eco_friendly">Eco-friendly</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="available_dialog_title">Do you wish to proceed?</string>
+    <string name="available_dialog_body">By clicking yes you accept the terms of available now and want to be on call for the next three hours.</string>
+    <string name="your_location">Your Location</string>
+    <string name="experience_level">Experience Level:</string>
+    <string name="detail_your_experience_with_this_work">Detail your experience with this work</string>
+    <string name="this_will_not_appear_on_your_profile">(this will not appear on your profile):</string>
+    <string name="schedule">Schedule</string>
+    <string name="schedule_text_1">Set your weekly work schedule</string>
+    <string name="schedule_text_2">"Choose your start and end times for each day of the week. Your schedule will be repeated from week to week but don't worry, you can change it at any time. If you need to change it for just one day, you can always customize your calendar on the next screen. "</string>
+    <string name="AM"><u>AM</u></string>
+    <string name="half_hour"><u>30</u></string>
+    <string name="PM"><u>PM</u></string>
+    <string name="average_raiting">Average Raiting</string>
+    <string name="push_notifications">Push notifications?</string>
+    <string name="email_notifications">Email notifications?</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="block_list">Block list</string>
+    <string name="flake_o_meter">Flake-O-Meter</string>
+    <string name="select_a_service">Select a service</string>
+    <string name="bartender">Bartender</string>
+    <string name="masseur">Masseur</string>
+    <string name="types_above">Types above will only appear if HandyBoy has enabled them - he will only offer services he is able to perform</string>
+    <string name="housekeeper">Housekeeper</string>
+    <string name="server">Server</string>
+    <string name="gogo_boy">GoGo Boy</string>
+    <string name="carwash_boy">Car Wash Boy</string>
+    <string name="pool_boy">Pool Boy</string>
+    <string name="you_can_not_delete_the_last_type_of_work">You can not delete the last type of work</string>
+    <string name="errand_boy">Errand Boy</string>
+    <string name="gardener">Gardener</string>
+    <string name="dialog_delete_title">Do you want to delete this favorite item?</string>
+    <string name="dialog_delete_from_block_list_title">Do you want to delete user from block list?</string>
+    <string name="favs">Fav\'s</string>
+    <string name="no_favs_title">No favorites?!?!</string>
+    <string name="no_favs_body">GO NAB ONE!</string>
+    <string name="for_gigs_that_are_further_than_15_miles_away_from_your_home">For gigs that are further than 15 miles away from your home</string>
+    <string name="will_your_charge_a_location_fee">Will your charge a location fee?</string>
+    <string name="extra_charge">Extra Charge</string>
+    <string name="filter">Filter</string>
+    <string name="search_hint">User, Body Type, Location, Etc</string>
+    <string name="unblock">Unblock</string>
+    <string name="remove_job">Remove job, are you sure?</string>
+    <string name="weekly_availability">Weekly Availability</string>
+    <string name="save_lower_case">Save</string>
+    <string name="customize">Customize</string>
+
+    <!-- errors -->
+    <string name="names_require1">Names require at least 3 letters</string>
+    <string name="names_require">Names require at least 3 letters</string>
+    <string name="passwords_must_have">Passwords must have at least 6 characters</string>
+    <string name="email_address_not_valid">Incorrect Email</string>
+    <string name="whats_your_name">Please fill out the following Name field</string>
+    <string name="whats_your_email">Please fill out the following Email field</string>
+    <string name="what_password_would_you_like_to_use">Please fill out the following Password field</string>
+    <string name="how_old_are_you">How old are you?</string>
+    <string name="whats_your_cell_number">Please fill out the following Cell Number field</string>
+    <string name="what_date_massage">Please fill out the following Expiration Date from Massage field</string>
+    <string name="what_date_personal_trainer">Please fill out the following Expiration Date from Personal Trainer field</string>
+    <string name="what_license_number_massage">Please fill out the following License Number field</string>
+
+    <!-- filter -->
+    <string name="where_at">Where at?</string>
+    <string name="how_tall">How tall?</string>
+    <string name="teeny">Teeny</string>
+    <string name="age_range">Age Range</string>
+    <string name="star_raiting">Star Raiting?</string>
+    <string name="swipe_to_adjuct">Swipe to adjuct</string>
+    <string name="ethnicity">Ethnicity?</string>
+    <string name="gigantic">Gigantic</string>
+    <string name="price">Price</string>
+    <string name="sexual_orientation">Sexual orientation</string>
+    <string name="bodyType">Body type</string>
+    <string name="where_at_hint">Enter a City or Zip</string>
+    <string name="customize_your_calendar">Customize your calendar</string>
+    <string name="custom_schedule_description">Going on Vacation? Got a hot date? Use the calendar below to de-select times or days you\'re not available to work.</string>
+    <string name="working_out_to_town">Working out to town?</string>
+    <string name="available_at_certain_time">Available at certain time (date and/or time)</string>
+    <string name="reviews">Reviews</string>
+    <string name="flag_him">Flag Him</string>
+    <string name="available_right_now">Available Right Now</string>
+    <string name="discount_off">%1$d%% off!</string>
+    <string name="book_him_now">Book Him Now</string>
+    <string name="book_him_again">Book him again!</string>
+    <string name="you_flagged_this_handy_boy">You Flagged this Handy Boy</string>
+
+    <!-- Verification dialog -->
+
+    <string name="verification_dialog_title">Enter code</string>
+    <string name="verification_dialog_body">Please enter verification code from SMS</string>
+    <string name="change_phone">Change phone</string>
+    <string name="expiration_date">Expiration Date:</string>
+    <string name="licence_number">License Number:</string>
+    <string name="license_state">State:</string>
+    <string name="certified_personal_trainer">You must be crtified and insured to be a Personal Trainer on HandyBoy</string>
+    <string name="certified_massage">You must be crtified and insured to be a Massage Therapist on HandyBoy</string>
+    <string name="this_type_of_work_is_not_available_to_you">This type of work is not available to you</string>
+    <string name="submit">SUBMIT</string>
+    <string name="okay">Okay!</string>
+    <string name="review_your_information">We\'ll rewiew your information and be in touch soon!</string>
+    <string name="thanks_for_applying">Thanks for applying to be a HandyBoy!</string>
+    <string name="thanks">Thanks!</string>
+    <string name="booking">Booking</string>
+    <string name="add_ons_special_requests">Add-ons/Special Requests</string>
+    <string name="date_time">Date/Time</string>
+    <string name="usd">USD</string>
+    <string name="book_him">Book Him</string>
+
+    <!-- Address -->
+    <string name="add_new_destination">+ Add a new destination</string>
+    <string name="add_new_destination_save">+ Add Address</string>
+    <string name="please_select_address">Please select address</string>
+    <string name="address_description_title">What should we call this plase?</string>
+    <string name="address_description_hint">Home, Work, Friends</string>
+    <string name="address_field_title">What the Address?</string>
+    <string name="address_field_hint">Address</string>
+    <string name="address_sub_field_hint">Apt 15</string>
+    <string name="address_zip_field_title">Finally, the Zip?</string>
+    <string name="address_zip_field_hint">12345</string>
+    <string name="address_city_field_title">City?</string>
+    <string name="address_city_field_hint">Los Angeles</string>
+    <string name="addons">Addons</string>
+    <string name="special_request">Special Request</string>
+
+    <!-- Credit Card -->
+    <string name="credit_card_use_saved">Use a Saved Card</string>
+    <string name="or_add_new_card">Add a New Card</string>
+    <string name="credit_card_title">Credit Card</string>
+    <string name="credit_card_name_title">Name on Card</string>
+    <string name="credit_card_name_hint">My VISA</string>
+    <string name="credit_card_exp_date_title">Exp Date</string>
+    <string name="credit_card_exp_date_hint">example</string>
+    <string name="credit_cvv_cvc">CVV2/CVC2 code ?</string>
+    <string name="submit_new_card">Submit New Card</string>
+    <string name="what_time">What time?</string>
+
+    <!-- Checkout -->
+    <string name="checkout">Checkout</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="checkout_text">Your order is being processed. We will send you an email when the gig is confirmed.</string>
+    <string name="back_to_the_boys">Back to the Boys</string>
+    <string name="find_your_order_here">Find you order here</string>
+
+    <!-- GIG -->
+    <string name="gig">Gig</string>
+    <string name="next_gig">Next Gig</string>
+    <string name="gigs">Gigs</string>
+    <string name="you_can_not_select_more_than_one_working_window">You can not select more than one working window</string>
+    <string name="choose_address">Choose address</string>
+    <string name="choose_credit_card">Choose credit card</string>
+    <string name="choose_time">Choose time</string>
+    <string name="who">Who?</string>
+    <string name="where">Where?</string>
+    <string name="when">When?</string>
+    <string name="extras">Extras?</string>
+    <string name="howlong">How Long?</string>
+    <string name="additional_charges">Additional Charges?</string>
+    <string name="accept_add_to_calendar">Accept &amp; Add to Calendar</string>
+    <string name="cancel">Cancel</string>
+    <string name="contact_him">Contact Him</string>
+    <string name="im_here">I\'m here!</string>
+    <string name="start_gig">Start Gig</string>
+    <string name="i_need_to_cancel">I need to cancel</string>
+    <string name="directions">Directions</string>
+    <string name="youre">You\'re</string>
+    <string name="there">THERE!</string>
+    <string name="workit">WORK IT!</string>
+    <string name="finish_gig">FINISH GIG</string>
+    <string name="report_problem">Report a Problem</string>
+    <string name="problem">Problem?</string>
+    <string name="handyboy_is_late">HandyBoy is Late</string>
+    <string name="handyboy_is_canceled">HandyBoy is Canceled</string>
+    <string name="client_is_late">Client is Late</string>
+    <string name="client_is_canceled">Client is Canceled</string>
+    <string name="book_another">Book another</string>
+    <string name="handyboy">HANDYBOY</string>
+    <string name="right_now">RIGHT NOW!</string>
+    <string name="at_discount">at discount</string>
+    <string name="you_been">YOU\'VE BEEN</string>
+    <string name="serviced">SERVICED</string>
+    <string name="no_thanks_continue">No Thanks, Continue</string>
+    <string name="leave">Leave</string>
+    <string name="add_charges">Add charges</string>
+    <string name="addition_charges">Additional charges</string>
+    <string name="add_time">Add time</string>
+    <string name="reason_charge">Reason for charge</string>
+    <string name="reason_charge_hint">Long drive, Shirtless, Etc.</string>
+    <string name="extra_coast">Extra Cost</string>
+    <string name="review_question">Review?</string>
+    <string name="review">Review</string>
+    <string name="how_did_they_do">How did they do?</string>
+    <string name="how_did_it_go">How did it go?</string>
+    <string name="make_review">Continue</string>
+    <string name="serviced_screen_name">Serviced</string>
+    <string name="leave_tip">Leave Tip</string>
+    <string name="add_charges_text">We highly suggest you discuss additional charges with your client before sending this request</string>
+    <string name="send_request">Send Request</string>
+    <string name="has_asked">Has asked you to approve</string>
+    <string name="finish">Finish</string>
+    <string name="reschedule_him">Reschedule Him</string>
+    <string name="new_total">For a NEW total of $75</string>
+    <string name="no_bookings_yet">No Bookings yet\nBOOK A HANDY BOY</string>
+    <string name="now">NOW!</string>
+    <string name="show_more">Show more</string>
+    <string name="choose_message_type">Choose message type</string>
+    <string name="other_location">Other Location</string>
+    <string name="setup_gym_address_name">Setup gym address name</string>
+    <string name="setup_gym_address">Setup gym address</string>
+    <string name="you_must_choose_gym_or_other_location">You must choose gym or other location</string>
+    <string name="you_get_new_job_request">You get new job request</string>
+    
+     <string name="what_did_you_choose">What did you choose?</string>
+     
+     <string name="book_again_get_give">GET $5. GIVE $5</string>
+     <string name="book_again_deckription">Get $5 off you next service \n if a friend books a HandyBoy</string>
+     <string name="book_again_deckription2">(they\'ll also get $5 off their first service!).</string>
+     <string name="additional_charges_hint">Description</string>
+</resources>

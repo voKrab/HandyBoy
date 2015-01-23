@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="com.android.ide.eclipse.adt.internal.editors.layout.properties.FlagXmlPropertyDialog">
+		<item value="450" key="width"/>
+		<item value="615" key="x"/>
+		<item value="297" key="y"/>
+		<item value="400" key="height"/>
+	</section>
+	<section name="com.android.ide.eclipse.adt.internal.editors.layout.properties.StringXmlPropertyDialog">
+		<item value="574" key="width"/>
+		<item value="553" key="x"/>
+		<item value="392" key="y"/>
+		<item value="209" key="height"/>
+	</section>
+</section>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Zend Framework Default Application</title>
+</head>
+<body>
+  <h1>An error occurred</h1>
+  <h2>Application error</h2>
+
+    
+  <h3>Exception information:</h3>
+  <p>
+      <b>Message:</b> SQLSTATE[42000] [1049] Unknown database 'hbDb'  </p>
+
+  <h3>Stack trace:</h3>
+  <pre>#0 /var/www/html/library/Zend/Db/Adapter/Pdo/Mysql.php(111): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#1 /var/www/html/library/Zend/Db/Adapter/Abstract.php(460): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#2 /var/www/html/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('DESCRIBE `users...', Array)
+#3 /var/www/html/library/Zend/Db/Adapter/Pdo/Mysql.php(171): Zend_Db_Adapter_Pdo_Abstract->query('DESCRIBE `users...')
+#4 /var/www/html/library/Zend/Db/Table/Abstract.php(836): Zend_Db_Adapter_Pdo_Mysql->describeTable('users', NULL)
+#5 /var/www/html/library/Zend/Db/Table/Abstract.php(875): Zend_Db_Table_Abstract->_setupMetadata()
+#6 /var/www/html/library/Zend/Db/Table/Abstract.php(983): Zend_Db_Table_Abstract->_setupPrimaryKey()
+#7 /var/www/html/library/Zend/Db/Table/Select.php(100): Zend_Db_Table_Abstract->info()
+#8 /var/www/html/library/Zend/Db/Table/Select.php(78): Zend_Db_Table_Select->setTable(Object(Application_Model_DbTable_Users))
+#9 /var/www/html/library/Zend/Db/Table/Abstract.php(1019): Zend_Db_Table_Select->__construct(Object(Application_Model_DbTable_Users))
+#10 /var/www/html/library/Zend/Db/Table/Abstract.php(1372): Zend_Db_Table_Abstract->select()
+#11 /var/www/html/application/models/DbTable/Users.php(93): Zend_Db_Table_Abstract->fetchAll('email = 'genera...')
+#12 /var/www/html/application/controllers/UserController.php(190): Application_Model_DbTable_Users->regUser(Array)
+#13 /var/www/html/library/Zend/Controller/Action.php(516): UserController->registrationAction()
+#14 /var/www/html/library/Zend/Controller/Dispatcher/Standard.php(308): Zend_Controller_Action->dispatch('registrationAct...')
+#15 /var/www/html/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#16 /var/www/html/library/Zend/Application/Bootstrap/Bootstrap.php(101): Zend_Controller_Front->dispatch()
+#17 /var/www/html/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap->run()
+#18 /var/www/html/public/index.php(26): Zend_Application->run()
+#19 {main}  </pre>
+
+  <h3>Request Parameters:</h3>
+  <pre>array (
+  'controller' =&gt; 'user',
+  'action' =&gt; 'registration',
+  'module' =&gt; 'default',
+  'data' =&gt; '{&quot;logo&quot;:&quot;&quot;,&quot;lastName&quot;:&quot;Pogrebnyak&quot;,&quot;phoneNumber&quot;:&quot;+380958280957&quot;,&quot;firstName&quot;:&quot;Alexander&quot;,&quot;email&quot;:&quot;generated949@gmai.com&quot;,&quot;facebookUid&quot;:&quot;860428513997245&quot;,&quot;dob&quot;:0}',
+)  </pre>
+
+  
+</body>
+</html>

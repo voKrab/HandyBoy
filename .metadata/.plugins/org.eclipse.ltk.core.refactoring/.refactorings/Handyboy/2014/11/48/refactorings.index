@@ -1,0 +1,28 @@
+1416825646815	Wrap in Container
+1416905955898	Rename type 'ServiceDashboardViewFragment'
+1416906162603	Rename enum constant 'SCHEDULE'
+1416906398231	Rename type 'ScheduleViewFragment'
+1416911924007	Extracts string 'null' into R.string.save_lower_case
+1416924840521	Move compilation units
+1416924848051	Move compilation units
+1416924881265	Move compilation unit
+1416995079662	Copy compilation unit
+1416995101228	Rename type 'AddonPriceView'
+1416995203221	Copy file
+1416999828747	Copy file
+1417012193717	Copy compilation unit
+1417012226621	Copy file
+1417012822956	Extracts string 'null' into R.string.customize
+1417013150630	Rename enum constant 'GARDENER'
+1417018254526	Wrap in Container
+1417021923741	Copy file
+1417021937930	Copy file
+1417177473936	Copy file
+1417177626242	Copy file
+1417177934089	Wrap in Container
+1417178719950	Extracts string 'null' into R.string.customize_your_calendar
+1417178756788	Extracts string 'null' into R.string.custom_schedule_description
+1417180304150	Wrap in Container
+1417180361839	Wrap in Container
+1417180422335	Extracts string 'null' into R.string.working_out_to_town
+1417269685137	Delete element

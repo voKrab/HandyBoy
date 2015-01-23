@@ -1,0 +1,120 @@
+package com.vallverk.handyboy.model.api;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+
+import com.vallverk.handyboy.model.BookingStatusEnum;
+import com.vallverk.handyboy.model.CommunicationManager;
+import com.vallverk.handyboy.model.CommunicationManager.CommunicationAction;
+import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
+import com.vallverk.handyboy.pubnub.NotificationWithDataAction;
+import com.vallverk.handyboy.pubnub.PubnubManager;
+import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
+import com.vallverk.handyboy.server.ServerManager;
+
+import android.graphics.Color;
+
+public class BookingAPIObject extends APIObject implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+
+	public static int getStatusColor ( BookingStatusEnum bookingStatus )
+	{
+		switch ( bookingStatus )
+		{
+			case CANCELED:
+				return Color.parseColor ( "#DF2839" );
+
+			case PENDING:
+				return Color.parseColor ( "#24ACB8" );
+
+			case CONFIRMED:
+				return Color.parseColor ( "#3CB44A" );
+
+			case PERFORMED:
+				return Color.parseColor ( "#FF9000" );
+
+			case APPROVED:
+				return Color.parseColor ( "#6F3CB4" );
+
+			default:
+				return -1;
+		}
+	}
+
+	public enum BookingAPIParams
+	{
+		SERVICE_ID ( "serviceId" ), CUSTOMER_ID ( "customerId" ), TYPE_JOB_SERVICE_ID ( "typeJobServiceId" ), ADDRESS_ID ( "addressId" ), CREDIT_CARD_ID ( "creditCardId" ), TIME ( "time" ), DATE ( "date" ), TOTAL_PRICE ( "totalPrice" ), TOTAL_HOURS ( "totalHours" ), STATUS ( "status" );
+
+		String name;
+
+		BookingAPIParams ( String name )
+		{
+			this.name = name;
+		}
+
+		public String toString ()
+		{
+			return name;
+		}
+
+		public void setName ( String name )
+		{
+			this.name = name;
+		}
+
+		public static BookingAPIParams fromString ( String string )
+		{
+			for ( BookingAPIParams category : BookingAPIParams.values () )
+			{
+				if ( category.toString ().equals ( string ) )
+				{
+					return category;
+				}
+			}
+			return null;
+		}
+	}
+
+	public BookingAPIObject ()
+	{
+		super ();
+	}
+
+	public BookingAPIObject ( JSONObject jsonObject ) throws Exception
+	{
+		update ( jsonObject );
+	}
+
+	@Override
+	public Object[] getParams ()
+	{
+		return BookingAPIParams.values ();
+	}
+
+	public BookingStatusEnum getStatus ()
+	{
+		return BookingStatusEnum.fromInt ( getInt ( BookingAPIParams.STATUS ) );
+	}
+
+	public void changeStatus ( String sender, String reciver, BookingStatusEnum status ) throws Exception
+	{
+		int newStatus = status.toInt ();
+		updateStatus ( status );
+		APIManager.getInstance ().update ( this, ServerManager.BOOKING_SAVE );
+		Map < Object, Object > data = new HashMap < Object, Object > ();
+		data.put ( BookingAPIParams.STATUS.toString (), newStatus );
+		data.put ( "id", getId () );
+		NotificationWithDataAction pubnubAction = new NotificationWithDataAction ( sender, reciver, ActionType.BOOKING_STATUS, data );
+		PubnubManager.getInstance ().sendAction ( pubnubAction );
+	}
+
+	public void updateStatus ( BookingStatusEnum newStatus )
+	{
+		putValue ( BookingAPIParams.STATUS, "" + newStatus.toInt () );
+		CommunicationManager.getInstance ().fire ( CommunicationAction.BOOKING_STATUS, newStatus );
+	}
+}

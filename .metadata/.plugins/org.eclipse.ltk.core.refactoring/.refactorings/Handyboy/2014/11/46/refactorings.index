@@ -1,0 +1,38 @@
+1415716420811	Move compilation units
+1415716478182	Encapsulate field 'typejobAPiObject'
+1415877593943	Copy compilation unit
+1415880430605	Copy file
+1415881055459	Copy file
+1415891845775	Delete element
+1415896485301	Move compilation unit
+1415896782980	Copy file
+1415897112670	Wrap in Container
+1415897735679	Wrap in Container
+1415898452128	Extracts string 'null' into R.string.save
+1415960485528	Extracts string 'null' into R.string.would_you_like_to_charge_for_distance
+1415961052189	Extracts string 'null' into R.string.gym
+1415962519891	Extracts string 'null' into R.string.name
+1415962720944	Extracts string 'null' into R.string.address
+1415964262903	Copy file
+1415978092857	Extracts string 'null' into R.string.shirtless
+1415980458093	Rename type 'ShirtlessView'
+1415992912459	Extracts string 'null' into R.string.your_location
+1415993611088	Copy compilation unit
+1415993674802	Copy file
+1415993906086	Extracts string 'null' into R.string.experience_level
+1415995205699	Extracts string 'null' into R.string.detail_your_experience_with_this_work
+1415995268982	Extracts string 'null' into R.string.this_will_not_appear_on_your_profile
+1415995766075	Copy file
+1415995901905	Copy file
+1416057887722	Copy compilation unit
+1416057941741	Copy file
+1416058047340	Wrap in Container
+1416061537306	Copy compilation unit
+1416061543483	Move compilation unit
+1416061706723	Copy file
+1416061741772	Extracts string 'null' into R.string.schedule
+1416062211789	Extracts string 'null' into R.string.schedule_text_1
+1416062611493	Extracts string 'null' into R.string.schedule_text_2
+1416063204582	Wrap in Container
+1416067000913	Copy file
+1416067766248	Extracts string 'null' into R.string.PM

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="background">#E6FFFFFF</color>
+    <color name="dialog_background">#AE000000</color>
+	<color name="white_semi_alpha">#7DFFFFFF</color>
+	<color name="grey">#aeaeae</color>
+	<color name="grey_dark">#999999</color>
+	<color name="grey_semi_alpha">#7DAEAEAE</color>
+	<color name="dark_grey">#545D63</color>
+	<color name="light_grey">#E2E2E2</color>
+	<color name="red">#DF2839</color>
+	<color name="red_semi_alpha">#7DDF2839</color>
+	<!--<color name="red">#E95656</color>-->
+	<color name="dark_red">#C52432</color>
+	<color name="text_hint">#DBDBDB</color>
+	<color name="dark_blue">#1E2933</color>
+	<color name="dark_blue_pressed">#0f141a</color>
+	<color name="slide_menu_background">#0F141A</color>
+	<color name="spinner_popup_background">#E2E2E2</color>
+	<color name="text_dark_grey">#a0a0a0</color>
+	<color name="left_message_background">#F6F6F6</color>
+	<color name="left_message_time_color">#8D8F92</color>
+	
+	<color name="search_button_line_active">#0F141A</color>
+	<color name="search_button_line_deactive">#BCBEC0</color>
+	
+	<color name="search_button_back_active">#1E2933</color>
+	<color name="search_button_back_deactive">#E2E2E2</color>
+	<color name="search_devider">#BCBEC0</color>
+	
+	<color name="search_child">#EFEFEF</color>
+	<color name="green">#3CB44A</color>
+</resources>

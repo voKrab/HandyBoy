@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.vallverk.handyboy"
+    android:id="@+id/temp1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true" >
+
+    <LinearLayout
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:clickable="false"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/headerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            tools:context=".TutorialWelcomeViewFragment" >
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="2dp"
+                android:gravity="center_vertical"
+                android:text="@string/housekeeper"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/edit_icon_job_na" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:background="@color/dark_blue" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/detailsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/dark_grey"
+                android:orientation="horizontal" >
+            </LinearLayout>
+
+            <com.vallverk.handyboy.view.jobdescription.PricePerHourView
+                android:id="@+id/pricePerHourView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                app:maxPrice="30"
+                app:minPrice="15" >
+            </com.vallverk.handyboy.view.jobdescription.PricePerHourView>
+
+            <com.vallverk.handyboy.view.jobdescription.AddonPriceView
+                android:id="@+id/windowsAddonPriceView"
+                app:name="@string/windows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:animateLayoutChanges="true"
+                app:cost="10"
+                app:headerLeftPadding="0dp" >
+            </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
+
+            <com.vallverk.handyboy.view.jobdescription.AddonPriceView
+                android:id="@+id/laundryAddonPriceView"
+                app:name="@string/laundry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:animateLayoutChanges="true"
+                app:cost="10"
+                app:headerLeftPadding="0dp" >
+            </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
+
+            <com.vallverk.handyboy.view.jobdescription.AddonPriceView
+                android:id="@+id/cleaningSuppliesAddonPriceView"
+                app:name="@string/brings_own_cleaning_supplies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:animateLayoutChanges="true"
+                app:cost="5"
+                app:headerLeftPadding="0dp" >
+            </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
+
+            <com.vallverk.handyboy.view.jobdescription.AddonPriceView
+                android:id="@+id/ecoFriendlyAddonPriceView"
+                app:name="@string/eco_friendly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:animateLayoutChanges="true"
+                app:cost="5"
+                app:headerLeftPadding="0dp" >
+            </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
+
+            <com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView
+                android:id="@+id/shirtlessView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:animateLayoutChanges="true"
+                app:headerLeftPadding="0dp"
+                app:maxCost="20"
+                app:minCost="5" >
+            </com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView>
+
+            <LinearLayout
+                android:id="@+id/tempContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/baseComponents"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    layout="@layout/job_description_base_layout" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

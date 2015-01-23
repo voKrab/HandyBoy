@@ -1,0 +1,22 @@
+1418228022157	Copy compilation unit
+1418228040977	Rename type 'DashboardViewFragment'
+1418229950993	Copy file
+1418231110472	Extracts string 'null' into R.string.booking
+1418297438206	Extracts string 'null' into R.string.add_ons_special_requests
+1418297735495	Copy file
+1418298009469	Extracts string 'null' into R.string.date_time
+1418299069558	Extracts string 'null' into R.string.usd
+1418299564188	Extracts string 'null' into R.string.book_him
+1418308231073	Encapsulate field 'job'
+1418308234672	Encapsulate field 'user'
+1418308237381	Encapsulate field 'handyBoy'
+1418312871621	Encapsulate field 'price'
+1418317097499	Copy compilation unit
+1418317426544	Copy file
+1418317466153	Extracts string 'null' into R.string.addons
+1418318274942	Extracts string 'null' into R.string.special_request
+1418318613430	Copy file
+1418382282202	Wrap in Container
+1418471899651	Copy compilation unit
+1418472379082	Copy file
+1418473180413	Delete element

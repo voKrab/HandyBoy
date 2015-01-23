@@ -1,0 +1,8 @@
+include ':Aviary-SDK'
+include ':FacebookSDK'
+include ':Handyboy'
+include ':Simple Facebook'
+include ':android-support-v7-appcompat'
+include ':google-play-services_lib'
+include ':ImageSliderLibrary'
+include ':libraryPTR'

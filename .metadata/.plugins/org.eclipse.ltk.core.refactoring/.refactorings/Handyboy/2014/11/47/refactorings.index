@@ -1,0 +1,47 @@
+1416214841605	Encapsulate field 'items'
+1416224801241	Rename type 'Schedule'
+1416233219589	Copy compilation unit
+1416233225341	Move compilation unit
+1416233440389	Copy file
+1416233536659	Rename resource '045your_money.png'
+1416238425215	Copy compilation unit
+1416238431175	Move compilation unit
+1416238867646	Copy file
+1416240084209	Extracts string 'null' into R.string.average_raiting
+1416308372995	Copy compilation unit
+1416308494869	Rename type 'RatingView'
+1416308776309	Copy file
+1416308788010	Rename resource 'flakeometer_layout.xml'
+1416309407074	Copy file
+1416309438690	Copy file
+1416310070682	Extracts string 'null' into R.string.flake_o_meter
+1416318945364	Extracts string 'null' into R.string.select_a_service
+1416319280798	Wrap in Container
+1416319940923	Wrap in Container
+1416332843648	Delete element
+1416389961328	Copy compilation unit
+1416391163027	Copy file
+1416391209343	Extracts string 'null' into R.string.bartender
+1416394216097	Rename type 'JobType'
+1416394303513	Rename type 'JobTypeEnum'
+1416417268542	Copy compilation unit
+1416417315259	Copy file
+1416417350527	Extracts string 'null' into R.string.errand_boy
+1416417864944	Copy compilation unit
+1416417911913	Copy file
+1416417935948	Extracts string 'null' into R.string.gardener
+1416493069605	Delete element
+1416493079251	Copy compilation unit
+1416493119007	Delete element
+1416493156474	Copy file
+1416493356456	Delete elements
+1416494818061	Copy compilation unit
+1416494867510	Copy file
+1416494951494	Delete element
+1416494964370	Copy compilation unit
+1416495546853	Extracts string 'null' into R.string.for_gigs_that_are_further_than_15_miles_away_from_your_home
+1416495725022	Extracts string 'null' into R.string.will_your_charge_a_location_fee
+1416496385949	Extracts string 'null' into R.string.extra_charge
+1416504694843	Wrap in Container
+1416504827277	Wrap in Container
+1416570468887	Wrap in Container

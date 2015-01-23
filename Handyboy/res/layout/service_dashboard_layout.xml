@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topbarContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@color/red" >
+
+        <TextView
+            android:id="@+id/screenTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/dashboard"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/menuImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="13dp"
+            android:src="@drawable/swipe_menu_icon_light" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_red" >
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/white"
+            android:clickable="false"
+            android:paddingBottom="34dp" >
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/dark_blue"
+                android:paddingBottom="8dp" >
+
+                <com.vallverk.handyboy.view.base.TextViewPlus
+                    xmlns:app="http://schemas.android.com/apk/res/com.vallverk.handyboy"
+                    android:id="@+id/line1TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/im_available_now"
+                    android:textColor="@color/white"
+                    android:textSize="27sp"
+                    app:customFont="ITALIC" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line1TextView"
+                    android:layout_centerHorizontal="true" >
+
+                    <TextView
+                        android:id="@+id/line2TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/free_to_work_for_the_next_3_hours"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <com.vallverk.handyboy.view.base.CustomSwitcher
+                        android:id="@+id/onOffSwitcer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                    </com.vallverk.handyboy.view.base.CustomSwitcher>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/weeklyScheduleButton"
+                android:layout_width="239dp"
+                android:layout_height="49dp"
+                android:layout_below="@+id/relativeLayout1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="52dp"
+                android:background="@drawable/your_schedule_button_selector"
+                android:gravity="left|center"
+                android:paddingLeft="55dp"
+                android:paddingTop="11dp"
+                android:text="@string/weekly_availability"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/customScheduleButton"
+                android:layout_width="239dp"
+                android:layout_height="49dp"
+                android:layout_alignLeft="@+id/weeklyScheduleButton"
+                android:layout_below="@+id/weeklyScheduleButton"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/custom_schedule_button_selector"
+                android:gravity="left|center"
+                android:paddingLeft="55dp"
+                android:paddingTop="11dp"
+                android:text="@string/cuctom_schedule"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/yourMoneyButton"
+                android:layout_width="239dp"
+                android:layout_height="49dp"
+                android:layout_alignLeft="@+id/customScheduleButton"
+                android:layout_below="@+id/customScheduleButton"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/your_money_button_selector"
+                android:gravity="left|center"
+                android:paddingLeft="55dp"
+                android:paddingTop="11dp"
+                android:text="@string/your_money"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/jobDescriptionsButton"
+                android:layout_width="239dp"
+                android:layout_height="49dp"
+                android:layout_alignLeft="@+id/yourMoneyButton"
+                android:layout_below="@+id/yourMoneyButton"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/job_descriptions_button_selector"
+                android:gravity="left|center"
+                android:paddingLeft="55dp"
+                android:paddingTop="11dp"
+                android:text="@string/job_descriptions"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

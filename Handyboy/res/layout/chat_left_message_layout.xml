@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/left_message_background" >
+
+    <com.vallverk.handyboy.view.base.DownloadableImageView
+        android:id="@+id/avatarImageView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="199dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/avatarImageView"
+        android:layout_toRightOf="@+id/avatarImageView"
+        android:gravity="left"
+        android:text="TextView"
+        android:textColor="@color/dark_blue"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/avatarImageView"
+        android:layout_alignRight="@+id/avatarImageView"
+        android:layout_below="@+id/avatarImageView"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:text="3:24/PM"
+        android:textColor="@color/left_message_time_color"
+        android:textSize="9sp" />
+
+    <com.vallverk.handyboy.view.base.DownloadableImageView
+        android:id="@+id/messageImageView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/timeTextView"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar" />
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+1418653343903	Rename type 'AdressParams'
+1418660130213	Encapsulate field 'date'
+1418739885894	Copy compilation unit
+1418740706123	Copy compilation unit
+1418741139970	Copy compilation unit
+1418907183616	Encapsulate field 'service'
+1418907186450	Encapsulate field 'typeJobAPIObject'
+1418907189345	Encapsulate field 'bookingAPIObject'
+1418907192194	Encapsulate field 'addonsAPIObjects'
+1418920905801	Copy compilation unit
+1418923379663	Copy compilation unit
+1419088064462	Delete element
+1419088408587	Rename method 'getUser'
+1419088414461	Rename field 'user'
+1419088425613	Rename method 'setUser'

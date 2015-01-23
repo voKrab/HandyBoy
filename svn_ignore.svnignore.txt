@@ -1,0 +1,1 @@
+bin gen proguard .classpath .project local.properties Thumbs.db *.apk *.ap_ *.class *.dex

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="annotations-10.0.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Aviary-SDK/libs/annotations-10.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

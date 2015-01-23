@@ -1,0 +1,143 @@
+package com.vallverk.handyboy.server;
+
+import java.io.ByteArrayOutputStream;
+
+import java.net.URI;
+import java.nio.charset.Charset;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHttpResponse;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import com.vallverk.handyboy.MainActivity;
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.Media;
+import com.vallverk.handyboy.view.SerialBitmap;
+
+import android.graphics.Bitmap;
+
+public class ServerManager
+{
+	public static String USER_AUTH_URI = "https://142.4.217.86/user/auth";
+	public static String USER_FACEBOOK_AUTH_URI = "https://142.4.217.86/user/authfb";
+	public static String USER_REGISTRATION_URI = "https://142.4.217.86/user/registration";
+	public static String USER_UPDATE_URI = "https://142.4.217.86/user/update";
+	public static String RESTORE_PASSWORD_URI = "https://142.4.217.86/user/forget";
+	public static String USER_DETAILS_INSERT_URI = "https://142.4.217.86/service/add";
+	public static String USER_DETAILS_SAVE_URI = "https://142.4.217.86/service/save";
+	public static String USER_DETAILS_FETCH_URI = "https://142.4.217.86/service/?id=1";
+	public static String USER_FETCH_URI = "https://142.4.217.86/user/?id=1";
+	public static String UPLOAD_FILE = "https://142.4.217.86/user/upload";
+	public static String JOBTYPE_GET = "https://142.4.217.86/typejob";
+	public static String SERVICE_GET = "https://142.4.217.86/service";
+	public static String MESSAGES_GET = "https://142.4.217.86/chat/?userIdFirst=1&userIdSecond=2";
+	public static String CHAT_INSERT_URI = "https://142.4.217.86/chat/add";
+	public static String CHAT_MESSAGE_INSERT_URI = "https://142.4.217.86/chat/message";
+	public static String CHAT_GET_BY_USER_URI = "https://142.4.217.86/chat/?userId=1";
+	public static String USER_GET_BY_ID_URI = "https://142.4.217.86/user/?id=1";
+	
+	public static String getRequest ( String uriString ) throws Exception
+	{
+		URI uri = new URI ( uriString );
+		HttpGet httpget = new HttpGet ( uri );
+		// HttpClient client = new DefaultHttpClient ();
+		DefaultHttpClient client = ( DefaultHttpClient ) WebClientDevWrapper.getNewHttpClient ();
+		final HttpResponse response = client.execute ( httpget );
+		HttpEntity responseEntity = response.getEntity ();
+		final String responseText = new String ( EntityUtils.toString ( responseEntity ) );
+		return responseText;
+	}
+	
+	public static String postRequest ( String uriString, JSONObject content ) throws Exception
+	{
+		URI uri = new URI ( uriString );
+
+		HttpPost httppost = new HttpPost ( uri );
+		// HttpClient client = new DefaultHttpClient ();
+		DefaultHttpClient client = ( DefaultHttpClient ) WebClientDevWrapper.getNewHttpClient ();
+		List < NameValuePair > pairs = new ArrayList < NameValuePair > ();
+		pairs.add ( new BasicNameValuePair ( "data", content.toString () ) );
+		HttpEntity entity = new UrlEncodedFormEntity ( pairs );
+		httppost.setEntity ( entity );
+
+		final HttpResponse response = client.execute ( httppost );
+		HttpEntity responseEntity = response.getEntity ();
+		final String responseText = new String ( EntityUtils.toString ( responseEntity ) );
+		return responseText;
+	}
+
+	public static String multipartPostRequest ( String uriString, JSONObject content, List < Media > medias ) throws Exception
+	{
+		String boundary = "qwerty";
+		URI uri = new URI ( uriString );
+		DefaultHttpClient client = ( DefaultHttpClient ) WebClientDevWrapper.getNewHttpClient ();
+		HttpPost httppost = new HttpPost ( uri );
+		httppost.setHeader ( "Content-Type", "multipart/form-data; boundary=" + boundary );
+		MultipartEntity entity = new MultipartEntity ( HttpMultipartMode.STRICT, boundary, Charset.forName ( "UTF-8" ) );
+		entity.addPart ( "data", new StringBody ( content.toString () ) );
+
+		for ( Media media : medias )
+		{
+			Bitmap bitmap = media.getBitmap ();
+			
+			ByteArrayOutputStream stream = new ByteArrayOutputStream ();
+			bitmap.compress ( Bitmap.CompressFormat.PNG, 100, stream );
+			byte[] byteArray = stream.toByteArray ();
+			
+			entity.addPart ( media.getKey (), new ByteArrayBody ( byteArray, "application/octet-stream", media.getKey () ) );
+		}
+			
+		httppost.setEntity ( entity );
+		BasicHttpResponse response = ( BasicHttpResponse ) client.execute ( httppost );
+		HttpEntity responseEntity = response.getEntity ();
+		final String responseText = new String ( EntityUtils.toString ( responseEntity ) );
+		return responseText;
+	}
+
+	public static String multipartPostRequest ( String uriString, byte[] data ) throws Exception
+	{
+		String boundary = "qwerty";
+		URI uri = new URI ( uriString );
+		DefaultHttpClient client = ( DefaultHttpClient ) WebClientDevWrapper.getNewHttpClient ();
+		HttpPost httppost = new HttpPost ( uri );
+		httppost.setHeader ( "Content-Type", "multipart/form-data; boundary=" + boundary );
+		MultipartEntity entity = new MultipartEntity ( HttpMultipartMode.STRICT, boundary, Charset.forName ( "UTF-8" ) );
+		entity.addPart ( "userId", new StringBody ( APIManager.getInstance ().getUserId () ) );
+		entity.addPart ( "media", new ByteArrayBody ( data, "application/octet-stream", "media" ) );
+		httppost.setEntity ( entity );
+		BasicHttpResponse response = ( BasicHttpResponse ) client.execute ( httppost );
+		HttpEntity responseEntity = response.getEntity ();
+		final String responseText = new String ( EntityUtils.toString ( responseEntity ) );
+		return responseText;
+	}
+	
+	public static String restorePassswordRequets ( String email ) throws Exception
+	{
+		JSONObject jsonObject = new JSONObject ();
+		jsonObject.accumulate ( "email", email );
+		final String responseText = ServerManager.postRequest ( ServerManager.RESTORE_PASSWORD_URI, jsonObject );
+		JSONObject responseObject = new JSONObject ( responseText );
+		String resultStatus = responseObject.getString ( "parameters" );
+		return resultStatus;
+	}
+
+	public static String getJobTypes () throws Exception
+	{
+		return getRequest ( JOBTYPE_GET );
+	}
+}

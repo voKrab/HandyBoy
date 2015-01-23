@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white"
+    android:clickable="false" >
+
+    <RelativeLayout
+        android:id="@+id/topbarContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/red" >
+
+        <TextView
+            android:id="@+id/screenTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/profile"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/backImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:padding="8dp"
+            android:src="@drawable/back_icon_topbar" />
+
+        <TextView
+            android:id="@+id/backTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/backImageView"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topbarContainer"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RelativeLayout
+                    android:id="@+id/temp"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_toRightOf="@+id/avatarImageView"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/first_name"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="9sp" />
+
+                        <EditText
+                            android:id="@+id/firstEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:background="@drawable/edit_text_selector"
+                            android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-"
+                            android:ems="10"
+                            android:hint="@string/first"
+                            android:inputType="text"
+                            android:paddingLeft="13dp"
+                            android:paddingRight="13dp"
+                            android:textColor="@color/dark_blue"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="@string/last_name"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="9sp" />
+
+                        <EditText
+                            android:id="@+id/lastEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:background="@drawable/edit_text_selector"
+                            android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-"
+                            android:ems="10"
+                            android:hint="@string/last"
+                            android:inputType="text"
+                            android:paddingLeft="13dp"
+                            android:paddingRight="13dp"
+                            android:textColor="@color/dark_blue"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/avatarImageView"
+                        android:layout_width="98dp"
+                        android:layout_height="98dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignTop="@+id/linearLayout1"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar" />
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/avatarImageView"
+                        android:layout_alignTop="@+id/avatarImageView"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/edit_icon_light_small" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/temp"
+                    android:layout_below="@+id/temp"
+                    android:text="@string/height"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_alignBottom="@+id/feetEditText"
+                    android:layout_alignLeft="@+id/textView6"
+                    android:layout_alignTop="@+id/feetEditText"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:text="@string/feet"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                    android:id="@+id/feetSpinner"
+                    android:layout_width="79dp"
+                    android:layout_height="42dp"
+                    android:layout_above="@+id/TextView01"
+                    android:layout_alignTop="@+id/feetEditText"
+                    android:layout_toRightOf="@+id/textView4"
+                    android:background="@drawable/spinner_selector" />
+
+                <TextView
+                    android:id="@+id/feetEditText"
+                    android:layout_width="50dp"
+                    android:layout_height="34dp"
+                    android:layout_below="@+id/textView6"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@+id/textView4"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_text_white_background_selector"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:paddingLeft="13dp"
+                    android:paddingRight="13dp"
+                    android:textColor="@color/dark_blue"
+                    android:textColorHint="@color/text_hint"
+                    android:textSize="13sp" />
+
+                <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                    android:id="@+id/inchesSpinner"
+                    android:layout_width="79dp"
+                    android:layout_height="42dp"
+                    android:layout_alignBottom="@+id/inchesEditText"
+                    android:layout_alignRight="@+id/temp"
+                    android:layout_alignTop="@+id/inchesEditText"
+                    android:background="@drawable/spinner_selector" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_alignBottom="@+id/inchesEditText"
+                    android:layout_alignTop="@+id/inchesEditText"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@+id/inchesEditText"
+                    android:gravity="center"
+                    android:text="@string/inches"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView4"
+                    android:layout_below="@+id/textView4"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/weight"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                    android:id="@+id/weightSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignLeft="@+id/TextView01"
+                    android:layout_alignRight="@+id/inchesSpinner"
+                    android:layout_below="@+id/TextView01"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/weightSpinner"
+                    android:layout_below="@+id/weightSpinner"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/hair_color"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                    android:id="@+id/hairColorSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignLeft="@+id/TextView02"
+                    android:layout_alignRight="@+id/weightSpinner"
+                    android:layout_below="@+id/TextView02"
+                    android:background="@drawable/spinner_selector" />
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/hairColorSpinner"
+                    android:layout_below="@+id/hairColorSpinner"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/eye_color"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                    android:id="@+id/eyeColorSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignLeft="@+id/TextView03"
+                    android:layout_alignRight="@+id/hairColorSpinner"
+                    android:layout_below="@+id/TextView03"
+                    android:background="@drawable/spinner_selector" />
+
+                <com.vallverk.handyboy.view.base.MultiChoiceSpinner
+                    android:id="@+id/bodyTypeSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignLeft="@+id/TextView04"
+                    android:layout_alignRight="@+id/eyeColorSpinner"
+                    android:layout_below="@+id/TextView04"
+                    android:background="@drawable/spinner_selector" />
+
+                <com.vallverk.handyboy.view.base.SingleChoiceSpinner
+                    android:id="@+id/sexualitySpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignLeft="@+id/bodyTypeSpinner"
+                    android:layout_alignRight="@+id/bodyTypeSpinner"
+                    android:layout_below="@+id/TextView05"
+                    android:background="@drawable/spinner_selector" />
+
+                <TextView
+                    android:id="@+id/TextView05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/sexualitySpinner"
+                    android:layout_below="@+id/bodyTypeSpinner"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/sexuality"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/locationEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_alignLeft="@+id/TextView06"
+                    android:layout_alignRight="@+id/sexualitySpinner"
+                    android:layout_below="@+id/TextView06"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_text_selector"
+                    android:ems="10"
+                    android:hint="@string/location"
+                    android:inputType="text"
+                    android:paddingLeft="13dp"
+                    android:paddingRight="13dp"
+                    android:textColor="@color/dark_blue"
+                    android:textColorHint="@color/text_hint"
+                    android:visibility="gone"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/TextView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/eyeColorSpinner"
+                    android:layout_below="@+id/eyeColorSpinner"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/body_type"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/TextView07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/sexualitySpinner"
+                    android:layout_below="@+id/sexualitySpinner"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/ethentity"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <com.vallverk.handyboy.view.base.MultiChoiceSpinner
+                    android:id="@+id/ethentitySpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignLeft="@+id/TextView07"
+                    android:layout_alignRight="@+id/sexualitySpinner"
+                    android:layout_below="@+id/TextView07"
+                    android:background="@drawable/spinner_selector" />
+
+                <TextView
+                    android:id="@+id/TextView08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/ethentitySpinner"
+                    android:layout_below="@+id/ethentitySpinner"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/select_job"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <com.vallverk.handyboy.view.base.MultiChoiceSpinner
+                    android:id="@+id/jobTypeSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignLeft="@+id/TextView08"
+                    android:layout_alignRight="@+id/ethentitySpinner"
+                    android:layout_below="@+id/TextView08"
+                    android:background="@drawable/spinner_selector" />
+
+                <TextView
+                    android:id="@+id/TextView09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/jobTypeSpinner"
+                    android:layout_below="@+id/jobTypeSpinner"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/why_you_handy_boy"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="9sp" />
+
+                <EditText
+                    android:id="@+id/introduceYouselfEditText"
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_selector"
+                    android:gravity="top"
+                    android:layout_alignLeft="@+id/TextView09"
+                    android:layout_below="@+id/TextView09"
+                    android:hint="@string/describe_your_services_hint"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="13dp"
+                    android:paddingRight="13dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/dark_blue"
+                    android:textColorHint="@color/text_hint"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_width="235dp"
+                    android:layout_height="34dp"
+                    android:layout_below="@+id/introduceYouselfEditText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="21dp"
+                    android:background="@drawable/dark_blue_shape_selector"
+                    android:text="@string/next"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/saveButton"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/inchesEditText"
+                    android:layout_width="50dp"
+                    android:layout_height="34dp"
+                    android:layout_above="@+id/TextView01"
+                    android:layout_alignLeft="@+id/inchesSpinner"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_text_white_background_selector"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:paddingLeft="13dp"
+                    android:paddingRight="13dp"
+                    android:textColor="@color/dark_blue"
+                    android:textColorHint="@color/text_hint"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

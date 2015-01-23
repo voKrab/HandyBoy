@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CustomSwitcher">
+        <attr name="isActive" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="AddonPriceSelectorView">
+        <attr name="headerLeftPadding" format="dimension" />
+        <attr name="titleText" format="string" />
+        <attr name="minCost" format="integer" />
+        <attr name="maxCost" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="AddonPriceView">
+        <attr name="leftPadding" format="dimension" />
+        <attr name="name" format="string" />
+        <attr name="subName" format="string" />
+        <attr name="cost" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="RatingView">
+        <attr name="rating" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CustomCheckBox">
+        <attr name="isChecked" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="FlakeOMeterView">
+        <attr name="value" format="float" />
+    </declare-styleable>
+    <declare-styleable name="PricePerHourView">
+        <attr name="minPrice" format="integer" />
+        <attr name="maxPrice" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="RangeBar">
+        <attr name="tickCount" format="integer" />
+        <attr name="thumbType" format="enum">
+            <enum name="price" value="0" />
+            <enum name="lbs" value="1" />
+            <enum name="inch" value="2" />
+            <enum name="minutes" value="3" />
+            <enum name="number" value="4" />
+        </attr>
+        <attr name="tickHeight" format="dimension" />
+        <attr name="barWeight" format="dimension" />
+        <attr name="barColor" format="reference|color" />
+        <attr name="connectingLineWeight" format="dimension" />
+        <attr name="connectingLineColor" format="reference|color" />
+        <attr name="thumbRadius" format="dimension" />
+        <attr name="thumbImageNormal" format="reference" />
+        <attr name="thumbImagePressed" format="reference" />
+        <attr name="thumbColorNormal" format="reference|color" />
+        <attr name="thumbColorPressed" format="reference|color" />
+    </declare-styleable>
+    <declare-styleable name="AbstractWheelView">
+        <attr name="visibleItems" format="integer" />
+        <attr name="isAllVisible" format="boolean" />
+        <attr name="itemOffsetPercent" format="integer" />
+        <attr name="itemsPadding" format="dimension" />
+        <attr name="selectionDividerDimmedAlpha" format="integer" />
+        <attr name="selectionDividerActiveAlpha" format="integer" />
+        <attr name="selectionDivider" format="reference" />
+        <attr name="itemsDimmedAlpha" format="integer" />
+        <attr name="isCyclic" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="WheelVerticalView">
+        <attr name="selectionDividerHeight" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="WheelHorizontalView">
+        <attr name="selectionDividerWidth" format="dimension" />
+    </declare-styleable>
+
+    <attr name="abstractWheelViewStyle" format="reference" />
+
+    <declare-styleable name="TextViewPlus">
+        <attr name="customFont" format="enum">
+            <enum name="SEMIBOLD" value="0" />
+            <enum name="SEMIBOLD_ITALIC" value="1" />
+            <enum name="REGULAR" value="2" />
+            <enum name="LIGHT" value="3" />
+            <enum name="ITALIC" value="4" />
+            <enum name="BOLD" value="5" />
+            <enum name="BOLD_ITALIC" value="6" />
+            <enum name="EXTRA_BOLD" value="7" />
+            <enum name="EXTRA_BOLD_ITALIC" value="8" />
+        </attr>
+    </declare-styleable>
+
+</resources>

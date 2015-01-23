@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topbarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/red" >
+
+        <TextView
+            android:id="@+id/screenTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/booking"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/backImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:padding="8dp"
+            android:src="@drawable/back_icon_topbar" />
+
+        <TextView
+            android:id="@+id/backTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/backImageView"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/jobContainer"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:paddingLeft="21dp"
+                android:paddingRight="21dp" >
+
+                <ImageView
+                    android:id="@+id/jobImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/dumbbels_book" />
+
+                <TextView
+                    android:id="@+id/infoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/jobTextView"
+                    android:layout_below="@+id/jobTextView"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/jobTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/jobImageView"
+                    android:text="@string/personal_trainer"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/spinner_popup_background" />
+
+            <RelativeLayout
+                android:id="@+id/addonsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/white_grey_selector"
+                android:paddingLeft="21dp"
+                android:paddingRight="21dp" >
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/addons" />
+
+                <TextView
+                    android:id="@+id/addonsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@+id/ImageView01"
+                    android:text="@string/add_ons_special_requests"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right_enter_dark" />
+
+                <FrameLayout
+                    android:id="@+id/choosedAddonsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignLeft="@+id/addonsTextView"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/imageView1" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/addon1TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/personal_trainer"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/addon2TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/personal_trainer"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|center_vertical" >
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="5dp"
+                            android:text="+"
+                            android:textColor="@color/red"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/addonsPriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="13dp"
+                            android:text="$20"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/View01"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/spinner_popup_background" />
+
+            <RelativeLayout
+                android:id="@+id/addressContainer"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/white_grey_selector"
+                android:paddingLeft="21dp"
+                android:paddingRight="21dp" >
+
+                <ImageView
+                    android:id="@+id/ImageView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/address" />
+
+                <TextView
+                    android:id="@+id/addressTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@+id/ImageView03"
+                    android:text="@string/address"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right_enter_dark" />
+
+                <FrameLayout
+                    android:id="@+id/choosedAddressFrameLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignLeft="@+id/addressTextView"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/ImageView02" >
+
+                    <TextView
+                        android:id="@+id/choosedAddressLocationTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/jobTextView"
+                        android:layout_below="@+id/jobTextView"
+                        android:layout_gravity="bottom|left"
+                        android:layout_marginBottom="8dp"
+                        android:text="Tommy P 120$/h."
+                        android:textColor="@color/dark_blue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/choosedAddressNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:text="@string/personal_trainer"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|center_vertical" >
+                    </LinearLayout>
+                </FrameLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/View02"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/spinner_popup_background" />
+
+            <RelativeLayout
+                android:id="@+id/dateContainer"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/white_grey_selector"
+                android:paddingLeft="21dp"
+                android:paddingRight="21dp" >
+
+                <ImageView
+                    android:id="@+id/ImageView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/date" />
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@+id/ImageView04"
+                    android:text="@string/date_time"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right_enter_dark" />
+
+                <FrameLayout
+                    android:id="@+id/choosedDateFrameLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignLeft="@+id/dateTextView"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/ImageView05" >
+
+                    <TextView
+                        android:id="@+id/choosedDateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/jobTextView"
+                        android:layout_below="@+id/jobTextView"
+                        android:layout_gravity="bottom|left"
+                        android:layout_marginBottom="8dp"
+                        android:text="Tommy P 120$/h."
+                        android:textColor="@color/dark_blue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/choosedDayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:text="@string/personal_trainer"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|center_vertical" >
+                    </LinearLayout>
+                </FrameLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/View03"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/spinner_popup_background" />
+
+            <RelativeLayout
+                android:id="@+id/creditCardContainer"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/white_grey_selector"
+                android:paddingLeft="21dp"
+                android:paddingRight="21dp" >
+
+                <ImageView
+                    android:id="@+id/ImageView07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/card" />
+
+                <TextView
+                    android:id="@+id/creditCardTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@+id/ImageView07"
+                    android:text="@string/credit_card"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <ImageView
+                    android:id="@+id/ImageView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right_enter_dark" />
+
+                <FrameLayout
+                    android:id="@+id/choosedCreditCardFrameLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignLeft="@+id/creditCardTextView"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/ImageView06" >
+
+                    <TextView
+                        android:id="@+id/choosedCreditCardDateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/jobTextView"
+                        android:layout_below="@+id/jobTextView"
+                        android:layout_gravity="bottom|left"
+                        android:layout_marginBottom="8dp"
+                        android:text="Tommy P 120$/h."
+                        android:textColor="@color/dark_blue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/choosedCreditCardNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:text="@string/personal_trainer"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|center_vertical" >
+                    </LinearLayout>
+                </FrameLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/View04"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/spinner_popup_background" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:animateLayoutChanges="true"
+                android:paddingLeft="21dp" >
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/total"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/priceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/TextView03"
+                    android:layout_alignBottom="@+id/TextView03"
+                    android:layout_toLeftOf="@+id/TextView03"
+                    android:text="$90.00"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/TextView02"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/usd"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/View05"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/spinner_popup_background"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/bookButton"
+                android:layout_width="195dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="21dp"
+                android:background="@drawable/red_shape_selector"
+                android:text="@string/book_him"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="21dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
