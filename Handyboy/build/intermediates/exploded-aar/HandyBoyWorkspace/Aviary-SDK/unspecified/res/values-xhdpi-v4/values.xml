@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/D:/vallverk/HandyBoyWorkspace/Aviary-SDK/res/values-xhdpi/aviary_dimens.xml -->
-    <eat-comment/>
-    <dimen name="aviary_textSizeMedium">14sp</dimen>
-    <dimen name="aviary_textSizeSmall">12sp</dimen>
-</resources>

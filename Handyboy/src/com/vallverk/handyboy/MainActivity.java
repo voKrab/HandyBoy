@@ -85,6 +85,10 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		RESUME, PAUSE, CLOSE
 	}
 
+    private void Test(){
+
+    }
+
 	/**
 	 * Constants.
 	 */

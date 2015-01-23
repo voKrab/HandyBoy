@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Aviary-SDK/Aviary-SDK.iml" filepath="$PROJECT_DIR$/Aviary-SDK/Aviary-SDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/FacebookSDK/FacebookSDK.iml" filepath="$PROJECT_DIR$/FacebookSDK/FacebookSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HandyBoy.iml" filepath="$PROJECT_DIR$/HandyBoy.iml" />
       <module fileurl="file://$PROJECT_DIR$/HandyBoyWorkspace.iml" filepath="$PROJECT_DIR$/HandyBoyWorkspace.iml" />
       <module fileurl="file://$PROJECT_DIR$/Handyboy/Handyboy.iml" filepath="$PROJECT_DIR$/Handyboy/Handyboy.iml" />
       <module fileurl="file://$PROJECT_DIR$/ImageSliderLibrary/ImageSliderLibrary.iml" filepath="$PROJECT_DIR$/ImageSliderLibrary/ImageSliderLibrary.iml" />
