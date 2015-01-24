@@ -1,12 +1,5 @@
 package com.vallverk.handyboy.model.schedule;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.DiscountAPIObject;
@@ -14,7 +7,12 @@ import com.vallverk.handyboy.model.api.DiscountAPIObject.DiscountParams;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.server.ServerManager;
-import com.vallverk.handyboy.view.jobdescription.HousekeeperViewController;
+
+import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class BookingTime extends ScheduleForDay
 {
@@ -42,7 +40,7 @@ public class BookingTime extends ScheduleForDay
 		TimeZone tzSource = TimeZone.getTimeZone ( "EST" );
 		TimeZone tzTarget = TimeZone.getDefault ();
 		Date date = new Date ( startedAt );
-		date = Tools.shiftTimeZone ( date, tzSource, tzTarget );
+//		date = Tools.shiftTimeZone ( date, tzSource, tzTarget );
 
 		Calendar calendar = Calendar.getInstance ();
 		calendar.setTime ( date );

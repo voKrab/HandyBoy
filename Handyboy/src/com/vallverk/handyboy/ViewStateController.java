@@ -1,10 +1,5 @@
 package com.vallverk.handyboy;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 
-import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.view.AvailableNowViewFragment;
 import com.vallverk.handyboy.view.ChatViewFragment;
 import com.vallverk.handyboy.view.ChatsViewFragment;
@@ -75,6 +69,11 @@ import com.vallverk.handyboy.view.registration.RegistrationViewFragment;
 import com.vallverk.handyboy.view.registration.WaitingForValidationViewFragment;
 import com.vallverk.handyboy.view.schedule.CustomScheduleViewFragment;
 import com.vallverk.handyboy.view.schedule.WeeklyScheduleViewFragment;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Oleg Barkov
@@ -1094,6 +1093,7 @@ public class ViewStateController implements Serializable
 			case TRANSACTION_HISTORY:
 			case REVIEWS_CLIENT:	
 			case BLOCK_LIST:
+            case ADD_CHARGES:
 			{
 				return prevState;
 			}

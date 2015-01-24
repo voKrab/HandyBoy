@@ -1,23 +1,17 @@
 package com.vallverk.handyboy.view.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.gcm.PushNotification;
 import com.vallverk.handyboy.model.BookingStatusEnum;
+import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
 import com.vallverk.handyboy.model.api.AddressAPIObject;
 import com.vallverk.handyboy.model.api.BookingAPIObject;
 import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
-import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.CreditCardAPIObject;
 import com.vallverk.handyboy.model.api.DiscountAPIObject;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
@@ -29,6 +23,12 @@ import com.vallverk.handyboy.model.job.TypeJobEnum;
 import com.vallverk.handyboy.model.schedule.BookingTime;
 import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingController
 {
@@ -218,8 +218,9 @@ public class BookingController
 		float hours = bookingTime.getHours ();
 		int addonPrice = getAddonsPrice ();
 		int pricePerHour = getPricePerHour ();
-		// price = hours * pricePerHour * ( 1 - discount / 100f ) + addonPrice;
-		price = hours * pricePerHour + addonPrice;
+		int discount = isHasDiscount () ? Integer.parseInt ( getDiscount ().getString ( DiscountAPIObject.DiscountParams.DISCOUNT ) ) : 0;
+		price = hours * pricePerHour * ( 1 - discount / 100f ) + addonPrice;
+		// price = hours * pricePerHour + addonPrice;
 		return price;
 	}
 
@@ -303,9 +304,9 @@ public class BookingController
 		String request = ServerManager.postRequest ( ServerManager.CREATE_BOOKING, jsonObject );
 		JSONObject requestJSON = new JSONObject ( request );
 		bookingAPIObject.setId ( requestJSON.getString ( "id" ) );
-		
+
 		JSONObject pushData = PushNotification.createJSON ( controller.getString ( R.string.you_get_new_job_request ), ActionType.BOOKING );
-//		PushNotification.send ( handyBoy, pushData );
+		// PushNotification.send ( handyBoy, pushData );
 	}
 
 	private JSONArray createAddonsIdArray ()
@@ -385,7 +386,7 @@ public class BookingController
 	{
 		this.specialRequest = specialRequest;
 	}
-	
+
 	public String getSpecialRequest ()
 	{
 		return specialRequest;

@@ -8,63 +8,44 @@
     android:clickable="false"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/topbarContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:orientation="vertical" >
+        android:layout_height="55dp"
+        android:background="@color/red" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/screenTextView"
+            android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:orientation="horizontal" >
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/add_charges"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
 
-            <ImageView
-                android:id="@+id/backImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="13dp"
-                android:padding="8dp"
-                android:src="@drawable/back_icon_topbar" />
+        <ImageView
+            android:id="@+id/backImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:padding="8dp"
+            android:src="@drawable/back_icon_topbar" />
 
-            <TextView
-                android:id="@+id/backTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:text="@string/back"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/screenTextView"
-                android:layout_width="0dp"
-                android:layout_height="55dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/add_charges"
-                android:textColor="@color/white"
-                android:textSize="21sp" />
-
-            <ImageView
-                android:id="@+id/crossImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:padding="13dp"
-                android:src="@drawable/cross_button_white_selector" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/dark_red" >
-        </LinearLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/backTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/backImageView"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -91,7 +72,7 @@
                 android:textSize="9sp" />
 
             <EditText
-                android:id="@+id/cardNameEditText"
+                android:id="@+id/reasonEditText"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:background="@drawable/edit_text_selector"
@@ -120,7 +101,6 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
@@ -133,7 +113,7 @@
                         android:textSize="9sp" />
 
                     <EditText
-                        android:id="@+id/cardExpDateEditText"
+                        android:id="@+id/priceEditText"
                         android:layout_width="match_parent"
                         android:layout_height="34dp"
                         android:background="@drawable/grey_rect"
@@ -153,7 +133,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/cvvTitleTextView"
