@@ -13,6 +13,7 @@
         android:paddingRight="12dp" >
 
         <TextView
+            android:id="@+id/gigIdTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="GIG#213432432"
@@ -20,6 +21,7 @@
             android:textSize="8sp" />
 
         <TextView
+            android:id="@+id/gigNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tommy P"
@@ -28,6 +30,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/gigSessionNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Personal Trainer Session"
@@ -54,6 +57,7 @@
             android:textStyle="italic" />
 
         <TextView
+            android:id="@+id/gigPriceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

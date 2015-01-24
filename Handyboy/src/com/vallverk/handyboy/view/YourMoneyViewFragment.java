@@ -1,14 +1,14 @@
 package com.vallverk.handyboy.view;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,205 +35,230 @@ import com.vallverk.handyboy.view.base.BaseListFragment.Refresher;
 
 public class YourMoneyViewFragment extends BaseFragment
 {
-	private View backImageView;
-	private View backTextView;
-	private ImageView strelkaImageView;
-	private BaseListFragment moneyListViewFragment;
+    private View backImageView;
+    private View backTextView;
+    private ImageView strelkaImageView;
+    private TextView totalPriceTextView;
 
-	private int weekTime;
-	private APIManager apiManager;
-	private UserAPIObject user;
+    private BaseListFragment moneyListViewFragment;
 
-	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
-	{
-		View view = inflater.inflate ( R.layout.your_money_layout, null );
+    private int weekTime;
+    private APIManager apiManager;
+    private UserAPIObject user;
+    private List < Object > items;
+    private int totalPrice = 0;
 
-		backImageView = view.findViewById ( R.id.backImageView );
-		backTextView = view.findViewById ( R.id.backTextView );
-		strelkaImageView = ( ImageView ) view.findViewById ( R.id.strelkaImageView );
-		return view;
-	}
+    public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+    {
+        View view = inflater.inflate ( R.layout.your_money_layout, null );
+        backImageView = view.findViewById ( R.id.backImageView );
+        backTextView = view.findViewById ( R.id.backTextView );
+        totalPriceTextView = ( TextView ) view.findViewById ( R.id.totalPriceTextView );
+        strelkaImageView = ( ImageView ) view.findViewById ( R.id.strelkaImageView );
+        return view;
+    }
 
-	private int hoursToDegree ( int weekTime )
-	{
-		if ( weekTime >= 0 && weekTime <= 10 )
-		{
-			return weekTime * 9;
-		} else if ( weekTime >= 10 && weekTime <= 20 )
-		{
-			return 90 + ( weekTime * 3 );
-		} else if ( weekTime > 20 )
-		{
-			return 150 + ( weekTime / 2 );
-		}
-		return 0;
-	}
+    private int hoursToDegree ( int weekTime )
+    {
+        if ( weekTime >= 0 && weekTime <= 10 )
+        {
+            return weekTime * 9;
+        } else if ( weekTime >= 10 && weekTime <= 20 )
+        {
+            return 90 + ( weekTime * 3 );
+        } else if ( weekTime > 20 )
+        {
+            return 150 + ( weekTime / 2 );
+        }
+        return 0;
+    }
 
-	private void go ()
-	{
-		RotateAnimation anim = new RotateAnimation ( 0f, 180.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, 0.5f );
-		anim.setInterpolator ( new LinearInterpolator () );
-		anim.setDuration ( 500 );
-		anim.setAnimationListener ( new AnimationListener ()
-		{
-			@Override
-			public void onAnimationStart ( Animation animation )
-			{
-			}
+    private Handler totalPriceSet = new Handler ( new Callback()
+    {
 
-			@Override
-			public void onAnimationRepeat ( Animation animation )
-			{
-			}
+        @Override
+        public boolean handleMessage ( Message msg )
+        {
+            totalPriceTextView.setText ( "$" + totalPrice );
+            return false;
+        }
+    } );
 
-			@Override
-			public void onAnimationEnd ( Animation animation )
-			{
-				RotateAnimation anim = new RotateAnimation ( 180f, hoursToDegree ( weekTime ), Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, 0.5f );
-				anim.setInterpolator ( new LinearInterpolator () );
-				anim.setDuration ( 500 );
-				anim.setAnimationListener ( new AnimationListener ()
-				{
+    private void go ()
+    {
+        RotateAnimation anim = new RotateAnimation ( 0f, 180.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, 0.5f );
+        anim.setInterpolator ( new LinearInterpolator () );
+        anim.setDuration ( 500 );
+        anim.setAnimationListener ( new AnimationListener ()
+        {
+            @Override
+            public void onAnimationStart ( Animation animation )
+            {
+            }
 
-					@Override
-					public void onAnimationStart ( Animation animation )
-					{
-					}
+            @Override
+            public void onAnimationRepeat ( Animation animation )
+            {
+            }
 
-					@Override
-					public void onAnimationRepeat ( Animation animation )
-					{
-					}
+            @Override
+            public void onAnimationEnd ( Animation animation )
+            {
+                RotateAnimation anim = new RotateAnimation ( 180f, hoursToDegree ( weekTime ), Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, 0.5f );
+                anim.setInterpolator ( new LinearInterpolator () );
+                anim.setDuration ( 500 );
+                anim.setAnimationListener ( new AnimationListener ()
+                {
 
-					@Override
-					public void onAnimationEnd ( Animation animation )
-					{
-						RotateAnimation anim = new RotateAnimation ( hoursToDegree ( weekTime ) - 1, hoursToDegree ( weekTime ) + 1, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, 0.5f );
-						anim.setInterpolator ( new LinearInterpolator () );
-						anim.setDuration ( 100 );
-						anim.setRepeatCount ( 1000000 );
-						anim.setRepeatMode ( Animation.REVERSE );
-						strelkaImageView.setAnimation ( anim );
-						strelkaImageView.startAnimation ( anim );
-					}
-				} );
-				strelkaImageView.setAnimation ( anim );
-				strelkaImageView.startAnimation ( anim );
-			}
-		} );
-		strelkaImageView.setAnimation ( anim );
-		strelkaImageView.startAnimation ( anim );
-	}
+                    @Override
+                    public void onAnimationStart ( Animation animation )
+                    {
+                    }
 
-	@Override
-	protected void init ()
-	{
-		new AsyncTask < Void, Void, String > ()
-		{
-			public void onPreExecute ()
-			{
-				super.onPreExecute ();
-			}
+                    @Override
+                    public void onAnimationRepeat ( Animation animation )
+                    {
+                    }
 
-			public void onPostExecute ( String result )
-			{
-				super.onPostExecute ( result );
-				if ( result.isEmpty () )
-				{
-					go ();
-				} else
-				{
-					controller.onBackPressed ();
-					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
-				}
-			}
+                    @Override
+                    public void onAnimationEnd ( Animation animation )
+                    {
+                        RotateAnimation anim = new RotateAnimation ( hoursToDegree ( weekTime ) - 1, hoursToDegree ( weekTime ) + 1, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, 0.5f );
+                        anim.setInterpolator ( new LinearInterpolator () );
+                        anim.setDuration ( 100 );
+                        anim.setRepeatCount ( 1000000 );
+                        anim.setRepeatMode ( Animation.REVERSE );
+                        strelkaImageView.setAnimation ( anim );
+                        strelkaImageView.startAnimation ( anim );
+                    }
+                } );
+                strelkaImageView.setAnimation ( anim );
+                strelkaImageView.startAnimation ( anim );
+            }
+        } );
+        strelkaImageView.setAnimation ( anim );
+        strelkaImageView.startAnimation ( anim );
+    }
 
-			@Override
-			protected String doInBackground ( Void... params )
-			{
-				String result = "";
-				try
-				{
-					String request = ServerManager.getRequest ( ServerManager.GET_WEEK_TIME + user.getString ( UserParams.SERVICE_ID ) );
-					JSONObject jsonRequest = new JSONObject ( request );
-					weekTime = jsonRequest.getInt ( "hours" );
-					result = jsonRequest.getString ( "parameters" );
-				} catch ( Exception ex )
-				{
-					result = ex.getMessage ();
-					ex.printStackTrace ();
-				}
-				return result;
-			}
-		}.execute ();
-	}
+    @Override
+    protected void init ()
+    {
+        new AsyncTask < Void, Void, String > ()
+        {
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+            }
 
-	@Override
-	public void onActivityCreated ( Bundle savedInstanceState )
-	{
-		super.onActivityCreated ( savedInstanceState );
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                if ( result.isEmpty () )
+                {
+                    go ();
+                } else
+                {
+                    controller.onBackPressed ();
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
 
-		apiManager = APIManager.getInstance ();
-		user = apiManager.getUser ();
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    String request = ServerManager.getRequest ( ServerManager.GET_WEEK_TIME + user.getString ( UserParams.SERVICE_ID ) );
+                    JSONObject jsonRequest = new JSONObject ( request );
+                    weekTime = jsonRequest.getInt ( "hours" );
+                    result = jsonRequest.getString ( "parameters" );
+                } catch ( Exception ex )
+                {
+                    result = ex.getMessage ();
+                    ex.printStackTrace ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
 
-		moneyListViewFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.moneyListViewFragment );
-		moneyListViewFragment.setIsShowEmpty ( false );
-		moneyListViewFragment.setAdapter ( new MoneyListAdapter ( controller ) );
-		moneyListViewFragment.setRefresher ( new Refresher ()
-		{
-			@Override
-			public List < Object > refresh () throws Exception
-			{
-				return APIManager.getInstance ().loadList ( ServerManager.GET_MY_MONEY + user.getId (), MyMoneyAPIObject.class );
-			}
-		} );
-		moneyListViewFragment.refreshData ();
-		addListeners ();
-	}
+    @Override
+    public void onActivityCreated ( Bundle savedInstanceState )
+    {
+        super.onActivityCreated ( savedInstanceState );
 
-	protected void addListeners ()
-	{
-		backImageView.setOnClickListener ( new OnClickListener ()
-		{
-			@Override
-			public void onClick ( View v )
-			{
-				controller.onBackPressed ();
-			}
-		} );
-		backTextView.setOnClickListener ( new OnClickListener ()
-		{
-			@Override
-			public void onClick ( View v )
-			{
-				controller.onBackPressed ();
-			}
-		} );
-	}
+        apiManager = APIManager.getInstance ();
+        user = apiManager.getUser ();
 
-	public class MoneyListAdapter extends ArrayAdapter < Object >
-	{
-		private LayoutInflater inflater;
+        moneyListViewFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.moneyListViewFragment );
+        moneyListViewFragment.setIsShowEmpty ( false );
+        moneyListViewFragment.setAdapter ( new MoneyListAdapter ( controller ) );
+        moneyListViewFragment.setRefresher ( new Refresher ()
+        {
+            @Override
+            public List < Object > refresh () throws Exception
+            {
+                items = APIManager.getInstance ().loadList ( ServerManager.GET_MY_MONEY + user.getId (), MyMoneyAPIObject.class );
+                setTotal();
+                return items;
+            }
+        } );
+        moneyListViewFragment.refreshData ();
+        addListeners ();
+    }
 
-		public MoneyListAdapter ( Context context )
-		{
-			super ( context, 0 );
-			inflater = LayoutInflater.from ( context );
-		}
+    private void setTotal ()
+    {
+        for(Object tempObject: items){
+            totalPrice += ((MyMoneyAPIObject) tempObject).getInt ( MyMoneyParams.AMOUNT );
+        }
+        totalPriceSet.sendEmptyMessage ( 0 );
+    }
 
-		public View getView ( int position, View view, ViewGroup parent )
-		{
-			MyMoneyAPIObject myMoneyAPIObject = (MyMoneyAPIObject)getItem ( position );
-			if ( view == null )
-			{
-				view = inflater.inflate ( R.layout.money_list_item_layout, parent, false );
-			}
-			
-			Date date =  Tools.fromStringToDate ( myMoneyAPIObject.getString ( MyMoneyParams.CREATED_AT ), "yyyy-MM-dd hh:mm:ss" );
-			((TextView) view.findViewById ( R.id.dayTextView )).setText ( Tools.fromDateToString ( date, "EEEE" ));
-			((TextView) view.findViewById ( R.id.monthDayTextView )).setText (Tools.fromDateToString ( date, "MM/dd" ));
-			return view;
-		}
-	}
+    protected void addListeners ()
+    {
+        backImageView.setOnClickListener ( new OnClickListener ()
+        {
+            @Override
+            public void onClick ( View v )
+            {
+                controller.onBackPressed ();
+            }
+        } );
+        backTextView.setOnClickListener ( new OnClickListener ()
+        {
+            @Override
+            public void onClick ( View v )
+            {
+                controller.onBackPressed ();
+            }
+        } );
+    }
+
+    public class MoneyListAdapter extends ArrayAdapter < Object >
+    {
+        private LayoutInflater inflater;
+
+        public MoneyListAdapter ( Context context )
+        {
+            super ( context, 0 );
+            inflater = LayoutInflater.from ( context );
+        }
+
+        public View getView ( int position, View view, ViewGroup parent )
+        {
+            MyMoneyAPIObject myMoneyAPIObject = ( MyMoneyAPIObject ) getItem ( position );
+            if ( view == null )
+            {
+                view = inflater.inflate ( R.layout.money_list_item_layout, parent, false );
+            }
+
+            Date date = Tools.fromStringToDate ( myMoneyAPIObject.getString ( MyMoneyParams.CREATED_AT ), "yyyy-MM-dd hh:mm:ss" );
+            ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText ( Tools.fromDateToString ( date, "EEEE" ) );
+            ( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText ( Tools.fromDateToString ( date, "MM/dd" ) );
+            return view;
+        }
+    }
 
 }
