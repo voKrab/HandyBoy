@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.vallverk.handyboy.MainActivity;
@@ -67,6 +68,7 @@ public class GcmIntentService extends IntentService
 	{
 		try
 		{
+            Log.d("Chat", "notification=" + jsonText);
 			if ( !isNeedShowNotificationAndUpdateInnerModel ( jsonText ) )
 			{
 				return;
@@ -74,6 +76,7 @@ public class GcmIntentService extends IntentService
 			JSONObject jsonObject = new JSONObject ( jsonText );
 			String message = jsonObject.getString ( "message" );
 			ActionType actionType = ActionType.fromString ( jsonObject.getString ( "actionType" ) );
+            Log.d("Chat", "notificationactionType=" + actionType.toString());
 			updateApplication ( jsonObject );
 
 			Uri alarmSound = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
@@ -81,7 +84,7 @@ public class GcmIntentService extends IntentService
 
 			Intent intent = new Intent ( this, MainActivity.class );
 			// intent.putExtra ( "byNotification", true );
-			intent.putExtra ( "actionType", actionType.toString () );
+			//intent.putExtra ( "actionType", actionType.toString () );
 			intent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
 			Bundle bundle = new Bundle ();
 			bundle.putString ( "actionType", actionType.toString () );

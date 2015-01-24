@@ -114,7 +114,7 @@ public class TabBarView extends LinearLayout
 				bookingBadgeView.hide ();
 			} else
 			{
-				playNotification ();
+				//playNotification ();
 				showBookingCount();
 			}
 			return true;

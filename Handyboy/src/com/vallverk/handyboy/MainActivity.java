@@ -64,9 +64,9 @@ import com.vallverk.handyboy.view.controller.RegistrationController;
 
 /**
  * @author Oleg Barkov
- * 
+ *
  *         The class MainActivity. The main controller of application
- * 
+ *
  */
 public class MainActivity extends FragmentActivity implements NavigationDrawerCallbacks
 {
@@ -281,11 +281,14 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		// Set up the drawer.
 		drawerLayout = ( DrawerLayout ) findViewById ( R.id.drawer_layout );
 		mNavigationDrawerFragment.setUp ( R.id.navigation_drawer, drawerLayout );
-		Bundle bundle = getIntent ().getExtras ();
-		if ( bundle != null )
+
+        if(getIntent() != null){
+        Bundle bundle = getIntent ().getExtras ();
+		if (bundle != null )
 		{
 			updateComponents ();
 			ActionType actionType = ActionType.fromString ( bundle.getString ( "actionType" ) );
+            Log.d("Chat", "bundle=" + bundle.toString());
 			switch ( actionType )
 			{
 				case BOOKING_STATUS:
@@ -294,12 +297,29 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 					tabBarView.manualSelection ( VIEW_STATE.GIGS );
 					break;
 				}
+                case CHAT:
+                {
+                    setState ( VIEW_STATE.CHATS );
+                    break;
+                }
+                case EXTRA_MONEY:
+                case REMINDER:{
+                    setState ( VIEW_STATE.GIGS );
+                    break;
+                }
+                case AVAILABLE_NOW:
+                {
+                    setState ( VIEW_STATE.DASHBOARD );
+                    break;
+                }
 			}
 		} else
 		{
 			setState ( VIEW_STATE.SPLASH );
 		}
+        }
 
+        //setState ( VIEW_STATE.SPLASH );
 		System.out.println ( Tools.printKeyHash ( this ) );
 		ImageLoader.getInstance ().init ( ImageLoaderConfiguration.createDefault ( this ) );
 	}
@@ -312,6 +332,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 
 	public void onResume ()
 	{
+        Log.d("Chat", "onResume");
 		super.onResume ();
 		viewStateController.updateTabBar ();
 		try

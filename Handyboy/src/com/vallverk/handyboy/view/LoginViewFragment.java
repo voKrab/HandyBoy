@@ -3,6 +3,7 @@ package com.vallverk.handyboy.view;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,8 @@ public class LoginViewFragment extends BaseFragment
 	private Button registrationButton;
 	private Button skipButton;
 	private FacebookManager facebook;
+
+    int i = 0;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -71,6 +74,38 @@ public class LoginViewFragment extends BaseFragment
 				return false;
 			}
 		});
+
+        getView ().setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                i++;
+                Handler handler = new Handler();
+                Runnable r = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        i = 0;
+                    }
+                };
+
+                if (i == 1) {
+                    //Single click
+                    handler.postDelayed(r, 250);
+                } else if (i == 2) {
+                    //Double click
+                    i = 0;
+
+                    emailEditText.setText ( "timm.kasianov@gmail.com" );
+                    passwordEditText.setText ( "qwerty" );
+                    controller.setDebugMode ( true );
+                }
+
+
+            }
+        });
+
 		forgotPasswordTextView.setOnClickListener ( new OnClickListener ()
 		{
 			@Override

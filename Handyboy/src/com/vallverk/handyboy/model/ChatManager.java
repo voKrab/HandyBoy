@@ -1,5 +1,7 @@
 package com.vallverk.handyboy.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +62,7 @@ public class ChatManager implements Serializable
 	public void newMessage ( JSONObject json ) throws Exception
 	{
 		ChatMessageData messageData = new ChatMessageData ( json.getString ( "senderId" ), json.getString ( "senderName" ), json.getString ( "senderAvatar" ), json.getLong ( "createdAt" ), json.getString ( ChatMessageParams.MESSAGE.toString () ) );
+        Log.d("Chat", json.toString());
 		String chatId = json.getString ( ChatMessageParams.CHAT_OBJECT_ID.toString () );
 		ChatData chatData = chats.get ( chatId );
 		if ( chatData == null )
