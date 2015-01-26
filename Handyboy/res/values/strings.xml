@@ -293,8 +293,9 @@
     <string name="i_agree">I Agree</string>
     <string name="video">Video</string>
     <string name="tutorial">Tutorial</string>
-    <string name="yout_must_accept_our">Yout must accept our</string>
+    <string name="yout_must_accept_our">Yout must accept our:</string>
     <string name="terms_of_service_underline"><u>Terms of Service</u></string>
+    <string name="contract_underline"><u>Services Contract</u></string>
     <string name="and">and</string>
     <string name="privacy_policy_underline"><u>Privacy Policy</u></string>
     <string name="terms">Terms</string>

@@ -48,8 +48,8 @@ public class RegistrationViewFragment extends BaseFragment
 	private TextView dayTextView;
 	private TextView yearTextView;
 	private EditText phoneEditText;
-	private CheckBox termsOfServiceCheckBox;
-	private CheckBox privacyPolicyCheckBox;
+	private CheckBox termsOfServicePrivacyPolicyCheckBox;
+	private CheckBox servicesContractCheckBox;
 	private Button phoneVerificationButton;
 	// private Button skipButton;
 	private long date;
@@ -59,6 +59,7 @@ public class RegistrationViewFragment extends BaseFragment
 	private UserAPIObject user;
 	private TextView termsTextView;
 	private TextView privacyPolicyTextView;
+    private TextView contractTextView;
 	private Dialog codeVerificationDialog;
 
 	private boolean isVerificationOk = false;
@@ -76,9 +77,10 @@ public class RegistrationViewFragment extends BaseFragment
 		dayTextView = ( TextView ) view.findViewById ( R.id.dayTextView );
 		yearTextView = ( TextView ) view.findViewById ( R.id.yearTextView );
 		phoneEditText = ( EditText ) view.findViewById ( R.id.phoneEditText );
-		termsOfServiceCheckBox = ( CheckBox ) view.findViewById ( R.id.termsOfServiceCheckBox );
-		privacyPolicyCheckBox = ( CheckBox ) view.findViewById ( R.id.privacyPolicyCheckBox );
+        termsOfServicePrivacyPolicyCheckBox = ( CheckBox ) view.findViewById ( R.id.termsOfServicePrivacyPolicyCheckBox );
+        servicesContractCheckBox = ( CheckBox ) view.findViewById ( R.id.servicesContractCheckBox );
 		phoneVerificationButton = ( Button ) view.findViewById ( R.id.phoneVerificationButton );
+        contractTextView = (TextView) view.findViewById(R.id.contractTextView);
 		// skipButton = ( Button ) view.findViewById ( R.id.skipButton );
 		// codeContainer = view.findViewById ( R.id.codeContainer );
 		// codeEditText = ( EditText ) view.findViewById ( R.id.codeEditText );
@@ -118,8 +120,8 @@ public class RegistrationViewFragment extends BaseFragment
 		emailEditText.setText ( "tuser@gmail.com" );
 		passwordEditText.setText ( "123456" );
 		phoneEditText.setText ( "+380637781903" );
-		termsOfServiceCheckBox.setChecked ( true );
-		privacyPolicyCheckBox.setChecked ( true );
+        termsOfServicePrivacyPolicyCheckBox.setChecked ( true );
+        servicesContractCheckBox.setChecked ( true );
 
 	}
 
@@ -208,6 +210,12 @@ public class RegistrationViewFragment extends BaseFragment
 				controller.setState ( VIEW_STATE.TERMS );
 			}
 		} );
+        contractTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.setState ( VIEW_STATE.CONTRACT );
+            }
+        });
 		privacyPolicyTextView.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
@@ -471,7 +479,7 @@ public class RegistrationViewFragment extends BaseFragment
 		{
 			return;
 		}
-		if ( !termsOfServiceCheckBox.isChecked () || !privacyPolicyCheckBox.isChecked () )
+		if ( !termsOfServicePrivacyPolicyCheckBox.isChecked () || !servicesContractCheckBox.isChecked () )
 		{
 			Toast.makeText ( getActivity (), R.string.your_must_accept_our_terms_of_service_and_privacy_policy, Toast.LENGTH_LONG ).show ();
 			return;
