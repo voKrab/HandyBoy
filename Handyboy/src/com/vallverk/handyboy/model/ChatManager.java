@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.vallverk.handyboy.FileManager;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.MainActivity.ApplicationAction;
+import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.ChatAPIObject;
 import com.vallverk.handyboy.model.api.ChatAPIObject.ChatParams;
 import com.vallverk.handyboy.model.api.ChatMessageAPIObject.ChatMessageParams;
@@ -61,13 +62,14 @@ public class ChatManager implements Serializable
 	
 	public void newMessage ( JSONObject json ) throws Exception
 	{
-		ChatMessageData messageData = new ChatMessageData ( json.getString ( "senderId" ), json.getString ( "senderName" ), json.getString ( "senderAvatar" ), json.getLong ( "createdAt" ), json.getString ( ChatMessageParams.MESSAGE.toString () ) );
-        Log.d("Chat", json.toString());
-		String chatId = json.getString ( ChatMessageParams.CHAT_OBJECT_ID.toString () );
+        Log.d("Chat", "newMessage = " + json.toString());
+        JSONObject chatObject = json.getJSONObject("chatObject");
+		ChatMessageData messageData = new ChatMessageData ( chatObject.getString ( "senderId" ), chatObject.getString ( "senderName" ), chatObject.getString ( "senderAvatar" ), chatObject.getLong ( "createdAt" ), chatObject.getString ( ChatMessageParams.MESSAGE.toString () ) );
+		String chatId = chatObject.getString ( ChatMessageParams.CHAT_OBJECT_ID.toString () );
 		ChatData chatData = chats.get ( chatId );
 		if ( chatData == null )
 		{
-			chatData = new ChatData ( chatId, json.getString ( "senderId" ), json.getString ( "reciverId" ), messageData );
+			chatData = new ChatData ( chatId, chatObject.getString ( "senderId" ),  APIManager.getInstance().getUser().getId().toString(), messageData );
 			chats.put ( chatId, chatData );
 		} else
 		{
