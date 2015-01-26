@@ -1,12 +1,5 @@
 package com.vallverk.handyboy.model.api;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.vallverk.handyboy.FileManager;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.MainActivity.ApplicationAction;
@@ -14,6 +7,13 @@ import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.CommunicationManager;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingDataManager implements Serializable
 {
@@ -100,6 +100,11 @@ public class BookingDataManager implements Serializable
 	{
 		return data.get ( getActiveDataIndex () );
 	}
+
+    public BookingAPIObject getActiveBookingAPIObject ()
+    {
+        return data.get ( getActiveDataIndex () ).getBookingAPIObject();
+    }
 
 	public BookingStatusEnum getActiveBookingStatus ()
 	{

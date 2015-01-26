@@ -552,4 +552,6 @@
      <string name="book_again_deckription">Get $5 off you next service \n if a friend books a HandyBoy</string>
      <string name="book_again_deckription2">(they\'ll also get $5 off their first service!).</string>
      <string name="additional_charges_hint">Description</string>
+    <string name="setup_reason">Setup reason</string>
+    <string name="setup_price">Setup price</string>
 </resources>

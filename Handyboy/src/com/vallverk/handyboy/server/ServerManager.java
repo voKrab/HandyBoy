@@ -1,11 +1,10 @@
 package com.vallverk.handyboy.server;
 
-import java.io.ByteArrayOutputStream;
+import android.graphics.Bitmap;
 
-import java.net.URI;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.Media;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -22,9 +21,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.vallverk.handyboy.model.api.APIManager;
-import com.vallverk.handyboy.model.api.Media;
-import android.graphics.Bitmap;
+
+import java.io.ByteArrayOutputStream;
+import java.net.URI;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServerManager
 {
@@ -111,6 +113,7 @@ public class ServerManager
     public static final String SEND_PUSH = PROTOCOL + HOST + "/notify/sendpush";
 
     public static final String GET_TRANSACTION_HISTORY = PROTOCOL + HOST + "/payment/transactionhistory?id=";
+    public static final String ADD_CHARGES_SAVE = PROTOCOL + HOST + "/payment/save";
 
     public static String getRequest ( String uriString ) throws Exception
     {
