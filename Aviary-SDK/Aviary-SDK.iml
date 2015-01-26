@@ -94,6 +94,7 @@
     <orderEntry type="library" exported="" name="aviary-cds-library" level="project" />
     <orderEntry type="library" exported="" name="aviary-sdk-library" level="project" />
     <orderEntry type="library" exported="" name="stickylistheaders_lib" level="project" />
+    <orderEntry type="library" exported="" name="libs" level="project" />
     <orderEntry type="library" exported="" name="aviary-headless-library" level="project" />
     <orderEntry type="library" exported="" name="picasso" level="project" />
   </component>

@@ -39,3 +39,4 @@ D:\projects\AndroidStudioWorkspace\HandyBoy\Handyboy\build\intermediates\pre-dex
 D:\projects\AndroidStudioWorkspace\HandyBoy\Handyboy\build\intermediates\pre-dexed\debug\android-support-v4-4dcc8dad236751e44a4b3416890fbffe2b3966ff.jar
 D:\projects\AndroidStudioWorkspace\HandyBoy\Handyboy\build\intermediates\pre-dexed\debug\jackson-all-1.9.9-21abd7c434e9a54e945f096193ac336da18dc8a0.jar
 D:\projects\AndroidStudioWorkspace\HandyBoy\Handyboy\build\intermediates\pre-dexed\debug\bcprov-jdk15on-1.47-0e68aa661d6c95527d931bb52db0dff3ba735102.jar
+D:\projects\AndroidStudioWorkspace\HandyBoy\Handyboy\build\intermediates\pre-dexed\debug\lib-668a8c5b22afb6ae6b176a39be73b2ae4498188f.jar

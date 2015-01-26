@@ -68,7 +68,6 @@ public class GcmIntentService extends IntentService
 	{
 		try
 		{
-            Log.d("Chat", "notification=" + jsonText);
 			if ( !isNeedShowNotificationAndUpdateInnerModel ( jsonText ) )
 			{
 				return;
@@ -76,24 +75,26 @@ public class GcmIntentService extends IntentService
 			JSONObject jsonObject = new JSONObject ( jsonText );
 			String message = jsonObject.getString ( "message" );
 			ActionType actionType = ActionType.fromString ( jsonObject.getString ( "actionType" ) );
-            Log.d("Chat", "notificationactionType=" + actionType.toString());
 			updateApplication ( jsonObject );
 
 			Uri alarmSound = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
 			mNotificationManager = ( NotificationManager ) this.getSystemService ( Context.NOTIFICATION_SERVICE );
 
 			Intent intent = new Intent ( this, MainActivity.class );
-			// intent.putExtra ( "byNotification", true );
-			//intent.putExtra ( "actionType", actionType.toString () );
-			intent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
-			Bundle bundle = new Bundle ();
-			bundle.putString ( "actionType", actionType.toString () );
-			PendingIntent contentIntent = PendingIntent.getActivity ( this, 0, intent, 0, bundle );
+			intent.putExtra ( "actionType", actionType.toString () );
+			intent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            SharedPreferences sharedPref = getSharedPreferences( "ControllerPreferences" ,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("actionType", actionType.toString ());
+            editor.commit();
+
+			PendingIntent contentIntent = PendingIntent.getActivity ( this, 0, intent, 0, null );
 
 			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder ( this ).setSound ( alarmSound ).setSmallIcon ( R.drawable.icon ).setContentTitle ( "HandyBoy" ).setStyle ( new NotificationCompat.BigTextStyle ().bigText ( message ) ).setAutoCancel ( true ).setContentText ( message );
-
 			mBuilder.setContentIntent ( contentIntent );
-			mNotificationManager.notify ( NOTIFICATION_ID, mBuilder.build () );
+
+			mNotificationManager.notify (  NOTIFICATION_ID , mBuilder.build () );
 			Intent toApplicationIntent = new Intent ( ApplicationAction.GCM_NOTIFICATION.toString () );
 			toApplicationIntent.putExtra ( "message", jsonText );
 			sendBroadcast ( toApplicationIntent );

@@ -62,7 +62,6 @@ public class ChatManager implements Serializable
 	
 	public void newMessage ( JSONObject json ) throws Exception
 	{
-        Log.d("Chat", "newMessage = " + json.toString());
         JSONObject chatObject = json.getJSONObject("chatObject");
 		ChatMessageData messageData = new ChatMessageData ( chatObject.getString ( "senderId" ), chatObject.getString ( "senderName" ), chatObject.getString ( "senderAvatar" ), chatObject.getLong ( "createdAt" ), chatObject.getString ( ChatMessageParams.MESSAGE.toString () ) );
 		String chatId = chatObject.getString ( ChatMessageParams.CHAT_OBJECT_ID.toString () );

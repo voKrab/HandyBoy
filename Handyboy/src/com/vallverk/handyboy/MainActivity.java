@@ -287,8 +287,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		if (bundle != null )
 		{
 			updateComponents ();
-			ActionType actionType = ActionType.fromString ( bundle.getString ( "actionType" ) );
-            Log.d("Chat", "bundle=" + bundle.toString());
+            SharedPreferences sharedPref = getSharedPreferences( "ControllerPreferences" ,MODE_PRIVATE);
+			ActionType actionType = ActionType.fromString ( sharedPref.getString("actionType", "0") );
 			switch ( actionType )
 			{
 				case BOOKING_STATUS:
@@ -312,15 +312,16 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
                     setState ( VIEW_STATE.DASHBOARD );
                     break;
                 }
+                default:{
+                    setState ( VIEW_STATE.DASHBOARD );
+                }
+
 			}
 		} else
 		{
 			setState ( VIEW_STATE.SPLASH );
 		}
         }
-
-        //setState ( VIEW_STATE.SPLASH );
-		System.out.println ( Tools.printKeyHash ( this ) );
 		ImageLoader.getInstance ().init ( ImageLoaderConfiguration.createDefault ( this ) );
 	}
 
