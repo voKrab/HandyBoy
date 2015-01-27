@@ -1,7 +1,6 @@
 package com.vallverk.handyboy.view.booking;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Handler.Callback;
@@ -13,14 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.MainActivity.ApplicationAction;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
-import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.CommunicationManager;
 import com.vallverk.handyboy.model.CommunicationManager.CommunicationAction;
@@ -187,14 +184,8 @@ public class GigsViewFragment extends BaseFragment
 				viewHolder = ( ViewHolder ) view.getTag ();
 			}
 
-			view.setOnClickListener ( new OnClickListener ()
-			{
-				@Override
-				public void onClick ( View view )
-				{
-					clickOnItem ( selectedPosition );
-				}
-			} );
+            GigViewOnClickListener listener = new GigViewOnClickListener ( controller, bookingDataManager, selectedPosition );
+            view.setOnClickListener ( listener );
 
 			ImageLoader.getInstance ().displayImage ( user.getString ( UserParams.AVATAR ), viewHolder.myAvatarImage, avatarLoadOptions );
 
@@ -233,122 +224,6 @@ public class GigsViewFragment extends BaseFragment
 		{
 			viewHolder.gigStatusTextView.setText ( status.toString () );
 			viewHolder.gigStatusTextView.setBackgroundColor ( BookingAPIObject.getStatusColor ( status ) );
-		}
-
-		protected void clickOnItem ( int selectedPosition )
-		{
-			bookingDataManager.setActiveDataIndex ( selectedPosition );
-			BookingStatusEnum status = bookingDataManager.getActiveBookingStatus ();
-			// controller.setState ( VIEW_STATE.CHARGES );
-			if ( bookingDataManager.isIService () )
-			{
-				switch ( status )
-				{
-					case PENDING:
-					{
-						new AsyncTask < Void, Void, String > ()
-						{
-							private boolean isAdditionalChangesState;
-
-							@Override
-							protected void onPreExecute ()
-							{
-								super.onPreExecute ();
-							    controller.showLoader();
-                            }
-
-                            @Override
-                            protected void onPostExecute ( String result )
-                            {
-                                super.onPostExecute( result );
-                                controller.hideLoader();
-                                if ( result.isEmpty() )
-                                {
-                                    if ( isAdditionalChangesState )
-                                    {
-                                        Toast.makeText ( controller, "Waiting for customer decision about your additional charges request", Toast.LENGTH_LONG ).show ();
-                                    } else
-                                    {
-                                        controller.setState ( VIEW_STATE.GIG_SERVICE );
-                                    }
-                                } else
-                                {
-                                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
-                                }
-                            }
-
-                            @Override
-							protected String doInBackground ( Void... params )
-							{
-								String result = "";
-								try
-								{
-									BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
-									isAdditionalChangesState = booking.isAdditionalChangesState ();
-								} catch ( Exception ex )
-								{
-									ex.printStackTrace ();
-									result = ex.getMessage ();
-								}
-								return result;
-							}
-						}.execute ();
-						break;
-					}
-					case CONFIRMED:
-					{
-						controller.setState ( VIEW_STATE.NEXT_GIG );
-						break;
-					}
-					case DECLINED:
-					{
-						break;
-					}
-					case CANCELED_BY_HB:
-					{
-						break;
-					}
-					case APPROVED:
-					{
-						break;
-					}
-					case PERFORMED:
-					{
-						controller.setState ( VIEW_STATE.ACTIVE_GIG );
-						break;
-					}
-				}
-			} else
-			{
-				switch ( status )
-				{
-					case CONFIRMED:
-					case PENDING:
-					{
-						controller.setState ( VIEW_STATE.GIG_CUSTOMER );
-						break;
-					}
-					case DECLINED:
-					{
-						controller.setState ( VIEW_STATE.GIG_CUSTOMER );
-						break;
-					}
-					case CANCELED_BY_HB:
-					{
-						controller.setState ( VIEW_STATE.BOOK_ANOTHER );
-						break;
-					}
-					case APPROVED:
-					{
-						break;
-					}
-					case PERFORMED:
-					{
-						controller.setState ( VIEW_STATE.GIG_CUSTOMER );
-						break;
-					}
-				}
-			}
 		}
 	}
 
