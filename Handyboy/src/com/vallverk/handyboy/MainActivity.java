@@ -320,6 +320,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		} else
 		{
 			setState ( VIEW_STATE.SPLASH );
+
 		}
         }
 		ImageLoader.getInstance ().init ( ImageLoaderConfiguration.createDefault ( this ) );
