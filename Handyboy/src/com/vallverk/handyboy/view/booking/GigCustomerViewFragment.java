@@ -1,19 +1,7 @@
 package com.vallverk.handyboy.view.booking;
 
-import com.vallverk.handyboy.R;
-import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
-import com.vallverk.handyboy.model.BookingStatusEnum;
-import com.vallverk.handyboy.model.CommunicationManager;
-import com.vallverk.handyboy.model.api.APIManager;
-import com.vallverk.handyboy.model.api.BookingAPIObject;
-import com.vallverk.handyboy.model.api.BookingDataManager;
-import com.vallverk.handyboy.model.api.BookingDataObject;
-import com.vallverk.handyboy.model.api.UserAPIObject;
-import com.vallverk.handyboy.view.base.BaseFragment;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +10,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
+import com.vallverk.handyboy.model.BookingStatusEnum;
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.BookingAPIObject;
+import com.vallverk.handyboy.model.api.BookingDataManager;
+import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.view.base.BaseFragment;
 
 public class GigCustomerViewFragment extends BaseFragment
 {
@@ -86,19 +83,36 @@ public class GigCustomerViewFragment extends BaseFragment
 	@Override
 	protected void clearFields ()
 	{
-		//BookingStatusEnum status = bookingDataManager.getActiveBookingStatus ();
-		if ( bookingDataManager.getActiveBookingStatus () == BookingStatusEnum.CONFIRMED )
-		{
-			cancelButton.setVisibility ( View.VISIBLE );
-			reportProblemOrRescheduleButton.setVisibility ( View.GONE );
-		} else
-		{
-			cancelButton.setVisibility ( View.GONE );
-			reportProblemOrRescheduleButton.setVisibility (  bookingDataManager.getActiveBookingStatus () == BookingStatusEnum.PENDING ? View.GONE : View.VISIBLE );
-			reportProblemOrRescheduleButton.setVisibility ( View.VISIBLE );
-			isDeclined = bookingDataManager.getActiveBookingStatus () == BookingStatusEnum.DECLINED;
-			reportProblemOrRescheduleButton.setText ( isDeclined ? R.string.reschedule_him : R.string.report_problem );
-		}
+		BookingStatusEnum status = bookingDataManager.getActiveBookingStatus ();
+        switch ( status )
+        {
+            case PENDING:
+            {
+                cancelButton.setVisibility ( View.GONE );
+                reportProblemOrRescheduleButton.setVisibility ( View.GONE );
+                break;
+            }
+            case DECLINED:
+            {
+                cancelButton.setVisibility ( View.GONE );
+                reportProblemOrRescheduleButton.setVisibility ( View.VISIBLE );
+                reportProblemOrRescheduleButton.setText ( R.string.reschedule_him );
+                break;
+            }
+            case CONFIRMED:
+            {
+                cancelButton.setVisibility ( View.VISIBLE );
+                reportProblemOrRescheduleButton.setVisibility ( View.GONE );
+                break;
+            }
+            case PERFORMED:
+            {
+                cancelButton.setVisibility ( View.GONE );
+                reportProblemOrRescheduleButton.setVisibility ( View.VISIBLE );
+                reportProblemOrRescheduleButton.setText ( R.string.report_problem );
+                break;
+            }
+        }
 	}
 
 	@Override

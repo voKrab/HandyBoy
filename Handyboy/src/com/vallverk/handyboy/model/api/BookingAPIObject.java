@@ -1,11 +1,5 @@
 package com.vallverk.handyboy.model.api;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import android.graphics.Color;
 
 import com.vallverk.handyboy.MainActivity;
@@ -14,11 +8,16 @@ import com.vallverk.handyboy.gcm.PushNotification;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.CommunicationManager;
 import com.vallverk.handyboy.model.CommunicationManager.CommunicationAction;
-import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.pubnub.NotificationWithDataAction;
 import com.vallverk.handyboy.pubnub.PubnubManager;
 import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookingAPIObject extends APIObject implements Serializable
 {
@@ -48,7 +47,16 @@ public class BookingAPIObject extends APIObject implements Serializable
 		}
 	}
 
-	public enum BookingAPIParams
+    public boolean isAdditionalChangesState () throws Exception
+    {
+        String jsonString = ServerManager.getRequest ( ServerManager.IS_ADD_CHARGES_STATE.replace ( "bookingId=1", "bookingId=" + getId () ) );
+        ServerManager.checkErrors ( jsonString );
+        JSONObject jsonObject = new JSONObject ( jsonString );
+        boolean result = jsonObject.getBoolean ( "isset" );
+        return result;
+    }
+
+    public enum BookingAPIParams
 	{
 		SERVICE_ID ( "serviceId" ), CUSTOMER_ID ( "customerId" ), TYPE_JOB_SERVICE_ID ( "typeJobServiceId" ), ADDRESS_ID ( "addressId" ), CREDIT_CARD_ID ( "creditCardId" ), TIME ( "time" ), DATE ( "date" ), TOTAL_PRICE ( "totalPrice" ), TOTAL_HOURS ( "totalHours" ), STATUS ( "status" ), SPECIAL_REQUEST ( "additional_charges_text" ), SPECIAL_REQUEST_PRICE ( "additional_charges_price" );
 

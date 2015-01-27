@@ -113,7 +113,9 @@ public class ServerManager
     public static final String SEND_PUSH = PROTOCOL + HOST + "/notify/sendpush";
 
     public static final String GET_TRANSACTION_HISTORY = PROTOCOL + HOST + "/payment/transactionhistory?id=";
-    public static final String ADD_CHARGES_SAVE = PROTOCOL + HOST + "/payment/save";
+    public static final String ADD_CHARGES_SAVE = PROTOCOL + HOST + "/booking/saveaddcharges";
+    public static final String IS_ADD_CHARGES_STATE = PROTOCOL + HOST + "/booking/isstatusaddcharges?bookingId=1";
+
 
     public static String getRequest ( String uriString ) throws Exception
     {

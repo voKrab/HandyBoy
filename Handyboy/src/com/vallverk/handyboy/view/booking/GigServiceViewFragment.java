@@ -16,7 +16,6 @@ import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.BookingAPIObject;
-import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
 import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
@@ -88,8 +87,9 @@ public class GigServiceViewFragment extends BaseFragment
 
 	private void updateComponents ()
 	{
-		String specialRequest = bookingAPIObject.getString ( BookingAPIParams.SPECIAL_REQUEST );
-		additionalChargesButton.setVisibility ( specialRequest.isEmpty () ? View.GONE : View.VISIBLE );
+//		String specialRequest = bookingAPIObject.getString ( BookingAPIParams.SPECIAL_REQUEST );
+		// additionalChargesButton.setVisibility ( specialRequest.isEmpty () ?
+		// View.GONE : View.VISIBLE );
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class GigServiceViewFragment extends BaseFragment
 				controller.setState ( VIEW_STATE.ADD_CHARGES );
 			}
 		} );
-		
+
 		backTextView.setOnClickListener ( new OnClickListener ()
 		{
 
@@ -140,7 +140,7 @@ public class GigServiceViewFragment extends BaseFragment
 				accept ();
 			}
 		} );
-		
+
 		cancelButton.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
@@ -167,10 +167,10 @@ public class GigServiceViewFragment extends BaseFragment
 				}
 			}
 		} );
-		
-		reviewImageView.setOnClickListener ( new OnClickListener()
+
+		reviewImageView.setOnClickListener ( new OnClickListener ()
 		{
-			
+
 			@Override
 			public void onClick ( View v )
 			{
@@ -178,7 +178,6 @@ public class GigServiceViewFragment extends BaseFragment
 			}
 		} );
 	}
-
 
 	protected void declineGig ()
 	{
@@ -219,7 +218,7 @@ public class GigServiceViewFragment extends BaseFragment
 			}
 		}.execute ();
 	}
-	
+
 	protected void accept ()
 	{
 		new AsyncTask < Void, Void, String > ()

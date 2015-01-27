@@ -168,6 +168,6 @@ public class AddChargesViewFragment extends BaseFragment
                 }
                 return result;
             }
-        };
+        }.execute ();
 	}
 }

@@ -1,12 +1,11 @@
 package com.vallverk.handyboy.view.booking;
 
-import java.util.List;
-
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.Handler.Callback;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,6 +35,8 @@ import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.BaseListFragment;
 import com.vallverk.handyboy.view.base.BaseListFragment.Refresher;
+
+import java.util.List;
 
 public class GigsViewFragment extends BaseFragment
 {
@@ -244,7 +246,53 @@ public class GigsViewFragment extends BaseFragment
 				{
 					case PENDING:
 					{
-						controller.setState ( VIEW_STATE.GIG_SERVICE );
+						new AsyncTask < Void, Void, String > ()
+						{
+							private boolean isAdditionalChangesState;
+
+							@Override
+							protected void onPreExecute ()
+							{
+								super.onPreExecute ();
+							    controller.showLoader();
+                            }
+
+                            @Override
+                            protected void onPostExecute ( String result )
+                            {
+                                super.onPostExecute( result );
+                                controller.hideLoader();
+                                if ( result.isEmpty() )
+                                {
+                                    if ( isAdditionalChangesState )
+                                    {
+                                        Toast.makeText ( controller, "Waiting for customer decision about your additional charges request", Toast.LENGTH_LONG ).show ();
+                                    } else
+                                    {
+                                        controller.setState ( VIEW_STATE.GIG_SERVICE );
+                                    }
+                                } else
+                                {
+                                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                                }
+                            }
+
+                            @Override
+							protected String doInBackground ( Void... params )
+							{
+								String result = "";
+								try
+								{
+									BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
+									isAdditionalChangesState = booking.isAdditionalChangesState ();
+								} catch ( Exception ex )
+								{
+									ex.printStackTrace ();
+									result = ex.getMessage ();
+								}
+								return result;
+							}
+						}.execute ();
 						break;
 					}
 					case CONFIRMED:
