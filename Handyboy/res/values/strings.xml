@@ -555,4 +555,5 @@
      <string name="additional_charges_hint">Description</string>
     <string name="setup_reason">Setup reason</string>
     <string name="setup_price">Setup price</string>
+    <string name="waiting_for_customer_decision_about_your_add_charges_request">Waiting for customer decision about your additional charges request</string>
 </resources>

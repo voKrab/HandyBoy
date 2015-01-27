@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BookingAPIObject extends APIObject implements Serializable
@@ -46,6 +47,12 @@ public class BookingAPIObject extends APIObject implements Serializable
 				return -1;
 		}
 	}
+
+    public AdditionalChargesAPIObject getAdditionalCharges () throws Exception
+    {
+        List < AdditionalChargesAPIObject > list = APIManager.getInstance ().loadList ( ServerManager.BOOKING_GET_ADD_CHARGES.replace ( "bookingId=1", "bookingId=" + getId() ), AdditionalChargesAPIObject.class );
+        return list.get ( 0 );
+    }
 
     public boolean isAdditionalChangesState () throws Exception
     {
@@ -121,7 +128,7 @@ public class BookingAPIObject extends APIObject implements Serializable
 		data.put ( "id", getId () );
 		NotificationWithDataAction pubnubAction = new NotificationWithDataAction ( sender.getId (), reciver.getId (), ActionType.BOOKING_STATUS, data );
 		PubnubManager.getInstance ().sendAction ( pubnubAction );
-		
+
 		JSONObject jsonObject = PushNotification.createJSON ( sender.getShortName () + " changed the status to " + status.toString (), ActionType.BOOKING_STATUS );
 		jsonObject.put ( "bookingId", getId () );
 		jsonObject.put ( "status", status.toInt () );

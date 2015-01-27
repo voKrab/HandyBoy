@@ -139,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal" >
 
                 <com.vallverk.handyboy.view.base.TextViewPlus
@@ -187,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal" >
 
                 <com.vallverk.handyboy.view.base.TextViewPlus
@@ -220,6 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal" >
 
                 <com.vallverk.handyboy.view.base.TextViewPlus
@@ -236,7 +239,7 @@
 
                 <com.vallverk.handyboy.view.base.TextViewPlus
                     xmlns:app="http://schemas.android.com/apk/res/com.vallverk.handyboy"
-                    android:id="@+id/bookingAddressTextView"
+                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -253,6 +256,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal" >
 
                 <com.vallverk.handyboy.view.base.TextViewPlus
@@ -286,6 +290,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal" >
 
                 <com.vallverk.handyboy.view.base.TextViewPlus
@@ -315,13 +320,14 @@
 
             <com.vallverk.handyboy.view.base.TextViewPlus
                 xmlns:app="http://schemas.android.com/apk/res/com.vallverk.handyboy"
+                android:id="@+id/totalPriceTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="21dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="21dp"
                 android:gravity="center"
                 android:text="@string/new_total"
                 android:textColor="@color/dark_blue"
@@ -345,6 +351,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/stickerTotalPriceTextView"
                     android:layout_width="60dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center_vertical|right"

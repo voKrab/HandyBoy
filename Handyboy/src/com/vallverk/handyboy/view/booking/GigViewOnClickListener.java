@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.vallverk.handyboy.MainActivity;
+import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.api.BookingAPIObject;
@@ -38,53 +39,7 @@ public class GigViewOnClickListener implements View.OnClickListener
 			{
 				case PENDING:
 				{
-					new AsyncTask < Void, Void, String > ()
-					{
-						private boolean isAdditionalChangesState;
-
-						@Override
-						protected void onPreExecute ()
-						{
-							super.onPreExecute ();
-							controller.showLoader ();
-						}
-
-						@Override
-						protected void onPostExecute ( String result )
-						{
-							super.onPostExecute ( result );
-							controller.hideLoader ();
-							if ( result.isEmpty () )
-							{
-								if ( isAdditionalChangesState )
-								{
-									Toast.makeText ( controller, "Waiting for customer decision about your additional charges request", Toast.LENGTH_LONG ).show ();
-								} else
-								{
-									controller.setState ( ViewStateController.VIEW_STATE.GIG_SERVICE );
-								}
-							} else
-							{
-								Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
-							}
-						}
-
-						@Override
-						protected String doInBackground ( Void... params )
-						{
-							String result = "";
-							try
-							{
-								BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
-								isAdditionalChangesState = booking.isAdditionalChangesState ();
-							} catch ( Exception ex )
-							{
-								ex.printStackTrace ();
-								result = ex.getMessage ();
-							}
-							return result;
-						}
-					}.execute ();
+					serviceRequestedOnClick ();
 					break;
 				}
 				case CONFIRMED:
@@ -114,10 +69,9 @@ public class GigViewOnClickListener implements View.OnClickListener
 		{
 			switch ( status )
 			{
-				case CONFIRMED:
 				case PENDING:
 				{
-					controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                    customerRequestedOnClick();
 					break;
 				}
 				case DECLINED:
@@ -125,6 +79,10 @@ public class GigViewOnClickListener implements View.OnClickListener
 					controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
 					break;
 				}
+                case CONFIRMED:
+                {
+                    controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                }
 				case CANCELED_BY_HB:
 				{
 					controller.setState ( ViewStateController.VIEW_STATE.BOOK_ANOTHER );
@@ -141,5 +99,107 @@ public class GigViewOnClickListener implements View.OnClickListener
 				}
 			}
 		}
+	}
+
+    private void customerRequestedOnClick ()
+    {
+        new AsyncTask < Void, Void, String > ()
+        {
+            private boolean isAdditionalChangesState;
+
+            @Override
+            protected void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            @Override
+            protected void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    if ( isAdditionalChangesState )
+                    {
+                        controller.setState ( ViewStateController.VIEW_STATE.CHARGES );
+                    } else
+                    {
+                        controller.setState ( ViewStateController.VIEW_STATE.GIG_SERVICE );
+                    }
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
+                    isAdditionalChangesState = booking.isAdditionalChangesState ();
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
+
+    private void serviceRequestedOnClick ()
+	{
+		new AsyncTask < Void, Void, String > ()
+		{
+			private boolean isAdditionalChangesState;
+
+			@Override
+			protected void onPreExecute ()
+			{
+				super.onPreExecute ();
+				controller.showLoader ();
+			}
+
+			@Override
+			protected void onPostExecute ( String result )
+			{
+				super.onPostExecute ( result );
+				controller.hideLoader ();
+				if ( result.isEmpty () )
+				{
+					if ( isAdditionalChangesState )
+					{
+						Toast.makeText ( controller, R.string.waiting_for_customer_decision_about_your_add_charges_request, Toast.LENGTH_LONG ).show();
+					} else
+					{
+						controller.setState ( ViewStateController.VIEW_STATE.GIG_SERVICE );
+					}
+				} else
+				{
+					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+				}
+			}
+
+			@Override
+			protected String doInBackground ( Void... params )
+			{
+				String result = "";
+				try
+				{
+					BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
+					isAdditionalChangesState = booking.isAdditionalChangesState ();
+				} catch ( Exception ex )
+				{
+					ex.printStackTrace ();
+					result = ex.getMessage ();
+				}
+				return result;
+			}
+		}.execute ();
 	}
 }

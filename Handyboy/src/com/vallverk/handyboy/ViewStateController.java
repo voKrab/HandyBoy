@@ -1079,6 +1079,7 @@ public class ViewStateController implements Serializable
 				return VIEW_STATE.DASHBOARD;
 			}
 
+            case CHARGES:
 			case ACTIVE_GIG:
 			case GIG_CUSTOMER:
 			case NEXT_GIG:

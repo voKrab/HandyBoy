@@ -1,7 +1,5 @@
 package com.vallverk.handyboy.view.base;
 
-import java.util.HashMap;
-import java.util.Map;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
@@ -9,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FontUtils
 {
