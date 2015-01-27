@@ -1,12 +1,12 @@
 package com.vallverk.handyboy.model.api;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import com.vallverk.handyboy.server.ServerManager;
 
 import org.json.JSONObject;
 
-import com.vallverk.handyboy.server.ServerManager;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class APIObject implements Serializable
 {
@@ -38,10 +38,19 @@ public abstract class APIObject implements Serializable
 
 	public String update ( String uri ) throws Exception
 	{
-		JSONObject jsonObject = createJSON ( null );
-		String request = ServerManager.postRequest ( uri, jsonObject );
-		return request;
+		return update ( uri, false );
 	}
+
+    public String update ( String uri, boolean withoutId ) throws Exception
+    {
+        JSONObject jsonObject = createJSON ( null );
+        if ( withoutId )
+        {
+            jsonObject.remove ( "id" );
+        }
+        String request = ServerManager.postRequest ( uri, jsonObject );
+        return request;
+    }
 
 	public void fetch () throws Exception
 	{

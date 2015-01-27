@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.ViewStateController;
+import com.vallverk.handyboy.model.AdditionalChargeStatusEnum;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
@@ -22,6 +24,7 @@ import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.job.JobTypeManager;
+import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
 
 import java.util.Calendar;
@@ -55,6 +58,8 @@ public class ChargesViewFragment extends BaseFragment
 	private TextView additionalDescriptionTextView;
 	private TextView totalPriceTextView;
 	private TextView stickerTotalPriceTextView;
+	private TextView acceptButton;
+	private TextView cancelButton;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -76,6 +81,8 @@ public class ChargesViewFragment extends BaseFragment
 			additionalDescriptionTextView = ( TextView ) view.findViewById ( R.id.additionalDescriptionTextView );
 			totalPriceTextView = ( TextView ) view.findViewById ( R.id.totalPriceTextView );
 			stickerTotalPriceTextView = ( TextView ) view.findViewById ( R.id.stickerTotalPriceTextView );
+			acceptButton = ( TextView ) view.findViewById ( R.id.acceptButton );
+			cancelButton = ( TextView ) view.findViewById ( R.id.cancelButton );
 		} else
 		{
 			( ( ViewGroup ) view.getParent () ).removeView ( view );
@@ -175,8 +182,8 @@ public class ChargesViewFragment extends BaseFragment
 		float newTotalPrice = price + Float.parseFloat ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ) );
 		totalPriceTextView.setText ( "For a NEW total of $" + newTotalPrice );
 
-        stickerTotalPriceTextView.setVisibility ( View.VISIBLE );
-        stickerTotalPriceTextView.setText ( "$" + newTotalPrice );
+		stickerTotalPriceTextView.setVisibility ( View.VISIBLE );
+		stickerTotalPriceTextView.setText ( "$" + newTotalPrice );
 	}
 
 	@Override
@@ -196,7 +203,6 @@ public class ChargesViewFragment extends BaseFragment
 	{
 		backTextView.setOnClickListener ( new OnClickListener ()
 		{
-
 			@Override
 			public void onClick ( View v )
 			{
@@ -206,12 +212,119 @@ public class ChargesViewFragment extends BaseFragment
 
 		backImageView.setOnClickListener ( new OnClickListener ()
 		{
-
 			@Override
 			public void onClick ( View view )
 			{
 				controller.onBackPressed ();
 			}
 		} );
+
+		acceptButton.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View view )
+			{
+                accept ();
+			}
+		} );
+
+		cancelButton.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View view )
+			{
+				cancel ();
+			}
+		} );
+	}
+
+    private void accept ()
+    {
+        new AsyncTask < Void, Void, String > ()
+        {
+            @Override
+            protected void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            @Override
+            protected void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    controller.setState ( ViewStateController.VIEW_STATE.GIGS );
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    additionalCharges.putValue ( AdditionalChargesAPIObject.AdditionalChargesParams.STATUS, AdditionalChargeStatusEnum.ACCEPTED.toString () );
+                    additionalCharges.update ( ServerManager.ADD_CHARGES_SAVE );
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
+
+	private void cancel ()
+	{
+		new AsyncTask < Void, Void, String > ()
+		{
+			@Override
+			protected void onPreExecute ()
+			{
+				super.onPreExecute ();
+				controller.showLoader ();
+			}
+
+			@Override
+			protected void onPostExecute ( String result )
+			{
+				super.onPostExecute ( result );
+				controller.hideLoader ();
+				if ( result.isEmpty () )
+				{
+                    if ( bookingDataObject.getSatus() == BookingStatusEnum.PENDING )
+                    {
+                        bookingDataObject.getBookingAPIObject ().updateStatus ( BookingStatusEnum.CANCELED_BY_CUSTOMER );
+                    }
+					controller.setState ( ViewStateController.VIEW_STATE.GIGS );
+				} else
+				{
+					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+				}
+			}
+
+			@Override
+			protected String doInBackground ( Void... params )
+			{
+				String result = "";
+				try
+				{
+					additionalCharges.putValue ( AdditionalChargesAPIObject.AdditionalChargesParams.STATUS, AdditionalChargeStatusEnum.DECLINED.toString () );
+                    additionalCharges.update ( ServerManager.ADD_CHARGES_SAVE );
+				} catch ( Exception ex )
+				{
+					ex.printStackTrace ();
+					result = ex.getMessage ();
+				}
+				return result;
+			}
+		}.execute ();
 	}
 }
