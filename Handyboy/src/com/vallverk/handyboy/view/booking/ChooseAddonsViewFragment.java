@@ -155,12 +155,18 @@ public class ChooseAddonsViewFragment extends BaseFragment {
             specialReqeustEditText.setVisibility(View.VISIBLE);
             specialReqeustEditText.setText(specialRequest);
         }
-        addRoomsSelector();
-        addBathRoomsSelector();
 
-        addLawnMoving();
-        updateLawnMoving();
-        updateRooms();
+        if(bookingController.isYardWorker()){
+            addLawnMoving();
+            updateLawnMoving();
+        }
+
+        if(bookingController.isHouseKeeper()){
+            addRoomsSelector();
+            addBathRoomsSelector();
+            updateRooms();
+        }
+
         updateSelectionComponents();
     }
 

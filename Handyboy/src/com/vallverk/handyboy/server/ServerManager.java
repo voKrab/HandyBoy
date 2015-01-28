@@ -44,6 +44,7 @@ public class ServerManager
     public static String USER_DETAILS_FETCH_URI = PROTOCOL + HOST + "/service/?id=1";
     public static String GET_GALLERY_URI = PROTOCOL + HOST + "/gallery/?serviceId=";
     public static String ADD_GALLERY_URI = PROTOCOL + HOST + "/gallery/add";
+    public static String DELETE_GALLERY_URI = PROTOCOL + HOST + "/gallery/delete?id=";
     public static String USER_FETCH_URI = PROTOCOL + HOST + "/user/?id=1";
     public static String UPLOAD_FILE = PROTOCOL + HOST + "/user/upload";
     public static String JOBTYPE_GET = PROTOCOL + HOST + "/typejob";

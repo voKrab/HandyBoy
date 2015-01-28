@@ -398,6 +398,16 @@ public class BookingController
 		return job.getTypeJob ().getEnumValue () == TypeJobEnum.PERSONAL_TRAINER;
 	}
 
+    public boolean isHouseKeeper ()
+    {
+        return job.getTypeJob ().getEnumValue () == TypeJobEnum.HOUSEKEEPER;
+    }
+    public boolean isYardWorker ()
+    {
+        return job.getTypeJob ().getEnumValue () == TypeJobEnum.YARD_WORK;
+    }
+
+
 	private AddonServiceAPIObject getAddon ( List < AddonServiceAPIObject > allAddons, int addonId )
 	{
 		for ( AddonServiceAPIObject addon : allAddons )

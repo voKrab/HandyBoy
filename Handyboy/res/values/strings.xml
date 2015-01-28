@@ -200,6 +200,8 @@
     <string name="work_h">Work?</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="youtube_link">Youtube link</string>
+    <string name="http">http://</string>
     <string name="height">Height</string>
     <string name="feet">Feet</string>
     <string name="inches">Inches</string>
@@ -567,4 +569,6 @@
     <string name="bathrooms">Bathrooms</string>
     <string name="bathrooms_count">Bathrooms count (1-5+)</string>
     <string name="waiting_for_customer_decision_about_your_add_charges_request">Waiting for customer decision about your additional charges request</string>
+    <string name="add_youtube_video_title">Add YouTube video?</string>
+    <string name="ok">Ok</string>
 </resources>
