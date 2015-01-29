@@ -1,14 +1,5 @@
 package com.vallverk.handyboy.pubnub;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.util.Log;
 
 import com.pubnub.api.Callback;
@@ -16,24 +7,25 @@ import com.pubnub.api.Pubnub;
 import com.pubnub.api.PubnubError;
 import com.vallverk.handyboy.FileManager;
 import com.vallverk.handyboy.MainActivity;
-import com.vallverk.handyboy.model.BookingStatusEnum;
-import com.vallverk.handyboy.model.ChatManager;
 import com.vallverk.handyboy.model.CommunicationManager;
-import com.vallverk.handyboy.model.api.BookingDataManager;
-import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Oleg Barkov
  * 
- * facilitates querying channels for messages and listening on
- * channels for presence/message events
+ *         facilitates querying channels for messages and listening on channels
+ *         for presence/message events
  */
 public class PubnubManager extends Pubnub
 {
 	public enum ActionType
 	{
-        BOOKING ( "1" ), REMINDER("2"), AVAILABLE_NOW("3"), EXTRA_MONEY("4"), BOOKING_STATUS ( "5" ), CHAT ( "6" );
-
+		BOOKING ( "1" ), REMINDER ( "2" ), AVAILABLE_NOW ( "3" ), EXTRA_MONEY ( "4" ), BOOKING_STATUS ( "5" ), CHAT ( "6" ), BOOKING_ADD_CHARGES ( "7" );
 
 		String name;
 
@@ -69,12 +61,13 @@ public class PubnubManager extends Pubnub
 			return null;
 		}
 	}
-	
+
 	public static String PUBLISH_KEY = "pub-c-b7d8d41e-bb56-408a-9113-fe5c7371c26f";
 	public static String SUBSCRIBE_KEY = "sub-c-09d9fbf8-2e05-11e4-9294-02ee2ddab7fe";
 	public static String SECRET_KEY = "sec-c-YzA2MzE2ODctYjViYS00ZDk0LWEzNmQtMmI1MzNlMmQ1NTVm";
-	
+
 	private static PubnubManager instance;
+
 	public static PubnubManager getInstance ()
 	{
 		if ( instance == null )
@@ -83,9 +76,9 @@ public class PubnubManager extends Pubnub
 		}
 		return instance;
 	}
-	
+
 	private String userId;
-	
+
 	public PubnubManager ( String publishKey, String subscribeKey, String secretKey )
 	{
 		super ( publishKey, subscribeKey, secretKey );
@@ -142,7 +135,7 @@ public class PubnubManager extends Pubnub
 			}
 		} );
 	}
-	
+
 	public void sendAction ( PubNubBaseAction action )
 	{
 		try
@@ -167,24 +160,26 @@ public class PubnubManager extends Pubnub
 			e.printStackTrace ();
 		}
 	}
-	
+
 	private void updateInnerModel ( PubNubBaseAction action )
 	{
 		switch ( action.getActionType () )
 		{
-//			case CHAT:
-//			{
-//				ChatManager chatManager = ChatManager.getInstance ();
-//				chatManager.newMessage ( ( NotificationWithDataAction ) action );
-//				break;
-//			}
-			
-//			case BOOKING_STATUS:
-//			{
-//				NotificationWithDataAction notificationWithDataAction = ( NotificationWithDataAction ) action;
-//				BookingDataManager.getInstance ().statusChanged ( notificationWithDataAction );
-//				break;
-//			}
+		// case CHAT:
+		// {
+		// ChatManager chatManager = ChatManager.getInstance ();
+		// chatManager.newMessage ( ( NotificationWithDataAction ) action );
+		// break;
+		// }
+
+		// case BOOKING_STATUS:
+		// {
+		// NotificationWithDataAction notificationWithDataAction = (
+		// NotificationWithDataAction ) action;
+		// BookingDataManager.getInstance ().statusChanged (
+		// notificationWithDataAction );
+		// break;
+		// }
 		}
 	}
 
@@ -198,7 +193,7 @@ public class PubnubManager extends Pubnub
 		}
 		FileManager.saveObject ( MainActivity.getInstance (), FileManager.NOTIFICATIONS_DATA_SAVE_PATH, notifications );
 	}
-	
+
 	public boolean isSubcribed ()
 	{
 		return userId != null;
@@ -207,7 +202,8 @@ public class PubnubManager extends Pubnub
 	public void unSubscribe ()
 	{
 		unsubscribeAll ();
-		//PushService.unsubscribe ( FashionGramApplication.getContext (), user );
+		// PushService.unsubscribe ( FashionGramApplication.getContext (), user
+		// );
 		userId = null;
 	}
 }

@@ -8,7 +8,7 @@ public class SettingsManager
 { 
 	public enum Params
 	{
-		IS_PUSH_NOTIFICATION, IS_LOGIN, APPLICATION_STATE
+		IS_PUSH_NOTIFICATION, IS_LOGIN, APPLICATION_STATE, DATA_FROM_NOTIFICATION
 	}
 
 	public static void setString ( Params param, String value, Context context )

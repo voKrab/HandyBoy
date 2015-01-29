@@ -1,19 +1,14 @@
 package com.vallverk.handyboy.gcm;
 
-import org.json.JSONObject;
-
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.vallverk.handyboy.MainActivity;
@@ -23,8 +18,9 @@ import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.SettingsManager;
 import com.vallverk.handyboy.SettingsManager.Params;
 import com.vallverk.handyboy.model.ChatManager;
-import com.vallverk.handyboy.pubnub.NotificationWithDataAction;
 import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
+
+import org.json.JSONObject;
 
 public class GcmIntentService extends IntentService
 {
@@ -82,19 +78,17 @@ public class GcmIntentService extends IntentService
 
 			Intent intent = new Intent ( this, MainActivity.class );
 			intent.putExtra ( "actionType", actionType.toString () );
-			intent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//			intent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+			intent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
 
-            SharedPreferences sharedPref = getSharedPreferences( "ControllerPreferences" ,MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("actionType", actionType.toString ());
-            editor.commit();
+			SettingsManager.setString ( Params.DATA_FROM_NOTIFICATION, jsonObject.toString(), getApplicationContext () );
 
-			PendingIntent contentIntent = PendingIntent.getActivity ( this, 0, intent, 0, null );
+			PendingIntent contentIntent = PendingIntent.getActivity ( this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT, null );
 
 			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder ( this ).setSound ( alarmSound ).setSmallIcon ( R.drawable.icon ).setContentTitle ( "HandyBoy" ).setStyle ( new NotificationCompat.BigTextStyle ().bigText ( message ) ).setAutoCancel ( true ).setContentText ( message );
 			mBuilder.setContentIntent ( contentIntent );
 
-			mNotificationManager.notify (  NOTIFICATION_ID , mBuilder.build () );
+			mNotificationManager.notify ( NOTIFICATION_ID, mBuilder.build () );
 			Intent toApplicationIntent = new Intent ( ApplicationAction.GCM_NOTIFICATION.toString () );
 			toApplicationIntent.putExtra ( "message", jsonText );
 			sendBroadcast ( toApplicationIntent );
@@ -109,19 +103,24 @@ public class GcmIntentService extends IntentService
 		Context ctx = getApplicationContext ();
 		JSONObject jsonObject = new JSONObject ( jsonText );
 		ActionType actionType = ActionType.fromString ( jsonObject.getString ( "actionType" ) );
+		System.out.println ( jsonObject.toString () );
 		boolean isPushNotificationEnabled = SettingsManager.getBoolean ( Params.IS_PUSH_NOTIFICATION, true, ctx ) && SettingsManager.getBoolean ( Params.IS_LOGIN, false, ctx );
 		if ( !isPushNotificationEnabled )
 		{
 			return false;
 		}
-		if ( actionType == ActionType.CHAT )
+		switch ( actionType )
 		{
-			ApplicationState applicationState = ApplicationState.valueOf ( SettingsManager.getString ( Params.APPLICATION_STATE, ApplicationState.PAUSE.toString (), ctx ) );
-			if ( applicationState == ApplicationState.RESUME )
+			case CHAT:
 			{
-				ChatManager chatManager = ChatManager.getInstance ();
-				chatManager.newMessage ( jsonObject );
-				return false;
+				ApplicationState applicationState = ApplicationState.valueOf ( SettingsManager.getString ( Params.APPLICATION_STATE, ApplicationState.PAUSE.toString (), ctx ) );
+				if ( applicationState == ApplicationState.RESUME )
+				{
+					ChatManager chatManager = ChatManager.getInstance ();
+					chatManager.newMessage ( jsonObject );
+					return false;
+				}
+				break;
 			}
 		}
 		return true;

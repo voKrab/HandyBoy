@@ -1,9 +1,5 @@
 package com.vallverk.handyboy;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.IntentFilter;
@@ -53,7 +49,6 @@ import com.vallverk.handyboy.model.job.JobCategory;
 import com.vallverk.handyboy.model.job.JobTypeManager;
 import com.vallverk.handyboy.model.job.TypeJob;
 import com.vallverk.handyboy.pubnub.PubnubManager;
-import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
 import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.NavigationDrawerFragment;
 import com.vallverk.handyboy.view.NavigationDrawerFragment.NavigationDrawerCallbacks;
@@ -61,6 +56,12 @@ import com.vallverk.handyboy.view.base.DialogFactory;
 import com.vallverk.handyboy.view.base.TabBarView;
 import com.vallverk.handyboy.view.controller.BookingController;
 import com.vallverk.handyboy.view.controller.RegistrationController;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Oleg Barkov
@@ -85,9 +86,10 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		RESUME, PAUSE, CLOSE
 	}
 
-    private void Test(){
+	private void Test ()
+	{
 
-    }
+	}
 
 	/**
 	 * Constants.
@@ -282,48 +284,68 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		drawerLayout = ( DrawerLayout ) findViewById ( R.id.drawer_layout );
 		mNavigationDrawerFragment.setUp ( R.id.navigation_drawer, drawerLayout );
 
-        if(getIntent() != null){
-        Bundle bundle = getIntent ().getExtras ();
-		if (bundle != null )
-		{
-			updateComponents ();
-            SharedPreferences sharedPref = getSharedPreferences( "ControllerPreferences" ,MODE_PRIVATE);
-			ActionType actionType = ActionType.fromString ( sharedPref.getString("actionType", "0") );
-			switch ( actionType )
-			{
-				case BOOKING_STATUS:
-				case BOOKING:
-				{
-					tabBarView.manualSelection ( VIEW_STATE.GIGS );
-					break;
-				}
-                case CHAT:
-                {
-                    setState ( VIEW_STATE.CHATS );
-                    break;
-                }
-                case EXTRA_MONEY:
-                case REMINDER:{
-                    setState ( VIEW_STATE.GIGS );
-                    break;
-                }
-                case AVAILABLE_NOW:
-                {
-                    setState ( VIEW_STATE.DASHBOARD );
-                    break;
-                }
-                default:{
-                    setState ( VIEW_STATE.DASHBOARD );
-                }
-
-			}
-		} else
-		{
-			setState ( VIEW_STATE.SPLASH );
-
-		}
-        }
 		ImageLoader.getInstance ().init ( ImageLoaderConfiguration.createDefault ( this ) );
+        setState ( VIEW_STATE.SPLASH );
+	}
+
+	private boolean checkDataFromNotification ()
+	{
+		try
+		{
+			Log.d ( "Log", "onCreate" );
+			String dataFromNotificationString = SettingsManager.getString ( Params.DATA_FROM_NOTIFICATION, "", this );
+			if ( dataFromNotificationString.isEmpty () )
+			{
+				return false;
+			} else
+			{
+                SettingsManager.setString ( Params.DATA_FROM_NOTIFICATION, "", this );
+				updateComponents ();
+				JSONObject dataFromNotification = new JSONObject ( dataFromNotificationString );
+				PubnubManager.ActionType actionType = PubnubManager.ActionType.fromString ( dataFromNotification.getString ( "actionType" ) );
+				Log.d ( "Log", "MainActivity:onCreate: actionType" + actionType );
+				switch ( actionType )
+				{
+					case BOOKING_STATUS:
+					case BOOKING:
+					{
+						tabBarView.manualSelection ( VIEW_STATE.GIGS );
+						break;
+					}
+					case CHAT:
+					{
+						setState ( VIEW_STATE.CHATS );
+						break;
+					}
+					case EXTRA_MONEY:
+					case REMINDER:
+					{
+						setState ( VIEW_STATE.GIGS );
+						break;
+					}
+					case AVAILABLE_NOW:
+					{
+						setState ( VIEW_STATE.DASHBOARD );
+						break;
+					}
+					case BOOKING_ADD_CHARGES:
+					{
+						bookingDataManager.setActiveDataIndex ( dataFromNotification.getString ( "bookingId" ) );
+						setState ( VIEW_STATE.CHARGES );
+						break;
+					}
+					default:
+					{
+						setState ( VIEW_STATE.DASHBOARD );
+					}
+				}
+				return true;
+			}
+		} catch ( Exception ex )
+		{
+			ex.printStackTrace ();
+			return false;
+		}
 	}
 
 	@Override
@@ -334,7 +356,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 
 	public void onResume ()
 	{
-        Log.d("Chat", "onResume");
+		Log.d ( "Chat", "onResume" );
 		super.onResume ();
 		viewStateController.updateTabBar ();
 		try
@@ -668,6 +690,10 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace ();
+		}
+		if ( checkDataFromNotification () )
+		{
+			return;
 		}
 		MainActivity.getInstance ().setState ( isService () ? VIEW_STATE.DASHBOARD : VIEW_STATE.CHOOSE_CATEGORY );
 	}
