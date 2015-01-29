@@ -114,7 +114,6 @@ public class RegistrationViewFragment extends BaseFragment
 
 	private void setupTestData ()
 	{
-
 		firstEditText.setText ( "Oleg" );
 		lastEditText.setText ( "Barkov" );
 		emailEditText.setText ( "tuser@gmail.com" );

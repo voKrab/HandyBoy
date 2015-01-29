@@ -6,13 +6,13 @@
     android:animateLayoutChanges="true"
     android:background="@color/white"
     android:clickable="false"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/topbarContainer"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/black" >
+        android:background="@color/black">
 
         <ImageView
             android:id="@+id/backImageView"
@@ -45,14 +45,28 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="13dp"
             android:padding="13dp"
-            android:src="@drawable/cross_button_white_selector" />
+            android:src="@drawable/delete_button_selector" />
     </RelativeLayout>
 
-    <ru.truba.touchgallery.GalleryWidget.GalleryViewPager
-        android:id="@+id/viewer"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/black" />
+        android:layout_weight="1">
+
+        <com.vallverk.handyboy.view.base.GalleryWidget.GalleryViewPager
+            android:id="@+id/viewer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black" />
+
+        <ImageView
+            android:id="@+id/isVideoImageView"
+            android:layout_width="60dp"
+            android:src="@drawable/camera"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_height="60dp" />
+    </FrameLayout>
+
 
 </LinearLayout>

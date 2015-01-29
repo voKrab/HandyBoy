@@ -108,6 +108,31 @@
                         android:textColor="@color/dark_blue"
                         android:textColorHint="@color/text_hint"
                         android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/youtube_link"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/youTubeLinkTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="34dp"
+                        android:background="@drawable/edit_text_selector"
+                        android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-"
+                        android:ems="10"
+                        android:hint="@string/http"
+                        android:inputType="text"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="13dp"
+                        android:paddingRight="13dp"
+                        android:textColor="@color/dark_blue"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout

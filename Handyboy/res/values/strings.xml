@@ -200,6 +200,8 @@
     <string name="work_h">Work?</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="youtube_link">Youtube link</string>
+    <string name="http">http://</string>
     <string name="height">Height</string>
     <string name="feet">Feet</string>
     <string name="inches">Inches</string>
@@ -318,6 +320,11 @@
     <string name="update_address_title">Update address</string>
     <string name="bank_account">Bank account</string>
     <string name="shirtless">Shirtless</string>
+    <string name="lawm_moving">Lawn moving</string>
+    <string name="lawm_moving_small">Small Lawn &lt; 1000 sq. ft</string>
+    <string name="lawm_moving_medium">Medium 1000-1999 sq. ft</string>
+    <string name="lawm_moving_large">Large 2000-2999 sq. ft</string>
+    <string name="lawm_moving_extra_large">Extra Large - 3000 sq. ft</string>
     <string name="attire">Attire</string>
     <string name="bathing_suit">Bathing Suit</string>
     <string name="board_shorts">Board shorts</string>
@@ -555,5 +562,13 @@
      <string name="additional_charges_hint">Description</string>
     <string name="setup_reason">Setup reason</string>
     <string name="setup_price">Setup price</string>
+
+    <string name="bedrooms">Bedrooms</string>
+    <string name="bedrooms_count">Bedrooms count (1-5+)</string>
+
+    <string name="bathrooms">Bathrooms</string>
+    <string name="bathrooms_count">Bathrooms count (1-5+)</string>
     <string name="waiting_for_customer_decision_about_your_add_charges_request">Waiting for customer decision about your additional charges request</string>
+    <string name="add_youtube_video_title">Add YouTube video?</string>
+    <string name="ok">Ok</string>
 </resources>

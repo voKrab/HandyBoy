@@ -69,6 +69,14 @@
                 android:orientation="vertical" >
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/specialAddonsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical" >
+            </LinearLayout>
+
             <FrameLayout
                 android:id="@+id/specialReqeustContainer"
                 android:layout_width="match_parent"

@@ -46,6 +46,39 @@ public class BookingController
 	private DiscountAPIObject discountAPIObject;
 	private String specialRequest;
 	private TempData tempData;
+    private LawnMovingType lawnMovingType;
+
+    private int countRooms;
+    private int countBathRooms;
+
+    public void setLawnMovingType(LawnMovingType lawnMovingType) {
+        this.lawnMovingType = lawnMovingType;
+    }
+
+    public LawnMovingType getLawnMovingType() {
+        return lawnMovingType;
+    }
+
+    public int getCountBathRooms() {
+        return countBathRooms;
+    }
+
+    public void setCountBathRooms(int countBathRooms) {
+        this.countBathRooms = countBathRooms;
+    }
+
+    public int getCountRooms() {
+        return countRooms;
+    }
+
+    public void setCountRooms(int countRooms) {
+        this.countRooms = countRooms;
+    }
+
+    public enum LawnMovingType
+    {
+        SMALL, MEDIUM, LARGE, EXTRA_LARGE;
+    }
 
 	public class TempData
 	{
@@ -364,6 +397,16 @@ public class BookingController
 	{
 		return job.getTypeJob ().getEnumValue () == TypeJobEnum.PERSONAL_TRAINER;
 	}
+
+    public boolean isHouseKeeper ()
+    {
+        return job.getTypeJob ().getEnumValue () == TypeJobEnum.HOUSEKEEPER;
+    }
+    public boolean isYardWorker ()
+    {
+        return job.getTypeJob ().getEnumValue () == TypeJobEnum.YARD_WORK;
+    }
+
 
 	private AddonServiceAPIObject getAddon ( List < AddonServiceAPIObject > allAddons, int addonId )
 	{

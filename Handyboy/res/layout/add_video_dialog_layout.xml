@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="254dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_round_rect"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    android:paddingTop="12dp">
+
+    <TextView
+        android:id="@+id/dialogTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/add_youtube_video_title"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/videoPreviewImageView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp" />
+
+    <EditText
+        android:id="@+id/youTubeLinkEditText"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_selector"
+        android:hint="@string/http"
+        android:inputType="text"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:textColor="@color/dark_blue"
+        android:textColorHint="@color/text_hint"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dialogNoButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/available_dialog_buttons_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/cancel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/dialogYesButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/available_dialog_buttons_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:text="@string/ok"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 
@@ -562,4 +564,29 @@ public class Tools
 		Date netDate = ( new Date ( timeStamp ) );
 		return format.format ( netDate );
 	}
+
+    public static String getYouTubeId(String url){
+        if(url.contains("youtu.be")){
+            return url.substring(url.lastIndexOf("/") + 1, url.length());
+        }else{
+            String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
+
+            Pattern compiledPattern = Pattern.compile(pattern);
+            Matcher matcher = compiledPattern.matcher(url);
+
+            if(matcher.find()){
+                return matcher.group();
+            }
+        }
+        return "";
+    }
+
+    public static String getVideoImagePreview(String youTubeId){
+        return  "http://img.youtube.com/vi/" + youTubeId + "/hqdefault.jpg";
+    }
+
+    public static String getYoutubeVideoUrl(String youTubeId){
+        return  "http://youtu.be/" + youTubeId;
+    }
+
 }
