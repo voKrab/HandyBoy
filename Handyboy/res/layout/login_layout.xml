@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:clickable="false"
-    tools:context=".TutorialWelcomeViewFragment" >
+    tools:context=".TutorialWelcomeViewFragment">
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/mainContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
-                <TextView
+                <com.vallverk.handyboy.view.base.TextViewPlus
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="55dp"
@@ -32,9 +34,10 @@
                     android:gravity="center"
                     android:text="@string/signin"
                     android:textColor="@color/white"
-                    android:textSize="21sp" />
+                    android:textSize="20sp"
+                    app:customFont="BOLD" />
 
-                <EditText
+                <com.vallverk.handyboy.view.base.EditTextPlus
                     android:id="@+id/emailEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
@@ -46,14 +49,15 @@
                     android:ems="10"
                     android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@drawable/login_text_color_selector"
                     android:textColorHint="@color/text_hint"
-                    android:textSize="13sp" >
+                    android:textSize="13sp"
+                    app:customFont="REGULAR">
 
                     <requestFocus />
-                </EditText>
+                </com.vallverk.handyboy.view.base.EditTextPlus>
 
-                <EditText
+                <com.vallverk.handyboy.view.base.EditTextPlus
                     android:id="@+id/passwordEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
@@ -65,9 +69,10 @@
                     android:ems="10"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@drawable/login_text_color_selector"
                     android:textColorHint="@color/text_hint"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    app:customFont="REGULAR" />
 
                 <TextView
                     android:id="@+id/forgotPasswordTextView"
@@ -89,15 +94,15 @@
                     android:layout_below="@+id/forgotPasswordTextView"
                     android:layout_marginLeft="13dp"
                     android:background="@color/dark_blue"
-                    android:orientation="vertical" >
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
 
-                <Button
+                <com.vallverk.handyboy.view.base.ButtonPlus
                     android:id="@+id/signinButton"
                     android:layout_width="wrap_content"
                     android:layout_height="55dp"
                     android:layout_alignLeft="@+id/passwordEditText"
                     android:layout_alignRight="@+id/linearLayout1"
+                    app:customFont="REGULAR"
                     android:layout_below="@+id/linearLayout1"
                     android:layout_marginTop="21dp"
                     android:background="@drawable/dark_blue_shape_selector"
@@ -105,21 +110,22 @@
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 
-                <Button
+                <com.vallverk.handyboy.view.base.ButtonPlus
                     android:id="@+id/registrationButton"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
                     android:layout_alignLeft="@+id/signinButton"
                     android:layout_alignRight="@+id/signinButton"
                     android:layout_below="@+id/signinButton"
-                    android:layout_marginTop="21dp"
                     android:layout_marginBottom="21dp"
+                    app:customFont="REGULAR"
+                    android:layout_marginTop="21dp"
                     android:background="@drawable/red_rect"
                     android:text="@string/create_new_account"
                     android:textColor="@color/red"
                     android:textSize="13sp" />
 
-                <Button
+                <com.vallverk.handyboy.view.base.ButtonPlus
                     android:id="@+id/skipButton"
                     android:layout_width="wrap_content"
                     android:layout_height="34dp"
@@ -128,6 +134,7 @@
                     android:layout_marginTop="21dp"
                     android:background="@drawable/red_shape_selector"
                     android:text="@string/skip"
+                    app:customFont="REGULAR"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:visibility="gone" />
@@ -140,7 +147,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/textView1"
                     android:background="@color/dark_red"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                 </LinearLayout>
 
@@ -153,8 +160,7 @@
                     android:layout_toLeftOf="@+id/skipButton"
                     android:background="#d72333"
                     android:orientation="vertical"
-                    android:visibility="gone" >
-                </LinearLayout>
+                    android:visibility="gone"></LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
@@ -165,8 +171,7 @@
                     android:layout_toLeftOf="@+id/linearLayout2"
                     android:background="#df2839"
                     android:orientation="vertical"
-                    android:visibility="gone" >
-                </LinearLayout>
+                    android:visibility="gone"></LinearLayout>
 
                 <LinearLayout
                     android:layout_width="55dp"
@@ -175,8 +180,7 @@
                     android:layout_toLeftOf="@+id/linearLayout3"
                     android:background="#e9414a"
                     android:orientation="vertical"
-                    android:visibility="gone" >
-                </LinearLayout>
+                    android:visibility="gone"></LinearLayout>
 
                 <ImageView
                     android:id="@+id/imageView1"
@@ -188,7 +192,7 @@
                     android:layout_marginTop="16dp"
                     android:src="@drawable/logo" />
 
-                <Button
+                <com.vallverk.handyboy.view.base.ButtonPlus
                     android:id="@+id/loginWithFacebookButton"
                     android:layout_width="294dp"
                     android:layout_height="55dp"
@@ -196,9 +200,10 @@
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/fb_button_selector"
                     android:paddingRight="34dp"
-                    android:text="Login with facebook"
+                    android:text="@string/connect_facebook"
                     android:textColor="@color/white"
-                    android:textSize="17sp" />
+                    android:textSize="13sp"
+                    app:customFont="REGULAR" />
 
             </RelativeLayout>
 

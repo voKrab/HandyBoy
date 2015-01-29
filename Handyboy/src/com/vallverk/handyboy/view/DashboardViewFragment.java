@@ -156,6 +156,7 @@ public class DashboardViewFragment extends BaseFragment
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
+        controller.setSwipeEnabled(true);
 		apiManager = APIManager.getInstance ();
 		user = apiManager.getUser ();
 		setListeners ();
