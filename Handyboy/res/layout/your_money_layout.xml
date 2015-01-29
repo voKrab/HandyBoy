@@ -1,111 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/white"
-    android:clickable="false"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/topbarContainer"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:animateLayoutChanges="true"
-        android:background="@color/red" >
-
-        <TextView
-            android:id="@+id/screenTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/your_money"
-            android:textColor="@color/white"
-            android:textSize="21sp" />
-
-        <ImageView
-            android:id="@+id/backImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="13dp"
-            android:padding="8dp"
-            android:src="@drawable/back_icon_topbar" />
-
-        <TextView
-            android:id="@+id/backTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/backImageView"
-            android:gravity="center"
-            android:text="@string/back"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/speedometer" />
-
-        <ImageView
-            android:id="@+id/strelkaImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/arrow_spedometr" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="82dp"
-            android:background="@color/white"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:paddingLeft="12dp"
-                android:text="Total:"
-                android:textSize="40sp" />
-
-            <TextView
-                android:id="@+id/totalPriceTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingRight="12dp"
-                android:text="$0"
-                android:textSize="40sp" />
-        </LinearLayout>
-    </FrameLayout>
-
-    <fragment
-        android:id="@+id/moneyListViewFragment"
-        android:name="com.vallverk.handyboy.view.base.BaseListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-82dp"
-        tools:layout="@layout/base_list_layout" />
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/topbarContainer"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:animateLayoutChanges="true"
+            android:background="@color/red">
+
+            <TextView
+                android:id="@+id/screenTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/your_money"
+                android:textColor="@color/white"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:id="@+id/backImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:padding="8dp"
+                android:src="@drawable/back_icon_topbar" />
+
+            <TextView
+                android:id="@+id/backTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/backImageView"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/speedometer" />
+
+            <ImageView
+                android:id="@+id/strelkaImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/arrow_spedometr" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="82dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="12dp"
+                    android:text="Total:"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/totalPriceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="12dp"
+                    android:text="$0"
+                    android:textSize="40sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <fragment
+            android:id="@+id/moneyListViewFragment"
+            android:name="com.vallverk.handyboy.view.base.BaseListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-82dp"
+            android:layout_marginBottom="40dp"
+            tools:layout="@layout/base_list_layout" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
         android:background="@color/red"></LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
