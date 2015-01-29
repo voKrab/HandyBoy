@@ -1,15 +1,5 @@
 package com.vallverk.handyboy.view.booking;
 
-import com.vallverk.handyboy.R;
-import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
-import com.vallverk.handyboy.model.BookingStatusEnum;
-import com.vallverk.handyboy.model.api.APIManager;
-import com.vallverk.handyboy.model.api.BookingAPIObject;
-import com.vallverk.handyboy.model.api.BookingDataManager;
-import com.vallverk.handyboy.model.api.BookingDataObject;
-import com.vallverk.handyboy.model.api.UserAPIObject;
-import com.vallverk.handyboy.view.base.BaseFragment;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
+import com.vallverk.handyboy.model.BookingStatusEnum;
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
+import com.vallverk.handyboy.model.api.BookingAPIObject;
+import com.vallverk.handyboy.model.api.BookingDataManager;
+import com.vallverk.handyboy.model.api.BookingDataObject;
+import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.view.base.BaseFragment;
 
 public class ActiveGigViewFragment extends BaseFragment
 {
@@ -34,8 +35,9 @@ public class ActiveGigViewFragment extends BaseFragment
 	private UserAPIObject service;
 	private UserAPIObject customer;
 	private BookingAPIObject bookingAPIObject;
+    private View additionalChargesButton;
 
-	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+    public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		if ( view == null )
 		{
@@ -43,6 +45,7 @@ public class ActiveGigViewFragment extends BaseFragment
 			backImageView = ( ImageView ) view.findViewById ( R.id.backImageView );
 			backTextView = ( TextView ) view.findViewById ( R.id.backTextView );
 			finishGigButton = view.findViewById ( R.id.finishGigButton );
+            additionalChargesButton = view.findViewById ( R.id.additionalChargesButton );
 			cancelButton = view.findViewById ( R.id.cancelButton );
 		} else
 		{
@@ -54,7 +57,48 @@ public class ActiveGigViewFragment extends BaseFragment
 	@Override
 	protected void init ()
 	{
-		addListeners ();
+        new AsyncTask < Void, Void, String > ()
+        {
+            public AdditionalChargesAPIObject additionalCharges;
+
+            @Override
+            protected void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            @Override
+            protected void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    additionalChargesButton.setVisibility ( additionalCharges == null ? View.VISIBLE : View.GONE );
+                    addListeners ();
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                    controller.onBackPressed ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    additionalCharges = bookingDataObject.getBookingAPIObject ().getAdditionalCharges ();
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getMessage ();
+                }
+                return result;
+            }
+        }.execute ();
 	}
 
 	@Override
@@ -99,7 +143,7 @@ public class ActiveGigViewFragment extends BaseFragment
 				controller.onBackPressed ();
 			}
 		} );
-		
+
 		cancelButton.setOnClickListener ( new OnClickListener ()
 		{
 
@@ -109,7 +153,7 @@ public class ActiveGigViewFragment extends BaseFragment
 				cancelGig ();
 			}
 		} );
-		
+
 		finishGigButton.setOnClickListener ( new OnClickListener ()
 		{
 
@@ -119,8 +163,17 @@ public class ActiveGigViewFragment extends BaseFragment
 				finishGig ();
 			}
 		} );
+
+        additionalChargesButton.setOnClickListener ( new OnClickListener ()
+        {
+            @Override
+            public void onClick ( View view )
+            {
+                controller.setState(VIEW_STATE.ADD_CHARGES );
+            }
+        } );
 	}
-	
+
 	protected void cancelGig ()
 	{
 		new AsyncTask < Void, Void, String > ()
@@ -160,7 +213,7 @@ public class ActiveGigViewFragment extends BaseFragment
 			}
 		}.execute ();
 	}
-	
+
 	protected void finishGig ()
 	{
 		new AsyncTask < Void, Void, String > ()

@@ -110,7 +110,8 @@
                 android:drawableRight="@drawable/white_arrow_schedule_right"
                 android:text="@string/additional_charges"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/cancelButton"

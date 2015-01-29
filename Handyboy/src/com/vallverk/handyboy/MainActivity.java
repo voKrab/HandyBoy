@@ -299,13 +299,14 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 				return false;
 			} else
 			{
-                SettingsManager.setString ( Params.DATA_FROM_NOTIFICATION, "", this );
+                SettingsManager.setString(Params.DATA_FROM_NOTIFICATION, "", this);
 				updateComponents ();
 				JSONObject dataFromNotification = new JSONObject ( dataFromNotificationString );
 				PubnubManager.ActionType actionType = PubnubManager.ActionType.fromString ( dataFromNotification.getString ( "actionType" ) );
 				Log.d ( "Log", "MainActivity:onCreate: actionType" + actionType );
 				switch ( actionType )
 				{
+                    case BOOKING_ADD_CHARGES_ACCEPTED:
 					case BOOKING_STATUS:
 					case BOOKING:
 					{
@@ -328,7 +329,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 						setState ( VIEW_STATE.DASHBOARD );
 						break;
 					}
-					case BOOKING_ADD_CHARGES:
+					case BOOKING_ADD_CHARGES_REQUESTED:
 					{
 						bookingDataManager.setActiveDataIndex ( dataFromNotification.getString ( "bookingId" ) );
 						setState ( VIEW_STATE.CHARGES );
