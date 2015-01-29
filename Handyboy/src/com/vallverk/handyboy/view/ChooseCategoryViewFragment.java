@@ -52,8 +52,8 @@ public class ChooseCategoryViewFragment extends BaseFragment
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
+        controller.setSwipeEnabled(true);
 		super.onActivityCreated ( savedInstanceState );
-		
 		addListeners ();
 	}
 

@@ -32,6 +32,7 @@ public class LoginViewFragment extends BaseFragment
 	private Button registrationButton;
 	private Button skipButton;
 	private FacebookManager facebook;
+    private View mainContainer;
 
     int i = 0;
 
@@ -46,6 +47,7 @@ public class LoginViewFragment extends BaseFragment
 		signinButton = ( Button ) view.findViewById ( R.id.signinButton );
 		registrationButton = ( Button ) view.findViewById ( R.id.registrationButton );
 		skipButton = ( Button ) view.findViewById ( R.id.skipButton );
+        mainContainer = view.findViewById(R.id.mainContainer);
 		
 		return view;
 	}
@@ -93,6 +95,7 @@ public class LoginViewFragment extends BaseFragment
                 if (i == 1) {
                     //Single click
                     handler.postDelayed(r, 250);
+
                 } else if (i == 2) {
                     //Double click
                     i = 0;
@@ -103,6 +106,13 @@ public class LoginViewFragment extends BaseFragment
                 }
 
 
+            }
+        });
+
+        mainContainer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.hideKeyboard();
             }
         });
 

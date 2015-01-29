@@ -1,58 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/white"
-    android:clickable="false">
+    android:orientation="vertical"
+    android:background="@color/white">
 
-    <RelativeLayout
-        android:id="@+id/tempContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:background="@color/red">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/sign_up"
-            android:textColor="@color/white"
-            android:textSize="21sp" />
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/backImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="13dp"
-            android:padding="8dp"
-            android:src="@drawable/back_icon_topbar" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/backTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/backImageView"
-            android:gravity="center"
-            android:text="@string/back"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/backImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="13dp"
+                    android:padding="8dp"
+                    android:src="@drawable/back_icon_topbar" />
+
+                <com.vallverk.handyboy.view.base.TextViewPlus
+                    android:id="@+id/backTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="@string/back"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:customFont="BOLD_ITALIC" />
+
+            </LinearLayout>
+
+
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="BOLD"
+                android:id="@+id/screenTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:textSize="21sp" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/dark_red"></LinearLayout>
+    </LinearLayout>
 
     <ScrollView
-        android:id="@+id/scrollView1"
+        android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tempContainer">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="234dp"
@@ -60,14 +77,16 @@
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="21dp"
                 android:text="@string/whats_your_name"
                 android:textColor="@color/dark_blue"
-                android:textSize="11sp" />
+                android:textSize="9sp"
+                app:customFont="SEMIBOLD" />
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -75,7 +94,8 @@
                 android:layout_height="42dp"
                 android:layout_gravity="center_horizontal">
 
-                <EditText
+                <com.vallverk.handyboy.view.base.EditTextPlus
+                    app:customFont="SEMIBOLD"
                     android:id="@+id/firstEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="34dp"
@@ -94,9 +114,10 @@
                     android:textSize="13sp">
 
                     <requestFocus />
-                </EditText>
+                </com.vallverk.handyboy.view.base.EditTextPlus>
 
-                <EditText
+                <com.vallverk.handyboy.view.base.EditTextPlus
+                    app:customFont="SEMIBOLD"
                     android:id="@+id/lastEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="34dp"
@@ -114,16 +135,20 @@
                     android:textSize="13sp" />
             </LinearLayout>
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="SEMIBOLD"
                 android:id="@+id/TextView01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="21dp"
                 android:text="@string/whats_your_email"
                 android:textColor="@color/dark_blue"
-                android:textSize="11sp" />
+                android:textSize="9sp"
+                 />
 
-            <EditText
+            <com.vallverk.handyboy.view.base.EditTextPlus
+                app:customFont="SEMIBOLD"
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
@@ -131,89 +156,104 @@
                 android:ems="10"
                 android:hint="@string/email_address"
                 android:inputType="textEmailAddress"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_hint"
                 android:textSize="13sp" />
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
                 android:id="@+id/TextView02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="21dp"
                 android:text="@string/what_password_would_you_like_to_use"
                 android:textColor="@color/dark_blue"
-                android:textSize="11sp" />
+                android:textSize="9sp"
+                app:customFont="SEMIBOLD" />
 
-            <EditText
+            <com.vallverk.handyboy.view.base.EditTextPlus
+                app:customFont="SEMIBOLD"
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_hint"
                 android:background="@drawable/password_edit_text_selector"
                 android:ems="10"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textSize="13sp" />
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
                 android:id="@+id/TextView03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="21dp"
                 android:text="@string/how_old_are_you"
                 android:textColor="@color/dark_blue"
-                android:textSize="11sp" />
+                android:textSize="9sp"
+                app:customFont="SEMIBOLD" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.vallverk.handyboy.view.base.TextViewPlus
+                    app:customFont="SEMIBOLD"
                     android:id="@+id/monthTextView"
                     android:layout_width="50dp"
                     android:layout_height="34dp"
-                    android:background="@drawable/grey_rect"
+                    android:background="@drawable/edit_text_selector"
                     android:gravity="center"
                     android:hint="MM"
+                    android:textSize="13sp"
                     android:textColor="@color/dark_blue"
                     android:textColorHint="@color/text_hint" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
-                    android:layout_height="42dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="/"
                     android:textColor="@color/dark_blue"
                     android:textSize="17sp" />
 
-                <TextView
+                <com.vallverk.handyboy.view.base.TextViewPlus
+                    app:customFont="SEMIBOLD"
                     android:id="@+id/dayTextView"
                     android:layout_width="50dp"
                     android:layout_height="34dp"
-                    android:background="@drawable/grey_rect"
+                    android:background="@drawable/edit_text_selector"
                     android:gravity="center"
                     android:hint="DD"
+                    android:textSize="13sp"
                     android:textColor="@color/dark_blue"
                     android:textColorHint="@color/text_hint" />
 
                 <TextView
                     android:id="@+id/TextView05"
                     android:layout_width="wrap_content"
-                    android:layout_height="42dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="/"
                     android:textColor="@color/dark_blue"
                     android:textSize="17sp" />
 
-                <TextView
+                <com.vallverk.handyboy.view.base.TextViewPlus
+                    app:customFont="SEMIBOLD"
                     android:id="@+id/yearTextView"
                     android:layout_width="0dp"
                     android:layout_height="34dp"
+                    android:textSize="13sp"
                     android:layout_weight="1"
-                    android:background="@drawable/grey_rect"
+                    android:background="@drawable/edit_text_selector"
                     android:gravity="left|center"
                     android:hint="YYYY"
                     android:paddingLeft="15dp"
@@ -223,28 +263,33 @@
             </LinearLayout>
 
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
                 android:id="@+id/TextView07"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="21dp"
                 android:text="@string/whats_your_cell_number"
                 android:textColor="@color/dark_blue"
-                android:textSize="11sp" />
+                android:textSize="9sp"
+                app:customFont="SEMIBOLD" />
 
-            <EditText
+            <com.vallverk.handyboy.view.base.EditTextPlus
+                app:customFont="SEMIBOLD"
                 android:id="@+id/phoneEditText"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:background="@drawable/phone_edit_text_selector"
                 android:digits="+1234567890"
                 android:hint="@string/phone_number"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_hint"
                 android:inputType="phone"
                 android:maxLength="13"
                 android:singleLine="true"
                 android:textSize="13sp" />
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -252,7 +297,7 @@
                 android:text="@string/yout_must_accept_our"
                 android:textColor="@color/dark_blue"
                 android:textSize="9sp"
-                android:textStyle="bold" />
+                app:customFont="SEMIBOLD" />
 
             <LinearLayout
                 android:id="@+id/termsContainer"
@@ -303,9 +348,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/servicesContractCheckBox"
@@ -379,17 +424,18 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <Button
+                <com.vallverk.handyboy.view.base.ButtonPlus
+                    app:customFont="EXTRA_BOLD"
                     android:id="@+id/phoneVerificationButton"
-                    android:layout_width="match_parent"
+                    android:layout_width="234dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/phone_verification_selector"
                     android:text="@string/send_phone_verification"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="15dp"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

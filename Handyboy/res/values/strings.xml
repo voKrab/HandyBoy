@@ -571,4 +571,5 @@
     <string name="waiting_for_customer_decision_about_your_add_charges_request">Waiting for customer decision about your additional charges request</string>
     <string name="add_youtube_video_title">Add YouTube video?</string>
     <string name="ok">Ok</string>
+    <string name="connect_facebook">Connect with facebook</string>
 </resources>

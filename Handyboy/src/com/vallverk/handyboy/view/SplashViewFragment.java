@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
@@ -17,10 +19,12 @@ import com.vallverk.handyboy.view.base.BaseFragment;
 public class SplashViewFragment extends BaseFragment
 {
 	private static long DELAY_TIME = 1500;
+    private ImageView logoSplashImageView;
 	
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		View view = inflater.inflate ( R.layout.splash_layout, null );
+        logoSplashImageView = (ImageView) view.findViewById(R.id.logoSplashImageView);
 		return view;
 	}
 	
@@ -28,7 +32,7 @@ public class SplashViewFragment extends BaseFragment
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
-		
+        logoSplashImageView.animate().alpha(1.0f).setDuration(DELAY_TIME).start();
 		Timer timer = new Timer ();
 		timer.schedule ( new TimerTask ()
 		{

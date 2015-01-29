@@ -15,7 +15,7 @@
             android:background="@color/red"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:orientation="horizontal" >
@@ -24,16 +24,15 @@
                     android:id="@+id/menuImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical|left"
                     android:padding="13dp"
                     android:src="@drawable/swipe_menu_icon_light" />
 
                 <TextView
                     android:id="@+id/screenTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="55dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/search"
                     android:textColor="@color/white"
                     android:textSize="21sp" />
@@ -42,13 +41,13 @@
                     android:id="@+id/filterButton"
                     android:layout_width="46dp"
                     android:layout_height="29dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical|right"
                     android:layout_marginRight="13dp"
                     android:background="@drawable/white_rect"
                     android:text="@string/filter"
                     android:textColor="@color/white"
                     android:textSize="11sp" />
-            </LinearLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

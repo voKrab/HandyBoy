@@ -42,7 +42,7 @@ public class ChooseJobTypeViewFragment extends BaseFragment
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
-
+        controller.setSwipeEnabled(true);
 		MainActivity controller = MainActivity.getInstance ();
 		category = ( JobCategory ) controller.getCommunicationValue ( JobCategory.class.getSimpleName () );
 		jobTypes = controller.getJobTypes ( category );

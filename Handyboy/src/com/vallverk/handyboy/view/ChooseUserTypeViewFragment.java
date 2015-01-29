@@ -31,7 +31,7 @@ public class ChooseUserTypeViewFragment extends BaseFragment
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
-		
+        controller.setSwipeEnabled(false);
 		addListeners ();
 	}
 

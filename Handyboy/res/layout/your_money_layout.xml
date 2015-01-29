@@ -103,4 +103,9 @@
         android:layout_marginTop="-82dp"
         tools:layout="@layout/base_list_layout" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red"></LinearLayout>
+
 </LinearLayout>
