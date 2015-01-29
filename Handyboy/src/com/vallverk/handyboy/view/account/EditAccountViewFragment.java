@@ -47,6 +47,7 @@ public class EditAccountViewFragment extends BaseFragment
 	private TextView passwordTitle;
 	private TextView phoneTitle;
 	private TextView savedAdressTitle;
+    private TextView bankAccountTextView;
 
 	private EditText phoneEditText;
 	private TextView emailEditText;
@@ -88,6 +89,8 @@ public class EditAccountViewFragment extends BaseFragment
 		phoneEditText = ( EditText ) view.findViewById ( R.id.phoneEditText );
 		emailEditText = ( TextView ) view.findViewById ( R.id.emailEditText );
 		passwordEditText = ( TextView ) view.findViewById ( R.id.passwordEditText );
+
+        bankAccountTextView = (TextView) view.findViewById(R.id.bankAccountTextView);
 
 		pushNotificationTextView = ( TextView ) view.findViewById ( R.id.pushNotificationTextView );
 		emailNotificationTextView = ( TextView ) view.findViewById ( R.id.emailNotificationTextView );
@@ -296,6 +299,13 @@ public class EditAccountViewFragment extends BaseFragment
 				controller.setState ( VIEW_STATE.ADD_ADDRESS );
 			}
 		} );
+
+        bankAccountTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.setState ( VIEW_STATE.BANK_ACCOUNT );
+            }
+        });
 	}
 
 	private void saveSettings ()

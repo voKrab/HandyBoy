@@ -21,7 +21,7 @@ public class BankAccountViewFragment extends BaseFragment
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		View view = inflater.inflate ( R.layout.your_money_layout, null );
+		View view = inflater.inflate ( R.layout.bank_account_layout, null );
 		backImageView = view.findViewById ( R.id.backImageView );
 		backTextView = view.findViewById ( R.id.backTextView );
 		return view;

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
+import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.MyMoneyAPIObject;
 import com.vallverk.handyboy.model.api.MyMoneyAPIObject.MyMoneyParams;
@@ -39,6 +40,7 @@ public class YourMoneyViewFragment extends BaseFragment
     private View backTextView;
     private ImageView strelkaImageView;
     private TextView totalPriceTextView;
+    private View transferButton;
 
     private BaseListFragment moneyListViewFragment;
 
@@ -50,11 +52,18 @@ public class YourMoneyViewFragment extends BaseFragment
 
     public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
     {
-        View view = inflater.inflate ( R.layout.your_money_layout, null );
-        backImageView = view.findViewById ( R.id.backImageView );
-        backTextView = view.findViewById ( R.id.backTextView );
-        totalPriceTextView = ( TextView ) view.findViewById ( R.id.totalPriceTextView );
-        strelkaImageView = ( ImageView ) view.findViewById ( R.id.strelkaImageView );
+        if ( view == null ) {
+            view = inflater.inflate(R.layout.your_money_layout, null);
+            backImageView = view.findViewById(R.id.backImageView);
+            backTextView = view.findViewById(R.id.backTextView);
+            totalPriceTextView = (TextView) view.findViewById(R.id.totalPriceTextView);
+            strelkaImageView = (ImageView) view.findViewById(R.id.strelkaImageView);
+            transferButton = view.findViewById(R.id.transferButton);
+        }
+        else
+        {
+            ( ( ViewGroup ) view.getParent () ).removeView ( view );
+        }
         return view;
     }
 
@@ -234,6 +243,13 @@ public class YourMoneyViewFragment extends BaseFragment
                 controller.onBackPressed ();
             }
         } );
+
+        transferButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.setState(ViewStateController.VIEW_STATE.BANK_ACCOUNT);
+            }
+        });
     }
 
     public class MoneyListAdapter extends ArrayAdapter < Object >

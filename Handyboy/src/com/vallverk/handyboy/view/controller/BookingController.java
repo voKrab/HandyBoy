@@ -302,6 +302,30 @@ public class BookingController
 		return bookingTime;
 	}
 
+    public String getBookingComment(){
+        if(isHouseKeeper()) {
+            if (getCountBathRooms() > 0 && getCountRooms() > 0) {
+                return "Count BathRooms " + getCountBathRooms() + " and " + "Count Rooms " + getCountRooms();
+            } else if (getCountBathRooms() > 0) {
+                return "Count BathRooms " + getCountBathRooms();
+            } else if (getCountRooms() > 0) {
+                return "Count Rooms " + getCountRooms();
+            }
+        }else if(isYardWorker()){
+             switch (getLawnMovingType()){
+                 case LARGE:
+                     return controller.getString(R.string.lawm_moving_large);
+                 case MEDIUM:
+                     return controller.getString(R.string.lawm_moving_medium);
+                 case SMALL:
+                     return controller.getString(R.string.lawm_moving_small);
+                 case EXTRA_LARGE:
+                     return controller.getString(R.string.lawm_moving_extra_large);
+             }
+        }
+        return "";
+    }
+
 	public void booking () throws Exception
 	{
 		if ( addressAPIObject == null )
@@ -328,6 +352,7 @@ public class BookingController
 		bookingAPIObject.putValue ( BookingAPIParams.TOTAL_HOURS, bookingTime.getHours () );
 		bookingAPIObject.putValue ( BookingAPIParams.STATUS, "" + BookingStatusEnum.PENDING.toInt () );
 		bookingAPIObject.putValue ( BookingAPIParams.SPECIAL_REQUEST, specialRequest );
+        bookingAPIObject.putValue(BookingAPIParams.COMMENT, getBookingComment());
 
 		JSONObject jsonObject = bookingAPIObject.createJSON ( null );
 		if ( addons != null )

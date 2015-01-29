@@ -572,4 +572,12 @@
     <string name="add_youtube_video_title">Add YouTube video?</string>
     <string name="ok">Ok</string>
     <string name="connect_facebook">Connect with facebook</string>
+
+    <string name="account_number">Account number</string>
+    <string name="routing_number">Routing number</string>
+    <string name="last_ssn_digits">Last 4 digits of you SSN?</string>
+    <string name="number">Number</string>
+    <string name="you_home_address">You Home Address:</string>
+    <string name="zip">Zip</string>
+    <string name="comment_ques">Comment?</string>
 </resources>

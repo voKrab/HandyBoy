@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 
 import com.vallverk.handyboy.view.AvailableNowViewFragment;
+import com.vallverk.handyboy.view.BankAccountViewFragment;
 import com.vallverk.handyboy.view.ChatViewFragment;
 import com.vallverk.handyboy.view.ChatsViewFragment;
 import com.vallverk.handyboy.view.ChooseCategoryViewFragment;
@@ -89,7 +90,7 @@ public class ViewStateController implements Serializable
 	 */
 	public enum VIEW_STATE
 	{
-		CHOOSE_ADDRESS, GALLERY, ADD_ADDRESS, REGISTRATION_SERVICE_LICENSE, REGISTRATION_SERVICE_VIDEO, REGISTRATION_SERVICE_TERMS, REGISTRATION_SERVICE_SELPHIE, EXIT, SPLASH, LOGIN, REGISTRATION, FACEBOOK_REGISTRATION, HOME, FORGOT_PASSWORD, CHOOSE_USER_TYPE, PROFILE, SERVICE_EDIT_PROFILE, CUSTOMER_EDIT_PROFILE, REGISTRATION_SERVICE_BIO, REGISTRATION_CUSTOMER_BIO, FAVORITES, CHATS, CALENDAR, CHOOSE_CATEGORY, FEED, DASHBOARD, CHOOSE_JOB_TYPE, HANDY_BOY_PAGE, CHAT, TERMS, CONTRACT, PRIVACY_POLICY, AVAILABLE_NOW, JOB_DESCRIPTIONS, WEEKLY_SCHEDULE, YOUR_MONEY, ACCOUNT, TRANSACTION_HISTORY, BLOCK_LIST, CUSTOM_SCHEDULE, FILTER, HELP, CHANGE_PHONE, WAITING_FOR_VALIDATION, BOOKING, CHOOSE_ADDONS, CREDIT_CARD, BOOKING_CHOOSE_TIME, BOOKING_CHECKOUT, GIGS, GIG_SERVICE, GIG_CUSTOMER, NEXT_GIG, ACTIVE_GIG, PROBLEM_CUSTOMER, PROBLEM_SERVICE, BOOK_ANOTHER, SERVICED, BOOKING_CHOOSE_DISCOUNT_TIME, ADD_CHARGES, CHARGES, SERVICE_REVIEW, LEAVE_TIP, CUSTOMER_REVIEW, REVIEWS_CLIENT
+		CHOOSE_ADDRESS, GALLERY, ADD_ADDRESS, REGISTRATION_SERVICE_LICENSE, REGISTRATION_SERVICE_VIDEO, REGISTRATION_SERVICE_TERMS, REGISTRATION_SERVICE_SELPHIE, EXIT, SPLASH, LOGIN, REGISTRATION, FACEBOOK_REGISTRATION, HOME, FORGOT_PASSWORD, CHOOSE_USER_TYPE, PROFILE, SERVICE_EDIT_PROFILE, CUSTOMER_EDIT_PROFILE, REGISTRATION_SERVICE_BIO, REGISTRATION_CUSTOMER_BIO, FAVORITES, CHATS, CALENDAR, CHOOSE_CATEGORY, FEED, DASHBOARD, CHOOSE_JOB_TYPE, HANDY_BOY_PAGE, CHAT, TERMS, CONTRACT, PRIVACY_POLICY, AVAILABLE_NOW, JOB_DESCRIPTIONS, WEEKLY_SCHEDULE, YOUR_MONEY, ACCOUNT, TRANSACTION_HISTORY, BLOCK_LIST, CUSTOM_SCHEDULE, FILTER, HELP, CHANGE_PHONE, WAITING_FOR_VALIDATION, BOOKING, CHOOSE_ADDONS, CREDIT_CARD, BOOKING_CHOOSE_TIME, BOOKING_CHECKOUT, GIGS, GIG_SERVICE, GIG_CUSTOMER, NEXT_GIG, ACTIVE_GIG, PROBLEM_CUSTOMER, PROBLEM_SERVICE, BOOK_ANOTHER, SERVICED, BOOKING_CHOOSE_DISCOUNT_TIME, ADD_CHARGES, CHARGES, SERVICE_REVIEW, LEAVE_TIP, CUSTOMER_REVIEW, REVIEWS_CLIENT, BANK_ACCOUNT
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -239,13 +240,23 @@ public class ViewStateController implements Serializable
 
 			case YOUR_MONEY:
 			{
-				currentFragment = new YourMoneyViewFragment ();
+                currentFragment = getFragment ( YourMoneyViewFragment.class, newState );
 				FragmentTransaction fragmentTransaction = manager.beginTransaction ();
 				fragmentTransaction.setCustomAnimations ( R.anim.right_to_center, R.anim.center_to_left );
 
 				commitState ( fragmentTransaction );
 				break;
 			}
+            case BANK_ACCOUNT:
+            {
+                currentFragment = new BankAccountViewFragment();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction ();
+                fragmentTransaction.setCustomAnimations ( R.anim.right_to_center, R.anim.center_to_left );
+
+                commitState ( fragmentTransaction );
+                break;
+            }
+
 
 			case WEEKLY_SCHEDULE:
 			{
@@ -1040,12 +1051,6 @@ public class ViewStateController implements Serializable
 	{
 		switch ( currentState )
 		{
-            case CONTRACT:
-			case PRIVACY_POLICY:
-			case TERMS:
-			{
-				return prevState;
-			}
 			case FAVORITES:
 			case CALENDAR:
 			case CHATS:
@@ -1056,6 +1061,7 @@ public class ViewStateController implements Serializable
 			{
 				return VIEW_STATE.EXIT;
 			}
+            
 			case FORGOT_PASSWORD:
 			case FACEBOOK_REGISTRATION:
 			case REGISTRATION:
@@ -1073,6 +1079,7 @@ public class ViewStateController implements Serializable
 				return VIEW_STATE.FEED;
 			}
 
+            case YOUR_MONEY:
 			case SERVICE_EDIT_PROFILE:
 			case AVAILABLE_NOW:
 			{
@@ -1087,6 +1094,10 @@ public class ViewStateController implements Serializable
 			{
 				return VIEW_STATE.GIGS;
 			}
+            case CONTRACT:
+            case PRIVACY_POLICY:
+            case TERMS:
+            case BANK_ACCOUNT:
 			case ADD_ADDRESS:
 			case GALLERY:
 			case LEAVE_TIP:
@@ -1098,7 +1109,6 @@ public class ViewStateController implements Serializable
 			case CHANGE_PHONE:
 			case HELP:
 			case FILTER:
-			case YOUR_MONEY:
 			case WEEKLY_SCHEDULE:
 			case CUSTOM_SCHEDULE:
 			case JOB_DESCRIPTIONS:

@@ -44,6 +44,12 @@ public class BookingDetailsView extends FrameLayout
 	private TextView periodTextView;
 	private TextView priceTextView;
 
+    private View commentContainer;
+    private TextView commentTextView;
+
+    private View specialReqeustContainer;
+    private TextView specialReqeustTextView;
+
 	private RatingView ratingView;
 	private ImageView chatImageView;
 
@@ -81,6 +87,12 @@ public class BookingDetailsView extends FrameLayout
 		periodTextView = ( TextView ) view.findViewById ( R.id.periodTextView );
 		priceTextView = ( TextView ) view.findViewById ( R.id.priceTextView );
 		addonsContainerLayout = ( LinearLayout ) view.findViewById ( R.id.addonsContainerLayout );
+
+        commentContainer = view.findViewById(R.id.commentContainer);
+        commentTextView = (TextView) view.findViewById(R.id.commentTextView);
+
+        specialReqeustContainer = view.findViewById(R.id.specialReqeustContainer);
+        specialReqeustTextView = (TextView) view.findViewById(R.id.specialReqeustTextView);
 
 		ratingView = ( RatingView ) view.findViewById ( R.id.ratingView );
 		chatImageView = (ImageView) view.findViewById ( R.id.chatImageView );
@@ -149,6 +161,22 @@ public class BookingDetailsView extends FrameLayout
 			addonPriceTextView.setText ( "$" + jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIParams.PRICE ) );
 			addonsContainerLayout.addView ( addonItemView );
 		}
+
+        String comment = bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.COMMENT ).toString ();
+        if(comment.isEmpty()){
+            commentContainer.setVisibility(GONE);
+        }else{
+            commentTextView.setText(comment);
+            commentContainer.setVisibility(VISIBLE);
+        }
+
+        String specialRequest =  bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.SPECIAL_REQUEST ).toString ();
+        if(specialRequest.isEmpty()){
+            specialReqeustContainer.setVisibility(GONE);
+        }else{
+            specialReqeustTextView.setText(specialRequest);
+            specialReqeustContainer.setVisibility(VISIBLE);
+        }
 	}
 
 	public void setRaiting ( float rating )

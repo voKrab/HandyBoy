@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -105,15 +106,40 @@
             android:name="com.vallverk.handyboy.view.base.BaseListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-82dp"
             android:layout_marginBottom="40dp"
+            android:layout_marginTop="-82dp"
             tools:layout="@layout/base_list_layout" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/transferButton"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="bottom"
-        android:background="@color/red"></LinearLayout>
+        android:background="@drawable/dark_blue_shape_selector">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/transfer_icon" />
+
+        <com.vallverk.handyboy.view.base.TextViewPlus
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Transfer Funds to Bank Account"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:customFont="BOLD_ITALIC" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/_white_cross_transfer_funds" />
+    </LinearLayout>
 
 </FrameLayout>
