@@ -148,6 +148,7 @@ public class NextGigViewFragment extends BaseFragment
         new AsyncTask < Void, Void, String > ()
         {
             private Address geoAddress;
+            public AddressAPIObject address;
 
             public void onPreExecute ()
             {
@@ -167,7 +168,11 @@ public class NextGigViewFragment extends BaseFragment
                     startActivity ( mapIntent );
                 } else
                 {
-                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+//                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                    Uri gmmIntentUri = Uri.parse ( "geo:0,0?q=" + address.createAddressString () );
+                    Intent mapIntent = new Intent ( Intent.ACTION_VIEW, gmmIntentUri );
+                    mapIntent.setPackage ( "com.google.android.apps.maps" );
+                    startActivity ( mapIntent );
                 }
             }
 
@@ -177,7 +182,7 @@ public class NextGigViewFragment extends BaseFragment
                 String result = "";
                 try
                 {
-                    AddressAPIObject address = bookingDataManager.getActiveBooking().getAddress ();
+                    address = bookingDataManager.getActiveBooking().getAddress ();
                     geoAddress = address.getGeoPoint ();
                 } catch ( Exception ex )
                 {

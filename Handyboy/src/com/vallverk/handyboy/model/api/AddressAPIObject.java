@@ -29,7 +29,7 @@ public class AddressAPIObject extends APIObject
         return addressList.get ( 0 );
     }
 
-    private String createAddressString ()
+    public String createAddressString ()
     {
         String address = "";
         address += getString ( AddressParams.CITY ) + " " + getString ( AddressParams.STATE ) + " " + getString ( AddressParams.ZIP_CODE ) + " " + getString ( AddressParams.ADDRESS );
