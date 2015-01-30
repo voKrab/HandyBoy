@@ -580,4 +580,7 @@
     <string name="you_home_address">You Home Address:</string>
     <string name="zip">Zip</string>
     <string name="comment_ques">Comment?</string>
+    <string name="my_cards">My cards</string>
+    <string name="remove_card">Remove card</string>
+    <string name="remove_address">Remove address</string>
 </resources>

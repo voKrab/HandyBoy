@@ -1094,6 +1094,7 @@ public class ViewStateController implements Serializable
 			{
 				return VIEW_STATE.GIGS;
 			}
+            case CREDIT_CARD:
             case CONTRACT:
             case PRIVACY_POLICY:
             case TERMS:

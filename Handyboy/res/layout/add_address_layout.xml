@@ -225,15 +225,28 @@
 
             <Button
                 android:id="@+id/addAddressButton"
-                android:layout_width="221dp"
+                android:layout_width="234dp"
                 android:layout_height="34dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/dark_blue_shape_selector"
                 android:text="@string/add_new_destination_save"
                 android:textColor="@color/white"
-                android:textSize="17sp" />
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="234dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/red_shape_selector"
+                android:text="@string/remove_address"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:textStyle="bold" />
 
            
         </LinearLayout>

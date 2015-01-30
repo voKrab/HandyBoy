@@ -59,7 +59,6 @@ public class RegistrationViewFragment extends BaseFragment
 	private TextView privacyPolicyTextView;
     private TextView contractTextView;
 	private Dialog codeVerificationDialog;
-    private View mainScrollView;
 
 	private boolean isVerificationOk = false;
 
@@ -80,7 +79,6 @@ public class RegistrationViewFragment extends BaseFragment
         servicesContractCheckBox = ( CheckBox ) view.findViewById ( R.id.servicesContractCheckBox );
 		phoneVerificationButton = ( Button ) view.findViewById ( R.id.phoneVerificationButton );
         contractTextView = (TextView) view.findViewById(R.id.contractTextView);
-        mainScrollView = view.findViewById(R.id.mainScrollView);
 		termsTextView = ( TextView ) view.findViewById ( R.id.termsTextView );
 		privacyPolicyTextView = ( TextView ) view.findViewById ( R.id.privacyPolicyTextView );
 		return view;
@@ -275,12 +273,6 @@ public class RegistrationViewFragment extends BaseFragment
 		} );
 
 		phoneEditText.addTextChangedListener ( phoneTextWatcher );
-        mainScrollView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controller.hideKeyboard();
-            }
-        });
 	}
 
 	private TextWatcher phoneTextWatcher = new TextWatcher ()

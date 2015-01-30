@@ -307,6 +307,20 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="189dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="18dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/red_shape_selector"
+                android:text="@string/remove_card"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

@@ -45,23 +45,10 @@ import android.widget.Toast;
 
 public class CreditCardViewFragment extends BaseFragment
 {
-	/*
-	 * http://help-api.vallverk.com/method/detail/id/83
-	 * http://help-api.vallverk.com/method/detail/id/84
-	 * http://help-api.vallverk.com/method/detail/id/85
-	 * http://help-api.vallverk.com/method/detail/id/86
-	 */
-
-	// Pattern creditCardPattern = Pattern.compile (
-	// "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\\d{3})\\d{11})$"
-	// );
-
 	private ImageView backImageView;
 	private TextView backTextView;
-
 	private APIManager apiManager;
 	private UserAPIObject user;
-
 	private TextView cvvTitleTextView;
 	private ImageView cvvDetailsImageView;
 	private View openCardDetailsLayout;
@@ -71,6 +58,7 @@ public class CreditCardViewFragment extends BaseFragment
 	private EditText cardNumberEditText;
 	private Button submitNewCardButton;
 	private Button saveButton;
+    private Button deleteButton;
 	private TextView cardExpDateEditText;
 	private TextView cardNameEditText;
 	private TextView cvvEditText;
@@ -78,6 +66,7 @@ public class CreditCardViewFragment extends BaseFragment
 
 	private SingleChoiceSpinner creditCardsSpinner;
 	private long selectedDate;
+    private boolean isBooking;
 
 	private List < CreditCardAPIObject > listCreditCardAPIObject;
 
@@ -103,6 +92,7 @@ public class CreditCardViewFragment extends BaseFragment
 			cvvEditText = ( TextView ) view.findViewById ( R.id.cvvEditText );
 			zipEditText = ( TextView ) view.findViewById ( R.id.zipEditText );
 			saveButton = ( Button ) view.findViewById ( R.id.saveButton );
+            deleteButton = ( Button ) view.findViewById ( R.id.deleteButton );
 
 			mainContainer.getLayoutTransition ().enableTransitionType ( LayoutTransition.CHANGING );
 
@@ -116,10 +106,10 @@ public class CreditCardViewFragment extends BaseFragment
 	@Override
 	protected void init ()
 	{
-		getCreditCards ();
+        isBooking = controller.isBookingState();
+		getCreditCards();
 		updateComponents ();
 		addListeners ();
-		updateFonts ();
 	}
 
 	private void getCreditCards ()
@@ -269,18 +259,26 @@ public class CreditCardViewFragment extends BaseFragment
 		if ( listCreditCardAPIObject != null && listCreditCardAPIObject.size () > 0 )
 		{
 			useCreditCardLayout.setVisibility ( View.VISIBLE );
-			saveButton.setVisibility ( View.VISIBLE );
+            if(isBooking){
+                saveButton.setVisibility ( View.VISIBLE );
+                deleteButton.setVisibility(View.GONE);
+            }else{
+                saveButton.setVisibility ( View.GONE );
+                deleteButton.setVisibility(View.VISIBLE);
+            }
+
 			List < String > cardNamesList = new ArrayList < String > ();
 			for ( CreditCardAPIObject tempObject : listCreditCardAPIObject )
 			{
 				cardNamesList.add ( tempObject.getString ( CreditCardParams.CARD_NAME ) );
 			}
 			creditCardsSpinner.setData ( cardNamesList.toArray () );
-			CreditCardAPIObject savedcreditCardAPIObject = controller.getBookingController ().getCreditCard ();
-			if ( savedcreditCardAPIObject != null )
-			{
-				creditCardsSpinner.setSelected ( savedcreditCardAPIObject.getString ( CreditCardParams.CARD_NAME ) );
-			}
+            if(isBooking) {
+                CreditCardAPIObject savedcreditCardAPIObject = controller.getBookingController().getCreditCard();
+                if (savedcreditCardAPIObject != null) {
+                    creditCardsSpinner.setSelected(savedcreditCardAPIObject.getString(CreditCardParams.CARD_NAME));
+                }
+            }
 		} else
 		{
 			useCreditCardLayout.setVisibility ( View.GONE );
@@ -292,17 +290,6 @@ public class CreditCardViewFragment extends BaseFragment
 	{
 
 	}
-
-	/*
-	 * public abstract class DatePickerFragment extends DialogFragment
-	 * implements DatePickerDialog.OnDateSetListener {
-	 * 
-	 * @Override public Dialog onCreateDialog ( Bundle savedInstanceState ) {
-	 * final Calendar c = Calendar.getInstance (); int year = c.get (
-	 * Calendar.YEAR ); int month = c.get ( Calendar.MONTH ); int day = c.get (
-	 * Calendar.DAY_OF_MONTH ); return new DatePickerDialog ( getActivity (),
-	 * this, year, month, day ); } }
-	 */
 
 	private OnDateSetListener onDateSetListener = new OnDateSetListener ()
 	{
@@ -365,17 +352,9 @@ public class CreditCardViewFragment extends BaseFragment
 		}
 	};
 
-	@Override
-	protected void updateFonts ()
-	{
-		// FontUtils.getInstance ( controller ).applyStyle ( noFavoritesTitle,
-		// FontStyle.LIGHT );
-		// FontUtils.getInstance ( controller ).applyStyle ( noFavoritesBody,
-		// FontStyle.REGULAR );
-	}
-
 	private void addListeners ()
 	{
+
 		backTextView.setOnClickListener ( new OnClickListener ()
 		{
 
@@ -438,16 +417,24 @@ public class CreditCardViewFragment extends BaseFragment
 			}
 		} );
 
-		saveButton.setOnClickListener ( new OnClickListener ()
-		{
+        if(isBooking) {
+            saveButton.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick ( View view )
-			{
-				controller.getBookingController ().setCreditCard ( listCreditCardAPIObject.get ( creditCardsSpinner.getSelectedItemPosition () ) );
-				controller.onBackPressed ();
-			}
-		} );
+                @Override
+                public void onClick(View view) {
+
+                    controller.getBookingController().setCreditCard(listCreditCardAPIObject.get(creditCardsSpinner.getSelectedItemPosition()));
+                    controller.onBackPressed();
+                }
+            });
+        }else{
+            deleteButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(controller, "Delete card", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 		cardExpDateEditText.setOnClickListener ( dateClickListener );
 		submitNewCardButton.setOnClickListener ( new OnClickListener ()
 		{
