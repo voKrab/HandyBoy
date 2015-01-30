@@ -56,8 +56,8 @@ public class EditAccountViewFragment extends BaseFragment
 	private TextView pushNotificationTextView;
 	private TextView emailNotificationTextView;
 
-	private ImageView saveTopBarImageView;
-	private TextView saveTopBarTextView;
+	//private ImageView saveTopBarImageView;
+	//private TextView saveTopBarTextView;
 
 	private ToggleButton pushNotificationTogglebutton;
 	private ToggleButton emailNotificationTogglebutton;
@@ -95,8 +95,8 @@ public class EditAccountViewFragment extends BaseFragment
 		pushNotificationTextView = ( TextView ) view.findViewById ( R.id.pushNotificationTextView );
 		emailNotificationTextView = ( TextView ) view.findViewById ( R.id.emailNotificationTextView );
 
-		saveTopBarImageView = ( ImageView ) view.findViewById ( R.id.saveTopBarImageView );
-		saveTopBarTextView = ( TextView ) view.findViewById ( R.id.saveTopBarTextView );
+		//saveTopBarImageView = ( ImageView ) view.findViewById ( R.id.saveTopBarImageView );
+		//saveTopBarTextView = ( TextView ) view.findViewById ( R.id.saveTopBarTextView );
 
 		pushNotificationTogglebutton = ( ToggleButton ) view.findViewById ( R.id.pushNotificationTogglebutton );
 		emailNotificationTogglebutton = ( ToggleButton ) view.findViewById ( R.id.emailNotificationTogglebutton );
@@ -130,14 +130,12 @@ public class EditAccountViewFragment extends BaseFragment
 	@Override
 	protected void init ()
 	{
-		//if ( APIManager.getInstance ().getUser ().isService () )
-		//{
-			//savedAdressTitle.setVisibility ( View.GONE );
-			//pushNotificationLayout.setVisibility ( View.GONE );
-			//addAdressButton.setVisibility ( View.GONE );
-		//} else
-		//{
-			pushNotificationLayout.setVisibility ( View.VISIBLE );
+		if ( APIManager.getInstance ().getUser ().isService () ) {
+            pushNotificationLayout.setVisibility(View.VISIBLE);
+        }else{
+            pushNotificationLayout.setVisibility ( View.GONE );
+        }
+
 			addAdressButton.setVisibility ( View.VISIBLE );
 			new AsyncTask < Void, Void, String > ()
 			{
@@ -185,7 +183,15 @@ public class EditAccountViewFragment extends BaseFragment
 				
 				TextView addressDescription = (TextView) addressItem.findViewById ( R.id.addressDescription );
 				addressDescription.setText ( addressAPIObject.getString ( AddressParams.DESCRIPTION ) );
-				
+
+                addressDescription.setTag(addressAPIObject);
+                addressDescription.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        controller.setCommunicationValue( AddressAPIObject.class.getSimpleName () ,view.getTag() );
+                        controller.setState(VIEW_STATE.ADD_ADDRESS);
+                    }
+                });
 				addressContainer.addView ( addressItem );
 			}
 		}else{
@@ -209,28 +215,6 @@ public class EditAccountViewFragment extends BaseFragment
 
 	protected void addListeners ()
 	{
-		saveTopBarImageView.setOnClickListener ( new OnClickListener ()
-		{
-
-			@Override
-			public void onClick ( View view )
-			{
-				saveSettings ();
-				//saveUser ();
-			}
-		} );
-
-		saveTopBarTextView.setOnClickListener ( new OnClickListener ()
-		{
-
-			@Override
-			public void onClick ( View view )
-			{
-				saveSettings ();
-				//saveUser ();
-			}
-		} );
-
 		emailNotificationTogglebutton.setOnCheckedChangeListener ( new OnCheckedChangeListener ()
 		{
 
@@ -303,7 +287,7 @@ public class EditAccountViewFragment extends BaseFragment
         bankAccountTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                controller.setState ( VIEW_STATE.BANK_ACCOUNT );
+                controller.setState ( VIEW_STATE.CREDIT_CARD );
             }
         });
 	}

@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/topbarContainer"
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -23,32 +23,16 @@
 
         <TextView
             android:id="@+id/screenTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/account"
             android:textColor="@color/white"
             android:textSize="21sp" />
 
-        <ImageView
-            android:id="@+id/saveTopBarImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:src="@drawable/save_cloud_acc" />
-
-        <TextView
-            android:id="@+id/saveTopBarTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="13dp"
-            android:gravity="center"
-            android:text="@string/saveTopBar"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-    </LinearLayout>
+    </FrameLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -187,7 +171,7 @@
                     android:drawableRight="@drawable/arrow_for_in_search"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="@string/bank_account"
+                    android:text="@string/my_cards"
                     android:textColor="@drawable/address_add_button_text_color_selector"
                     android:textSize="13sp" />
 

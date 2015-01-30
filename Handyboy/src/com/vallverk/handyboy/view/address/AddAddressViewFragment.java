@@ -39,6 +39,7 @@ public class AddAddressViewFragment extends BaseFragment
 	private EditText cityEditText;
 	private TextView stateTextView;
 	private EditText zipEditText;
+    private Button deleteButton;
 
 	private APIManager apiManager;
 	private UserAPIObject user;
@@ -65,6 +66,8 @@ public class AddAddressViewFragment extends BaseFragment
 			cityEditText = ( EditText ) view.findViewById ( R.id.cityEditText );
 			zipEditText = ( EditText ) view.findViewById ( R.id.zipEditText );
 
+            deleteButton = (Button) view.findViewById(R.id.deleteButton);
+
 		} else
 		{
 			( ( ViewGroup ) view.getParent () ).removeView ( view );
@@ -75,6 +78,7 @@ public class AddAddressViewFragment extends BaseFragment
 	@Override
 	protected void init ()
 	{
+
 		updateComponents ();
 		addListeners ();
 		updateFonts ();
@@ -94,9 +98,11 @@ public class AddAddressViewFragment extends BaseFragment
 		if(selectedAddressAPIObject != null){
 			screenTextView.setText ( getString ( R.string.update_address_title ) );
 			addAddressButton.setText (  getString (R.string.update_address_title ));
+            deleteButton.setVisibility(View.VISIBLE);
 		}else{
 			screenTextView.setText ( getString ( R.string.add_address_title ) );
 			addAddressButton.setText (  getString (R.string.add_new_destination_save ) );
+            deleteButton.setVisibility(View.GONE);
 		}
 		
 		stateSpinner.setData ( getActivity ().getResources ().getStringArray ( R.array.states ) );
@@ -120,6 +126,55 @@ public class AddAddressViewFragment extends BaseFragment
 		// FontUtils.getInstance ( controller ).applyStyle ( noFavoritesBody,
 		// FontStyle.REGULAR );
 	}
+
+    private void deleteAddress(){
+        new AsyncTask < Void, Void, String > ()
+        {
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                JSONObject jsonRequest;
+                String request;
+                try
+                {
+                    if(selectedAddressAPIObject != null){
+                        JSONObject postParameters = new JSONObject ();
+                        postParameters.accumulate ( "id", selectedAddressAPIObject.getId () );
+                        request = ServerManager.postRequest(ServerManager.DELETE_ADDRESS, postParameters);
+                        jsonRequest = new JSONObject(request);
+                        result = jsonRequest.getString ( "parameters" );
+                    }else{
+                        result = "Delete error";
+                    }
+                } catch ( Exception e )
+                {
+                    result = e.getMessage ();
+                    e.printStackTrace ();
+                }
+                return result;
+            }
+
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    controller.onBackPressed ();
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+        }.execute ();
+    }
 
 	private void addAddress ()
 	{
@@ -264,5 +319,12 @@ public class AddAddressViewFragment extends BaseFragment
 				addAddress ();
 			}
 		} );
+
+        deleteButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteAddress();
+            }
+        });
 	}
 }

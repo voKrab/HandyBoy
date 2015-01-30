@@ -91,6 +91,7 @@ public class ServerManager
 
     public static String INSERT_ADDRESS = PROTOCOL + HOST + "/address/insert";
     public static String UPDATE_ADDRESS = PROTOCOL + HOST + "/address/update";
+    public static String DELETE_ADDRESS = PROTOCOL + HOST + "/address/delete";
     public static String GET_ADDRESSES = PROTOCOL + HOST + "/address/get?id=";
     public static String GET_ADDRESS = PROTOCOL + HOST + "/address/get?objectId=";
     public static String CREATE_BOOKING = PROTOCOL + HOST + "/booking/createbooking";
