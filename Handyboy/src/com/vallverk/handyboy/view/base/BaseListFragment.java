@@ -1,6 +1,5 @@
 package com.vallverk.handyboy.view.base;
 
-import java.util.List;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,11 +11,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.view.GridViewAdapter;
+
+import java.util.List;
 
 public class BaseListFragment extends BaseFragment
 {
@@ -138,6 +140,10 @@ public class BaseListFragment extends BaseFragment
 				{
 					ex.printStackTrace ();
 					result = ex.getMessage ();
+                    if ( result == null )
+                    {
+                        result = controller.getString ( R.string.error );
+                    }
 				}
 				return result;
 			}
