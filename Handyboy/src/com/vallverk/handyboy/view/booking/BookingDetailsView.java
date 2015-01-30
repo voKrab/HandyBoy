@@ -1,9 +1,5 @@
 package com.vallverk.handyboy.view.booking;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -19,15 +15,17 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
-import com.vallverk.handyboy.model.api.AddressAPIObject;
 import com.vallverk.handyboy.model.api.AddressAPIObject.AddressParams;
 import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
+import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.BookingDataObject.JobAddonDetailsObject;
-import com.vallverk.handyboy.model.api.JobAddonsAPIObject;
 import com.vallverk.handyboy.model.api.JobAddonsAPIObject.JobAddonsAPIParams;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
-import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.view.base.RatingView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class BookingDetailsView extends FrameLayout
 {
@@ -44,11 +42,11 @@ public class BookingDetailsView extends FrameLayout
 	private TextView periodTextView;
 	private TextView priceTextView;
 
-    private View commentContainer;
-    private TextView commentTextView;
+	private View commentContainer;
+	private TextView commentTextView;
 
-    private View specialReqeustContainer;
-    private TextView specialReqeustTextView;
+	private View specialReqeustContainer;
+	private TextView specialReqeustTextView;
 
 	private RatingView ratingView;
 	private ImageView chatImageView;
@@ -88,14 +86,14 @@ public class BookingDetailsView extends FrameLayout
 		priceTextView = ( TextView ) view.findViewById ( R.id.priceTextView );
 		addonsContainerLayout = ( LinearLayout ) view.findViewById ( R.id.addonsContainerLayout );
 
-        commentContainer = view.findViewById(R.id.commentContainer);
-        commentTextView = (TextView) view.findViewById(R.id.commentTextView);
+		commentContainer = view.findViewById ( R.id.commentContainer );
+		commentTextView = ( TextView ) view.findViewById ( R.id.commentTextView );
 
-        specialReqeustContainer = view.findViewById(R.id.specialReqeustContainer);
-        specialReqeustTextView = (TextView) view.findViewById(R.id.specialReqeustTextView);
+		specialReqeustContainer = view.findViewById ( R.id.specialReqeustContainer );
+		specialReqeustTextView = ( TextView ) view.findViewById ( R.id.specialReqeustTextView );
 
 		ratingView = ( RatingView ) view.findViewById ( R.id.ratingView );
-		chatImageView = (ImageView) view.findViewById ( R.id.chatImageView );
+		chatImageView = ( ImageView ) view.findViewById ( R.id.chatImageView );
 
 		addView ( view );
 	}
@@ -123,7 +121,7 @@ public class BookingDetailsView extends FrameLayout
 		addressNameTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.DESCRIPTION ) );
 		addressTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.ADDRESS ) );
 		dateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ) ) );
-		
+
 		String avatarUrl = "";
 		if ( isIService )
 		{
@@ -132,8 +130,7 @@ public class BookingDetailsView extends FrameLayout
 		{
 			avatarUrl = bookingDataObject.getService ().getString ( UserParams.AVATAR );
 		}
-		setAvatar ( avatarUrl);
-		
+		setAvatar ( avatarUrl );
 
 		JSONArray timeJsonArray;
 		JSONObject timePeriod;
@@ -162,21 +159,25 @@ public class BookingDetailsView extends FrameLayout
 			addonsContainerLayout.addView ( addonItemView );
 		}
 
-        String comment = bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.COMMENT ).toString ();
-        if(comment.isEmpty()){
-            commentContainer.setVisibility(GONE);
-        }else{
-            commentTextView.setText(comment);
-            commentContainer.setVisibility(VISIBLE);
-        }
+		String comment = bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.COMMENT ).toString ();
+		if ( comment.isEmpty () )
+		{
+			commentContainer.setVisibility ( GONE );
+		} else
+		{
+			commentTextView.setText ( comment );
+			commentContainer.setVisibility ( VISIBLE );
+		}
 
-        String specialRequest =  bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.SPECIAL_REQUEST ).toString ();
-        if(specialRequest.isEmpty()){
-            specialReqeustContainer.setVisibility(GONE);
-        }else{
-            specialReqeustTextView.setText(specialRequest);
-            specialReqeustContainer.setVisibility(VISIBLE);
-        }
+		String specialRequest = bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.SPECIAL_REQUEST ).toString ();
+		if ( specialRequest.isEmpty () )
+		{
+			specialReqeustContainer.setVisibility ( GONE );
+		} else
+		{
+			specialReqeustTextView.setText ( specialRequest );
+			specialReqeustContainer.setVisibility ( VISIBLE );
+		}
 	}
 
 	public void setRaiting ( float rating )
@@ -184,16 +185,20 @@ public class BookingDetailsView extends FrameLayout
 		ratingView.setRating ( rating );
 		ratingView.setVisibility ( VISIBLE );
 	}
-	
-	public void setChatEnabled(boolean isVisible){
-		if(isVisible){
+
+	public void setChatEnabled ( boolean isVisible )
+	{
+		if ( isVisible )
+		{
 			chatImageView.setVisibility ( VISIBLE );
-		}else{
+		} else
+		{
 			chatImageView.setVisibility ( GONE );
 		}
 	}
-	
-	public void setCustomerAvatarStyle(){
+
+	public void setCustomerAvatarStyle ()
+	{
 		FrameLayout.LayoutParams params = ( FrameLayout.LayoutParams ) avatarImageView.getLayoutParams ();
 		params.height = Tools.fromDPToPX ( 154, getContext () );
 		avatarImageView.setLayoutParams ( params );

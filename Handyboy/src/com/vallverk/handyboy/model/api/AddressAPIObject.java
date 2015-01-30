@@ -1,8 +1,14 @@
 package com.vallverk.handyboy.model.api;
 
+import android.location.Address;
+import android.location.Geocoder;
+
+import com.vallverk.handyboy.MainActivity;
+
 import org.json.JSONObject;
 
-import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
+import java.util.List;
+import java.util.Locale;
 
 public class AddressAPIObject extends APIObject
 {
@@ -11,7 +17,26 @@ public class AddressAPIObject extends APIObject
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum AddressParams
+    public Address getGeoPoint () throws Exception
+    {
+        Geocoder geocoder = new Geocoder ( MainActivity.getInstance(), Locale.getDefault () );
+        String addressString = createAddressString ();
+        List < Address > addressList = geocoder.getFromLocationName ( addressString, 1 );
+        if ( addressList.isEmpty () )
+        {
+            throw new Exception ( "Location (" + addressString + ") not found" );
+        }
+        return addressList.get ( 0 );
+    }
+
+    private String createAddressString ()
+    {
+        String address = "";
+        address += getString ( AddressParams.CITY ) + " " + getString ( AddressParams.STATE ) + " " + getString ( AddressParams.ZIP_CODE ) + " " + getString ( AddressParams.ADDRESS );
+        return address;
+    }
+
+    public enum AddressParams
 	{
 		USER_ID ( "userId" ),
 		CITY ( "city" ),
