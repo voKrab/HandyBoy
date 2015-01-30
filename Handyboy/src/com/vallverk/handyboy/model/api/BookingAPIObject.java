@@ -61,13 +61,19 @@ public class BookingAPIObject extends APIObject implements Serializable
         return null;
     }
 
-    public boolean isAdditionalChangesState () throws Exception
+    public boolean isAdditionalChargesState () throws Exception
     {
         String jsonString = ServerManager.getRequest ( ServerManager.IS_ADD_CHARGES_STATE.replace ( "bookingId=1", "bookingId=" + getId () ) );
         ServerManager.checkErrors ( jsonString );
         JSONObject jsonObject = new JSONObject ( jsonString );
         boolean result = jsonObject.getBoolean ( "isset" );
         return result;
+    }
+
+    public boolean isAdditionalChargesRequested () throws Exception
+    {
+        List < AdditionalChargesAPIObject > list = APIManager.getInstance ().loadList ( ServerManager.BOOKING_GET_ADD_CHARGES.replace ( "bookingId=1", "bookingId=" + getId() ), AdditionalChargesAPIObject.class );
+        return list.size () > 0;
     }
 
     public enum BookingAPIParams

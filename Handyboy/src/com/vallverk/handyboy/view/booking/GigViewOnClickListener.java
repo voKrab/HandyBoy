@@ -142,7 +142,7 @@ public class GigViewOnClickListener implements View.OnClickListener
                 try
                 {
                     BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
-                    isAdditionalChangesState = booking.isAdditionalChangesState ();
+                    isAdditionalChangesState = booking.isAdditionalChargesState();
                 } catch ( Exception ex )
                 {
                     ex.printStackTrace ();
@@ -178,7 +178,7 @@ public class GigViewOnClickListener implements View.OnClickListener
 						controller.setState ( ViewStateController.VIEW_STATE.CHARGES );
 					} else
 					{
-						controller.setState ( ViewStateController.VIEW_STATE.GIG_SERVICE );
+						controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
 					}
 				} else
 				{
@@ -193,7 +193,7 @@ public class GigViewOnClickListener implements View.OnClickListener
 				try
 				{
 					BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
-					isAdditionalChangesState = booking.isAdditionalChangesState ();
+					isAdditionalChangesState = booking.isAdditionalChargesState();
 				} catch ( Exception ex )
 				{
 					ex.printStackTrace ();
@@ -244,7 +244,7 @@ public class GigViewOnClickListener implements View.OnClickListener
 				try
 				{
 					BookingAPIObject booking = bookingDataManager.getActiveBookingAPIObject ();
-					isAdditionalChangesState = booking.isAdditionalChangesState ();
+					isAdditionalChangesState = booking.isAdditionalChargesState();
 				} catch ( Exception ex )
 				{
 					ex.printStackTrace ();

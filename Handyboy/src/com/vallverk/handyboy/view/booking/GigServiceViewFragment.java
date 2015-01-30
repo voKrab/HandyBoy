@@ -45,6 +45,7 @@ public class GigServiceViewFragment extends BaseFragment
 	private BookingDataObject bookingDataObject;
 	private View cancelButton;
 	private Button additionalChargesButton;
+    private boolean isAddChargesRequested;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -81,24 +82,54 @@ public class GigServiceViewFragment extends BaseFragment
 		bookingDetailsView.setData ( bookingDataManager.getData ().get ( bookingDataManager.getActiveDataIndex () ), user.isService () );
 		bookingDetailsView.setRaiting ( 4.0f );
 		bookingAPIObject = bookingDataObject.getBookingAPIObject ();
-		updateComponents ();
-		addListeners ();
 	}
 
-	private void updateComponents ()
-	{
-//		String specialRequest = bookingAPIObject.getString ( BookingAPIParams.SPECIAL_REQUEST );
-		// additionalChargesButton.setVisibility ( specialRequest.isEmpty () ?
-		// View.GONE : View.VISIBLE );
-	}
+    @Override
+    protected void init ()
+    {
+        new AsyncTask < Void, Void, String > ()
+        {
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
 
-	@Override
-	protected void updateFonts ()
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+					updateComponents ();
+					addListeners ();
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                    controller.onBackPressed ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    isAddChargesRequested = bookingAPIObject.isAdditionalChargesRequested ();
+                } catch ( Exception ex )
+                {
+                    result = ex.getMessage ();
+                    ex.printStackTrace ();
+                }
+                return result;
+            }
+        }.execute();
+    }
+
+    private void updateComponents ()
 	{
-		// FontUtils.getInstance ( controller ).applyStyle ( noFavoritesTitle,
-		// FontStyle.LIGHT );
-		// FontUtils.getInstance ( controller ).applyStyle ( noFavoritesBody,
-		// FontStyle.REGULAR );
+		additionalChargesButton.setVisibility ( isAddChargesRequested ? View.GONE : View.VISIBLE );
 	}
 
 	private void addListeners ()
