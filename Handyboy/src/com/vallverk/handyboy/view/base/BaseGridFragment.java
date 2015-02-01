@@ -1,12 +1,12 @@
 package com.vallverk.handyboy.view.base;
 
-import java.util.List;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -20,6 +20,8 @@ import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.view.GridViewAdapter;
+
+import java.util.List;
 
 public class BaseGridFragment extends BaseFragment
 {
@@ -93,32 +95,84 @@ public class BaseGridFragment extends BaseFragment
 			}
 		} );
 
-		gridView.setOnItemClickListener ( new OnItemClickListener ()
-		{
-			public void onItemClick ( AdapterView < ? > parent, View view, int position, long id )
-			{
-				// ParseObject productObject = ( ParseObject ) objects.get (
-				// position );
-				// FashionGramApplication.temp.push ( productObject );
-				// FashionGramApplication.viewStateController.setState (
-				// VIEW_STATE.PRODUCT_DETAILS );
-			}
-		} );
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // ParseObject productObject = ( ParseObject ) objects.get (
+                // position );
+                // FashionGramApplication.temp.push ( productObject );
+                // FashionGramApplication.viewStateController.setState (
+                // VIEW_STATE.PRODUCT_DETAILS );
+            }
+        });
+        gridViewPTR.setOnScrollListener ( new AbsListView.OnScrollListener ()
+        {
+            @Override
+            public void onScrollStateChanged ( AbsListView view, int scrollState )
+            {
+            }
+
+            @Override
+            public void onScroll ( AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount )
+            {
+//                int countItemsInRow = 3;
+                if ( firstVisibleItem + visibleItemCount >= totalItemCount && refresher.isHasMore () && refresher.isNeedLoadMore ( totalItemCount ) )
+                {
+                    loadMoreItems ( totalItemCount );
+                }
+            }
+        } );
 	}
 
-	public interface Refresher
-	{
-		public List < Object > refresh () throws Exception;
-	}
-	
-	public void setRefresher ( Refresher refresher )
+    public void setRefresher ( Refresher refresher )
 	{
 		this.refresher = refresher;
 	}
-	
+
+    private void loadMoreItems ( final int totalItemCount )
+    {
+        new AsyncTask < Void, Void, String > ()
+        {
+            private List items;
+
+            @Override
+            protected void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () && !items.isEmpty() )
+                {
+                    objects.addAll ( items );
+                    gridAdapter.addAll ( items );
+                    gridAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    items = refresher.loadMoreItems ( totalItemCount );
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
+
 	public void refreshData ()
 	{
-		new AsyncTask < Void, Void, String >()
+		new AsyncTask < Void, Void, String > ()
 		{
 			public void onPostExecute ( String result )
 			{
@@ -129,6 +183,7 @@ public class BaseGridFragment extends BaseFragment
 				}
 				gridViewPTR.onRefreshComplete ();
 			}
+
 			@Override
 			protected String doInBackground ( Void... params )
 			{

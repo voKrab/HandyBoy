@@ -1,7 +1,6 @@
 package com.vallverk.handyboy.view.booking;
 
 import android.content.Intent;
-import android.location.Address;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -145,53 +144,58 @@ public class NextGigViewFragment extends BaseFragment
 
 	private void showAddressOnGoogleMap ()
 	{
-        new AsyncTask < Void, Void, String > ()
-        {
-            private Address geoAddress;
-            public AddressAPIObject address;
-
-            public void onPreExecute ()
-            {
-                super.onPreExecute ();
-                controller.showLoader ();
-            }
-
-            public void onPostExecute ( String result )
-            {
-                super.onPostExecute ( result );
-                controller.hideLoader ();
-                if ( result.isEmpty () )
-                {
-                    Uri gmmIntentUri = Uri.parse ( "geo:" + geoAddress.getLongitude () + "," + geoAddress.getLatitude() );
-                    Intent mapIntent = new Intent ( Intent.ACTION_VIEW, gmmIntentUri );
-                    mapIntent.setPackage ( "com.google.android.apps.maps" );
-                    startActivity ( mapIntent );
-                } else
-                {
-//                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
-                    Uri gmmIntentUri = Uri.parse ( "geo:0,0?q=" + address.createAddressString () );
-                    Intent mapIntent = new Intent ( Intent.ACTION_VIEW, gmmIntentUri );
-                    mapIntent.setPackage ( "com.google.android.apps.maps" );
-                    startActivity ( mapIntent );
-                }
-            }
-
-            @Override
-            protected String doInBackground ( Void... params )
-            {
-                String result = "";
-                try
-                {
-                    address = bookingDataManager.getActiveBooking().getAddress ();
-                    geoAddress = address.getGeoPoint ();
-                } catch ( Exception ex )
-                {
-                    result = ex.getMessage ();
-                    ex.printStackTrace ();
-                }
-                return result;
-            }
-        }.execute ();
+//        new AsyncTask < Void, Void, String > ()
+//        {
+//            private Address geoAddress;
+//            public AddressAPIObject address;
+//
+//            public void onPreExecute ()
+//            {
+//                super.onPreExecute ();
+//                controller.showLoader ();
+//            }
+//
+//            public void onPostExecute ( String result )
+//            {
+//                super.onPostExecute ( result );
+//                controller.hideLoader ();
+//                if ( result.isEmpty () )
+//                {
+//                    Uri gmmIntentUri = Uri.parse ( "geo:" + geoAddress.getLatitude () + "," + geoAddress.getLongitude () );
+//                    Intent mapIntent = new Intent ( Intent.ACTION_VIEW, gmmIntentUri );
+//                    mapIntent.setPackage ( "com.google.android.apps.maps" );
+//                    startActivity ( mapIntent );
+//                } else
+//                {
+////                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+//                    Uri gmmIntentUri = Uri.parse ( "geo:0,0?q=" + address.createAddressString () );
+//                    Intent mapIntent = new Intent ( Intent.ACTION_VIEW, gmmIntentUri );
+//                    mapIntent.setPackage ( "com.google.android.apps.maps" );
+//                    startActivity ( mapIntent );
+//                }
+//            }
+//
+//            @Override
+//            protected String doInBackground ( Void... params )
+//            {
+//                String result = "";
+//                try
+//                {
+//                    address = bookingDataManager.getActiveBooking().getAddress ();
+//                    geoAddress = address.getGeoPoint ();
+//                } catch ( Exception ex )
+//                {
+//                    result = ex.getMessage ();
+//                    ex.printStackTrace ();
+//                }
+//                return result;
+//            }
+//        }.execute ();
+		AddressAPIObject address = bookingDataManager.getActiveBooking ().getAddress ();
+		Uri gmmIntentUri = Uri.parse ( "geo:0,0?q=" + address.createAddressString () );
+		Intent mapIntent = new Intent ( Intent.ACTION_VIEW, gmmIntentUri );
+		mapIntent.setPackage ( "com.google.android.apps.maps" );
+		startActivity ( mapIntent );
     }
 
 	protected void cancelGig ()

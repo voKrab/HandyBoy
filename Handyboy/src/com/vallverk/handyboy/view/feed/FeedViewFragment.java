@@ -1,33 +1,30 @@
 package com.vallverk.handyboy.view.feed;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
 import com.vallverk.handyboy.MainActivity;
-import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.MainActivity.ApplicationAction;
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.CommunicationManager;
 import com.vallverk.handyboy.model.FilterManager;
@@ -41,9 +38,12 @@ import com.vallverk.handyboy.view.base.AnimatedExpandableListView;
 import com.vallverk.handyboy.view.base.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.BaseGridFragment;
-import com.vallverk.handyboy.view.base.BaseGridFragment.Refresher;
 import com.vallverk.handyboy.view.base.FontUtils;
 import com.vallverk.handyboy.view.base.FontUtils.FontStyle;
+import com.vallverk.handyboy.view.base.Refresher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FeedViewFragment extends BaseFragment
 {
@@ -146,14 +146,22 @@ public class FeedViewFragment extends BaseFragment
 		if ( gridFragment == null )
 		{
 			gridFragment = ( BaseGridFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.baseGridViewFragment );
-			gridFragment.setRefresher ( new Refresher ()
+			gridFragment.setRefresher ( new Refresher ( 25 )
 			{
-				@Override
-				public List < Object > refresh () throws Exception
-				{
-					return APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( 100, 0 ), UserAPIObject.class );
-				}
-			} );
+                @Override
+                public List < Object > refresh () throws Exception
+                {
+                    List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
+                    return handyboys;
+                }
+
+                @Override
+                public List < Object > loadMoreItems () throws Exception
+                {
+                    List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
+                    return handyboys;
+                }
+            } );
 			CommunicationManager.getInstance ().addListener ( ApplicationAction.SEARCH, new Handler ()
 			{
 				@Override
@@ -376,7 +384,7 @@ public class FeedViewFragment extends BaseFragment
 		}
 
 	}
-	
+
 	private void searchByJobId ( String typeJobId, String typeJobName )
 	{
 		searchGroupNameTextView.setText ( typeJobName );
@@ -512,7 +520,7 @@ public class FeedViewFragment extends BaseFragment
 			}
 
 		} );
-		
+
 		boyTypeExpandableListView.setOnChildClickListener ( new OnChildClickListener ()
 		{
 

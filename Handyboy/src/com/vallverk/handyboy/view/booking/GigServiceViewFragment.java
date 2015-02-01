@@ -101,8 +101,8 @@ public class GigServiceViewFragment extends BaseFragment
                 controller.hideLoader ();
                 if ( result.isEmpty () )
                 {
-					updateComponents ();
-					addListeners ();
+                    updateComponents ();
+                    addListeners ();
                 } else
                 {
                     Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
