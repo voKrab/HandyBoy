@@ -180,7 +180,7 @@ public class BaseGridFragment extends BaseFragment
 				if ( result.isEmpty () )
 				{
 					updateContent ();
-				}
+                }
 				gridViewPTR.onRefreshComplete ();
 			}
 
@@ -190,6 +190,7 @@ public class BaseGridFragment extends BaseFragment
 				String result = "";
 				try
 				{
+                    refresher.init ();
 					objects = refresher.refresh ();
 				} catch ( Exception ex )
 				{

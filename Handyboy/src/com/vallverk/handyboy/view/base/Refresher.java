@@ -12,6 +12,7 @@ public class Refresher
     public Refresher ( int pageLimit )
     {
         this.pageLimit = pageLimit;
+        this.hasMore = true;
     }
 
     public List < Object > refresh () throws Exception
@@ -51,5 +52,11 @@ public class Refresher
     public List < Object > loadMoreItems () throws Exception
     {
         return new ArrayList < Object > ();
+    }
+
+    public void init ()
+    {
+        setHasMore ( true );
+        loadedItems = 0;
     }
 }
