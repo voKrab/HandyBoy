@@ -1,16 +1,6 @@
 package com.vallverk.handyboy.view.registration;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -30,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
@@ -48,6 +39,12 @@ import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.MultiChoiceSpinner;
 import com.vallverk.handyboy.view.base.SingleChoiceSpinner;
 import com.vallverk.handyboy.view.controller.RegistrationController;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 public class RegistrationServiceBIOViewFragment extends BaseFragment
 {
@@ -472,7 +469,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 
 		UserDetailsAPIObject service = controller.getUserDetails ();
 		UserDetailsAPIObject userDetails = service == null ? new UserDetailsAPIObject () : service;
-		userDetails.putValue ( UserDetailsParams.HEIGHT, feetEditText.getText ().toString () + "," + inchesEditText.getText ().toString () );
+		userDetails.putValue ( UserDetailsParams.HEIGHT, feetEditText.getText ().toString () + "." + inchesEditText.getText ().toString () );
 		userDetails.putValue ( UserDetailsParams.WEIGHT, "" + weightSpinner.getSelectedItem () );
 		userDetails.putValue ( UserDetailsParams.HEIR_COLOR, hairColorSpinner.getSelectedItem ().toString () );
 		userDetails.putValue ( UserDetailsParams.EYE_COLOR, eyeColorSpinner.getSelectedItem ().toString () );

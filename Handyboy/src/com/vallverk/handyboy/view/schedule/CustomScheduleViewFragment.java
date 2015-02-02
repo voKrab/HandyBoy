@@ -20,32 +20,34 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 	protected boolean isInited;
 	protected CheckBox locationCheckBox;
 	protected AutoCompleteTextView locationEditText;
+	private CheckBox dayOffCheckBox;
 
 	@Override
 	protected int getLayoutId ()
 	{
 		return R.layout.custom_schedule_layout;
 	}
-	
+
 	@Override
 	protected void initDateComponents ()
 	{
 		dateChooserView = ( DateChooserView ) view.findViewById ( R.id.dateChooserView );
+		dayOffCheckBox = ( CheckBox ) view.findViewById ( R.id.dayOffCheckBox );
 		locationCheckBox = ( CheckBox ) view.findViewById ( R.id.locationCheckBox );
 		locationEditText = ( AutoCompleteTextView ) view.findViewById ( R.id.locationEditText );
 	}
-	
+
 	@Override
 	protected void updateSizesOfDateComponents ()
 	{
-		
+
 	}
-	
+
 	@Override
 	protected void addListeners ()
 	{
 		super.addListeners ();
-		
+
 		if ( locationCheckBox == null )
 		{
 			return;
@@ -57,9 +59,9 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 			{
 				locationEditText.setVisibility ( isChecked ? View.VISIBLE : View.GONE );
 			}
-		});
+		} );
 	}
-	
+
 	@Override
 	protected void addDateComponentsListeners ()
 	{
@@ -69,9 +71,9 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 			{
 				init ();
 			}
-		});
+		} );
 	}
-	
+
 	@Override
 	protected void init ()
 	{
@@ -150,7 +152,7 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 				String result = "";
 				try
 				{
-					scheduleManager.uploadToServer ( dateChooserView.getSelectedDate () );
+					scheduleManager.uploadToServer ( dateChooserView.getSelectedDate (), dayOffCheckBox.isChecked () );
 				} catch ( Exception ex )
 				{
 					ex.printStackTrace ();
@@ -160,13 +162,13 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 			}
 		}.execute ();
 	}
-	
+
 	@Override
 	protected Day getStartDay ()
 	{
 		return null;
 	}
-	
+
 	@Override
 	protected String getScreenName ()
 	{

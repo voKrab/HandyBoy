@@ -149,22 +149,23 @@ public class FeedViewFragment extends BaseFragment
 			gridFragment = ( BaseGridFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.baseGridViewFragment );
 			gridFragment.setRefresher ( new Refresher ( 25 )
 			{
-                @Override
-                public List < Object > refresh () throws Exception
-                {
-                    Log.d("Feed", filterManager.getSearchUrl(pageLimit, loadedItems));
-                    List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
-                    return handyboys;
-                }
+				@Override
+				public List < Object > refresh () throws Exception
+				{
+					Log.d ( "Feed", filterManager.getSearchUrl ( pageLimit, loadedItems ) );
+					List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
+					return handyboys;
+				}
 
-                @Override
-                public List < Object > loadMoreItems () throws Exception
-                {
-                    Log.d("Feed", filterManager.getSearchUrl(pageLimit, loadedItems));
-                    List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
+				@Override
+				public List < Object > loadMoreItems () throws Exception
+				{
+					Log.d ( "Feed", filterManager.getSearchUrl ( pageLimit, loadedItems ) );
+					List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
+                    System.out.println ( "loadMoreItems: " + loadedItems + " " + handyboys.size () );
                     return handyboys;
-                }
-            } );
+				}
+			} );
 			CommunicationManager.getInstance ().addListener ( ApplicationAction.SEARCH, new Handler ()
 			{
 				@Override
@@ -586,7 +587,7 @@ public class FeedViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-                filterManager.clearFilter();
+				filterManager.clearFilter ();
 				searchTextView.setText ( "" );
 				searchGroupNameTextView.setText ( "" );
 				searchButton.performClick ();

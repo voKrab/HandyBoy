@@ -138,13 +138,13 @@ public class BaseGridFragment extends BaseFragment
             protected void onPreExecute ()
             {
                 super.onPreExecute ();
-                controller.showLoader ();
+//                controller.showLoader ();
             }
 
             public void onPostExecute ( String result )
             {
                 super.onPostExecute ( result );
-                controller.hideLoader ();
+//                controller.hideLoader ();
                 if ( result.isEmpty () && !items.isEmpty() )
                 {
                     objects.addAll ( items );

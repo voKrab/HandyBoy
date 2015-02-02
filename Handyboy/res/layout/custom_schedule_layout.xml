@@ -121,6 +121,18 @@
                     layout="@layout/time_grid_layout" />
 
                 <CheckBox
+                    android:id="@+id/dayOffCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginTop="21dp"
+                    android:paddingLeft="@dimen/padding_checkbox"
+                    android:text="@string/i_dont_want_to_work"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="18sp"
+                    android:checked="false" />
+
+                <CheckBox
                     android:id="@+id/locationCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

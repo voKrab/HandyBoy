@@ -1,12 +1,5 @@
 package com.vallverk.handyboy.view;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,25 +10,26 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.daimajia.slider.library.SliderLayout;
+
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.R;
@@ -43,12 +37,12 @@ import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.DiscountAPIObject;
-import com.vallverk.handyboy.model.api.ReviewAPIObject;
 import com.vallverk.handyboy.model.api.DiscountAPIObject.DiscountParams;
 import com.vallverk.handyboy.model.api.GalleryAPIObject;
-import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.GalleryAPIObject.GalleryAPIParams;
+import com.vallverk.handyboy.model.api.ReviewAPIObject;
 import com.vallverk.handyboy.model.api.ReviewAPIObject.ReviewParams;
+import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject.TypeJobServiceParams;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
@@ -61,6 +55,14 @@ import com.vallverk.handyboy.view.base.RatingView;
 import com.vallverk.handyboy.view.booking.ReviewsClientViewFragment.ReviewItemUserObject;
 import com.vallverk.handyboy.view.booking.ReviewsClientViewFragment.ReviewsListAdapter;
 import com.vallverk.handyboy.view.custom.FlakeOMeterView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HandyBoyViewFragment extends BaseFragment
 {
@@ -673,7 +675,7 @@ public class HandyBoyViewFragment extends BaseFragment
 		try
 		{
 			parameters = serviceDetails.getString ( UserDetailsParams.HEIGHT );
-			String[] sr = parameters.split ( "," );
+            String[] sr = parameters.split ( "\\." );
 			parameters = sr[0] + "'" + sr[1] + "\"";
 			parameters += " " + serviceDetails.getString ( UserDetailsParams.WEIGHT ) + "lbs, ";
 			parameters += serviceDetails.getString ( UserDetailsParams.HEIR_COLOR ) + ", ";

@@ -1,15 +1,17 @@
 package com.vallverk.handyboy.model.schedule;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ScheduleManager
 {
@@ -135,12 +137,12 @@ public class ScheduleManager
 		}
 	}
 	
-	public void uploadToServer ( Date date ) throws Exception
+	public void uploadToServer ( Date date, boolean dayOff ) throws Exception
 	{
 		UserAPIObject user = APIManager.getInstance ().getUser ();
 		JSONObject jsonObject = new JSONObject ();
 		jsonObject.put ( "serviceId", user.getString ( UserParams.SERVICE_ID ) );
-		jsonObject.put ( "date", Tools.toSimpleString ( date ) );
+		jsonObject.put ( "date", dayOff ? "[]" : Tools.toSimpleString ( date ) );
 		jsonObject.put ( "time", customDaySchedule.createTimeJSONArray ().toString () );
 		String responseText = ServerManager.postRequest ( ServerManager.SCHEDULE_ADD_CUSTOM_DAY, jsonObject );
 		JSONObject responseObject = new JSONObject ( responseText );
