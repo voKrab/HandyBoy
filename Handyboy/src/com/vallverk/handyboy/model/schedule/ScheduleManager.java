@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class ScheduleManager
 {
-	public enum Day
+    public enum Day
 	{
 		SUNDAY ( "1" ), MONDAY ( "2" ), TUESDAY ( "3" ), WEDNESDAY ( "4" ), THURSDAY ( "5" ), FRIDAY ( "6" ), SATURDAY ( "7" );
 
@@ -142,8 +142,8 @@ public class ScheduleManager
 		UserAPIObject user = APIManager.getInstance ().getUser ();
 		JSONObject jsonObject = new JSONObject ();
 		jsonObject.put ( "serviceId", user.getString ( UserParams.SERVICE_ID ) );
-		jsonObject.put ( "date", dayOff ? "[]" : Tools.toSimpleString ( date ) );
-		jsonObject.put ( "time", customDaySchedule.createTimeJSONArray ().toString () );
+		jsonObject.put ( "date", Tools.toSimpleString ( date ) );
+		jsonObject.put ( "time", dayOff ? "[]" : customDaySchedule.createTimeJSONArray ().toString () );
 		String responseText = ServerManager.postRequest ( ServerManager.SCHEDULE_ADD_CUSTOM_DAY, jsonObject );
 		JSONObject responseObject = new JSONObject ( responseText );
 		String resultStatus = responseObject.getString ( "parameters" );
@@ -199,6 +199,18 @@ public class ScheduleManager
 			return;
 		}
 		JSONObject jsonObject = new JSONObject ( data );
-		customDaySchedule.updateFromServer ( new JSONArray ( jsonObject.getString ( "time" ) ) );
+        String time = jsonObject.getString("time");
+        if ( time.equals ( "[]" ) )
+        {
+            customDaySchedule.setDayOff ( true );
+        } else
+        {
+            customDaySchedule.updateFromServer ( new JSONArray ( time ) );
+        }
 	}
+
+    public boolean isDayOff ()
+    {
+        return customDaySchedule.isDayOff ();
+    }
 }

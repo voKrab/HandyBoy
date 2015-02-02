@@ -1,8 +1,5 @@
 package com.vallverk.handyboy.model.schedule;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,19 +8,20 @@ public class ScheduleForDay
 	protected int[][] items;
 	protected int selectedItem;
 	protected int defaultItem;
+	private boolean dayOff;
 
 	public ScheduleForDay ()
 	{
 		this ( new int[10][5] );
 	}
-	
+
 	public ScheduleForDay ( int[][] items )
 	{
 		this.items = items;
 		this.selectedItem = getSelectedItem ();
 		this.defaultItem = getDefaultItem ();
 	}
-	
+
 	protected int getDefaultItem ()
 	{
 		return 0;
@@ -73,7 +71,8 @@ public class ScheduleForDay
 	public void removeWindow ( int row, int col )
 	{
 		removeRightPartOfWorkWindow ( row, col );
-		items[row][col] = selectedItem;//for succes removing left park of work window
+		items[row][col] = selectedItem;// for succes removing left park of work
+										// window
 		removeLeftPartOfWorkWindow ( row, col );
 	}
 
@@ -163,7 +162,7 @@ public class ScheduleForDay
 			}
 		}
 	}
-	
+
 	protected int[] getItemsAsArray ()
 	{
 		int[] array = new int[items.length * items[0].length];
@@ -176,5 +175,15 @@ public class ScheduleForDay
 			}
 		}
 		return array;
+	}
+
+	public boolean isDayOff ()
+	{
+		return dayOff;
+	}
+
+	public void setDayOff ( boolean dayOff )
+	{
+		this.dayOff = dayOff;
 	}
 }

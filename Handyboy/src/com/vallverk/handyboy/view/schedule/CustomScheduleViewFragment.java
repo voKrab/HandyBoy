@@ -123,6 +123,12 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 		}.execute ();
 	}
 
+    protected void updateComponents ()
+    {
+        dayOffCheckBox.setChecked ( scheduleManager.isDayOff () );
+        super.updateComponents ();
+    }
+
 	@Override
 	protected void saveSchedule ()
 	{

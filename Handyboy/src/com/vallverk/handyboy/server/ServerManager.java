@@ -134,9 +134,11 @@ public class ServerManager
 
         // HttpClient client = new DefaultHttpClient ();
         DefaultHttpClient client = ( DefaultHttpClient ) WebClientDevWrapper.getNewHttpClient ();
+        System.out.println ( "GET: to " + uriString );
         final HttpResponse response = client.execute ( httpget );
         HttpEntity responseEntity = response.getEntity ();
         final String responseText = new String ( EntityUtils.toString ( responseEntity ) );
+        System.out.println ( "RESPONSE: " + responseText );
         return responseText;
     }
 
