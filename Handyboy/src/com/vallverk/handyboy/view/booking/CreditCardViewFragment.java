@@ -147,6 +147,47 @@ public class CreditCardViewFragment extends BaseFragment
 		}.execute ();
 	}
 
+    private void deleteCard(){
+        new AsyncTask < Void, Void, String > ()
+        {
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    String request = ServerManager.getRequest(ServerManager.DELETE_CARD + listCreditCardAPIObject.get(creditCardsSpinner.getSelectedItemPosition()).getId());
+                    JSONObject jsonRequest = new JSONObject(request);
+                    result = jsonRequest.getString("parameters");
+                } catch ( Exception e )
+                {
+                    result = e.getMessage ();
+                    e.printStackTrace ();
+                }
+                return result;
+            }
+
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    getCreditCards();
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+        }.execute ();
+    }
+
 	private void saveCreditCard ()
 	{
 		final String creditCardName = cardNameEditText.getText ().toString ();
@@ -283,6 +324,7 @@ public class CreditCardViewFragment extends BaseFragment
 		{
 			useCreditCardLayout.setVisibility ( View.GONE );
 			saveButton.setVisibility ( View.GONE );
+            deleteButton.setVisibility(View.GONE);
 		}
 	}
 
@@ -431,7 +473,8 @@ public class CreditCardViewFragment extends BaseFragment
             deleteButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(controller, "Delete card", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(controller, "Delete card", Toast.LENGTH_SHORT).show();
+                    deleteCard();
                 }
             });
         }

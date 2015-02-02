@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -479,7 +480,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 
 	}
 
-	/**
+    /**
 	 * Change view state using viewStateController.
 	 */
 	public void setState ( VIEW_STATE newState )

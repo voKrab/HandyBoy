@@ -20,6 +20,7 @@ import com.vallverk.handyboy.model.CommunicationManager;
 import com.vallverk.handyboy.model.FilterManager.SearchType;
 import com.vallverk.handyboy.model.job.JobCategory;
 import com.vallverk.handyboy.model.job.TypeJob;
+import com.vallverk.handyboy.view.base.FontUtils;
 import com.vallverk.handyboy.view.feed.FeedViewFragment.CommunicationSearch;
 import com.vallverk.handyboy.view.base.BaseFragment;
 
@@ -58,12 +59,12 @@ public class ChooseJobTypeViewFragment extends BaseFragment
 			final TextView textView = new TextView ( getActivity () );
 			textView.setLayoutParams ( new LayoutParams ( LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT ) );
 			textView.setText ( jobType.getName () );
-			textView.setTextSize ( 28 );
-			textView.setTypeface ( textView.getTypeface (), Typeface.BOLD );
+			textView.setTextSize ( 27 );
+            FontUtils.getInstance(controller).applyStyle(textView, FontUtils.FontStyle.EXTRA_BOLD);
 			textView.setTextColor ( getActivity ().getResources ().getColor ( R.color.dark_blue ) );
 			int padding = Tools.fromDPToPX ( 7, getActivity () );
 			textView.setPadding ( padding + Tools.fromDPToPX ( 21, getActivity () ), padding, padding, padding );
-			container.addView ( textView );
+
 			final int whiteColor = getActivity ().getResources ().getColor ( R.color.white );
 			final int darkBlueColor = getActivity ().getResources ().getColor ( R.color.dark_blue );
 			textView.setOnTouchListener ( new OnTouchListener ()
@@ -102,6 +103,15 @@ public class ChooseJobTypeViewFragment extends BaseFragment
 					controller.setState ( VIEW_STATE.FEED );
 				}
 			} );
+
+            View deviderView = new View(getActivity());
+            LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT );
+            layoutParams.height = Tools.fromDPToPX(1, controller);
+            deviderView.setLayoutParams(layoutParams);
+            deviderView.setBackgroundResource(R.color.grey_semi_alpha);
+            container.addView ( textView );
+
+            container.addView(deviderView);
 		}
 	}
 

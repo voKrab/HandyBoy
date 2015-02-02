@@ -5,7 +5,7 @@
     android:layout_height="89dp"
     android:background="@color/white"
     android:clickable="false"
-    tools:context=".TutorialWelcomeViewFragment" >
+    tools:context=".TutorialWelcomeViewFragment">
 
     <com.vallverk.handyboy.view.base.DownloadableImageView
         android:id="@+id/avatarImageView"
@@ -71,8 +71,13 @@
         android:layout_alignLeft="@+id/lastMessageTextView"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:text="8"
         android:textColor="@color/dark_blue"
         android:textSize="13sp" />
 
-</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey_semi_alpha" />
+
+</RelativeLayout>

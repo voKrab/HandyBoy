@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:clickable="false"
     android:gravity="center_vertical"
-    tools:context=".TutorialWelcomeViewFragment" >
+    tools:context=".TutorialWelcomeViewFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <TextView
+        <com.vallverk.handyboy.view.base.TextViewPlus
+            app:customFont="REGULAR"
             android:id="@+id/TextView03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
             android:padding="7dp"
             android:text="@string/i_need_a"
+
             android:textColor="@color/dark_blue"
-            android:textSize="34sp" />
+            android:textSize="43sp" />
 
         <View
             android:layout_width="match_parent"
@@ -34,23 +37,25 @@
             android:layout_height="wrap_content"
             android:padding="7dp" >
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="EXTRA_BOLD"
                 android:id="@+id/partyTextView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="21dp"
                 android:text="@string/party"
                 android:textColor="@color/dark_blue"
-                android:textSize="34sp"
+                android:textSize="43sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="REGULAR"
                 android:id="@+id/partyTextView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/boy"
                 android:textColor="@color/dark_blue"
-                android:textSize="34sp" />
+                android:textSize="43sp" />
         </LinearLayout>
 
         <View
@@ -64,23 +69,25 @@
             android:layout_height="wrap_content"
             android:padding="7dp" >
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="EXTRA_BOLD"
                 android:id="@+id/homeTextView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="21dp"
                 android:text="@string/home"
                 android:textColor="@color/dark_blue"
-                android:textSize="34sp"
+                android:textSize="43sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="REGULAR"
                 android:id="@+id/homeTextView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/boy"
                 android:textColor="@color/dark_blue"
-                android:textSize="34sp" />
+                android:textSize="43sp" />
         </LinearLayout>
 
         <View
@@ -94,23 +101,25 @@
             android:layout_height="wrap_content"
             android:padding="7dp" >
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="EXTRA_BOLD"
                 android:id="@+id/muscleTextView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="21dp"
                 android:text="@string/muscle"
                 android:textColor="@color/dark_blue"
-                android:textSize="34sp"
+                android:textSize="43sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="REGULAR"
                 android:id="@+id/muscleTextView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/boy"
                 android:textColor="@color/dark_blue"
-                android:textSize="34sp" />
+                android:textSize="43sp" />
         </LinearLayout>
 
         <View
@@ -124,23 +133,25 @@
             android:layout_height="wrap_content"
             android:padding="7dp" >
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="EXTRA_BOLD"
                 android:id="@+id/prettyTextView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="21dp"
                 android:text="@string/pretty"
                 android:textColor="@color/grey_semi_alpha"
-                android:textSize="34sp"
+                android:textSize="43sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                app:customFont="REGULAR"
                 android:id="@+id/prettyTextView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/boy"
                 android:textColor="@color/grey_semi_alpha"
-                android:textSize="34sp" />
+                android:textSize="43sp" />
         </LinearLayout>
     </LinearLayout>
 

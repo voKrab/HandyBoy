@@ -85,8 +85,6 @@
             android:textColor="@color/dark_blue"
             android:textColorHint="@color/text_hint"
             android:textSize="13sp" >
-
-            <requestFocus />
         </EditText>
 
         <RelativeLayout

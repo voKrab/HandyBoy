@@ -102,6 +102,7 @@ public class ServerManager
 
     public static String GET_CREDIT_CARDS = PROTOCOL + HOST + "/payment/getallcards?id=";
     public static String SAVE_CARD = PROTOCOL + HOST + "/payment/savecard";
+    public static String DELETE_CARD = PROTOCOL + HOST + "/payment/deletecard?id=";
 
     public static final String REVIEW_SAVE = PROTOCOL + HOST + "/review/add";
     public static final String GET_REVIEWS = PROTOCOL + HOST + "/review/?";

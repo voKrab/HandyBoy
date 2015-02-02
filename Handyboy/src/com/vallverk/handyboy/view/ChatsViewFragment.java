@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
@@ -100,17 +103,14 @@ public class ChatsViewFragment extends BaseFragment
 		
 	}
 
-	private void addListeners ()
-	{
-		menuImageView.setOnClickListener ( new OnClickListener ()
-		{
-			@Override
-			public void onClick ( View arg0 )
-			{
-				controller.openMenu ();
-			}
-		} );
-	}
+	private void addListeners () {
+        menuImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                controller.openMenu();
+            }
+        });
+    }
 
 	public class ChatsListAdapter extends ArrayAdapter < Object >
 	{
