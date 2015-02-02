@@ -1,11 +1,5 @@
 package com.vallverk.handyboy.view.profile;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -16,7 +10,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,9 +48,17 @@ import com.vallverk.handyboy.view.AddressAutocompleteAdapter;
 import com.vallverk.handyboy.view.base.AutocompleteAdapter;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.DownloadableImageView;
+import com.vallverk.handyboy.view.base.DownloadableImageView.Quality;
 import com.vallverk.handyboy.view.base.MultiChoiceSpinner;
 import com.vallverk.handyboy.view.base.SingleChoiceSpinner;
-import com.vallverk.handyboy.view.base.DownloadableImageView.Quality;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ServiceEditProfileViewFragment extends BaseFragment {
     protected TextView feetTextView;
@@ -369,7 +369,7 @@ public class ServiceEditProfileViewFragment extends BaseFragment {
 
     private void updateUserDetails() {
         String height = (String) userDetails.getValue(UserDetailsParams.HEIGHT);
-        String[] heightSplited = height.split(",");
+        String[] heightSplited = height.split("\\.");
         inchesTextView.setText(heightSplited[1]);
         feetSpinner.setSelected(Integer.parseInt(heightSplited[0]));
         inchesSpinner.setSelected(Integer.parseInt(heightSplited[1]));

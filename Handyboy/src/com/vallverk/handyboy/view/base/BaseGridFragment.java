@@ -192,7 +192,8 @@ public class BaseGridFragment extends BaseFragment
 				{
                     refresher.init ();
 					objects = refresher.refresh ();
-				} catch ( Exception ex )
+                    refresher.setHasMore ( objects.size () == refresher.pageLimit );
+                } catch ( Exception ex )
 				{
 					ex.printStackTrace ();
 					result = ex.getMessage ();
