@@ -688,7 +688,7 @@ public class HandyBoyViewFragment extends BaseFragment
 			parameters += serviceDetails.getString ( UserDetailsParams.SEX ) + ( location.isEmpty () ? "" : ", " + location );
 		} catch ( Exception ex )
 		{
-			parameters = "Feet.Inches || 6.4 || weight without lbs. Пожалуйста уважайте другие платформы пишите данные по сервису в общем формате";
+			parameters = "Feet.Inches || 6,4 || weight without lbs. Пожалуйста уважайте другие платформы пишите данные по сервису в общем формате";
 			ex.printStackTrace ();
 		}
 		return parameters;
