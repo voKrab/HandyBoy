@@ -24,21 +24,21 @@ public class FilterManager
 	// FILTER PARAMETERS
 	private Address address;
 
-	private String heightFrom;
-	private String heightTo;
+	private int heightFrom;
+	private int heightTo;
 
-	private String ageFrom;
-	private String ageTo;
+	private int ageFrom;
+	private int ageTo;
 
 	private String ethnicity;
 
-	private String weightFrom;
-	private String weightTo;
+	private int weightFrom;
+	private int weightTo;
 
 	private String bodyType;
 
-	private String priceFrom;
-	private String priceTo;
+	private int priceFrom;
+	private int priceTo;
 
 	private String sex;
 
@@ -54,6 +54,14 @@ public class FilterManager
 
 	public FilterManager ()
 	{
+        address = null;
+        setHeight(48, 108);
+        setAge(18, 99);
+        setEthnicity("");
+        setWeight(300, 90);
+        setSex("");
+        setBodyType("");
+        setPrice(0, 500);
 		searchType = SearchType.GLOBAL;
 		searchString = "";
 		jobid = "";
@@ -128,8 +136,8 @@ public class FilterManager
 	private String makeFilterUrl ( int limit, int offset )
 	{
 		String url = ServerManager.FILTER_URL;
-		url += "&height[from]=" + inchToFoot ( Integer.parseInt ( heightFrom ) );
-		url += "&height[to]=" + inchToFoot ( Integer.parseInt ( heightTo ) );
+		url += "&height[from]=" + inchToFoot ( heightFrom  );
+		url += "&height[to]=" + inchToFoot (  heightTo );
 
 		url += "&age[from]=" + ageFrom;
 		url += "&age[to]=" + ageTo;
@@ -200,59 +208,76 @@ public class FilterManager
 		this.isSearchByFilter = isSearchByFilter;
 	}
 
-	public void setAdress ( Address address )
+	public void setAddress ( Address address )
 	{
 		this.address = address;
 	}
 
-	public void setHeight ( String heightFrom, String heightTo )
+    public Address getAddress(){
+        return this.address;
+    }
+
+	public void setHeight ( int heightFrom, int heightTo )
 	{
 		this.heightFrom = heightFrom;
 		this.heightTo = heightTo;
 	}
 
-	public void setHeight ( int heightFrom, int heightTo )
-	{
-		setHeight ( String.valueOf ( heightFrom ), String.valueOf ( heightTo ) );
-	}
+    public int getHeightFrom(){
+        return  heightFrom;
+    }
 
-	public void setAge ( String ageFrom, String ageTo )
+    public int getHeightTo(){
+        return  heightTo;
+    }
+
+	public void setAge ( int ageFrom, int ageTo )
 	{
 		this.ageFrom = ageFrom;
 		this.ageTo = ageTo;
 	}
 
-	public void setAge ( int ageFrom, int ageTo )
-	{
-		setAge ( String.valueOf ( ageFrom ), String.valueOf ( ageTo ) );
-	}
+    public int getAgeFrom() {
+        return ageFrom;
+    }
 
-	public void setWeight ( String weightFrom, String weightTo )
+    public int getAgeTo() {
+        return ageTo;
+    }
+
+    public void setWeight ( int weightFrom, int weightTo )
 	{
 		this.weightFrom = weightFrom;
 		this.weightTo = weightTo;
 	}
 
-	public void setWeight ( int weightFrom, int weightTo )
-	{
-		setWeight ( String.valueOf ( weightFrom ), String.valueOf ( weightTo ) );
-	}
+    public int getWeightFrom() {
+        return weightFrom;
+    }
 
-	public void setPrice ( String priceFrom, String priceTo )
+    public int getWeightTo() {
+        return weightTo;
+    }
+
+    public void setPrice ( int priceFrom, int priceTo )
 	{
 		this.priceFrom = priceFrom;
 		this.priceTo = priceTo;
 	}
 
-	public void setPrice ( int priceFrom, int priceTo )
-	{
-		setPrice ( String.valueOf ( priceFrom ), String.valueOf ( priceTo ) );
-	}
+    public int getPriceFrom() {
+        return priceFrom;
+    }
+
+    public int getPriceTo() {
+        return priceTo;
+    }
 
     public void clearFilter(){
-        setSearchString ( "" );
-        setJobId ( "" );
-        setIsSearchByFilter ( false );
+        //setSearchString ( "" );
+       //setJobId ( "" );
+        //setIsSearchByFilter ( false );
+        instance = null;
     }
 
 	public void setEthnicity ( String ethnicity )
@@ -260,13 +285,25 @@ public class FilterManager
 		this.ethnicity = ethnicity;
 	}
 
+    public String getEthnicity(){
+        return  ethnicity;
+    }
+
 	public void setBodyType ( String bodyType )
 	{
 		this.bodyType = bodyType;
 	}
 
+    public  String getBodyType(){
+        return  bodyType;
+    }
+
 	public void setSex ( String sex )
 	{
 		this.sex = sex;
 	}
+
+    public String getSex() {
+        return sex;
+    }
 }

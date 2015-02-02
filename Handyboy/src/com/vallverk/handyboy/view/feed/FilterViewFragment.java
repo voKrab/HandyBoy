@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.graphics.Color;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.AdapterView.OnItemClickListener;
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.AddressWraper;
 import com.vallverk.handyboy.model.FilterManager;
@@ -40,7 +42,6 @@ public class FilterViewFragment extends BaseFragment
 	private static final int START_HOUR = 14;
 	private static final int START_MINUTE = 35;
 	private static final int MIN_AGE = 18;
-	private static final int AGE_DIVIDER = 59;
 	private static final int MAX_AGE = 99;
 	
 	private ImageView crossImageView;
@@ -173,13 +174,14 @@ public class FilterViewFragment extends BaseFragment
 
 		tallRangebar.setThumbImageNormal ( R.drawable.thumb );
 		tallRangebar.setThumbImagePressed ( R.drawable.thumb_bar );
-		tallRangebar.setMaxMin ( 108, 48 );
+        Log.d("Filter", filterManager.getHeightTo() + " " + filterManager.getHeightFrom());
+		tallRangebar.setMaxMin(108, 48);
 		tallRangebar.setTickHeight ( 0 );
 		tallRangebar.setConnectingLineColor ( Color.parseColor ( "#C52432" ) );
 		tallRangebar.setBarColor ( Color.parseColor ( "#AEAEAE" ) );
 		tallRangebar.setBarWeight ( ( int ) ( 7 * scale ) );
 		tallRangebar.setConnectingLineWeight ( 7 );
-		tallRangebar.setThumbIndices ( 108, 48 );
+		tallRangebar.setThumbIndices ( filterManager.getHeightTo(),  filterManager.getHeightFrom() );
 
 		weightRangebar.setThumbImageNormal ( R.drawable.thumb );
 		weightRangebar.setThumbImagePressed ( R.drawable.thumb_bar );
@@ -189,7 +191,7 @@ public class FilterViewFragment extends BaseFragment
 		weightRangebar.setBarColor ( Color.parseColor ( "#AEAEAE" ) );
 		weightRangebar.setBarWeight ( ( int ) ( 7 * scale ) );
 		weightRangebar.setConnectingLineWeight ( 7 );
-		weightRangebar.setThumbIndices ( 300, 90 );
+		weightRangebar.setThumbIndices ( filterManager.getWeightTo(),  filterManager.getWeightFrom() );
 
 		priceRangebar.setThumbImageNormal ( R.drawable.thumb );
 		priceRangebar.setThumbImagePressed ( R.drawable.thumb_bar );
@@ -199,30 +201,50 @@ public class FilterViewFragment extends BaseFragment
 		priceRangebar.setBarColor ( Color.parseColor ( "#AEAEAE" ) );
 		priceRangebar.setBarWeight ( ( int ) ( 7 * scale ) );
 		priceRangebar.setConnectingLineWeight ( 7 );
-		priceRangebar.setThumbIndices ( 500, 0 );
+		priceRangebar.setThumbIndices ( filterManager.getPriceTo(), filterManager.getPriceFrom() );
+
+        Log.d("Filter", "age:" + filterManager.getAgeFrom() + " " + filterManager.getAgeTo());
 
 		NumericWheelAdapter minAgeAdapter = new NumericWheelAdapter ( controller, MIN_AGE, MAX_AGE );
 		minAgeAdapter.setItemResource ( R.layout.wheel_adapter_item );
 		minAgeAdapter.setItemTextResource ( R.id.ageTextItem );
 		minAgeSelector.setViewAdapter ( minAgeAdapter );
-		minAgeSelector.setCurrentItem ( 0 );
+		minAgeSelector.setCurrentItem ( filterManager.getAgeFrom() - MIN_AGE );
 		minAgeSelector.setCyclic ( true );
 
 		NumericWheelAdapter maxAgeAdapter = new NumericWheelAdapter ( controller, MIN_AGE, MAX_AGE );
 		maxAgeAdapter.setItemResource ( R.layout.wheel_adapter_item );
 		maxAgeAdapter.setItemTextResource ( R.id.ageTextItem );
 		maxAgeSelector.setViewAdapter ( maxAgeAdapter );
-		maxAgeSelector.setCurrentItem ( maxAgeAdapter.getItemsCount () - 1 );
+		maxAgeSelector.setCurrentItem ( filterManager.getAgeTo() - MIN_AGE);
 		maxAgeSelector.setCyclic ( true );
 
 		ethentitySpinner.setItems ( Arrays.asList ( getResources ().getStringArray ( R.array.ethentity ) ), "", "", R.layout.spinner_item_white );
+        if(!filterManager.getEthnicity().isEmpty()) {
+            ethentitySpinner.setSelection(filterManager.getEthnicity());
+        }
+
 		bodyTypeSpinner.setItems ( Arrays.asList ( getResources ().getStringArray ( R.array.body_types ) ), "", "", R.layout.spinner_item_white );
+        if(!filterManager.getBodyType().isEmpty()){
+            bodyTypeSpinner.setSelection(filterManager.getBodyType());
+        }
 		sexSpinner.setItems ( Arrays.asList ( getResources ().getStringArray ( R.array.sexuality ) ), "", "", R.layout.spinner_item_white );
+        if(!filterManager.getSex().isEmpty()){
+            sexSpinner.setSelection(filterManager.getSex());
+        }
 		
 		fromTimePickerDialog = new TimePickerDialog ( controller, fromTimeCallBack, START_HOUR, START_HOUR, true );
 		toTimePickerDialog = new TimePickerDialog ( controller, toTimeCallBack, START_HOUR, START_MINUTE, true );
-		
-		whereAtEditText.setAdapter ( new AddressAutocompleteAdapter ( getActivity (), whereAtEditText.getText ().toString () ) );
+
+        Address address = filterManager.getAddress();
+        if(address != null){
+            whereAtEditText.setAdapter ( new AddressAutocompleteAdapter ( getActivity (), Tools.getLocationText(address.getLatitude(), address.getLongitude())));
+            whereAtEditText.setText( Tools.getLocationText(address.getLatitude(), address.getLongitude()));
+        }else{
+            whereAtEditText.setAdapter ( new AddressAutocompleteAdapter ( getActivity (), whereAtEditText.getText ().toString () ) );
+        }
+
+
 	}
 
 	private void updateViews ()
@@ -241,7 +263,7 @@ public class FilterViewFragment extends BaseFragment
 			{
 				AutocompleteAdapter adapter = ( AutocompleteAdapter ) adapterView.getAdapter ();
 				AddressWraper addressWraper = ( AddressWraper ) adapter.getValue ( position );
-				filterManager.setAdress (addressWraper.getAddress ());
+				filterManager.setAddress(addressWraper.getAddress());
 			}
 		} );
 		
@@ -286,17 +308,18 @@ public class FilterViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				filterManager.setHeight ( tallRangebar.getRightValue (), tallRangebar.getLeftValue ());
-				if((minAgeSelector.getCurrentItem() + MIN_AGE) < maxAgeSelector.getCurrentItem() + MIN_AGE){
+				filterManager.setHeight (  tallRangebar.getLeftValue (), tallRangebar.getRightValue ());
+
+                if((minAgeSelector.getCurrentItem() + MIN_AGE) < maxAgeSelector.getCurrentItem() + MIN_AGE){
 					filterManager.setAge (minAgeSelector.getCurrentItem() + MIN_AGE, maxAgeSelector.getCurrentItem() + MIN_AGE );
 				}else{
 					filterManager.setAge (maxAgeSelector.getCurrentItem() + MIN_AGE, minAgeSelector.getCurrentItem() + MIN_AGE );
 				}
 				
 				filterManager.setEthnicity ( ethentitySpinner.getSelectedItems () );
-				filterManager.setWeight ( weightRangebar.getRightValue (), weightRangebar.getLeftValue() );
+				filterManager.setWeight ( weightRangebar.getLeftValue (), weightRangebar.getRightValue() );
 				filterManager.setBodyType ( bodyTypeSpinner.getSelectedItems () );
-				filterManager.setPrice ( priceRangebar.getRightValue (), priceRangebar.getLeftValue () );
+				filterManager.setPrice ( priceRangebar.getLeftValue (), priceRangebar.getRightValue());
 				filterManager.setSex ( sexSpinner.getSelectedItems () );
 				filterManager.setIsSearchByFilter ( true );
 				
