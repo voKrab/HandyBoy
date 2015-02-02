@@ -584,4 +584,5 @@
     <string name="remove_card">Remove card</string>
     <string name="remove_address">Remove address</string>
     <string name="delete_card_error">Error delete card</string>
+    <string name="available_now_alert">Please setup: bank account, location, job description and schedule</string>
 </resources>

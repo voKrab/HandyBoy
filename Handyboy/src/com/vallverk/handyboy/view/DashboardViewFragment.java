@@ -1,7 +1,5 @@
 package com.vallverk.handyboy.view;
 
-import org.json.JSONObject;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,15 +15,15 @@ import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
-import com.vallverk.handyboy.model.api.UserDetailsAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.CustomSwitcher;
 import com.vallverk.handyboy.view.base.CustomSwitcher.OnSwitchedChangeListener;
-import com.vallverk.handyboy.view.base.DownloadableImageView.Quality;
-import com.vallverk.handyboy.view.base.FontUtils.FontStyle;
 import com.vallverk.handyboy.view.base.FontUtils;
+import com.vallverk.handyboy.view.base.FontUtils.FontStyle;
+
+import org.json.JSONObject;
 
 public class DashboardViewFragment extends BaseFragment
 {
@@ -65,7 +63,6 @@ public class DashboardViewFragment extends BaseFragment
 	{
 		new AsyncTask < Void, Void, Integer > ()
 		{
-
 			@Override
 			protected Integer doInBackground ( Void... params )
 			{
@@ -210,20 +207,18 @@ public class DashboardViewFragment extends BaseFragment
 		} );
 		customSwitcher.setOnSwitchedChangeListener ( new OnSwitchedChangeListener ()
 		{
-
 			@Override
 			public void onSwitchChange ( boolean isActive )
 			{
 				if ( isActive )
 				{
-					controller.setState ( VIEW_STATE.AVAILABLE_NOW );
+                    tryUseAvailableNow ();
 				} else
 				{
 					sendAvailableNow ();
 				}
 			}
 		} );
-
 		menuImageView.setOnClickListener ( new OnClickListener ()
 		{
 
@@ -234,4 +229,56 @@ public class DashboardViewFragment extends BaseFragment
 			}
 		} );
 	}
+
+    private void tryUseAvailableNow ()
+    {
+        new AsyncTask < Void, Void, String > ()
+        {
+            boolean canAvailableNow;
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    String responceString = ServerManager.getRequest ( ServerManager.AVAILABLE_NOW_IS_CAN.replace ( "serviceId=1", "serviceId=" + user.getString ( UserParams.SERVICE_ID ) ) );
+                    JSONObject jsonObject = new JSONObject ( responceString );
+                    canAvailableNow = jsonObject.getBoolean ( "success" );
+                } catch ( Exception e )
+                {
+                    result = e.getMessage ();
+                    e.printStackTrace ();
+                }
+                return result;
+            }
+
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    if ( canAvailableNow )
+                    {
+                        controller.setState ( VIEW_STATE.AVAILABLE_NOW );
+                    } else
+                    {
+                        customSwitcher.setActive ( false, false );
+                        Toast.makeText ( controller, controller.getString ( R.string.available_now_alert ), Toast.LENGTH_LONG ).show();
+                    }
+                } else
+                {
+                    customSwitcher.setActive ( false, false );
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+        }.execute ();
+    }
 }

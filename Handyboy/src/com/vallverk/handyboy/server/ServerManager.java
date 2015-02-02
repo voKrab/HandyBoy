@@ -119,6 +119,7 @@ public class ServerManager
     public static final String ADD_CHARGES_SAVE = PROTOCOL + HOST + "/booking/saveaddcharges";
     public static final String IS_ADD_CHARGES_STATE = PROTOCOL + HOST + "/booking/isstatusaddcharges?bookingId=1";
     public static final String BOOKING_GET_ADD_CHARGES = PROTOCOL + HOST + "/booking/addcharges?bookingId=1";
+    public static final String AVAILABLE_NOW_IS_CAN = PROTOCOL + HOST + "/availablenow/can?serviceId=1";
 
 
     public static String getRequest ( String uriString ) throws Exception
