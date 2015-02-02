@@ -107,7 +107,7 @@ public class HandyBoyViewFragment extends BaseFragment
 	private DiscountAPIObject discountAPIObject;
 	static private List reviewsData;
 	private LayoutInflater layoutInflater;
-    private boolean isShowGallery;
+	private boolean isShowGallery;
 
 	private DisplayImageOptions avatarLoadOptions = new DisplayImageOptions.Builder ().showImageOnFail ( R.drawable.avatar ).showImageForEmptyUri ( R.drawable.avatar ).cacheInMemory ( true ).cacheOnDisc ().build ();
 
@@ -546,19 +546,22 @@ public class HandyBoyViewFragment extends BaseFragment
 
 			for ( GalleryAPIObject galleryItem : galleryItems )
 			{
-                if (galleryItem.getValue(GalleryAPIParams.STATUS).toString().equals("approved")) {
-                    isShowGallery = true;
-                    if (galleryItem.getString(GalleryAPIParams.TYPE).equals("image")) {
-                        defaultSliderView = new DefaultSliderView(controller);
-                        defaultSliderView.image(galleryItem.getString(GalleryAPIParams.URL));
-                        mDemoSlider.addSlider(defaultSliderView);
-                    } else {
-                        YouTubeSliderView youTubeSliderView = new YouTubeSliderView(controller);
-                        youTubeSliderView.image(Tools.getVideoImagePreview(galleryItem.getString(GalleryAPIParams.URL)));
-                        youTubeSliderView.setYoutubeId(galleryItem.getString(GalleryAPIParams.URL));
-                        mDemoSlider.addSlider(youTubeSliderView);
-                    }
-                }
+				if ( galleryItem.getValue ( GalleryAPIParams.STATUS ).toString ().equals ( "approved" ) )
+				{
+					isShowGallery = true;
+					if ( galleryItem.getString ( GalleryAPIParams.TYPE ).equals ( "image" ) )
+					{
+						defaultSliderView = new DefaultSliderView ( controller );
+						defaultSliderView.image ( galleryItem.getString ( GalleryAPIParams.URL ) );
+						mDemoSlider.addSlider ( defaultSliderView );
+					} else
+					{
+						YouTubeSliderView youTubeSliderView = new YouTubeSliderView ( controller );
+						youTubeSliderView.image ( Tools.getVideoImagePreview ( galleryItem.getString ( GalleryAPIParams.URL ) ) );
+						youTubeSliderView.setYoutubeId ( galleryItem.getString ( GalleryAPIParams.URL ) );
+						mDemoSlider.addSlider ( youTubeSliderView );
+					}
+				}
 			}
 
 			mDemoSlider.setPresetTransformer ( SliderLayout.Transformer.ZoomOutSlide );
@@ -569,12 +572,12 @@ public class HandyBoyViewFragment extends BaseFragment
 			mainAvatarImageView.setVisibility ( View.GONE );
 			mDemoSlider.setVisibility ( View.VISIBLE );
 		}
-        if(!isShowGallery) {
-            ImageLoader.getInstance().displayImage(mediaString, mainAvatarImageView, avatarLoadOptions);
-            mainAvatarImageView.setVisibility(View.VISIBLE);
-            mDemoSlider.setVisibility(View.GONE);
-        }
-
+		if ( !isShowGallery )
+		{
+			ImageLoader.getInstance ().displayImage ( mediaString, mainAvatarImageView, avatarLoadOptions );
+			mainAvatarImageView.setVisibility ( View.VISIBLE );
+			mDemoSlider.setVisibility ( View.GONE );
+		}
 
 		String name = handyboy.getString ( UserParams.FIRST_NAME ) + " " + handyboy.getString ( UserParams.LAST_NAME );
 		nameTextView.setText ( name );
@@ -675,7 +678,7 @@ public class HandyBoyViewFragment extends BaseFragment
 		try
 		{
 			parameters = serviceDetails.getString ( UserDetailsParams.HEIGHT );
-            String[] sr = parameters.split ( "\\." );
+			String[] sr = parameters.split ( "\\." );
 			parameters = sr[0] + "'" + sr[1] + "\"";
 			parameters += " " + serviceDetails.getString ( UserDetailsParams.WEIGHT ) + "lbs, ";
 			parameters += serviceDetails.getString ( UserDetailsParams.HEIR_COLOR ) + ", ";
@@ -988,35 +991,41 @@ public class HandyBoyViewFragment extends BaseFragment
 		}
 	}
 
-    public static class YouTubeSliderView extends BaseSliderView {
+	public static class YouTubeSliderView extends BaseSliderView
+	{
 
-        private String youtubeId;
+		private String youtubeId;
 
-        public YouTubeSliderView(Context context) {
-            super(context);
-        }
+		public YouTubeSliderView ( Context context )
+		{
+			super ( context );
+		}
 
-        @Override
-        public View getView() {
-            View v = LayoutInflater.from(getContext()).inflate(R.layout.youtube_slider_view,null);
-            ImageView target = (ImageView)v.findViewById(com.daimajia.slider.library.R.id.daimajia_slider_image);
-            ImageView playVideoImageView = (ImageView) v.findViewById(R.id.playVideoImageView);
+		@Override
+		public View getView ()
+		{
+			View v = LayoutInflater.from ( getContext () ).inflate ( R.layout.youtube_slider_view, null );
+			ImageView target = ( ImageView ) v.findViewById ( com.daimajia.slider.library.R.id.daimajia_slider_image );
+			ImageView playVideoImageView = ( ImageView ) v.findViewById ( R.id.playVideoImageView );
 
-            playVideoImageView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
+			playVideoImageView.setOnClickListener ( new OnClickListener ()
+			{
+				@Override
+				public void onClick ( View v )
+				{
 
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + youtubeId));
-                    getContext().startActivity(intent);
-                }
-            });
+					Intent intent = new Intent ( Intent.ACTION_VIEW, Uri.parse ( "vnd.youtube://" + youtubeId ) );
+					getContext ().startActivity ( intent );
+				}
+			} );
 
-            bindEventAndShow(v, target);
-            return v;
-        }
+			bindEventAndShow ( v, target );
+			return v;
+		}
 
-        public void setYoutubeId(String youtubeId) {
-            this.youtubeId = youtubeId;
-        }
-    }
+		public void setYoutubeId ( String youtubeId )
+		{
+			this.youtubeId = youtubeId;
+		}
+	}
 }
