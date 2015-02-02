@@ -57,10 +57,6 @@ import com.vallverk.handyboy.model.AddressWraper;
  */
 public class Tools
 {
-	public static Location getLocationValue ( Context context )
-	{
-		return new MyLocationListener ( context ).getLocationValue ();
-	}
 
 	public static Date shiftTimeZone ( Date date, TimeZone sourceTimeZone, TimeZone targetTimeZone )
 	{

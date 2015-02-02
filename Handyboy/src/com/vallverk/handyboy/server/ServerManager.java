@@ -121,6 +121,10 @@ public class ServerManager
     public static final String BOOKING_GET_ADD_CHARGES = PROTOCOL + HOST + "/booking/addcharges?bookingId=1";
     public static final String AVAILABLE_NOW_IS_CAN = PROTOCOL + HOST + "/availablenow/can?serviceId=1";
 
+    public static final String SAVE_USER_LOCATION = PROTOCOL + HOST + "/user/location";
+
+
+
 
     public static String getRequest ( String uriString ) throws Exception
     {

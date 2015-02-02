@@ -101,8 +101,8 @@ public class FilterManager
 		url += "&sort=" + searchType.ordinal ();
 		url += "&limit=" + limit;
 		url += "&offset=" + offset;
-		url += "&latitude=";
-		url += "&longitude=";
+		url += "&latitude=" + MyLocationManager.imHere.getLatitude();
+		url += "&longitude=" + MyLocationManager.imHere.getLongitude();
 		return url;
 	}
 
@@ -113,8 +113,8 @@ public class FilterManager
 		url += "&limit=" + limit;
 		url += "&sort=" + searchType.ordinal ();
 		url += "&offset=" + offset;
-		url += "&latitude=";
-		url += "&longitude=";
+        url += "&latitude=" + MyLocationManager.imHere.getLatitude();
+        url += "&longitude=" + MyLocationManager.imHere.getLongitude();
 		return url;
 	}
 
@@ -248,6 +248,12 @@ public class FilterManager
 	{
 		setPrice ( String.valueOf ( priceFrom ), String.valueOf ( priceTo ) );
 	}
+
+    public void clearFilter(){
+        setSearchString ( "" );
+        setJobId ( "" );
+        setIsSearchByFilter ( false );
+    }
 
 	public void setEthnicity ( String ethnicity )
 	{

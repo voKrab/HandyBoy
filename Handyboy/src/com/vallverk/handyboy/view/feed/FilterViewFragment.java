@@ -251,6 +251,7 @@ public class FilterViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
+                filterManager.clearFilter();
 				controller.onBackPressed ();
 			}
 		} );

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -151,6 +152,7 @@ public class FeedViewFragment extends BaseFragment
                 @Override
                 public List < Object > refresh () throws Exception
                 {
+                    Log.d("Feed", filterManager.getSearchUrl(pageLimit, loadedItems));
                     List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
                     return handyboys;
                 }
@@ -158,6 +160,7 @@ public class FeedViewFragment extends BaseFragment
                 @Override
                 public List < Object > loadMoreItems () throws Exception
                 {
+                    Log.d("Feed", filterManager.getSearchUrl(pageLimit, loadedItems));
                     List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
                     return handyboys;
                 }
@@ -583,12 +586,10 @@ public class FeedViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-				filterManager.setSearchString ( "" );
+                filterManager.clearFilter();
 				searchTextView.setText ( "" );
-				filterManager.setJobId ( "" );
 				searchGroupNameTextView.setText ( "" );
 				searchButton.performClick ();
-				filterManager.setIsSearchByFilter ( false );
 				boyTypeExpandableListView.setVisibility ( View.GONE );
 				arrowInsearchImageView.setActivated ( false );
 				gridFragment.refreshData ();
