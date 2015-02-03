@@ -20,7 +20,7 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 	protected boolean isInited;
 	protected CheckBox locationCheckBox;
 	protected AutoCompleteTextView locationEditText;
-	private CheckBox dayOffCheckBox;
+	protected CheckBox dayOffCheckBox;
 
 	@Override
 	protected int getLayoutId ()
@@ -125,7 +125,10 @@ public class CustomScheduleViewFragment extends WeeklyScheduleViewFragment
 
     protected void updateComponents ()
     {
-        dayOffCheckBox.setChecked ( scheduleManager.isDayOff () );
+        if ( scheduleManager != null )
+        {
+            dayOffCheckBox.setChecked ( scheduleManager.isDayOff () );
+        }
         super.updateComponents ();
     }
 

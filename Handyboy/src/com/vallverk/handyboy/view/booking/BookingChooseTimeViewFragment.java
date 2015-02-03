@@ -25,6 +25,7 @@ public class BookingChooseTimeViewFragment extends CustomScheduleViewFragment
 		descriptionContainer.setVisibility ( View.GONE );
 		locationCheckBox.setVisibility ( View.GONE );
 		locationEditText.setVisibility ( View.GONE );
+        dayOffCheckBox.setVisibility ( View.GONE );
 	}
 
 	@Override
