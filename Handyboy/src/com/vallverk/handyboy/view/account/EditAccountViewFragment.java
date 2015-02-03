@@ -130,7 +130,7 @@ public class EditAccountViewFragment extends BaseFragment
 	@Override
 	protected void init ()
 	{
-		if ( APIManager.getInstance ().getUser ().isService () ) {
+		if ( !APIManager.getInstance ().getUser ().isService () ) {
             pushNotificationLayout.setVisibility(View.VISIBLE);
         }else{
             pushNotificationLayout.setVisibility ( View.GONE );

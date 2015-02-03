@@ -203,8 +203,6 @@ public class FilterViewFragment extends BaseFragment
 		priceRangebar.setConnectingLineWeight ( 7 );
 		priceRangebar.setThumbIndices ( filterManager.getPriceTo(), filterManager.getPriceFrom() );
 
-        Log.d("Filter", "age:" + filterManager.getAgeFrom() + " " + filterManager.getAgeTo());
-
 		NumericWheelAdapter minAgeAdapter = new NumericWheelAdapter ( controller, MIN_AGE, MAX_AGE );
 		minAgeAdapter.setItemResource ( R.layout.wheel_adapter_item );
 		minAgeAdapter.setItemTextResource ( R.id.ageTextItem );
@@ -228,7 +226,8 @@ public class FilterViewFragment extends BaseFragment
         if(!filterManager.getBodyType().isEmpty()){
             bodyTypeSpinner.setSelection(filterManager.getBodyType());
         }
-		sexSpinner.setItems ( Arrays.asList ( getResources ().getStringArray ( R.array.sexuality ) ), "", "", R.layout.spinner_item_white );
+
+        sexSpinner.setItems ( Arrays.asList ( getResources ().getStringArray ( R.array.sexuality ) ), "", "", R.layout.spinner_item_white );
         if(!filterManager.getSex().isEmpty()){
             sexSpinner.setSelection(filterManager.getSex());
         }
@@ -243,8 +242,6 @@ public class FilterViewFragment extends BaseFragment
         }else{
             whereAtEditText.setAdapter ( new AddressAutocompleteAdapter ( getActivity (), whereAtEditText.getText ().toString () ) );
         }
-
-
 	}
 
 	private void updateViews ()

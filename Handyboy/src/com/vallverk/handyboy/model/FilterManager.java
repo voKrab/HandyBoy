@@ -54,7 +54,6 @@ public class FilterManager
 
 	public FilterManager ()
 	{
-        address = null;
         setHeight(48, 108);
         setAge(18, 99);
         setEthnicity("");
@@ -64,6 +63,7 @@ public class FilterManager
         setPrice(0, 500);
 		searchType = SearchType.GLOBAL;
 		searchString = "";
+        isSearchByFilter = false;
 		jobid = "";
 	}
 
@@ -109,8 +109,10 @@ public class FilterManager
 		url += "&sort=" + searchType.ordinal ();
 		url += "&limit=" + limit;
 		url += "&offset=" + offset;
-		url += "&latitude=" + MyLocationManager.imHere.getLatitude();
-		url += "&longitude=" + MyLocationManager.imHere.getLongitude();
+        if(MyLocationManager.imHere != null) {
+            url += "&latitude=" + MyLocationManager.imHere.getLatitude();
+            url += "&longitude=" + MyLocationManager.imHere.getLongitude();
+        }
 		return url;
 	}
 
@@ -121,8 +123,10 @@ public class FilterManager
 		url += "&limit=" + limit;
 		url += "&sort=" + searchType.ordinal ();
 		url += "&offset=" + offset;
-        url += "&latitude=" + MyLocationManager.imHere.getLatitude();
-        url += "&longitude=" + MyLocationManager.imHere.getLongitude();
+        if(MyLocationManager.imHere != null) {
+            url += "&latitude=" + MyLocationManager.imHere.getLatitude();
+            url += "&longitude=" + MyLocationManager.imHere.getLongitude();
+        }
 		return url;
 	}
 
@@ -207,6 +211,10 @@ public class FilterManager
 	{
 		this.isSearchByFilter = isSearchByFilter;
 	}
+
+    public boolean getIsSearchByFilter(){
+        return  isSearchByFilter;
+    }
 
 	public void setAddress ( Address address )
 	{

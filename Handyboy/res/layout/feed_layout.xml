@@ -43,9 +43,9 @@
                     android:layout_height="29dp"
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginRight="13dp"
-                    android:background="@drawable/white_rect"
+                    android:background="@drawable/filter_button_selector"
                     android:text="@string/filter"
-                    android:textColor="@color/white"
+                    android:textColor="@drawable/filter_button_color_selector"
                     android:textSize="11sp" />
             </FrameLayout>
 

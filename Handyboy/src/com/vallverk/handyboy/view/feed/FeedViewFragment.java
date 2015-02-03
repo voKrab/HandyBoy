@@ -178,6 +178,7 @@ public class FeedViewFragment extends BaseFragment
 		initViews ();
 		addListeners ();
 		updateFonts ();
+        updateFilterButton();
 
 		if ( communicationSearch != null )
 		{
@@ -192,6 +193,14 @@ public class FeedViewFragment extends BaseFragment
 		}
 
 	}
+
+    private void updateFilterButton(){
+        if(filterManager.getIsSearchByFilter()){
+            filterButton.setActivated(true);
+        }else{
+            filterButton.setActivated(false);
+        }
+    }
 
 	@SuppressLint("NewApi")
 	private void initViews ()
@@ -441,7 +450,6 @@ public class FeedViewFragment extends BaseFragment
 					byProximitySearchLayout.setActivated ( true );
 					availableNowSearchLayout.setActivated ( false );
 					filterManager.setSearchType ( SearchType.PROXIMITY );
-
 					break;
 
 				case R.id.availableNowSearchLayout:
@@ -587,13 +595,16 @@ public class FeedViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-				filterManager.clearFilter ();
+                filterManager.setSearchString ( "" );
+                filterManager.setJobId ( "" );
+                filterManager.setIsSearchByFilter ( false );
 				searchTextView.setText ( "" );
 				searchGroupNameTextView.setText ( "" );
 				searchButton.performClick ();
 				boyTypeExpandableListView.setVisibility ( View.GONE );
 				arrowInsearchImageView.setActivated ( false );
 				gridFragment.refreshData ();
+                updateFilterButton();
 			}
 		} );
 
