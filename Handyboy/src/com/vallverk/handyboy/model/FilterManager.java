@@ -1,14 +1,19 @@
 package com.vallverk.handyboy.model;
 
 import android.location.Address;
+import android.text.format.DateFormat;
 
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.server.ServerManager;
+
+import java.util.Date;
 
 public class FilterManager
 {
 	private static FilterManager instance;
 
-	public enum SearchType
+    public enum SearchType
 	{
 		GLOBAL, PROXIMITY, AVAILABLE_NOW
 	}
@@ -42,6 +47,15 @@ public class FilterManager
 
 	private String sex;
 
+    private String timeTo;
+    private String timeFrom;
+
+    private long date;
+
+    private float rating;
+
+    private UserAPIObject user;
+
 	// SEARCH METHODS
 	public static FilterManager getInstance ()
 	{
@@ -57,13 +71,18 @@ public class FilterManager
         setHeight(48, 108);
         setAge(18, 99);
         setEthnicity("");
-        setWeight(300, 90);
+        setWeight(90, 300);
         setSex("");
         setBodyType("");
         setPrice(0, 500);
+        setRating(1.0f);
+        setDate(0);
+        setTimeFrom("");
+        setTimeTo("");
 		searchType = SearchType.GLOBAL;
 		searchString = "";
         isSearchByFilter = false;
+        user = APIManager.getInstance().getUser();
 		jobid = "";
 	}
 
@@ -107,6 +126,7 @@ public class FilterManager
 		String url = ServerManager.SEARCH_URL;
 		url += "name=" + searchString;
 		url += "&sort=" + searchType.ordinal ();
+        url += "&userId=" + user.getId();
 		url += "&limit=" + limit;
 		url += "&offset=" + offset;
         if(MyLocationManager.imHere != null) {
@@ -120,6 +140,7 @@ public class FilterManager
 	{
 		String url = ServerManager.SEARCH_FOR_JOB_TYPE_URL;
 		url += "jobid=" + jobid;
+        url += "&userId=" + user.getId();
 		url += "&limit=" + limit;
 		url += "&sort=" + searchType.ordinal ();
 		url += "&offset=" + offset;
@@ -142,7 +163,7 @@ public class FilterManager
 		String url = ServerManager.FILTER_URL;
 		url += "&height[from]=" + inchToFoot ( heightFrom  );
 		url += "&height[to]=" + inchToFoot (  heightTo );
-
+        url += "&userId=" + user.getId();
 		url += "&age[from]=" + ageFrom;
 		url += "&age[to]=" + ageTo;
 
@@ -173,8 +194,6 @@ public class FilterManager
 				url += "&orientation[]=" + tempOrientation.trim ();
 			}
 		}
-		url += "&limit=" + limit;
-		url += "&offset=" + offset;
 
 		if ( address != null )
 		{
@@ -185,8 +204,22 @@ public class FilterManager
 		url += "&sort=" + searchType.ordinal ();
 		if ( !jobid.isEmpty () )
 		{
-			url += "jobid=" + jobid;
+			url += "&jobid=" + jobid;
 		}
+
+        if(!getTimeFrom().isEmpty() && !getTimeTo().isEmpty()){
+            url += "&time[from]=" + getTimeFrom();
+            url += "&time[to]=" + getTimeTo();
+        }
+
+        if(getDate() > 0){
+            url += "&date=" + DateFormat.format("dd.MM.yyyy", new Date(getDate())).toString();
+        }
+
+        url += "&rating=" + (int)rating;
+
+        url += "&limit=" + limit;
+        url += "&offset=" + offset;
 
 		return url;
 	}
@@ -227,8 +260,13 @@ public class FilterManager
 
 	public void setHeight ( int heightFrom, int heightTo )
 	{
-		this.heightFrom = heightFrom;
-		this.heightTo = heightTo;
+        if(heightFrom > heightTo){
+            this.heightFrom = heightTo;
+            this.heightTo = heightFrom;
+        }else{
+            this.heightFrom = heightFrom;
+            this.heightTo = heightTo;
+        }
 	}
 
     public int getHeightFrom(){
@@ -241,8 +279,13 @@ public class FilterManager
 
 	public void setAge ( int ageFrom, int ageTo )
 	{
-		this.ageFrom = ageFrom;
-		this.ageTo = ageTo;
+        if(ageFrom > ageTo){
+            this.ageFrom = ageTo;
+            this.ageTo = ageFrom;
+        }else{
+            this.ageFrom = ageFrom;
+            this.ageTo = ageTo;
+        }
 	}
 
     public int getAgeFrom() {
@@ -255,8 +298,14 @@ public class FilterManager
 
     public void setWeight ( int weightFrom, int weightTo )
 	{
-		this.weightFrom = weightFrom;
-		this.weightTo = weightTo;
+        if(weightFrom > weightTo){
+            this.weightFrom = weightTo;
+            this.weightTo = weightFrom;
+        }else{
+            this.weightFrom = weightFrom;
+            this.weightTo = weightTo;
+        }
+
 	}
 
     public int getWeightFrom() {
@@ -269,8 +318,13 @@ public class FilterManager
 
     public void setPrice ( int priceFrom, int priceTo )
 	{
-		this.priceFrom = priceFrom;
-		this.priceTo = priceTo;
+        if(priceFrom > priceTo){
+            this.priceFrom = priceTo;
+            this.priceTo = priceFrom;
+        }else{
+            this.priceFrom = priceFrom;
+            this.priceTo = priceTo;
+        }
 	}
 
     public int getPriceFrom() {
@@ -313,5 +367,37 @@ public class FilterManager
 
     public String getSex() {
         return sex;
+    }
+
+    public String getTimeTo() {
+        return timeTo;
+    }
+
+    public void setTimeTo(String timeTo) {
+        this.timeTo = timeTo;
+    }
+
+    public String getTimeFrom() {
+        return timeFrom;
+    }
+
+    public void setTimeFrom(String timeFrom) {
+        this.timeFrom = timeFrom;
+    }
+
+    public long getDate() {
+       return  date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }
