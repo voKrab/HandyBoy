@@ -3,6 +3,8 @@ package com.vallverk.handyboy.view;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
@@ -44,6 +47,7 @@ public class NavigationDrawerFragment extends BaseFragment
 
 	private View dashboardDevider;
 	private View searchDevider;
+	private Handler drawerClosedHandler;
 
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )
@@ -71,12 +75,27 @@ public class NavigationDrawerFragment extends BaseFragment
 
 	private void addListeners ()
 	{
+		mDrawerLayout.setDrawerListener ( new DrawerLayout.SimpleDrawerListener ()
+		{
+			@Override
+			public void onDrawerClosed ( View drawerView )
+			{
+				super.onDrawerClosed ( drawerView );
+				if ( drawerClosedHandler != null )
+				{
+					drawerClosedHandler.dispatchMessage ( Message.obtain () );
+                    drawerClosedHandler = null;
+				}
+			}
+		} );
+
 		closeImageView.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
 			public void onClick ( View view )
 			{
 				mDrawerLayout.closeDrawer ( mFragmentContainerView );
+				drawerClosedHandler = null;
 			}
 		} );
 		exitContainer.setOnClickListener ( new OnClickListener ()
@@ -84,44 +103,76 @@ public class NavigationDrawerFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-				MainActivity.getInstance ().logout ();
+                mDrawerLayout.closeDrawer ( mFragmentContainerView );
+                drawerClosedHandler = new Handler ()
+                {
+                    @Override
+                    public void handleMessage ( Message msg )
+                    {
+                        super.handleMessage ( msg );
+                        MainActivity.getInstance ().logout ();
+                    }
+                };
 			}
 		} );
 
 		profileContainer.setOnClickListener ( new OnClickListener ()
 		{
-
 			@Override
 			public void onClick ( View view )
 			{
-				if ( APIManager.getInstance ().getUser ().isService () )
-				{
-					controller.setState ( VIEW_STATE.SERVICE_EDIT_PROFILE );
-				} else
-				{
-					controller.setState ( VIEW_STATE.CUSTOMER_EDIT_PROFILE );
-				}
-
+                mDrawerLayout.closeDrawer ( mFragmentContainerView );
+                drawerClosedHandler = new Handler ()
+                {
+                    @Override
+                    public void handleMessage ( Message msg )
+                    {
+                        super.handleMessage ( msg );
+                        if ( APIManager.getInstance ().getUser ().isService () )
+                        {
+                            controller.setState ( VIEW_STATE.SERVICE_EDIT_PROFILE );
+                        } else
+                        {
+                            controller.setState ( VIEW_STATE.CUSTOMER_EDIT_PROFILE );
+                        }
+                    }
+                };
 			}
 		} );
 
 		accountContainer.setOnClickListener ( new OnClickListener ()
 		{
-
 			@Override
 			public void onClick ( View view )
 			{
-				controller.setState ( VIEW_STATE.ACCOUNT );
+                mDrawerLayout.closeDrawer ( mFragmentContainerView );
+                drawerClosedHandler = new Handler ()
+                {
+                    @Override
+                    public void handleMessage ( Message msg )
+                    {
+                        super.handleMessage ( msg );
+                        controller.setState ( VIEW_STATE.ACCOUNT );
+                    }
+                };
 			}
 		} );
 
 		dashboardContainer.setOnClickListener ( new OnClickListener ()
 		{
-
 			@Override
 			public void onClick ( View view )
 			{
-				controller.setState ( VIEW_STATE.DASHBOARD );
+                mDrawerLayout.closeDrawer ( mFragmentContainerView );
+                drawerClosedHandler = new Handler ()
+                {
+                    @Override
+                    public void handleMessage ( Message msg )
+                    {
+                        super.handleMessage ( msg );
+                        controller.setState ( VIEW_STATE.DASHBOARD );
+                    }
+                };
 			}
 		} );
 
@@ -131,17 +182,34 @@ public class NavigationDrawerFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-				controller.setState ( VIEW_STATE.FEED );
+                mDrawerLayout.closeDrawer ( mFragmentContainerView );
+                drawerClosedHandler = new Handler ()
+                {
+                    @Override
+                    public void handleMessage ( Message msg )
+                    {
+                        super.handleMessage ( msg );
+                        controller.setState ( VIEW_STATE.FEED );
+                    }
+                };
 			}
 		} );
-		
-		helpContainer.setOnClickListener ( new OnClickListener()
+
+		helpContainer.setOnClickListener ( new OnClickListener ()
 		{
-			
 			@Override
 			public void onClick ( View view )
 			{
-				controller.setState ( VIEW_STATE.HELP );
+				mDrawerLayout.closeDrawer ( mFragmentContainerView );
+				drawerClosedHandler = new Handler ()
+				{
+					@Override
+					public void handleMessage ( Message msg )
+					{
+						super.handleMessage ( msg );
+						controller.setState ( VIEW_STATE.HELP );
+					}
+				};
 			}
 		} );
 	}

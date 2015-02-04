@@ -628,7 +628,6 @@ public class ViewStateController implements Serializable
 				fragmentTransaction.setCustomAnimations ( R.anim.right_to_center, R.anim.center_to_left );
 
 				commitState ( fragmentTransaction );
-				controller.closeMenu ();
 				break;
 			}
 
@@ -715,12 +714,9 @@ public class ViewStateController implements Serializable
 				} else
 				{
 					fragmentTransaction.setCustomAnimations ( android.R.anim.fade_in, android.R.anim.fade_out );
-					// fragmentTransaction.setCustomAnimations (
-					// R.anim.card_flip_left_in, R.anim.card_flip_left_out );
 				}
-
+                controller.setSwipeEnabled ( false );
 				commitState ( fragmentTransaction );
-				controller.setSwipeEnabled ( false );
 				break;
 			}
 
