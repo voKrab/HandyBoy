@@ -1,11 +1,14 @@
 package com.vallverk.handyboy.view.account;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
@@ -52,9 +55,6 @@ public class EditAccountViewFragment extends BaseFragment
 	private TextView pushNotificationTextView;
 	private TextView emailNotificationTextView;
 
-	// private ImageView saveTopBarImageView;
-	// private TextView saveTopBarTextView;
-
 	private ToggleButton pushNotificationTogglebutton;
 	private ToggleButton emailNotificationTogglebutton;
 
@@ -70,6 +70,9 @@ public class EditAccountViewFragment extends BaseFragment
 	public List < AddressAPIObject > listAddressAPIObjects;
 	public LinearLayout addressContainer;
 	public LayoutInflater layoutInflater;
+
+    public  Dialog acceptDialog;
+    public View deleteAccountButton;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -109,6 +112,8 @@ public class EditAccountViewFragment extends BaseFragment
 		addAdressButton = view.findViewById ( R.id.addAdressButton );
 
 		addressContainer = ( LinearLayout ) view.findViewById ( R.id.addressContainer );
+        deleteAccountButton = view.findViewById(R.id.deleteAccountButton);
+
 		return view;
 	}
 
@@ -298,6 +303,13 @@ public class EditAccountViewFragment extends BaseFragment
 				controller.setState ( VIEW_STATE.CREDIT_CARD );
 			}
 		} );
+
+        deleteAccountButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAcceptDialog();
+            }
+        });
 	}
 
 	private void saveSettings ()
@@ -356,5 +368,42 @@ public class EditAccountViewFragment extends BaseFragment
 		FontUtils.getInstance ( getActivity () ).applyStyle ( emailNotificationTextView, FontStyle.SEMIBOLD );
 
 	}
+
+    private void showAcceptDialog ()
+    {
+        if ( acceptDialog == null )
+        {
+            acceptDialog = new Dialog( getActivity () );
+            acceptDialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            acceptDialog.setContentView ( R.layout.available_dialog_layout );
+            View noButton = acceptDialog.findViewById ( R.id.dialogNoButton );
+            View yesButton = acceptDialog.findViewById ( R.id.dialogYesButton );
+            acceptDialog.findViewById(R.id.dialogBodyTextView).setVisibility(View.GONE);
+            TextView dialogTitleTextView = (TextView) acceptDialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText(controller.getString(R.string.delete_account_dialog_title));
+            noButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    acceptDialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    acceptDialog.dismiss ();
+                    controller.setState ( VIEW_STATE.EXIT );
+                }
+            } );
+
+            acceptDialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        acceptDialog.show ();
+    }
 
 }

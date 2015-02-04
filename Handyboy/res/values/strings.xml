@@ -586,4 +586,6 @@
     <string name="delete_card_error">Error delete card</string>
     <string name="available_now_alert">Please setup: bank account, location, job description and schedule</string>
     <string name="i_dont_want_to_work">I don’t want to work!</string>
+    <string name="delete_account">Delete account</string>
+    <string name="delete_account_dialog_title">Delete account? Are you serious?</string>
 </resources>

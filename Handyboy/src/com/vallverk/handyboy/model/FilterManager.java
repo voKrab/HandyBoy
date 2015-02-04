@@ -75,7 +75,7 @@ public class FilterManager
         setSex("");
         setBodyType("");
         setPrice(0, 500);
-        setRating(1.0f);
+        setRating(0.0f);
         setDate(0);
         setTimeFrom("");
         setTimeTo("");
@@ -129,6 +129,11 @@ public class FilterManager
         url += "&userId=" + user.getId();
 		url += "&limit=" + limit;
 		url += "&offset=" + offset;
+        if ( !jobid.isEmpty () )
+        {
+            url += "&jobid=" + jobid;
+        }
+
         if(MyLocationManager.imHere != null) {
             url += "&latitude=" + MyLocationManager.imHere.getLatitude();
             url += "&longitude=" + MyLocationManager.imHere.getLongitude();
@@ -138,7 +143,7 @@ public class FilterManager
 
 	private String makeSearchByJobUrl ( int limit, int offset )
 	{
-		String url = ServerManager.SEARCH_FOR_JOB_TYPE_URL;
+		/*String url = ServerManager.SEARCH_FOR_JOB_TYPE_URL;
 		url += "jobid=" + jobid;
         url += "&userId=" + user.getId();
 		url += "&limit=" + limit;
@@ -148,7 +153,9 @@ public class FilterManager
             url += "&latitude=" + MyLocationManager.imHere.getLatitude();
             url += "&longitude=" + MyLocationManager.imHere.getLongitude();
         }
-		return url;
+		return url;*/
+
+        return  makeSearchUrl(limit, offset);
 	}
 
 	private String inchToFoot ( int inches )

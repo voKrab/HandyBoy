@@ -370,7 +370,13 @@ public class ServiceEditProfileViewFragment extends BaseFragment {
     private void updateUserDetails() {
         String height = (String) userDetails.getValue(UserDetailsParams.HEIGHT);
         String[] heightSplited = height.split("\\.");
-        inchesTextView.setText(heightSplited[1]);
+        int inches = Integer.parseInt(heightSplited[1]);
+        if(inches > 11){
+            inchesTextView.setText(inches / 10 + "");
+        }else{
+            inchesTextView.setText(inches + "");
+        }
+
         feetSpinner.setSelected(Integer.parseInt(heightSplited[0]));
         inchesSpinner.setSelected(Integer.parseInt(heightSplited[1]));
         try {
@@ -696,7 +702,7 @@ public class ServiceEditProfileViewFragment extends BaseFragment {
             }
         }
 
-        userDetails.putValue(UserDetailsParams.HEIGHT, feetTextView.getText().toString() + "," + inchesTextView.getText().toString());
+        userDetails.putValue(UserDetailsParams.HEIGHT, feetTextView.getText().toString() + "." + inchesTextView.getText().toString());
         userDetails.putValue(UserDetailsParams.WEIGHT, "" + weightSpinner.getSelectedItem());
         userDetails.putValue(UserDetailsParams.HEIR_COLOR, hairColorSpinner.getSelectedItem().toString());
         userDetails.putValue(UserDetailsParams.EYE_COLOR, eyeColorSpinner.getSelectedItem().toString());
