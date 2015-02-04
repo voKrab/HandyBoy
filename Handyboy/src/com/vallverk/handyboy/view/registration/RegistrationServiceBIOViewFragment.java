@@ -181,12 +181,16 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 		} else
 		{
 			String height = ( String ) userDetails.getValue ( UserDetailsParams.HEIGHT );
-			String[] heightSplited = height.split ( "," );
-			// feetEditText.setText ( heightSplited[0] );
-			// inchesEditText.setText ( heightSplited[1] );
-			feetSpinner.setSelected ( Integer.parseInt ( heightSplited[0] ) );
-			inchesSpinner.setSelected ( Integer.parseInt ( heightSplited[1] ) );
+            String[] heightSplited = height.split("\\.");
+            int inches = Integer.parseInt(heightSplited[1]);
+            if(inches > 11){
+                inchesEditText.setText(inches / 10 + "");
+            }else{
+                inchesEditText.setText(inches + "");
+            }
 
+            feetSpinner.setSelected(Integer.parseInt(heightSplited[0]));
+            inchesSpinner.setSelected(Integer.parseInt(heightSplited[1]));
 			try
 			{
 				int weight = Integer.parseInt ( ( String ) userDetails.getValue ( UserDetailsParams.WEIGHT ) );

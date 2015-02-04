@@ -723,7 +723,7 @@ public class ServiceEditProfileViewFragment extends BaseFragment {
                         isUserChange = true;
                     }
 
-                    if (isUserChange) {
+                    if (isUserChange || isLocationChange) {
                         apiManager.update(user, ServerManager.USER_UPDATE_URI);
                     }
 

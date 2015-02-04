@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -85,6 +87,8 @@ public class ChangePhoneNumberViewFragment extends BaseFragment
 				controller.onBackPressed ();
 			}
 		} );
+        phoneEditText.addTextChangedListener ( phoneTextWatcher );
+
 	}
 
 	private void showCodeVerificationDialog ()
@@ -125,7 +129,7 @@ public class ChangePhoneNumberViewFragment extends BaseFragment
 					} else
 					{
 						isVerificationOk = true;
-						controller.onBackPressed ();
+						//controller.onBackPressed ();
 					}
 				}
 			} );
@@ -182,6 +186,35 @@ public class ChangePhoneNumberViewFragment extends BaseFragment
 		}
 		return true;
 	}
+
+    private TextWatcher phoneTextWatcher = new TextWatcher ()
+    {
+
+        @Override
+        public void onTextChanged ( CharSequence s, int start, int before, int count )
+        {
+        }
+
+        @Override
+        public void beforeTextChanged ( CharSequence s, int start, int count, int after )
+        {
+        }
+
+        @Override
+        public void afterTextChanged ( Editable s )
+        {
+            String phone = s.toString ().replace ( "+", "" ).trim ();
+            if ( phone != null && !phone.isEmpty () )
+            {
+                phone = "+" + phone;
+                phoneEditText.removeTextChangedListener ( phoneTextWatcher );
+                phoneEditText.setText ( phone );
+                phoneEditText.setSelection ( phoneEditText.getText ().length () );
+                phoneEditText.addTextChangedListener ( phoneTextWatcher );
+            }
+        }
+    };
+
 
 	protected String generateCode ()
 	{

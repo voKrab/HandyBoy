@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 
 import com.vallverk.handyboy.FileManager;
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.SettingsManager;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AddressAPIObject;
@@ -30,13 +31,15 @@ import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.FontUtils;
 import com.vallverk.handyboy.view.base.FontUtils.FontStyle;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class EditAccountViewFragment extends BaseFragment
 {
 	private UserAPIObject user;
 	private APIManager apiManager;
-	private HandyBoySettings handyBoySettings;
+
 
 	// UI
 	private TextView accountNameTextView;
@@ -212,10 +215,6 @@ public class EditAccountViewFragment extends BaseFragment
 
 	private void updateComponents ()
 	{
-		handyBoySettings = ( HandyBoySettings ) FileManager.loadObject ( getActivity (), FileManager.SETTINGS_SAVE_PATH, new HandyBoySettings ( false, false ) );
-		emailNotificationTogglebutton.setChecked ( handyBoySettings.isResiveMailNotification );
-		pushNotificationTogglebutton.setChecked ( handyBoySettings.isResivePushNotification );
-
 		accountNameTextView.setText ( user.getValue ( UserParams.FIRST_NAME ).toString () + " " + user.getValue ( UserParams.LAST_NAME ).toString ().charAt ( 0 ) );
 		accountNameTextView.setSelected ( true );
 		accountIdTextView.setText ( "ID: " + user.getId ().toString () );
@@ -226,23 +225,13 @@ public class EditAccountViewFragment extends BaseFragment
 
 	protected void addListeners ()
 	{
-		emailNotificationTogglebutton.setOnCheckedChangeListener ( new OnCheckedChangeListener ()
-		{
-
-			@Override
-			public void onCheckedChanged ( CompoundButton compoundButton, boolean isChecked )
-			{
-				handyBoySettings.isResiveMailNotification = isChecked;
-			}
-		} );
-
 		pushNotificationTogglebutton.setOnCheckedChangeListener ( new OnCheckedChangeListener ()
 		{
 
 			@Override
 			public void onCheckedChanged ( CompoundButton compoundButton, boolean isChecked )
 			{
-				handyBoySettings.isResivePushNotification = isChecked;
+                SettingsManager.setBoolean (SettingsManager.Params.IS_PUSH_NOTIFICATION, isChecked, controller);
 			}
 		} );
 
@@ -312,42 +301,43 @@ public class EditAccountViewFragment extends BaseFragment
         });
 	}
 
-	private void saveSettings ()
-	{
-		FileManager.saveObject ( getActivity (), FileManager.SETTINGS_SAVE_PATH, handyBoySettings );
-		// Toast.makeText ( getActivity(), "Settings save done",
-		// Toast.LENGTH_LONG).show ();
-	}
+    private void deleteUser(){
+        new AsyncTask < Void, Void, String > ()
+        {
 
-	/*
-	 * private void saveUser () {
-	 * 
-	 * String email = emailEditText.getText ().toString ().trim (); if (
-	 * email.isEmpty () ) { Toast.makeText ( getActivity (),
-	 * R.string.whats_your_email, Toast.LENGTH_LONG ).show (); return; } if (
-	 * !Patterns.EMAIL_ADDRESS.matcher ( email ).matches () ) { Toast.makeText (
-	 * getActivity (), R.string.email_address_not_valid, Toast.LENGTH_LONG
-	 * ).show (); return; }
-	 * 
-	 * user.putValue ( UserParams.EMAIL, emailEditText.getText () ); //
-	 * user.putValue ( UserParams.PHONE_NUMBER, phoneEditText.getText () );
-	 * 
-	 * new AsyncTask < Void, Void, String > () {
-	 * 
-	 * @Override protected String doInBackground ( Void... params ) { String
-	 * result = ""; try { result = apiManager.update ( user,
-	 * ServerManager.USER_UPDATE_URI ); } catch ( Exception e ) { result =
-	 * e.getMessage (); e.printStackTrace (); } return result; }
-	 * 
-	 * public void onPreExecute () { super.onPreExecute ();
-	 * controller.showLoader (); }
-	 * 
-	 * public void onPostExecute ( String result ) { super.onPostExecute (
-	 * result ); controller.hideLoader (); if ( result.isEmpty () ) {
-	 * controller.setState ( VIEW_STATE.DASHBOARD ); } else {
-	 * controller.onBackPressed (); Toast.makeText ( controller, result,
-	 * Toast.LENGTH_LONG ).show (); } } }.execute (); }
-	 */
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String status = "";
+                try
+                {
+                    //listAddressAPIObjects = apiManager.loadList ( ServerManager.GET_ADDRESSES + user.getId (), AddressAPIObject.class );
+                    JSONObject jsonParams = new JSONObject();
+                    jsonParams.put("id", user.getId());
+                    JSONObject request = new JSONObject(ServerManager.postRequest(ServerManager.DELETE_USER_ACCOUNT, jsonParams.toString()));
+                    status = request.getString("parameters");
+                } catch ( Exception e )
+                {
+                    e.printStackTrace ();
+                }
+                return status;
+            }
+
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+            }
+
+            public void onPostExecute ( String status )
+            {
+                super.onPostExecute ( status );
+                if(status.isEmpty()){
+                    //controller.setState ( VIEW_STATE.EXIT );
+                    controller.logout();
+                }
+            }
+        }.execute ();
+    }
 
 	@Override
 	protected void updateFonts ()
@@ -396,7 +386,7 @@ public class EditAccountViewFragment extends BaseFragment
                 public void onClick ( View v )
                 {
                     acceptDialog.dismiss ();
-                    controller.setState ( VIEW_STATE.EXIT );
+                    deleteUser();
                 }
             } );
 

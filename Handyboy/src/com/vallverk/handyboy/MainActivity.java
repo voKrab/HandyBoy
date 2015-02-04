@@ -275,15 +275,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 							return e.getMessage ();
 						}
 					}
-
-					@Override
-					protected void onPostExecute ( String status )
-					{
-						if ( !status.isEmpty () )
-						{
-							Toast.makeText ( MainActivity.this, status, Toast.LENGTH_SHORT ).show ();
-						}
-					}
 				}.execute ( null, null, null );
 			}
 		} );

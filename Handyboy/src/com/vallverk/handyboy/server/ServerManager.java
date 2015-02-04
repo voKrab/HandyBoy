@@ -122,9 +122,7 @@ public class ServerManager
     public static final String AVAILABLE_NOW_IS_CAN = PROTOCOL + HOST + "/availablenow/can?serviceId=1";
 
     public static final String SAVE_USER_LOCATION = PROTOCOL + HOST + "/user/location";
-
-
-
+    public static final String DELETE_USER_ACCOUNT = PROTOCOL + HOST  + "/user/delete";
 
     public static String getRequest ( String uriString ) throws Exception
     {

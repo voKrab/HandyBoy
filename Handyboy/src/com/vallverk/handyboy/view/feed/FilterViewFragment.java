@@ -163,9 +163,9 @@ public class FilterViewFragment extends BaseFragment
 				public void onDateSet ( DatePicker view, int year, int month, int day )
 				{
                     Calendar calendar = Calendar.getInstance ();
-					calendar.set ( year, month + 1, day );
+					calendar.set ( year, month, day );
 					selectedDate = calendar.getTimeInMillis ();
-					monthTextView.setText ( "" + ( month + 1 ) );
+					monthTextView.setText ( "" + ( month) );
 					dayTextView.setText ( "" + day );
 					yearTextView.setText ( "" + ( year ) );
 				}
@@ -201,7 +201,7 @@ public class FilterViewFragment extends BaseFragment
 
 		priceRangebar.setThumbImageNormal ( R.drawable.thumb );
 		priceRangebar.setThumbImagePressed ( R.drawable.thumb_bar );
-		priceRangebar.setMaxMin ( 500, 0 );
+		priceRangebar.setMaxMin ( 150, 0 );
 		priceRangebar.setTickHeight ( 0 );
 		priceRangebar.setConnectingLineColor ( Color.parseColor ( "#C52432" ) );
 		priceRangebar.setBarColor ( Color.parseColor ( "#AEAEAE" ) );
@@ -262,7 +262,7 @@ public class FilterViewFragment extends BaseFragment
             int month = c.get ( Calendar.MONTH );
             int day = c.get ( Calendar.DAY_OF_MONTH );
 
-            monthTextView.setText ( "" + ( month + 1 ) );
+            monthTextView.setText ( "" + ( month ) );
             dayTextView.setText ( "" + day );
             yearTextView.setText ( "" + ( year ) );
         }
@@ -344,7 +344,6 @@ public class FilterViewFragment extends BaseFragment
 				filterManager.setBodyType ( bodyTypeSpinner.getSelectedItems () );
 				filterManager.setPrice ( priceRangebar.getLeftValue (), priceRangebar.getRightValue());
 				filterManager.setSex ( sexSpinner.getSelectedItems () );
-				filterManager.setIsSearchByFilter ( true );
 
                 filterManager.setRating(ratingView.getRating());
                 if(selectedDate > 0){
@@ -354,7 +353,7 @@ public class FilterViewFragment extends BaseFragment
                 filterManager.setTimeFrom(fromTimeTextView.getText().toString());
                 filterManager.setTimeTo(toTimeTextView.getText().toString());
 
-				
+                filterManager.setIsSearchByFilter ( true );
 				controller.setState ( VIEW_STATE.FEED );
 			}
 		} );

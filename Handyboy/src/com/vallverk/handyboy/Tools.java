@@ -585,4 +585,11 @@ public class Tools
         return  "http://youtu.be/" + youTubeId;
     }
 
+    public static String inchToFoot ( int inches )
+    {
+        int feet = inches / 12;
+        int leftover = inches % 12;
+        return feet + "." + leftover;
+    }
+
 }

@@ -3,6 +3,7 @@ package com.vallverk.handyboy.model;
 import android.location.Address;
 import android.text.format.DateFormat;
 
+import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.server.ServerManager;
@@ -74,7 +75,7 @@ public class FilterManager
         setWeight(90, 300);
         setSex("");
         setBodyType("");
-        setPrice(0, 500);
+        setPrice(0, 150);
         setRating(0.0f);
         setDate(0);
         setTimeFrom("");
@@ -158,18 +159,11 @@ public class FilterManager
         return  makeSearchUrl(limit, offset);
 	}
 
-	private String inchToFoot ( int inches )
-	{
-		int feet = inches / 12;
-		int leftover = inches % 12;
-		return feet + "." + leftover;
-	}
-
 	private String makeFilterUrl ( int limit, int offset )
 	{
 		String url = ServerManager.FILTER_URL;
-		url += "&height[from]=" + inchToFoot ( heightFrom  );
-		url += "&height[to]=" + inchToFoot (  heightTo );
+		url += "&height[from]=" + Tools.inchToFoot(heightFrom);
+		url += "&height[to]=" +  Tools.inchToFoot (  heightTo );
         url += "&userId=" + user.getId();
 		url += "&age[from]=" + ageFrom;
 		url += "&age[to]=" + ageTo;
@@ -205,7 +199,7 @@ public class FilterManager
 		if ( address != null )
 		{
 			url += "&latitude=" + address.getLatitude ();
-			url += "&longitude=" + address.getLatitude ();
+			url += "&longitude=" + address.getLongitude();
 		}
 
 		url += "&sort=" + searchType.ordinal ();

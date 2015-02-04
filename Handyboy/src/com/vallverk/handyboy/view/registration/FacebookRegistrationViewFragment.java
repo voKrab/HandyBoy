@@ -5,13 +5,17 @@ import java.util.Random;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -35,18 +39,20 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 	private ImageView backImageView;
 	private TextView backTextView;
 	private EditText phoneEditText;
-	private CheckBox termsOfServiceCheckBox;
-	private CheckBox privacyPolicyCheckBox;
+	private CheckBox termsOfServicePrivacyPolicyCheckBox;
+	private CheckBox servicesContractCheckBox;
+    private TextView contractTextView;
 	private Button phoneVerificationButton;
-	private Button skipButton;
 
 	private long date;
-	private View codeContainer;
-	private EditText codeEditText;
 	private VerificationCode verificationCode;
 	private UserAPIObject user;
 	private TextView termsTextView;
 	private TextView privacyPolicyTextView;
+
+    private Dialog codeVerificationDialog;
+
+    private boolean isVerificationOk = false;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -55,15 +61,12 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 		backImageView = ( ImageView ) view.findViewById ( R.id.backImageView );
 		backTextView = ( TextView ) view.findViewById ( R.id.backTextView );
 		phoneEditText = ( EditText ) view.findViewById ( R.id.phoneEditText );
-		termsOfServiceCheckBox = ( CheckBox ) view.findViewById ( R.id.termsOfServiceCheckBox );
-		privacyPolicyCheckBox = ( CheckBox ) view.findViewById ( R.id.privacyPolicyCheckBox );
+        termsOfServicePrivacyPolicyCheckBox = ( CheckBox ) view.findViewById ( R.id.termsOfServicePrivacyPolicyCheckBox );
+        servicesContractCheckBox = ( CheckBox ) view.findViewById ( R.id.servicesContractCheckBox );
 		phoneVerificationButton = ( Button ) view.findViewById ( R.id.phoneVerificationButton );
-		skipButton = ( Button ) view.findViewById ( R.id.skipButton );
-		codeContainer = view.findViewById ( R.id.codeContainer );
-		codeEditText = ( EditText ) view.findViewById ( R.id.codeEditText );
 		termsTextView = ( TextView ) view.findViewById ( R.id.termsTextView );
 		privacyPolicyTextView = ( TextView ) view.findViewById ( R.id.privacyPolicyTextView );
-
+        contractTextView = (TextView) view.findViewById(R.id.contractTextView);
 		return view;
 	}
 
@@ -71,11 +74,6 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
-
-//		if ( controller.isDebugMode () )
-//		{
-//			setupTestData ();
-//		}
 		updateComponents ();
 		addListeners ();
 	}
@@ -83,60 +81,128 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 	private void updateComponents ()
 	{
 		user = ( UserAPIObject ) MainActivity.getInstance ().getCommunicationValue ( UserAPIObject.class.getSimpleName () );
-		if ( user != null )
-		{
-//			firstEditText.setText ( user.getValue ( UserParams.FIRST_NAME ).toString () );
-//			lastEditText.setText ( user.getValue ( UserParams.LAST_NAME ).toString () );
-		}
 	}
 
-	public abstract class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
-	{
 
-		@Override
-		public Dialog onCreateDialog ( Bundle savedInstanceState )
-		{
-			// Use the current date as the default date in the picker
-			final Calendar c = Calendar.getInstance ();
-			int year = c.get ( Calendar.YEAR );
-			int month = c.get ( Calendar.MONTH );
-			int day = c.get ( Calendar.DAY_OF_MONTH );
+    private void showCodeVerificationDialog ()
+    {
+        if ( codeVerificationDialog == null )
+        {
+            codeVerificationDialog = new Dialog ( getActivity () );
+            codeVerificationDialog.setCancelable ( false );
+            codeVerificationDialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            codeVerificationDialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+            codeVerificationDialog.setContentView ( R.layout.code_verification_dialog_layout );
+            View noButton = codeVerificationDialog.findViewById ( R.id.dialogNoButton );
+            View yesButton = codeVerificationDialog.findViewById ( R.id.dialogYesButton );
+            final EditText verificationCodeField = ( EditText ) codeVerificationDialog.findViewById ( R.id.verificationCodeField );
+            noButton.setOnClickListener ( new OnClickListener ()
+            {
 
-			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog ( getActivity (), this, year, month, day );
-		}
-	}
+                @Override
+                public void onClick ( View v )
+                {
+                    codeVerificationDialog.dismiss ();
+                }
+            } );
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    //
+                    String code = verificationCodeField.getText ().toString ().trim ();
+                    if ( code.isEmpty () )
+                    {
+                        Toast.makeText ( getActivity (), R.string.please_enter_code, Toast.LENGTH_LONG ).show ();
+                    } else if ( !verificationCode.check ( code ) )
+                    {
+                        Toast.makeText ( getActivity (), "You are entered the wrong code", Toast.LENGTH_LONG ).show ();
+                    } else
+                    {
+                        codeVerificationDialog.dismiss ();
+                        isVerificationOk = true;
+                        registration ();
+                        // phoneVerificationButton.setText (
+                        // R.string.registration );
+                    }
+                }
+            } );
+
+        }
+        String phone = phoneEditText.getText ().toString ().trim ();
+        if ( phoneNumberValidation ( phone ) )
+        {
+            sendSms ( "+" + phone );
+            codeVerificationDialog.show ();
+        }
+    }
+    private void sendSms ( final String phone )
+    {
+        new AsyncTask < Void, Void, String > ()
+        {
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                if ( !result.isEmpty () ) // success registration
+                {
+                    Toast.makeText ( getActivity (), result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    String sendedCode = generateCode ();
+                    verificationCode = new VerificationCode ( sendedCode, System.currentTimeMillis () );
+
+                    SmsSender.send ( phone, verificationCode );
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getLocalizedMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
 
 	private void addListeners ()
 	{
-		termsTextView.setOnClickListener ( new OnClickListener ()
-		{
-			@Override
-			public void onClick ( View v )
-			{
-				controller.setState ( VIEW_STATE.TERMS );
-			}
-		} );
-		privacyPolicyTextView.setOnClickListener ( new OnClickListener ()
-		{
-			@Override
-			public void onClick ( View v )
-			{
-				controller.setState ( VIEW_STATE.PRIVACY_POLICY );
-			}
-		} );
+        termsTextView.setOnClickListener ( new OnClickListener ()
+        {
+            @Override
+            public void onClick ( View v )
+            {
+                controller.setState ( VIEW_STATE.TERMS );
+            }
+        } );
+        contractTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.setState ( VIEW_STATE.CONTRACT );
+            }
+        });
+        privacyPolicyTextView.setOnClickListener ( new OnClickListener ()
+        {
+            @Override
+            public void onClick ( View v )
+            {
+                controller.setState ( VIEW_STATE.PRIVACY_POLICY );
+            }
+        } );
 		phoneVerificationButton.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
 			public void onClick ( View v )
 			{
-				if ( codeContainer.getVisibility () == View.VISIBLE )
-				{
-					registration ();
-				} else
-				{
-					firstStepRegistration ();
-				}
+                firstStepRegistration ();
+
 			}
 		} );
 		backImageView.setOnClickListener ( new OnClickListener ()
@@ -155,24 +221,40 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 				getActivity ().onBackPressed ();
 			}
 		} );
+        phoneEditText.addTextChangedListener ( phoneTextWatcher );
+
 	}
+
+    private TextWatcher phoneTextWatcher = new TextWatcher ()
+    {
+
+        @Override
+        public void onTextChanged ( CharSequence s, int start, int before, int count )
+        {
+        }
+
+        @Override
+        public void beforeTextChanged ( CharSequence s, int start, int count, int after )
+        {
+        }
+
+        @Override
+        public void afterTextChanged ( Editable s )
+        {
+            String phone = s.toString ().replace ( "+", "" ).trim ();
+            if ( phone != null && !phone.isEmpty () )
+            {
+                phone = "+" + phone;
+                phoneEditText.removeTextChangedListener ( phoneTextWatcher );
+                phoneEditText.setText ( phone );
+                phoneEditText.setSelection ( phoneEditText.getText ().length () );
+                phoneEditText.addTextChangedListener ( phoneTextWatcher );
+            }
+        }
+    };
 
 	protected void registration ()
 	{
-		if ( !controller.isDebugMode () )
-		{
-			String code = codeEditText.getText ().toString ().trim ();
-			if ( code.isEmpty () )
-			{
-				Toast.makeText ( getActivity (), R.string.please_enter_code, Toast.LENGTH_LONG ).show ();
-				return;
-			}
-			if ( !verificationCode.check ( code ) )
-			{
-				Toast.makeText ( getActivity (), "You are entered the wrong code", Toast.LENGTH_LONG ).show ();
-				return;
-			}
-		}
 		String phone = phoneEditText.getText ().toString ().trim ();
 		if ( user == null )
 		{
@@ -181,7 +263,7 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 		user.putValue ( UserParams.PHONE_NUMBER, phone );
 		user.putValue ( UserParams.DOB, date );
 		user.putValue ( UserParams.STATUS, UserStatus.NEW.toString () );
-		user.putValue ( UserParams.EMAIL, "generated" + new Random ().nextInt ( 1000 ) + "@gmai.com" );
+		user.putValue ( UserParams.EMAIL, "generated" + new Random ().nextInt ( 1000 ) + "@gmail.com" );
 
 		new AsyncTask < Void, Void, String > ()
 		{
@@ -235,7 +317,7 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 			Toast.makeText ( getActivity (), R.string.whats_your_cell_number, Toast.LENGTH_LONG ).show ();
 			return;
 		}
-		if ( !termsOfServiceCheckBox.isChecked () || !privacyPolicyCheckBox.isChecked () )
+		if ( !termsOfServicePrivacyPolicyCheckBox.isChecked () || !servicesContractCheckBox.isChecked () )
 		{
 			Toast.makeText ( getActivity (), R.string.your_must_accept_our_terms_of_service_and_privacy_policy, Toast.LENGTH_LONG ).show ();
 			return;
@@ -245,71 +327,24 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 			registration ();
 		} else
 		{
-			// send sms
-			new AsyncTask < Void, Void, String > ()
-			{
-				public void onPreExecute ()
-				{
-					super.onPreExecute ();
-					MainActivity.getInstance ().showLoader ();
-				}
-
-				public void onPostExecute ( String result )
-				{
-					super.onPostExecute ( result );
-					MainActivity.getInstance ().hideLoader ();
-					if ( result.isEmpty () ) // success registration
-					{
-						codeContainer.setVisibility ( View.VISIBLE );
-						phoneVerificationButton.setText ( R.string.registration );
-					} else
-					{
-						Toast.makeText ( getActivity (), result, Toast.LENGTH_LONG ).show ();
-					}
-				}
-
-				@Override
-				protected String doInBackground ( Void... params )
-				{
-					String result = "";
-					try
-					{
-						String sendedCode = generateCode ();
-						verificationCode = new VerificationCode ( sendedCode, System.currentTimeMillis () );
-						SmsSender.send ( phone, verificationCode );
-					} catch ( Exception ex )
-					{
-						ex.printStackTrace ();
-						result = ex.getLocalizedMessage ();
-					}
-					return result;
-				}
-			}.execute ();
-//			registration ();
+            if ( !phoneNumberValidation ( phoneEditText.getText ().toString ().trim () ) )
+            {
+                return;
+            }
+            showCodeVerificationDialog ();
 		}
 	}
 
-	private boolean checkIllegalCharacters ( String text )
-	{
-		char firstLetter = text.charAt ( 0 );
-		int ascii = ( int ) firstLetter;
-		boolean isFirstLetterValid = ( ascii >= ( int ) 'A' && ascii <= ( int ) 'Z' ) || ( ascii >= ( int ) 'a' && ascii <= ( int ) 'z' );
-		if ( !isFirstLetterValid )
-		{
-			return false;
-		}
-		for ( int i = 0; i < text.length (); i++ )
-		{
-			char letter = text.charAt ( i );
-			ascii = ( int ) letter;
-			boolean isValid = ( ascii >= ( int ) 'A' && ascii <= ( int ) 'Z' ) || ( ascii >= ( int ) 'a' && ascii <= ( int ) 'z' ) || ascii == ( int ) ' ' || ascii == ( int ) '\'' || ascii == ( int ) '-' || ( ascii >= ( int ) '0' && ascii <= ( int ) '9' );
-			if ( !isValid )
-			{
-				return false;
-			}
-		}
-		return true;
-	}
+    private boolean phoneNumberValidation ( String phoneNumber )
+    {
+        String regexStr = "^\\+[0-9]{10,13}$";
+        if ( phoneNumber.matches ( regexStr ) == false )
+        {
+            Toast.makeText ( getActivity (), "Please enter valid phone number", Toast.LENGTH_SHORT ).show ();
+            return false;
+        }
+        return true;
+    }
 
 	protected String generateCode ()
 	{
