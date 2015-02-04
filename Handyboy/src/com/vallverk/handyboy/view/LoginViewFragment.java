@@ -32,14 +32,15 @@ public class LoginViewFragment extends BaseFragment
 	private Button registrationButton;
 	private Button skipButton;
 	private FacebookManager facebook;
-    private View mainContainer;
+	private View mainContainer;
 
-    int i = 0;
+	int i = 0;
+    private Bundle savedInstanceState;
 
-	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+    public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		View view = inflater.inflate ( R.layout.login_layout, null );
-		
+
 		loginWithFacebookButton = ( Button ) view.findViewById ( R.id.loginWithFacebookButton );
 		emailEditText = ( EditText ) view.findViewById ( R.id.emailEditText );
 		passwordEditText = ( EditText ) view.findViewById ( R.id.passwordEditText );
@@ -47,20 +48,25 @@ public class LoginViewFragment extends BaseFragment
 		signinButton = ( Button ) view.findViewById ( R.id.signinButton );
 		registrationButton = ( Button ) view.findViewById ( R.id.registrationButton );
 		skipButton = ( Button ) view.findViewById ( R.id.skipButton );
-        mainContainer = view.findViewById(R.id.mainContainer);
-		
+		mainContainer = view.findViewById ( R.id.mainContainer );
+
 		return view;
 	}
-	
+
+	@Override
+	protected void init ()
+	{
+		facebook = new FacebookManager ();
+		facebook.init ( savedInstanceState, this );
+
+		addListeners ();
+	}
+
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
-		
-		facebook = new FacebookManager ();
-		facebook.init ( savedInstanceState, this );
-		
-		addListeners ();
+        this.savedInstanceState = savedInstanceState;
 	}
 
 	private void addListeners ()
@@ -75,46 +81,53 @@ public class LoginViewFragment extends BaseFragment
 				controller.setDebugMode ( true );
 				return false;
 			}
-		});
+		} );
 
-        getView ().setOnClickListener(new OnClickListener() {
+		getView ().setOnClickListener ( new OnClickListener ()
+		{
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                i++;
-                Handler handler = new Handler();
-                Runnable r = new Runnable() {
+			@Override
+			public void onClick ( View v )
+			{
+				// TODO Auto-generated method stub
+				i++;
+				Handler handler = new Handler ();
+				Runnable r = new Runnable ()
+				{
 
-                    @Override
-                    public void run() {
-                        i = 0;
-                    }
-                };
+					@Override
+					public void run ()
+					{
+						i = 0;
+					}
+				};
 
-                if (i == 1) {
-                    //Single click
-                    handler.postDelayed(r, 250);
+				if ( i == 1 )
+				{
+					// Single click
+					handler.postDelayed ( r, 250 );
 
-                } else if (i == 2) {
-                    //Double click
-                    i = 0;
+				} else if ( i == 2 )
+				{
+					// Double click
+					i = 0;
 
-                    emailEditText.setText ( "timm.kasianov@gmail.com" );
-                    passwordEditText.setText ( "qwerty" );
-                    controller.setDebugMode ( true );
-                }
+					emailEditText.setText ( "timm.kasianov@gmail.com" );
+					passwordEditText.setText ( "qwerty" );
+					controller.setDebugMode ( true );
+				}
 
+			}
+		} );
 
-            }
-        });
-
-        mainContainer.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controller.hideKeyboard();
-            }
-        });
+		mainContainer.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View v )
+			{
+				controller.hideKeyboard ();
+			}
+		} );
 
 		forgotPasswordTextView.setOnClickListener ( new OnClickListener ()
 		{
@@ -123,7 +136,7 @@ public class LoginViewFragment extends BaseFragment
 			{
 				MainActivity.getInstance ().setState ( VIEW_STATE.FORGOT_PASSWORD );
 			}
-		});
+		} );
 		loginWithFacebookButton.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
@@ -131,7 +144,7 @@ public class LoginViewFragment extends BaseFragment
 			{
 				facebook.login ();
 			}
-		});
+		} );
 		signinButton.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
@@ -139,7 +152,7 @@ public class LoginViewFragment extends BaseFragment
 			{
 				login ();
 			}
-		});
+		} );
 		registrationButton.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
@@ -147,21 +160,21 @@ public class LoginViewFragment extends BaseFragment
 			{
 				MainActivity.getInstance ().setState ( VIEW_STATE.REGISTRATION );
 			}
-		});
+		} );
 	}
 
 	protected void login ()
 	{
-		final String email = emailEditText.getText ().toString ().trim ();		
+		final String email = emailEditText.getText ().toString ().trim ();
 		if ( email.isEmpty () )
 		{
-			Toast.makeText ( getActivity(), R.string.whats_your_email, Toast.LENGTH_LONG ).show ();
+			Toast.makeText ( getActivity (), R.string.whats_your_email, Toast.LENGTH_LONG ).show ();
 			return;
 		}
-		final String password = passwordEditText.getText ().toString ().trim ();		
+		final String password = passwordEditText.getText ().toString ().trim ();
 		if ( password.isEmpty () )
 		{
-			Toast.makeText ( getActivity(), R.string.what_password_would_you_like_to_use, Toast.LENGTH_LONG ).show ();
+			Toast.makeText ( getActivity (), R.string.what_password_would_you_like_to_use, Toast.LENGTH_LONG ).show ();
 			return;
 		}
 		new AsyncTask < Void, Void, String > ()
@@ -174,13 +187,13 @@ public class LoginViewFragment extends BaseFragment
 				super.onPreExecute ();
 				MainActivity.getInstance ().showLoader ();
 			}
-			
+
 			@Override
 			public void onPostExecute ( String result )
 			{
 				super.onPostExecute ( result );
 				MainActivity.getInstance ().hideLoader ();
-				if ( result.isEmpty () ) //success login
+				if ( result.isEmpty () ) // success login
 				{
 					APIManager.getInstance ().setUser ( user );
 					MainActivity.getInstance ().enter ( false );
@@ -189,7 +202,7 @@ public class LoginViewFragment extends BaseFragment
 					Toast.makeText ( getActivity (), result, Toast.LENGTH_LONG ).show ();
 				}
 			}
-			
+
 			@Override
 			protected String doInBackground ( Void... params )
 			{
@@ -211,13 +224,12 @@ public class LoginViewFragment extends BaseFragment
 			}
 		}.execute ();
 	}
-	
 
 	@Override
 	public void onActivityResult ( int requestCode, int resultCode, Intent data )
 	{
 		super.onActivityResult ( requestCode, resultCode, data );
-		
+
 		facebook.onActivityResult ( requestCode, resultCode, data );
 	}
 }
