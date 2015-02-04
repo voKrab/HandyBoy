@@ -1,5 +1,7 @@
 package com.vallverk.handyboy.model.schedule;
 
+import android.location.Address;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,6 +11,7 @@ public class ScheduleForDay
 	protected int selectedItem;
 	protected int defaultItem;
 	private boolean dayOff;
+	private Address address;
 
 	public ScheduleForDay ()
 	{
@@ -20,6 +23,16 @@ public class ScheduleForDay
 		this.items = items;
 		this.selectedItem = getSelectedItem ();
 		this.defaultItem = getDefaultItem ();
+	}
+
+	public Address getAddress ()
+	{
+		return address;
+	}
+
+	public void setAddress ( Address address )
+	{
+		this.address = address;
 	}
 
 	protected int getDefaultItem ()
