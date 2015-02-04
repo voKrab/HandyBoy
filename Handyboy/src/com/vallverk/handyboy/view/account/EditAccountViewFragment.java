@@ -1,13 +1,7 @@
 package com.vallverk.handyboy.view.account;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONObject;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,20 +12,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
+
 import com.vallverk.handyboy.FileManager;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AddressAPIObject;
-import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.AddressAPIObject.AddressParams;
+import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.FontUtils;
 import com.vallverk.handyboy.view.base.FontUtils.FontStyle;
+
+import java.util.List;
 
 public class EditAccountViewFragment extends BaseFragment
 {
@@ -47,7 +43,7 @@ public class EditAccountViewFragment extends BaseFragment
 	private TextView passwordTitle;
 	private TextView phoneTitle;
 	private TextView savedAdressTitle;
-    private TextView bankAccountTextView;
+	private TextView bankAccountTextView;
 
 	private EditText phoneEditText;
 	private TextView emailEditText;
@@ -56,8 +52,8 @@ public class EditAccountViewFragment extends BaseFragment
 	private TextView pushNotificationTextView;
 	private TextView emailNotificationTextView;
 
-	//private ImageView saveTopBarImageView;
-	//private TextView saveTopBarTextView;
+	// private ImageView saveTopBarImageView;
+	// private TextView saveTopBarTextView;
 
 	private ToggleButton pushNotificationTogglebutton;
 	private ToggleButton emailNotificationTogglebutton;
@@ -90,13 +86,15 @@ public class EditAccountViewFragment extends BaseFragment
 		emailEditText = ( TextView ) view.findViewById ( R.id.emailEditText );
 		passwordEditText = ( TextView ) view.findViewById ( R.id.passwordEditText );
 
-        bankAccountTextView = (TextView) view.findViewById(R.id.bankAccountTextView);
+		bankAccountTextView = ( TextView ) view.findViewById ( R.id.bankAccountTextView );
 
 		pushNotificationTextView = ( TextView ) view.findViewById ( R.id.pushNotificationTextView );
 		emailNotificationTextView = ( TextView ) view.findViewById ( R.id.emailNotificationTextView );
 
-		//saveTopBarImageView = ( ImageView ) view.findViewById ( R.id.saveTopBarImageView );
-		//saveTopBarTextView = ( TextView ) view.findViewById ( R.id.saveTopBarTextView );
+		// saveTopBarImageView = ( ImageView ) view.findViewById (
+		// R.id.saveTopBarImageView );
+		// saveTopBarTextView = ( TextView ) view.findViewById (
+		// R.id.saveTopBarTextView );
 
 		pushNotificationTogglebutton = ( ToggleButton ) view.findViewById ( R.id.pushNotificationTogglebutton );
 		emailNotificationTogglebutton = ( ToggleButton ) view.findViewById ( R.id.emailNotificationTogglebutton );
@@ -130,45 +128,50 @@ public class EditAccountViewFragment extends BaseFragment
 	@Override
 	protected void init ()
 	{
-		if ( !APIManager.getInstance ().getUser ().isService () ) {
-            pushNotificationLayout.setVisibility(View.VISIBLE);
-        }else{
+		// UserAPIObject user = APIManager.getInstance ().getUser ();
+		// if ( user == null )
+		// {
+		// return;
+		// }
+		if ( user.isService () )
+		{
             pushNotificationLayout.setVisibility ( View.GONE );
-        }
+		} else
+		{
+            pushNotificationLayout.setVisibility ( View.VISIBLE );
+		}
 
-			addAdressButton.setVisibility ( View.VISIBLE );
-			new AsyncTask < Void, Void, String > ()
+		addAdressButton.setVisibility ( View.VISIBLE );
+		new AsyncTask < Void, Void, String > ()
+		{
+
+			@Override
+			protected String doInBackground ( Void... params )
 			{
-
-				@Override
-				protected String doInBackground ( Void... params )
+				String status = "";
+				try
 				{
-					String status = "";
-					try
-					{
-						listAddressAPIObjects = apiManager.loadList ( ServerManager.GET_ADDRESSES + user.getId (), AddressAPIObject.class );
-					
-					} catch ( Exception e )
-					{
-						e.printStackTrace ();
-					}
-					return status;
-				}
-
-				public void onPreExecute ()
+					listAddressAPIObjects = apiManager.loadList ( ServerManager.GET_ADDRESSES + user.getId (), AddressAPIObject.class );
+				} catch ( Exception e )
 				{
-					super.onPreExecute ();
-					controller.showLoader ();
+					e.printStackTrace ();
 				}
+				return status;
+			}
 
-				public void onPostExecute ( String status )
-				{
-					super.onPostExecute ( status );
-					controller.hideLoader ();
-					updateAddressList ();
-				}
-			}.execute ();
-		//}
+			public void onPreExecute ()
+			{
+				super.onPreExecute ();
+				controller.showLoader ();
+			}
+
+			public void onPostExecute ( String status )
+			{
+				super.onPostExecute ( status );
+				controller.hideLoader ();
+				updateAddressList ();
+			}
+		}.execute ();
 	}
 
 	private void updateAddressList ()
@@ -180,21 +183,24 @@ public class EditAccountViewFragment extends BaseFragment
 			for ( AddressAPIObject addressAPIObject : listAddressAPIObjects )
 			{
 				LinearLayout addressItem = ( LinearLayout ) layoutInflater.inflate ( R.layout.account_address_item, null );
-				
-				TextView addressDescription = (TextView) addressItem.findViewById ( R.id.addressDescription );
+
+				TextView addressDescription = ( TextView ) addressItem.findViewById ( R.id.addressDescription );
 				addressDescription.setText ( addressAPIObject.getString ( AddressParams.DESCRIPTION ) );
 
-                addressDescription.setTag(addressAPIObject);
-                addressDescription.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        controller.setCommunicationValue( AddressAPIObject.class.getSimpleName () ,view.getTag() );
-                        controller.setState(VIEW_STATE.ADD_ADDRESS);
-                    }
-                });
+				addressDescription.setTag ( addressAPIObject );
+				addressDescription.setOnClickListener ( new OnClickListener ()
+				{
+					@Override
+					public void onClick ( View view )
+					{
+						controller.setCommunicationValue ( AddressAPIObject.class.getSimpleName (), view.getTag () );
+						controller.setState ( VIEW_STATE.ADD_ADDRESS );
+					}
+				} );
 				addressContainer.addView ( addressItem );
 			}
-		}else{
+		} else
+		{
 			savedAdressTitle.setVisibility ( View.GONE );
 		}
 	}
@@ -274,9 +280,9 @@ public class EditAccountViewFragment extends BaseFragment
 				controller.setState ( VIEW_STATE.CHANGE_PHONE );
 			}
 		} );
-		addAdressButton.setOnClickListener ( new OnClickListener()
+		addAdressButton.setOnClickListener ( new OnClickListener ()
 		{
-			
+
 			@Override
 			public void onClick ( View v )
 			{
@@ -284,12 +290,14 @@ public class EditAccountViewFragment extends BaseFragment
 			}
 		} );
 
-        bankAccountTextView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controller.setState ( VIEW_STATE.CREDIT_CARD );
-            }
-        });
+		bankAccountTextView.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View v )
+			{
+				controller.setState ( VIEW_STATE.CREDIT_CARD );
+			}
+		} );
 	}
 
 	private void saveSettings ()
@@ -299,63 +307,35 @@ public class EditAccountViewFragment extends BaseFragment
 		// Toast.LENGTH_LONG).show ();
 	}
 
-	/*private void saveUser ()
-	{
-
-		String email = emailEditText.getText ().toString ().trim ();
-		if ( email.isEmpty () )
-		{
-			Toast.makeText ( getActivity (), R.string.whats_your_email, Toast.LENGTH_LONG ).show ();
-			return;
-		}
-		if ( !Patterns.EMAIL_ADDRESS.matcher ( email ).matches () )
-		{
-			Toast.makeText ( getActivity (), R.string.email_address_not_valid, Toast.LENGTH_LONG ).show ();
-			return;
-		}
-
-		user.putValue ( UserParams.EMAIL, emailEditText.getText () );
-		// user.putValue ( UserParams.PHONE_NUMBER, phoneEditText.getText () );
-
-		new AsyncTask < Void, Void, String > ()
-		{
-
-			@Override
-			protected String doInBackground ( Void... params )
-			{
-				String result = "";
-				try
-				{
-					result = apiManager.update ( user, ServerManager.USER_UPDATE_URI );
-				} catch ( Exception e )
-				{
-					result = e.getMessage ();
-					e.printStackTrace ();
-				}
-				return result;
-			}
-
-			public void onPreExecute ()
-			{
-				super.onPreExecute ();
-				controller.showLoader ();
-			}
-
-			public void onPostExecute ( String result )
-			{
-				super.onPostExecute ( result );
-				controller.hideLoader ();
-				if ( result.isEmpty () )
-				{
-					controller.setState ( VIEW_STATE.DASHBOARD );
-				} else
-				{
-					controller.onBackPressed ();
-					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
-				}
-			}
-		}.execute ();
-	}*/
+	/*
+	 * private void saveUser () {
+	 * 
+	 * String email = emailEditText.getText ().toString ().trim (); if (
+	 * email.isEmpty () ) { Toast.makeText ( getActivity (),
+	 * R.string.whats_your_email, Toast.LENGTH_LONG ).show (); return; } if (
+	 * !Patterns.EMAIL_ADDRESS.matcher ( email ).matches () ) { Toast.makeText (
+	 * getActivity (), R.string.email_address_not_valid, Toast.LENGTH_LONG
+	 * ).show (); return; }
+	 * 
+	 * user.putValue ( UserParams.EMAIL, emailEditText.getText () ); //
+	 * user.putValue ( UserParams.PHONE_NUMBER, phoneEditText.getText () );
+	 * 
+	 * new AsyncTask < Void, Void, String > () {
+	 * 
+	 * @Override protected String doInBackground ( Void... params ) { String
+	 * result = ""; try { result = apiManager.update ( user,
+	 * ServerManager.USER_UPDATE_URI ); } catch ( Exception e ) { result =
+	 * e.getMessage (); e.printStackTrace (); } return result; }
+	 * 
+	 * public void onPreExecute () { super.onPreExecute ();
+	 * controller.showLoader (); }
+	 * 
+	 * public void onPostExecute ( String result ) { super.onPostExecute (
+	 * result ); controller.hideLoader (); if ( result.isEmpty () ) {
+	 * controller.setState ( VIEW_STATE.DASHBOARD ); } else {
+	 * controller.onBackPressed (); Toast.makeText ( controller, result,
+	 * Toast.LENGTH_LONG ).show (); } } }.execute (); }
+	 */
 
 	@Override
 	protected void updateFonts ()
