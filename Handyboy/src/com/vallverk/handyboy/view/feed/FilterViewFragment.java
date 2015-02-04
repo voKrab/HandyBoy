@@ -2,6 +2,8 @@ package com.vallverk.handyboy.view.feed;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -10,6 +12,7 @@ import android.graphics.Color;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,6 +142,9 @@ public class FilterViewFragment extends BaseFragment
 		public Dialog onCreateDialog ( Bundle savedInstanceState )
 		{
 			final Calendar c = Calendar.getInstance ();
+            if(selectedDate > 0){
+                c.setTime(new Date(selectedDate));
+            }
 			int year = c.get ( Calendar.YEAR );
 			int month = c.get ( Calendar.MONTH );
 			int day = c.get ( Calendar.DAY_OF_MONTH );
@@ -156,7 +162,7 @@ public class FilterViewFragment extends BaseFragment
 				@Override
 				public void onDateSet ( DatePicker view, int year, int month, int day )
 				{
-					Calendar calendar = Calendar.getInstance ();
+                    Calendar calendar = Calendar.getInstance ();
 					calendar.set ( year, month + 1, day );
 					selectedDate = calendar.getTimeInMillis ();
 					monthTextView.setText ( "" + ( month + 1 ) );
@@ -242,6 +248,26 @@ public class FilterViewFragment extends BaseFragment
         }else{
             whereAtEditText.setAdapter ( new AddressAutocompleteAdapter ( getActivity (), whereAtEditText.getText ().toString () ) );
         }
+
+        ratingView.setRating(filterManager.getRating());
+        fromTimeTextView.setText(filterManager.getTimeFrom());
+        toTimeTextView.setText(filterManager.getTimeTo());
+        selectedDate = filterManager.getDate();
+
+        final Calendar c = Calendar.getInstance ();
+        if(selectedDate > 0){
+            c.setTime(new Date(selectedDate));
+
+            int year = c.get ( Calendar.YEAR );
+            int month = c.get ( Calendar.MONTH );
+            int day = c.get ( Calendar.DAY_OF_MONTH );
+
+            monthTextView.setText ( "" + ( month + 1 ) );
+            dayTextView.setText ( "" + day );
+            yearTextView.setText ( "" + ( year ) );
+        }
+
+
 	}
 
 	private void updateViews ()
@@ -314,11 +340,20 @@ public class FilterViewFragment extends BaseFragment
 				}
 				
 				filterManager.setEthnicity ( ethentitySpinner.getSelectedItems () );
-				filterManager.setWeight ( weightRangebar.getLeftValue (), weightRangebar.getRightValue() );
+				filterManager.setWeight ( weightRangebar.getLeftValue(), weightRangebar.getRightValue() );
 				filterManager.setBodyType ( bodyTypeSpinner.getSelectedItems () );
 				filterManager.setPrice ( priceRangebar.getLeftValue (), priceRangebar.getRightValue());
 				filterManager.setSex ( sexSpinner.getSelectedItems () );
 				filterManager.setIsSearchByFilter ( true );
+
+                filterManager.setRating(ratingView.getRating());
+                if(selectedDate > 0){
+                    filterManager.setDate(selectedDate);
+                }
+
+                filterManager.setTimeFrom(fromTimeTextView.getText().toString());
+                filterManager.setTimeTo(toTimeTextView.getText().toString());
+
 				
 				controller.setState ( VIEW_STATE.FEED );
 			}
