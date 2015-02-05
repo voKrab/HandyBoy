@@ -3,11 +3,13 @@ package com.vallverk.handyboy.view;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pubnub.api.Callback;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
@@ -27,6 +30,7 @@ import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.ChatAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
+import com.vallverk.handyboy.pubnub.PubnubManager;
 import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.BaseListFragment;
@@ -147,7 +151,47 @@ public class ChatsViewFragment extends BaseFragment
 			final TextView unreadedTextView = ( TextView ) view.findViewById ( R.id.unreadedTextView );
 			unreadedTextView.setText ( "" + unreadMessages );
 			unreadedTextView.setVisibility ( unreadMessages == 0 ? View.INVISIBLE : View.VISIBLE );
-			
+
+            final View onlineImageView = view.findViewById(R.id.onlineImageView);
+            onlineImageView.setVisibility(View.GONE);
+
+            String checkedUserId;
+            if(item.getString(ChatAPIObject.ChatParams.USER_ID_FIRST).equals(APIManager.getInstance().getUser().getId())){
+                checkedUserId = item.getString(ChatAPIObject.ChatParams.USER_ID_SECOND);
+            }else{
+                checkedUserId = item.getString(ChatAPIObject.ChatParams.USER_ID_FIRST);
+            }
+
+            if(checkedUserId != null){
+                PubnubManager.getInstance().hereNow(checkedUserId, new Callback() {
+                    @Override
+                    public void successCallback(String s, Object response) {
+                        super.successCallback(s, response);
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response.toString());
+                            if(jsonResponse.getInt("occupancy") == 1){
+                                controller.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        onlineImageView.setVisibility(View.VISIBLE);
+                                    }
+                                });
+
+                            }else{
+                                controller.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        onlineImageView.setVisibility(View.GONE);
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+
 			view.setOnClickListener ( new OnClickListener ()
 			{
 				@Override
