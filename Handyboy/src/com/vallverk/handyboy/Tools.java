@@ -1,21 +1,5 @@
 package com.vallverk.handyboy;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.io.IOUtils;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,6 +33,21 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 
 import com.vallverk.handyboy.model.AddressWraper;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Oleg Barkov
@@ -592,4 +591,13 @@ public class Tools
         return feet + "." + leftover;
     }
 
+    public static int getInches ( int height )
+    {
+        return height % 12;
+    }
+
+    public static int getFeets ( int height )
+    {
+        return height / 12;
+    }
 }
