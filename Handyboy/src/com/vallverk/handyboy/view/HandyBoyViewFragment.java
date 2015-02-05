@@ -677,9 +677,10 @@ public class HandyBoyViewFragment extends BaseFragment
 		String parameters = "";
 		try
 		{
-			parameters = serviceDetails.getString ( UserDetailsParams.HEIGHT );
-			String[] sr = parameters.split ( "\\." );
-			parameters = sr[0] + "'" + sr[1] + "\"";
+			int height = serviceDetails.getInt ( UserDetailsParams.HEIGHT );
+            int inches = Tools.getInches ( height );
+            int feets = Tools.getFeets ( height );
+			parameters = feets + "'" + inches + "\"";
 			parameters += " " + serviceDetails.getString ( UserDetailsParams.WEIGHT ) + "lbs, ";
 			parameters += serviceDetails.getString ( UserDetailsParams.HEIR_COLOR ) + ", ";
 			parameters += serviceDetails.getString ( UserDetailsParams.EYE_COLOR ) + ", ";
