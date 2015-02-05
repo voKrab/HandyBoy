@@ -2,20 +2,19 @@ package com.vallverk.handyboy.model;
 
 import android.util.Log;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import com.vallverk.handyboy.FileManager;
 import com.vallverk.handyboy.MainActivity;
-import com.vallverk.handyboy.MainActivity.ApplicationAction;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.ChatAPIObject;
 import com.vallverk.handyboy.model.api.ChatAPIObject.ChatParams;
 import com.vallverk.handyboy.model.api.ChatMessageAPIObject.ChatMessageParams;
 import com.vallverk.handyboy.pubnub.NotificationWithDataAction;
+
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -123,4 +122,18 @@ public class ChatManager implements Serializable
 		}
 		return amount;
 	}
+
+    public int getAmountUnreadDialogs ()
+    {
+        int amount = 0;
+        for ( ChatData chatData : chats.values () )
+        {
+            int value = chatData.getAmountUnreadMessages ();
+            if ( value > 0 )
+            {
+                amount++;
+            }
+        }
+        return amount;
+    }
 }
