@@ -34,6 +34,7 @@ public class BaseGridFragment extends BaseFragment
 	private ArrayAdapter gridAdapter;
 	protected TextView emptyTextView;
 	private Refresher refresher;
+    private boolean isRefresh;
 
 	public void onAttach ( final Activity activity )
 	{
@@ -115,7 +116,7 @@ public class BaseGridFragment extends BaseFragment
             public void onScroll ( AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount )
             {
 //                int countItemsInRow = 3;
-                if ( firstVisibleItem + visibleItemCount >= totalItemCount && refresher.isHasMore () && refresher.isNeedLoadMore ( totalItemCount ) )
+                if ( !isRefresh && firstVisibleItem + visibleItemCount >= totalItemCount && refresher.isHasMore () && refresher.isNeedLoadMore ( totalItemCount ) )
                 {
                     loadMoreItems ( totalItemCount );
                 }
@@ -181,6 +182,7 @@ public class BaseGridFragment extends BaseFragment
 				{
 					updateContent ();
                 }
+                isRefresh = false;
 				gridViewPTR.onRefreshComplete ();
 			}
 
@@ -190,6 +192,7 @@ public class BaseGridFragment extends BaseFragment
 				String result = "";
 				try
 				{
+                    isRefresh = true;
                     refresher.init ();
 					objects = refresher.refresh ();
                     refresher.setHasMore ( objects.size () == refresher.pageLimit );
