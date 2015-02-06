@@ -132,7 +132,7 @@ public class FilterManager
 		url += "&offset=" + offset;
         if ( !jobid.isEmpty () )
         {
-            url += "&jobid=" + jobid;
+            url += "&jobId=" + jobid;
         }
 
         if(MyLocationManager.imHere != null) {
@@ -205,7 +205,7 @@ public class FilterManager
 		url += "&sort=" + searchType.ordinal ();
 		if ( !jobid.isEmpty () )
 		{
-			url += "&jobid=" + jobid;
+			url += "&jobId=" + jobid;
 		}
 
         if(!getTimeFrom().isEmpty() && !getTimeTo().isEmpty()){
