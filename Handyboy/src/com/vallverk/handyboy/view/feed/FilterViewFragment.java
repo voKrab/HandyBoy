@@ -3,7 +3,6 @@ package com.vallverk.handyboy.view.feed;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;

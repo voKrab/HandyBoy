@@ -162,8 +162,8 @@ public class FilterManager
 	private String makeFilterUrl ( int limit, int offset )
 	{
 		String url = ServerManager.FILTER_URL;
-		url += "&height[from]=" + Tools.inchToFoot(heightFrom);
-		url += "&height[to]=" +  Tools.inchToFoot (  heightTo );
+		url += "&height[from]=" + heightFrom;
+		url += "&height[to]=" +  heightTo;
         url += "&userId=" + user.getId();
 		url += "&age[from]=" + ageFrom;
 		url += "&age[to]=" + ageTo;

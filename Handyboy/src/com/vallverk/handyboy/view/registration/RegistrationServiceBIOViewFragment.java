@@ -180,17 +180,15 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			// setupTestData ();
 		} else
 		{
-			String height = ( String ) userDetails.getValue ( UserDetailsParams.HEIGHT );
-            String[] heightSplited = height.split("\\.");
-            int inches = Integer.parseInt(heightSplited[1]);
-            if(inches > 11){
-                inchesEditText.setText(inches / 10 + "");
-            }else{
-                inchesEditText.setText(inches + "");
-            }
+			int height = userDetails.getInt ( UserDetailsParams.HEIGHT );
 
-            feetSpinner.setSelected(Integer.parseInt(heightSplited[0]));
-            inchesSpinner.setSelected(Integer.parseInt(heightSplited[1]));
+            int inches = Tools.getInches ( height );
+            int feets = Tools.getFeets ( height );
+
+            inchesEditText.setText ( "" + inches );
+            feetEditText.setText ( "" + feets );
+            feetSpinner.setSelected ( "" + inches );
+            inchesSpinner.setSelected ( "" + feets );
 			try
 			{
 				int weight = Integer.parseInt ( ( String ) userDetails.getValue ( UserDetailsParams.WEIGHT ) );
@@ -473,7 +471,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 
 		UserDetailsAPIObject service = controller.getUserDetails ();
 		UserDetailsAPIObject userDetails = service == null ? new UserDetailsAPIObject () : service;
-		userDetails.putValue ( UserDetailsParams.HEIGHT, feetEditText.getText ().toString () + "." + inchesEditText.getText ().toString () );
+        userDetails.putValue ( UserDetailsParams.HEIGHT, Integer.parseInt(feetEditText.getText ().toString ()) * 12 + Integer.parseInt(inchesEditText.getText ().toString ()) );
 		userDetails.putValue ( UserDetailsParams.WEIGHT, "" + weightSpinner.getSelectedItem () );
 		userDetails.putValue ( UserDetailsParams.HEIR_COLOR, hairColorSpinner.getSelectedItem ().toString () );
 		userDetails.putValue ( UserDetailsParams.EYE_COLOR, eyeColorSpinner.getSelectedItem ().toString () );

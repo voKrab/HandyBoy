@@ -837,7 +837,7 @@ public class ServiceEditProfileViewFragment extends BaseFragment
 			}
 		}
 
-		userDetails.putValue ( UserDetailsParams.HEIGHT, feetTextView.getText ().toString () + "." + inchesTextView.getText ().toString () );
+		userDetails.putValue ( UserDetailsParams.HEIGHT, Integer.parseInt(feetTextView.getText ().toString ()) * 12 + Integer.parseInt(inchesTextView.getText ().toString ()) );
 		userDetails.putValue ( UserDetailsParams.WEIGHT, "" + weightSpinner.getSelectedItem () );
 		userDetails.putValue ( UserDetailsParams.HEIR_COLOR, hairColorSpinner.getSelectedItem ().toString () );
 		userDetails.putValue ( UserDetailsParams.EYE_COLOR, eyeColorSpinner.getSelectedItem ().toString () );

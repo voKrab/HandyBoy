@@ -579,6 +579,9 @@ public class FeedViewFragment extends BaseFragment
 			{
 				if ( actionId == EditorInfo.IME_ACTION_SEARCH )
 				{
+                    filterManager.clearFilter();
+                    filterManager = FilterManager.getInstance ();
+                    updateFilterButton();
 					filterManager.setSearchString ( searchTextView.getText ().toString () );
 					InputMethodManager imm = ( InputMethodManager ) controller.getSystemService ( Context.INPUT_METHOD_SERVICE );
 					imm.hideSoftInputFromWindow ( searchTextView.getWindowToken (), 0 );
