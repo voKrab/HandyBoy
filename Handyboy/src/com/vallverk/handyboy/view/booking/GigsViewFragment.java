@@ -72,7 +72,6 @@ public class GigsViewFragment extends BaseFragment
 
 	private Handler onRefreshHandler = new Handler ( new Callback ()
 	{
-
 		@Override
 		public boolean handleMessage ( Message msg )
 		{
@@ -203,7 +202,8 @@ public class GigsViewFragment extends BaseFragment
 			viewHolder.gigJobNameTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
 			viewHolder.gigDateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ) ) );
 			viewHolder.gigIdTextView.setText ( "GIG#" + bookingDataObject.getBookingAPIObject ().getId ().toString () );
-			viewHolder.hourTextView.setText ( bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString () );
+            String hours = bookingDataObject.getBookingAPIObject ().getTextTotalHours ();
+            viewHolder.hourTextView.setText ( hours );
 			BookingStatusEnum status = bookingDataObject.getSatus ();
 			updateStatusComponents ( viewHolder, status );
 			CommunicationManager.getInstance ().addListener ( CommunicationAction.BOOKING_STATUS, new Handler ()

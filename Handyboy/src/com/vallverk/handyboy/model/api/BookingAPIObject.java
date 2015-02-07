@@ -76,6 +76,13 @@ public class BookingAPIObject extends APIObject implements Serializable
         return list.size () > 0;
     }
 
+    public String getTextTotalHours()
+    {
+        String hours = getValue ( BookingAPIParams.TOTAL_HOURS ).toString ();
+        hours = hours.replace ( ".50", ".30" );
+        return hours;
+    }
+
     public enum BookingAPIParams
 	{
 		SERVICE_ID ( "serviceId" ), CUSTOMER_ID ( "customerId" ), TYPE_JOB_SERVICE_ID ( "typeJobServiceId" ), ADDRESS_ID ( "addressId" ), CREDIT_CARD_ID ( "creditCardId" ), TIME ( "time" ), DATE ( "date" ), TOTAL_PRICE ( "totalPrice" ), TOTAL_HOURS ( "totalHours" ), STATUS ( "status" ), SPECIAL_REQUEST ( "additional_charges_text" ), SPECIAL_REQUEST_PRICE ( "additional_charges_price" ), COMMENT("comment");
