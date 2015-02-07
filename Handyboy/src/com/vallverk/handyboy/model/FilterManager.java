@@ -8,6 +8,8 @@ import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.server.ServerManager;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 
 public class FilterManager
@@ -171,7 +173,12 @@ public class FilterManager
 		for ( String tempEthnicity : ethnicity.split ( "," ) )
 		{
 			if ( tempEthnicity != null && !tempEthnicity.trim ().isEmpty () ){
-				url += "&ethnicity[]=" + tempEthnicity.trim ();
+				//url += "&ethnicity[]=" + tempEthnicity.trim ();
+                try {
+                    url += "&ethnicity[]=" + URLEncoder.encode(tempEthnicity.trim (), "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 			}
 		}
 
@@ -181,7 +188,12 @@ public class FilterManager
 		for ( String tempBodyType : bodyType.split ( "," ) )
 		{
 			if ( tempBodyType != null && !tempBodyType.trim ().isEmpty () ){
-				url += "&bodyType[]=" + tempBodyType.trim ();
+				//url += "&bodyType[]=" + tempBodyType.trim ();
+                try {
+                    url += "&bodyType[]=" + URLEncoder.encode(tempBodyType.trim (), "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 			}
 		}
 
@@ -192,15 +204,24 @@ public class FilterManager
 		{
 			if ( tempOrientation != null && !tempOrientation.trim ().isEmpty () )
 			{
-				url += "&orientation[]=" + tempOrientation.trim ();
-			}
+                try {
+                    url += "&orientation[]=" + URLEncoder.encode(tempOrientation.trim (), "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
 		}
 
 		if ( address != null )
 		{
-			url += "&latitude=" + address.getLatitude ();
-			url += "&longitude=" + address.getLongitude();
+			url += "&location[latitude]=" + address.getLatitude ();
+			url += "&location[longitude]=" + address.getLongitude();
 		}
+
+        if(MyLocationManager.imHere != null) {
+            url += "&sortlatitude=" + MyLocationManager.imHere.getLatitude();
+            url += "&sortlongitude=" + MyLocationManager.imHere.getLongitude();
+        }
 
 		url += "&sort=" + searchType.ordinal ();
 		if ( !jobid.isEmpty () )

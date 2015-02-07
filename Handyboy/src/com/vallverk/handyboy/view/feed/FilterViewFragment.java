@@ -164,7 +164,7 @@ public class FilterViewFragment extends BaseFragment
                     Calendar calendar = Calendar.getInstance ();
 					calendar.set ( year, month, day );
 					selectedDate = calendar.getTimeInMillis ();
-					monthTextView.setText ( "" + ( month) );
+					monthTextView.setText ( "" + ( month + 1) );
 					dayTextView.setText ( "" + day );
 					yearTextView.setText ( "" + ( year ) );
 				}
@@ -261,7 +261,7 @@ public class FilterViewFragment extends BaseFragment
             int month = c.get ( Calendar.MONTH );
             int day = c.get ( Calendar.DAY_OF_MONTH );
 
-            monthTextView.setText ( "" + ( month ) );
+            monthTextView.setText ( "" + ( month + 1 ) );
             dayTextView.setText ( "" + day );
             yearTextView.setText ( "" + ( year ) );
         }

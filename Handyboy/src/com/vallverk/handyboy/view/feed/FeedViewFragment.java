@@ -154,6 +154,7 @@ public class FeedViewFragment extends BaseFragment
 				{
 					Log.d ( "Feed", filterManager.getSearchUrl ( pageLimit, loadedItems ) );
 					List handyboys = APIManager.getInstance ().loadList ( filterManager.getSearchUrl ( pageLimit, loadedItems ), UserAPIObject.class );
+                    Log.d ( "Feed", "List size=" + handyboys.size() );
 					return handyboys;
 				}
 

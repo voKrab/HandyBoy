@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +127,7 @@ public class ServerManager
 
     public static String getRequest ( String uriString ) throws Exception
     {
-        URI uri = new URI ( uriString );
+        URI uri = new URI ( uriString);
         HttpGet httpget = new HttpGet ( uri );
         httpget.setHeader ( "PHPSESSID", getSessionId () );
 
@@ -142,8 +143,7 @@ public class ServerManager
 
     public static String postRequest ( String uriString, Object content ) throws Exception
     {
-        URI uri = new URI ( uriString );
-
+        URI uri = new URI (uriString);
         HttpPost httppost = new HttpPost ( uri );
         httppost.setHeader ( "PHPSESSID", "session_id=" + getSessionId () );
 
@@ -165,7 +165,7 @@ public class ServerManager
     public static String multipartPostRequest ( String uriString, byte[] data ) throws Exception
     {
         String boundary = "qwerty";
-        URI uri = new URI ( uriString );
+        URI uri = new URI (uriString);
         DefaultHttpClient client = ( DefaultHttpClient ) WebClientDevWrapper.getNewHttpClient ();
         HttpPost httppost = new HttpPost ( uri );
         httppost.setHeader ( "Content-Type", "multipart/form-data; boundary=" + boundary );
@@ -190,7 +190,7 @@ public class ServerManager
     public static String multipartPostRequest ( String uriString, JSONObject content, List < Media > medias ) throws Exception
     {
         String boundary = "qwerty";
-        URI uri = new URI ( uriString );
+        URI uri = new URI (uriString);
         DefaultHttpClient client = ( DefaultHttpClient ) WebClientDevWrapper.getNewHttpClient ();
         HttpPost httppost = new HttpPost ( uri );
         httppost.setHeader ( "Content-Type", "multipart/form-data; boundary=" + boundary );
