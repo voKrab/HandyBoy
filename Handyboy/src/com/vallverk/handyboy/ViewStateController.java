@@ -814,7 +814,7 @@ public class ViewStateController implements Serializable
 			{
 				currentFragment = new CheckoutViewFragment ();
 				FragmentTransaction fragmentTransaction = manager.beginTransaction ();
-				fragmentTransaction.setCustomAnimations ( R.anim.right_to_center, R.anim.center_to_left );
+				fragmentTransaction.setCustomAnimations ( R.anim.up_to_center, R.anim.center_to_down );
 
 				commitState ( fragmentTransaction );
 				break;

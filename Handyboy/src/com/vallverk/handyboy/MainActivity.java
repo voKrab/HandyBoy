@@ -337,6 +337,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 				Log.d ( "Log", "MainActivity:onCreate: actionType" + actionType );
 				switch ( actionType )
 				{
+                    case BOOKING_ADD_CHARGES_DECLINED:
 					case BOOKING_ADD_CHARGES_ACCEPTED:
 					case BOOKING_STATUS:
 					case BOOKING:

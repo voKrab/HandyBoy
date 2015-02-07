@@ -72,7 +72,7 @@ public class BookingAPIObject extends APIObject implements Serializable
 
     public boolean isAdditionalChargesRequested () throws Exception
     {
-        List < AdditionalChargesAPIObject > list = APIManager.getInstance ().loadList ( ServerManager.BOOKING_GET_ADD_CHARGES.replace ( "bookingId=1", "bookingId=" + getId() ), AdditionalChargesAPIObject.class );
+        List < AdditionalChargesAPIObject > list = APIManager.getInstance ().loadList ( ServerManager.BOOKING_GET_ADD_CHARGES.replace ( "bookingId=1", "bookingId=" + getId () ), AdditionalChargesAPIObject.class );
         return list.size () > 0;
     }
 

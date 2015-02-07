@@ -52,6 +52,7 @@
         android:background="@color/grey_semi_alpha" />
 
     <LinearLayout
+        android:id="@+id/infoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >

@@ -1,10 +1,5 @@
 package com.vallverk.handyboy.view.booking;
 
-import com.vallverk.handyboy.R;
-import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
-import com.vallverk.handyboy.model.api.APIManager;
-import com.vallverk.handyboy.model.api.UserAPIObject;
-import com.vallverk.handyboy.view.base.BaseFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +7,25 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.view.base.BaseFragment;
+
 public class CheckoutViewFragment extends BaseFragment
 {
 	private APIManager apiManager;
 	private UserAPIObject user;
 	private Button backToBoysButton;
-	
+
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		if ( view == null )
 		{
 			view = inflater.inflate ( R.layout.checkout_layout, container, false );
-			
-			backToBoysButton = (Button) view.findViewById ( R.id.backToBoysButton );
+
+			backToBoysButton = ( Button ) view.findViewById ( R.id.backToBoysButton );
 
 		} else
 		{
@@ -46,7 +47,7 @@ public class CheckoutViewFragment extends BaseFragment
 		apiManager = APIManager.getInstance ();
 		user = apiManager.getUser ();
 	}
-	
+
 	@Override
 	protected void updateFonts ()
 	{
@@ -58,9 +59,9 @@ public class CheckoutViewFragment extends BaseFragment
 
 	private void addListeners ()
 	{
-		backToBoysButton.setOnClickListener ( new OnClickListener()
+		backToBoysButton.setOnClickListener ( new OnClickListener ()
 		{
-			
+
 			@Override
 			public void onClick ( View v )
 			{
