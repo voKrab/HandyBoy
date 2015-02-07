@@ -92,11 +92,13 @@ public class GigCustomerViewFragment extends BaseFragment
                 reportProblemOrRescheduleButton.setVisibility ( View.GONE );
                 break;
             }
+            case CANCELED_BY_CUSTOMER:
             case DECLINED:
             {
                 cancelButton.setVisibility ( View.GONE );
                 reportProblemOrRescheduleButton.setVisibility ( View.VISIBLE );
                 reportProblemOrRescheduleButton.setText ( R.string.reschedule_him );
+                isDeclined = true;
                 break;
             }
             case CONFIRMED:

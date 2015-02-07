@@ -302,8 +302,11 @@ public class ChargesViewFragment extends BaseFragment
                     if ( bookingDataObject.getSatus() == BookingStatusEnum.PENDING )
                     {
                         bookingDataObject.getBookingAPIObject ().updateStatus ( BookingStatusEnum.CANCELED_BY_CUSTOMER );
+                        controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                    } else
+                    {
+                        controller.setState ( ViewStateController.VIEW_STATE.GIGS );
                     }
-					controller.setState ( ViewStateController.VIEW_STATE.GIGS );
 				} else
 				{
 					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();

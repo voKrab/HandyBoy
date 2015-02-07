@@ -25,7 +25,7 @@ public class PubnubManager extends Pubnub
 {
 	public enum ActionType
 	{
-		BOOKING ( "1" ), REMINDER ( "2" ), AVAILABLE_NOW ( "3" ), EXTRA_MONEY ( "4" ), BOOKING_STATUS ( "5" ), CHAT ( "6" ), BOOKING_ADD_CHARGES_REQUESTED ( "7" ), BOOKING_ADD_CHARGES_ACCEPTED ( "9" );
+		BOOKING ( "1" ), REMINDER ( "2" ), AVAILABLE_NOW ( "3" ), EXTRA_MONEY ( "4" ), BOOKING_STATUS ( "5" ), CHAT ( "6" ), BOOKING_ADD_CHARGES_REQUESTED ( "7" ), BOOKING_ADD_CHARGES_ACCEPTED ( "9" ), BOOKING_ADD_CHARGES_DECLINED ( "10" );
 
 		String name;
 
