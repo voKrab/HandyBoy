@@ -21,6 +21,7 @@ import com.vallverk.handyboy.view.base.RatingView;
 import com.vallverk.handyboy.view.base.BaseListFragment.Refresher;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -87,6 +88,7 @@ public class ReviewsClientViewFragment extends BaseFragment
 						JSONObject tempJsonObject = requestJsonArray.getJSONObject ( i );
 						ReviewItemUserObject reviewItemUserObject = new ReviewItemUserObject ();
 						reviewItemUserObject.userAPIObject = new UserAPIObject ( tempJsonObject.getJSONObject ( "reviewer" ) );
+
 						reviewItemUserObject.reviewAPIObject = new ReviewAPIObject ( tempJsonObject );
 						data.add ( reviewItemUserObject );
 					}
@@ -149,8 +151,10 @@ public class ReviewsClientViewFragment extends BaseFragment
 			viewHolder.descriptionTextView.setText ( reviewItemUserObject.reviewAPIObject.getString ( ReviewParams.CONTENT ) );
 			try
 			{
-				viewHolder.dateTextView.setText ( Tools.fromTimestampToString ( Long.parseLong ( reviewItemUserObject.reviewAPIObject.getValue ( ReviewParams.TIME ).toString () ) ) );
-				viewHolder.ratingView.setRating ( Float.parseFloat ( reviewItemUserObject.reviewAPIObject.getValue ( ReviewParams.RATING ).toString () ) );
+              viewHolder.dateTextView.setText ( Tools.fromTimestampToString ( Long.parseLong ( reviewItemUserObject.reviewAPIObject.getValue(ReviewParams.TIME).toString()) * 1000));
+              // viewHolder.dateTextView.setText (Long.parseLong ( reviewItemUserObject.reviewAPIObject.getValue(ReviewParams.TIME).toString()) + "");
+
+                viewHolder.ratingView.setRating ( Float.parseFloat ( reviewItemUserObject.reviewAPIObject.getValue ( ReviewParams.RATING ).toString () ) );
 			} catch ( NumberFormatException ex )
 			{
 				ex.printStackTrace ();

@@ -556,7 +556,7 @@ public class Tools
 	public static String fromTimestampToString ( long timeStamp, String sformat )
 	{
 		SimpleDateFormat format = new SimpleDateFormat ( sformat );
-		Date netDate = ( new Date ( timeStamp ) );
+		Date netDate =  new Date ( timeStamp );
 		return format.format ( netDate );
 	}
 
