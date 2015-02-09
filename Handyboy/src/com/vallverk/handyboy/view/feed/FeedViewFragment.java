@@ -493,7 +493,6 @@ public class FeedViewFragment extends BaseFragment
 					editTextSearchLayout.setVisibility ( View.GONE );
 					searchDevider.setVisibility ( View.GONE );
 					typeSearchLayout.setVisibility ( View.GONE );
-
 				} else
 				{
 					searchButton.setActivated ( true );

@@ -48,7 +48,7 @@ public class YourMoneyViewFragment extends BaseFragment
     private APIManager apiManager;
     private UserAPIObject user;
     private List < Object > items;
-    private int totalPrice = 0;
+    private float totalPrice = 0;
 
     public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
     {
@@ -157,11 +157,13 @@ public class YourMoneyViewFragment extends BaseFragment
             public void onPreExecute ()
             {
                 super.onPreExecute ();
+                controller.showLoader();
             }
 
             public void onPostExecute ( String result )
             {
                 super.onPostExecute ( result );
+                controller.hideLoader();
                 if ( result.isEmpty () )
                 {
                     go ();
@@ -178,7 +180,7 @@ public class YourMoneyViewFragment extends BaseFragment
                 String result = "";
                 try
                 {
-                    String request = ServerManager.getRequest ( ServerManager.GET_WEEK_TIME + user.getString ( UserParams.SERVICE_ID ) );
+                    String request = ServerManager.getRequest ( ServerManager.GET_WEEK_TIME + user.getId() );
                     JSONObject jsonRequest = new JSONObject ( request );
                     weekTime = jsonRequest.getInt ( "hours" );
                     result = jsonRequest.getString ( "parameters" );
@@ -219,8 +221,9 @@ public class YourMoneyViewFragment extends BaseFragment
 
     private void setTotal ()
     {
+        totalPrice = 0;
         for(Object tempObject: items){
-            totalPrice += ((MyMoneyAPIObject) tempObject).getInt ( MyMoneyParams.AMOUNT );
+            totalPrice += Float.parseFloat(((MyMoneyAPIObject) tempObject).getString(MyMoneyParams.AMOUNT));
         }
         totalPriceSet.sendEmptyMessage ( 0 );
     }
@@ -273,6 +276,15 @@ public class YourMoneyViewFragment extends BaseFragment
             Date date = Tools.fromStringToDate ( myMoneyAPIObject.getString ( MyMoneyParams.CREATED_AT ), "yyyy-MM-dd hh:mm:ss" );
             ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText ( Tools.fromDateToString ( date, "EEEE" ) );
             ( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText ( Tools.fromDateToString ( date, "MM/dd" ) );
+            ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText ( myMoneyAPIObject.getString ( MyMoneyParams.TOTAL_HOURS ));
+            ( ( TextView ) view.findViewById ( R.id.priceTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ));
+
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    controller.setState(ViewStateController.VIEW_STATE.TRANSACTION_HISTORY);
+                }
+            });
             return view;
         }
     }

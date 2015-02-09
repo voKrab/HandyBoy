@@ -24,6 +24,7 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
+import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.MyMoneyAPIObject;
@@ -70,17 +71,22 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 String status = "";
                 try
                 {
-                    String request = ServerManager.getRequest ( ServerManager.GET_TRANSACTION_HISTORY + "190"); //user.getString ( UserParams.SERVICE_ID ) );
+                    String request = ServerManager.getRequest ( ServerManager.GET_TRANSACTION_HISTORY + APIManager.getInstance().getUser().getId() );
                     JSONObject jsonRequest = new JSONObject ( request );
                     status = jsonRequest.getString ( "parameters" );
                     JSONArray list = jsonRequest.getJSONArray ( "list" );
                     groupItems = new ArrayList < GroupItem >();
                     for ( int i = 0; i < list.length(); i++ )
                     {
-                        GroupItem groupItem = new GroupItem();
-                        groupItem.moneyAPIObject = new MyMoneyAPIObject ( list.getJSONObject ( i ) );
-                        groupItem.bookingDataObject =  new BookingDataObject (list.getJSONObject ( i ).getJSONObject("booking"));
-                        groupItems.add ( groupItem );
+                        try{
+                            GroupItem groupItem = new GroupItem();
+                            groupItem.moneyAPIObject = new MyMoneyAPIObject ( list.getJSONObject ( i ) );
+                            groupItem.bookingDataObject =  new BookingDataObject (list.getJSONObject ( i ).getJSONObject("booking"));
+                            groupItems.add ( groupItem );
+                        }catch (Exception ex){
+                            ex.printStackTrace ();
+                        }
+
                     }
                 } catch ( Exception e )
                 {
