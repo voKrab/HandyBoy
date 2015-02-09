@@ -125,6 +125,8 @@ public class ServerManager
     public static final String SAVE_USER_LOCATION = PROTOCOL + HOST + "/user/location";
     public static final String DELETE_USER_ACCOUNT = PROTOCOL + HOST  + "/user/delete";
 
+    public static final String CHANGE_PHONE_NUMBER = PROTOCOL + HOST  + "/user/changenumber";
+
     public static String getRequest ( String uriString ) throws Exception
     {
         URI uri = new URI ( uriString);

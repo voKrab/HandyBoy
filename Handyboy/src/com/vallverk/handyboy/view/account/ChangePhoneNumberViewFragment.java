@@ -19,8 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.VerificationCode;
+import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.twilio.SmsSender;
 import com.vallverk.handyboy.view.base.BaseFragment;
+
+import org.json.JSONObject;
 
 public class ChangePhoneNumberViewFragment extends BaseFragment
 {
@@ -91,6 +96,48 @@ public class ChangePhoneNumberViewFragment extends BaseFragment
 
 	}
 
+    private void sendNewNumber(){
+        new AsyncTask < Void, Void, String > ()
+        {
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                if ( result.isEmpty () ) // success registration
+                {
+                    String phone = phoneEditText.getText ().toString ().trim ();
+                    APIManager.getInstance().getUser().putValue(UserAPIObject.UserParams.PHONE_NUMBER, phone );
+                    controller.onBackPressed();
+                }
+                else{
+                    Toast.makeText ( getActivity (), result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    String phone = phoneEditText.getText ().toString ().trim ();
+                    JSONObject postParams = new JSONObject();
+                    postParams.accumulate("id", APIManager.getInstance().getUser().getId());
+                    postParams.accumulate("number", phone);
+
+                    String request = ServerManager.postRequest(ServerManager.CHANGE_PHONE_NUMBER, postParams.toString());
+                    JSONObject jsonRequest = new JSONObject(request);
+                    result = jsonRequest.getString("parameters");
+
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getLocalizedMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
+
 	private void showCodeVerificationDialog ()
 	{
 		if ( codeVerificationDialog == null )
@@ -129,6 +176,8 @@ public class ChangePhoneNumberViewFragment extends BaseFragment
 					} else
 					{
 						isVerificationOk = true;
+                        sendNewNumber();
+
 						//controller.onBackPressed ();
 					}
 				}
@@ -147,11 +196,17 @@ public class ChangePhoneNumberViewFragment extends BaseFragment
 	{
 		new AsyncTask < Void, Void, String > ()
 		{
-			public void onPostExecute ( String result )
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                controller.showLoader();
+            }
+
+            public void onPostExecute ( String result )
 			{
 				super.onPostExecute ( result );
-				if ( !result.isEmpty () ) // success registration
-				{
+                controller.hideLoader();
+				if ( !result.isEmpty () ){
 					Toast.makeText ( getActivity (), result, Toast.LENGTH_LONG ).show ();
 				}
 			}

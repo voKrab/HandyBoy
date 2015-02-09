@@ -271,7 +271,6 @@ public class TransactionHistoryViewFragment extends BaseFragment
             holder.addressNameTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.DESCRIPTION ) );
             holder.addressTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.ADDRESS ) );
 
-
             JSONArray timeJsonArray;
             JSONObject timePeriod;
             String startPeriod = "";
