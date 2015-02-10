@@ -1,14 +1,6 @@
 package com.vallverk.handyboy.view;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,14 +12,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
@@ -39,8 +32,8 @@ import com.vallverk.handyboy.model.api.ChatAPIObject;
 import com.vallverk.handyboy.model.api.ChatAPIObject.ChatParams;
 import com.vallverk.handyboy.model.api.ChatMessageAPIObject;
 import com.vallverk.handyboy.model.api.ChatMessageAPIObject.ChatMessageParams;
-import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.pubnub.NotificationWithDataAction;
 import com.vallverk.handyboy.pubnub.PubnubManager;
 import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
@@ -49,6 +42,15 @@ import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.BitmapPreviewDialogFragment;
 import com.vallverk.handyboy.view.base.DownloadableImageView;
 import com.vallverk.handyboy.view.base.DownloadableImageView.Quality;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChatViewFragment extends BaseFragment
 {
@@ -175,7 +177,8 @@ public class ChatViewFragment extends BaseFragment
 			public void dispatchMessage ( Message message )
 			{
 				NotificationWithDataAction pubnubAction = ( NotificationWithDataAction ) message.obj;
-				if ( isThisChat ( pubnubAction ) )
+                System.out.println ( pubnubAction );
+                if ( isThisChat ( pubnubAction ) )
 				{
 					final ChatMessageAPIObject chatMessage = new ChatMessageAPIObject ();
 					chatMessage.putValue ( ChatMessageParams.CHAT_OBJECT_ID, chatObject.getId () );
@@ -356,6 +359,7 @@ public class ChatViewFragment extends BaseFragment
 		} else
 		{
 			chatMessage.setAttach ( ( Bitmap ) content );
+            chatMessage.putValue ( ChatMessageParams.MESSAGE, "" );
 		}
 
 		final String date = "" + ( System.currentTimeMillis () / 1000 );

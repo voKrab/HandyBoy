@@ -63,7 +63,7 @@ public class ChatManager implements Serializable
 	{
         Log.d("CHAT", "newMessage" + json.toString());
         JSONObject chatObject = json.getJSONObject("chatObject");
-		ChatMessageData messageData = new ChatMessageData ( chatObject.getString ( "senderId" ), chatObject.getString ( "senderName" ), ""/*sender avatar*/, chatObject.getLong ( "createdAt" ), chatObject.getString ( ChatMessageParams.MESSAGE.toString () ) );
+		ChatMessageData messageData = new ChatMessageData ( chatObject.getString ( "senderId" ), chatObject.getString ( "senderName" ), ""/*sender avatar*/, chatObject.getLong ( "createdAt" ), chatObject.has ( "message" ) ? chatObject.getString ( ChatMessageParams.MESSAGE.toString () ) : "" );
 		String chatId = chatObject.getString ( ChatMessageParams.CHAT_OBJECT_ID.toString () );
 		ChatData chatData = chats.get ( chatId );
 		if ( chatData == null )

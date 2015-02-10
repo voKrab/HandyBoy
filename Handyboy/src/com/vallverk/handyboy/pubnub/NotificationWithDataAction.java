@@ -1,13 +1,13 @@
 package com.vallverk.handyboy.pubnub;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class NotificationWithDataAction extends PubNubBaseAction
 {
@@ -53,14 +53,28 @@ public class NotificationWithDataAction extends PubNubBaseAction
 		json.put ( "data", dataJSON );
 		return json;
 	}
-	
+
 	public Object getValue ( Object key )
 	{
 		return data.get ( key.toString () );
 	}
-	
+
 	public String getString ( Object key )
 	{
 		return ( String ) getValue ( key );
+	}
+
+	@Override
+	public String toString ()
+	{
+		String result = "";
+		try
+		{
+			result = toJSON ().toString ();
+		} catch ( JSONException e )
+		{
+			e.printStackTrace ();
+		}
+		return result;
 	}
 }
