@@ -89,84 +89,81 @@ public class ChatViewFragment extends BaseFragment
 
 		final APIManager apiManager = controller.getAPIManager ();
 		currentUser = apiManager.getUser ();
-		UserAPIObject newService = ( UserAPIObject ) controller.getCommunicationValue ( UserAPIObject.class.getSimpleName () );
-		if ( newService != null )
+		final String serviceId = ( String ) controller.getCommunicationValue ( "chatOpponent" );
+		new AsyncTask < Void, Void, String > ()
 		{
-			service = newService;
-			new AsyncTask < Void, Void, String > ()
+			protected void onPreExecute ()
 			{
-				protected void onPreExecute ()
-				{
-					controller.showLoader ();
-				}
+				controller.showLoader ();
+			}
 
-				public void onPostExecute ( String result )
+			public void onPostExecute ( String result )
+			{
+				controller.hideLoader ();
+				if ( result.isEmpty () )
 				{
-					controller.hideLoader ();
-					if ( result.isEmpty () )
+					updateComponents ();
+					addListeners ();
+				} else
+				{
+					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+				}
+			}
+
+			@Override
+			protected String doInBackground ( Void... params )
+			{
+				String result = "";
+				try
+				{
+					service = ( UserAPIObject ) APIManager.getInstance ().getAPIObject ( serviceId, UserAPIObject.class, ServerManager.USER_FETCH_URI );
+					String currentUserId = currentUser.getId ();
+					// messages = apiManager.getMessages ( currentUserId,
+					// serviceId );
+
+					messages = new ArrayList < ChatMessageAPIObject > ();
+					String url = ServerManager.MESSAGES_GET;
+					// https://142.4.217.86/chat/?userIdFirst=1&userIdSecond=2
+					url = url.replaceAll ( "userIdFirst=1", "userIdFirst=" + currentUserId );
+					url = url.replaceAll ( "userIdSecond=2", "userIdSecond=" + serviceId );
+					String requestString = ServerManager.getRequest ( url );
+					JSONObject requestJSON = new JSONObject ( requestString );
+					String listData = requestJSON.getString ( "list" );
+					if ( !listData.equals ( "null" ) )
 					{
-						updateComponents ();
-						addListeners ();
+						JSONArray jsonArray = new JSONArray ( listData );
+						for ( int i = 0; i < jsonArray.length (); i++ )
+						{
+							JSONObject jsonItem = new JSONObject ( jsonArray.getString ( i ) );
+							ChatMessageAPIObject chatMessage = new ChatMessageAPIObject ( jsonItem );
+							messages.add ( chatMessage );
+						}
+					}
+
+					chatObject = new ChatAPIObject ();
+					chatObject.putValue ( ChatParams.USER_ID_FIRST, service.getId () );
+					chatObject.putValue ( ChatParams.USER_ID_SECOND, currentUser.getId () );
+					String chatId = requestJSON.getString ( "parameters" );
+					if ( chatId.equals ( "-1" ) && messages.isEmpty () )
+					{
+						apiManager.insert ( chatObject, ServerManager.CHAT_INSERT_URI );
 					} else
 					{
-						Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+						if ( chatId.isEmpty () )
+						{
+							chatId = messages.get ( 0 ).getString ( ChatMessageParams.CHAT_OBJECT_ID );
+						}
+						chatObject.setId ( chatId );
 					}
-				}
-
-				@Override
-				protected String doInBackground ( Void... params )
+				} catch ( Exception ex )
 				{
-					String result = "";
-					try
-					{
-						String currentUserId = currentUser.getId ();
-						String serviceId = service.getId ();
-						// messages = apiManager.getMessages ( currentUserId,
-						// serviceId );
-
-						messages = new ArrayList < ChatMessageAPIObject > ();
-						String url = ServerManager.MESSAGES_GET;
-						// https://142.4.217.86/chat/?userIdFirst=1&userIdSecond=2
-						url = url.replaceAll ( "userIdFirst=1", "userIdFirst=" + currentUserId );
-						url = url.replaceAll ( "userIdSecond=2", "userIdSecond=" + serviceId );
-						String requestString = ServerManager.getRequest ( url );
-						JSONObject requestJSON = new JSONObject ( requestString );
-						String listData = requestJSON.getString ( "list" );
-						if ( !listData.equals ( "null" ) )
-						{
-							JSONArray jsonArray = new JSONArray ( listData );
-							for ( int i = 0; i < jsonArray.length (); i++ )
-							{
-								JSONObject jsonItem = new JSONObject ( jsonArray.getString ( i ) );
-								ChatMessageAPIObject chatMessage = new ChatMessageAPIObject ( jsonItem );
-								messages.add ( chatMessage );
-							}
-						}
-
-						chatObject = new ChatAPIObject ();
-						chatObject.putValue ( ChatParams.USER_ID_FIRST, service.getId () );
-						chatObject.putValue ( ChatParams.USER_ID_SECOND, currentUser.getId () );
-						String chatId = requestJSON.getString ( "parameters" );
-						if ( chatId.equals ( "-1" ) && messages.isEmpty () )
-						{
-							apiManager.insert ( chatObject, ServerManager.CHAT_INSERT_URI );
-						} else
-						{
-							if ( chatId.isEmpty () )
-							{
-								chatId = messages.get ( 0 ).getString ( ChatMessageParams.CHAT_OBJECT_ID );
-							}
-							chatObject.setId ( chatId );
-						}
-					} catch ( Exception ex )
-					{
-						result = ex.getMessage ();
-						ex.printStackTrace ();
-					}
-					return result;
+					result = ex.getMessage ();
+					ex.printStackTrace ();
 				}
-			}.execute ();
-		}
+				return result;
+			}
+		}.execute ();
+
 	}
 
 	private void createChatHandler ()
@@ -177,8 +174,8 @@ public class ChatViewFragment extends BaseFragment
 			public void dispatchMessage ( Message message )
 			{
 				NotificationWithDataAction pubnubAction = ( NotificationWithDataAction ) message.obj;
-                System.out.println ( pubnubAction );
-                if ( isThisChat ( pubnubAction ) )
+				System.out.println ( pubnubAction );
+				if ( isThisChat ( pubnubAction ) )
 				{
 					final ChatMessageAPIObject chatMessage = new ChatMessageAPIObject ();
 					chatMessage.putValue ( ChatMessageParams.CHAT_OBJECT_ID, chatObject.getId () );
@@ -359,7 +356,7 @@ public class ChatViewFragment extends BaseFragment
 		} else
 		{
 			chatMessage.setAttach ( ( Bitmap ) content );
-            chatMessage.putValue ( ChatMessageParams.MESSAGE, "" );
+			chatMessage.putValue ( ChatMessageParams.MESSAGE, "" );
 		}
 
 		final String date = "" + ( System.currentTimeMillis () / 1000 );
@@ -421,7 +418,7 @@ public class ChatViewFragment extends BaseFragment
 					gcmData.put ( "reciverId", service.getId () );
 					gcmData.put ( "type", ActionType.CHAT.toString () );
 					gcmData.put ( "createdAt", System.currentTimeMillis () );
-//					PushNotification.send ( service, gcmData );
+					// PushNotification.send ( service, gcmData );
 				} catch ( Exception ex )
 				{
 					ex.printStackTrace ();

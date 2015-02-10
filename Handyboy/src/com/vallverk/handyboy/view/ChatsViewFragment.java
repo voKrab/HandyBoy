@@ -1,15 +1,7 @@
 package com.vallverk.handyboy.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pubnub.api.Callback;
 import com.vallverk.handyboy.R;
@@ -28,15 +19,20 @@ import com.vallverk.handyboy.model.ChatManager;
 import com.vallverk.handyboy.model.ChatMessageData;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.ChatAPIObject;
-import com.vallverk.handyboy.model.api.UserAPIObject;
-import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.pubnub.PubnubManager;
 import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.BaseListFragment;
-import com.vallverk.handyboy.view.base.DownloadableImageView;
 import com.vallverk.handyboy.view.base.BaseListFragment.Refresher;
+import com.vallverk.handyboy.view.base.DownloadableImageView;
 import com.vallverk.handyboy.view.base.DownloadableImageView.Quality;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatsViewFragment extends BaseFragment
 {
@@ -51,7 +47,7 @@ public class ChatsViewFragment extends BaseFragment
 			menuImageView = ( ImageView ) view.findViewById ( R.id.menuImageView );
 		} else
 		{
-//			container.removeView ( view );
+			// container.removeView ( view );
 			( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
@@ -104,17 +100,20 @@ public class ChatsViewFragment extends BaseFragment
 
 	private void updateComponents ()
 	{
-		
+
 	}
 
-	private void addListeners () {
-        menuImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                controller.openMenu();
-            }
-        });
-    }
+	private void addListeners ()
+	{
+		menuImageView.setOnClickListener ( new OnClickListener ()
+		{
+			@Override
+			public void onClick ( View arg0 )
+			{
+				controller.openMenu ();
+			}
+		} );
+	}
 
 	public class ChatsListAdapter extends ArrayAdapter < Object >
 	{
@@ -152,89 +151,69 @@ public class ChatsViewFragment extends BaseFragment
 			unreadedTextView.setText ( "" + unreadMessages );
 			unreadedTextView.setVisibility ( unreadMessages == 0 ? View.INVISIBLE : View.VISIBLE );
 
-            final View onlineImageView = view.findViewById(R.id.onlineImageView);
-            onlineImageView.setVisibility(View.GONE);
+			final View onlineImageView = view.findViewById ( R.id.onlineImageView );
+			onlineImageView.setVisibility ( View.GONE );
 
-            String checkedUserId;
-            if(item.getString(ChatAPIObject.ChatParams.USER_ID_FIRST).equals(APIManager.getInstance().getUser().getId())){
-                checkedUserId = item.getString(ChatAPIObject.ChatParams.USER_ID_SECOND);
-            }else{
-                checkedUserId = item.getString(ChatAPIObject.ChatParams.USER_ID_FIRST);
-            }
+			String checkedUserId;
+			if ( item.getString ( ChatAPIObject.ChatParams.USER_ID_FIRST ).equals ( APIManager.getInstance ().getUser ().getId () ) )
+			{
+				checkedUserId = item.getString ( ChatAPIObject.ChatParams.USER_ID_SECOND );
+			} else
+			{
+				checkedUserId = item.getString ( ChatAPIObject.ChatParams.USER_ID_FIRST );
+			}
 
-            if(checkedUserId != null){
-                PubnubManager.getInstance().hereNow(checkedUserId, new Callback() {
-                    @Override
-                    public void successCallback(String s, Object response) {
-                        super.successCallback(s, response);
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response.toString());
-                            if(jsonResponse.getInt("occupancy") == 1){
-                                controller.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        onlineImageView.setVisibility(View.VISIBLE);
-                                    }
-                                });
+			if ( checkedUserId != null )
+			{
+				PubnubManager.getInstance ().hereNow ( checkedUserId, new Callback ()
+				{
+					@Override
+					public void successCallback ( String s, Object response )
+					{
+						super.successCallback ( s, response );
+						try
+						{
+							JSONObject jsonResponse = new JSONObject ( response.toString () );
+							if ( jsonResponse.getInt ( "occupancy" ) == 1 )
+							{
+								controller.runOnUiThread ( new Runnable ()
+								{
+									@Override
+									public void run ()
+									{
+										onlineImageView.setVisibility ( View.VISIBLE );
+									}
+								} );
 
-                            }else{
-                                controller.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        onlineImageView.setVisibility(View.GONE);
-                                    }
-                                });
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
+							} else
+							{
+								controller.runOnUiThread ( new Runnable ()
+								{
+									@Override
+									public void run ()
+									{
+										onlineImageView.setVisibility ( View.GONE );
+									}
+								} );
+							}
+						} catch ( JSONException e )
+						{
+							e.printStackTrace ();
+						}
+					}
+				} );
+			}
 
 			view.setOnClickListener ( new OnClickListener ()
 			{
 				@Override
 				public void onClick ( View v )
 				{
-					try
-					{
-						new AsyncTask < Void, Void, String >()
-						{
-							private UserAPIObject oponentUser;
-							
-							public void onPostExecute ( String result )
-							{
-								super.onPostExecute ( result );
-								if ( result.isEmpty () )
-								{
-									controller.setCommunicationValue ( UserAPIObject.class.getSimpleName (), oponentUser );
-									controller.setState ( VIEW_STATE.CHAT );
-								}
-							}
-							@Override
-							protected String doInBackground ( Void... params )
-							{
-								String result = "";
-								try
-								{
-									String oponentUserId = chatMessageData.getSenderId ();
-									oponentUser = ( UserAPIObject ) APIManager.getInstance ().getAPIObject ( oponentUserId, UserAPIObject.class, ServerManager.USER_FETCH_URI );
-								} catch ( Exception ex )
-								{
-									ex.printStackTrace ();
-									result = ex.getMessage ();
-								}
-								return result;
-							}
-						}.execute ();
-					} catch ( Exception ex )
-					{
-						ex.printStackTrace ();
-					}
+					String oponentUserId = chatMessageData.getSenderId ();
+					controller.setCommunicationValue ( "chatOpponent", oponentUserId );
+					controller.setState ( VIEW_STATE.CHAT );
 				}
-			});
-			
+			} );
 			return view;
 		}
 	}
