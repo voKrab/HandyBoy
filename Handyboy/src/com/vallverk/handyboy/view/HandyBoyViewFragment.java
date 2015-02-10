@@ -57,7 +57,6 @@ import com.vallverk.handyboy.view.booking.ReviewsClientViewFragment.ReviewsListA
 import com.vallverk.handyboy.view.custom.FlakeOMeterView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -111,6 +110,8 @@ public class HandyBoyViewFragment extends BaseFragment
 	private boolean isShowGallery;
 
 	private DisplayImageOptions avatarLoadOptions = new DisplayImageOptions.Builder ().showImageOnFail ( R.drawable.avatar ).showImageForEmptyUri ( R.drawable.avatar ).cacheInMemory ( true ).cacheOnDisc ().build ();
+	private View ratingContainer;
+	private View freshMeatTextView;
 
 	public interface Refresher
 	{
@@ -158,6 +159,10 @@ public class HandyBoyViewFragment extends BaseFragment
 
 		mDemoSlider = ( SliderLayout ) view.findViewById ( R.id.slider );
 		mDemoSlider.setVisibility ( View.GONE );
+
+		ratingContainer = view.findViewById ( R.id.ratingContainer );
+		freshMeatTextView = view.findViewById ( R.id.freshMeatTextView );
+
 		/*
 		 * } else { ( ( ViewGroup ) view.getParent () ).removeView ( view ); }
 		 */
@@ -337,7 +342,7 @@ public class HandyBoyViewFragment extends BaseFragment
 	{
 		String url = ServerManager.GET_GALLERY_URI + handyboy.getValue ( UserParams.SERVICE_ID ).toString ();
 		String responseText = ServerManager.getRequest ( url );
-        galleryItems = new ArrayList<GalleryAPIObject>();
+		galleryItems = new ArrayList < GalleryAPIObject > ();
 		if ( responseText.isEmpty () )
 		{
 			throw new Exception ();
@@ -532,6 +537,8 @@ public class HandyBoyViewFragment extends BaseFragment
 		typejobNameTextView.setVisibility ( View.INVISIBLE );
 		typejobDescriptionTextView.setText ( "" );
 		availableNowContainer.setVisibility ( View.GONE );
+		ratingContainer.setVisibility ( View.INVISIBLE );
+		freshMeatTextView.setVisibility ( View.GONE );
 	}
 
 	private void updateComponents ()
@@ -542,10 +549,10 @@ public class HandyBoyViewFragment extends BaseFragment
 		{
 			mDemoSlider.removeAllSliders ();
 
-
-            //DefaultSliderView defaultSliderView = new DefaultSliderView ( controller );
-			//defaultSliderView.image ( mediaString );
-			//mDemoSlider.addSlider ( defaultSliderView );
+			// DefaultSliderView defaultSliderView = new DefaultSliderView (
+			// controller );
+			// defaultSliderView.image ( mediaString );
+			// mDemoSlider.addSlider ( defaultSliderView );
 
 			for ( GalleryAPIObject galleryItem : galleryItems )
 			{
@@ -554,26 +561,30 @@ public class HandyBoyViewFragment extends BaseFragment
 					isShowGallery = true;
 					if ( galleryItem.getString ( GalleryAPIParams.TYPE ).equals ( "image" ) )
 					{
-                        DefaultSliderView defaultSliderView = new DefaultSliderView ( controller );
+						DefaultSliderView defaultSliderView = new DefaultSliderView ( controller );
 						defaultSliderView.image ( galleryItem.getString ( GalleryAPIParams.URL ) );
-                        defaultSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                            @Override
-                            public void onSliderClick(BaseSliderView slider) {
-                                controller.setCommunicationValue("galleryItems", galleryItems);
-                                controller.setState(VIEW_STATE.GALLERY);
-                            }
-                        });
+						defaultSliderView.setOnSliderClickListener ( new BaseSliderView.OnSliderClickListener ()
+						{
+							@Override
+							public void onSliderClick ( BaseSliderView slider )
+							{
+								controller.setCommunicationValue ( "galleryItems", galleryItems );
+								controller.setState ( VIEW_STATE.GALLERY );
+							}
+						} );
 						mDemoSlider.addSlider ( defaultSliderView );
 					} else
 					{
 						YouTubeSliderView youTubeSliderView = new YouTubeSliderView ( controller );
-                        youTubeSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                            @Override
-                            public void onSliderClick(BaseSliderView slider) {
-                                controller.setCommunicationValue("galleryItems", galleryItems);
-                                controller.setState(VIEW_STATE.GALLERY);
-                            }
-                        });
+						youTubeSliderView.setOnSliderClickListener ( new BaseSliderView.OnSliderClickListener ()
+						{
+							@Override
+							public void onSliderClick ( BaseSliderView slider )
+							{
+								controller.setCommunicationValue ( "galleryItems", galleryItems );
+								controller.setState ( VIEW_STATE.GALLERY );
+							}
+						} );
 						youTubeSliderView.image ( Tools.getVideoImagePreview ( galleryItem.getString ( GalleryAPIParams.URL ) ) );
 						youTubeSliderView.setYoutubeId ( galleryItem.getString ( GalleryAPIParams.URL ) );
 						mDemoSlider.addSlider ( youTubeSliderView );
@@ -581,22 +592,22 @@ public class HandyBoyViewFragment extends BaseFragment
 				}
 			}
 
-            try {
-                JSONObject jsonGalleryAPIObject = new JSONObject();
-                jsonGalleryAPIObject.put(GalleryAPIParams.URL.toString(), mediaString);
-                jsonGalleryAPIObject.put(GalleryAPIParams.TYPE.toString(), "image");
-                jsonGalleryAPIObject.put(GalleryAPIParams.STATUS.toString(), "approved");
+			try
+			{
+				JSONObject jsonGalleryAPIObject = new JSONObject ();
+				jsonGalleryAPIObject.put ( GalleryAPIParams.URL.toString (), mediaString );
+				jsonGalleryAPIObject.put ( GalleryAPIParams.TYPE.toString (), "image" );
+				jsonGalleryAPIObject.put ( GalleryAPIParams.STATUS.toString (), "approved" );
 
-                GalleryAPIObject galleryAPIObject = new GalleryAPIObject(jsonGalleryAPIObject);
-                galleryItems.add(0, galleryAPIObject);
+				GalleryAPIObject galleryAPIObject = new GalleryAPIObject ( jsonGalleryAPIObject );
+				galleryItems.add ( 0, galleryAPIObject );
 
+			} catch ( Exception e )
+			{
+				e.printStackTrace ();
+			}
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-            mDemoSlider.setPresetTransformer ( SliderLayout.Transformer.ZoomOutSlide );
+			mDemoSlider.setPresetTransformer ( SliderLayout.Transformer.ZoomOutSlide );
 			mDemoSlider.setPresetIndicator ( SliderLayout.PresetIndicators.Center_Bottom );
 
 			mDemoSlider.setCustomAnimation ( new DescriptionAnimation () );
@@ -610,28 +621,31 @@ public class HandyBoyViewFragment extends BaseFragment
 			mainAvatarImageView.setVisibility ( View.VISIBLE );
 			mDemoSlider.setVisibility ( View.GONE );
 
-            mainAvatarImageView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    JSONObject jsonGalleryAPIObject = new JSONObject();
-                    try {
-                        jsonGalleryAPIObject.put(GalleryAPIParams.URL.toString(), mediaString);
-                        jsonGalleryAPIObject.put(GalleryAPIParams.TYPE.toString(), "image");
-                        jsonGalleryAPIObject.put(GalleryAPIParams.STATUS.toString(), "approved");
+			mainAvatarImageView.setOnClickListener ( new OnClickListener ()
+			{
+				@Override
+				public void onClick ( View v )
+				{
+					JSONObject jsonGalleryAPIObject = new JSONObject ();
+					try
+					{
+						jsonGalleryAPIObject.put ( GalleryAPIParams.URL.toString (), mediaString );
+						jsonGalleryAPIObject.put ( GalleryAPIParams.TYPE.toString (), "image" );
+						jsonGalleryAPIObject.put ( GalleryAPIParams.STATUS.toString (), "approved" );
 
-                        GalleryAPIObject galleryAPIObject = new GalleryAPIObject(jsonGalleryAPIObject);
-                        List<GalleryAPIObject> galleryAPIObjectList = new ArrayList<GalleryAPIObject>();
-                        galleryAPIObjectList.add(galleryAPIObject);
-                        controller.setCommunicationValue("galleryItems", galleryAPIObjectList);
-                        controller.setState(VIEW_STATE.GALLERY);
+						GalleryAPIObject galleryAPIObject = new GalleryAPIObject ( jsonGalleryAPIObject );
+						List < GalleryAPIObject > galleryAPIObjectList = new ArrayList < GalleryAPIObject > ();
+						galleryAPIObjectList.add ( galleryAPIObject );
+						controller.setCommunicationValue ( "galleryItems", galleryAPIObjectList );
+						controller.setState ( VIEW_STATE.GALLERY );
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+					} catch ( Exception e )
+					{
+						e.printStackTrace ();
+					}
 
-
-                }
-            });
+				}
+			} );
 		}
 
 		String name = handyboy.getString ( UserParams.FIRST_NAME ) + " " + handyboy.getString ( UserParams.LAST_NAME );
@@ -640,7 +654,15 @@ public class HandyBoyViewFragment extends BaseFragment
 		blockImageView.setVisibility ( isMyUser ? View.GONE : View.VISIBLE );
 		likeImageView.setVisibility ( isMyUser ? View.GONE : View.VISIBLE );
 		float rating = Float.parseFloat ( serviceDetails.getString ( UserDetailsParams.RATING ) );
-		ratingView.setRating ( rating );
+		if ( rating == 0 )
+		{
+			ratingContainer.setVisibility ( View.INVISIBLE );
+            freshMeatTextView.setVisibility ( View.VISIBLE );
+		} else
+        {
+            ratingContainer.setVisibility ( View.VISIBLE );
+            ratingView.setRating ( rating );
+        }
 		float reliability = Float.parseFloat ( serviceDetails.getString ( UserDetailsParams.RELIABILITY ) );
 		flakeOMeterView.setRating ( reliability );
 		String parameters = createParameters ();
@@ -733,8 +755,8 @@ public class HandyBoyViewFragment extends BaseFragment
 		try
 		{
 			int height = serviceDetails.getInt ( UserDetailsParams.HEIGHT );
-            int inches = Tools.getInches ( height );
-            int feets = Tools.getFeets ( height );
+			int inches = Tools.getInches ( height );
+			int feets = Tools.getFeets ( height );
 			parameters = feets + "'" + inches + "\"";
 			parameters += " " + serviceDetails.getString ( UserDetailsParams.WEIGHT ) + "lbs, ";
 			parameters += serviceDetails.getString ( UserDetailsParams.HEIR_COLOR ) + ", ";
