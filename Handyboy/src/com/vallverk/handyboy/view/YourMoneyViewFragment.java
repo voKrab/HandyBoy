@@ -273,9 +273,12 @@ public class YourMoneyViewFragment extends BaseFragment
                 view = inflater.inflate ( R.layout.money_list_item_layout, parent, false );
             }
 
-            Date date = Tools.fromStringToDate ( myMoneyAPIObject.getString ( MyMoneyParams.CREATED_AT ), "yyyy-MM-dd hh:mm:ss" );
-            ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText ( Tools.fromDateToString ( date, "EEEE" ) );
-            ( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText ( Tools.fromDateToString ( date, "MM/dd" ) );
+           // Date date = Tools.fromStringToDate ( myMoneyAPIObject.getString ( MyMoneyParams.CREATED_AT ), "yyyy-MM-dd hh:mm:ss" );
+           // ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText ( Tools.fromDateToString ( date, "EEEE" ) );
+            //( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText ( Tools.fromDateToString ( date, "MM/dd" ) );
+
+            ( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_HUMAN ));
+            ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_DAY_HUMAN ));
             ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText ( myMoneyAPIObject.getString ( MyMoneyParams.TOTAL_HOURS ));
             ( ( TextView ) view.findViewById ( R.id.priceTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ));
 

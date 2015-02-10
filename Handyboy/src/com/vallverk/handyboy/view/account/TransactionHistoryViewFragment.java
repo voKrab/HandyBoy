@@ -345,7 +345,7 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 holder = ( GroupHolder ) convertView.getTag ();
             }
 
-            holder.gigIdTextView.setText ( "GIG#" + myMoneyAPIObject.getString ( MyMoneyParams.BOOKING_ID ) );
+            holder.gigIdTextView.setText ( "GIG#" + myMoneyAPIObject.getString ("bookingId") );
             holder.gigNameTextView.setText ( bookingDataObject.getService ().getShortName () );
             holder.gigSessionNameTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
             holder.gigPriceTextView.setText ( "$" + myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ) );

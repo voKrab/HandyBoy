@@ -11,7 +11,7 @@ public class MyMoneyAPIObject extends APIObject
 
 	public enum MyMoneyParams
 	{
-		BOOKING_ID ( "bookingId" ), CREATED_AT ( "createdAt" ), USER_ID ( "userId" ), AMOUNT ( "amount" ), REASON ( "reason" ), CARD_ID ( "cardId" ), TOTAL_HOURS("totalHours");
+		 AMOUNT ( "amount" ), TOTAL_HOURS("totalHours"), DATE("date_ts"), DATE_HUMAN("date_human"), DATE_DAY_HUMAN("date_day_human");
 
 		String name;
 
