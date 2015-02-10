@@ -51,6 +51,8 @@ public class GigsViewFragment extends BaseFragment
 
 	private List data;
 
+    private boolean isShowLoader = true;
+
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		if ( view == null )
@@ -109,12 +111,28 @@ public class GigsViewFragment extends BaseFragment
 				@Override
 				public List < Object > refresh () throws Exception
 				{
+                    if(isShowLoader){
+                        controller.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                controller.showLoader();
+                            }
+                        });
+                        isShowLoader = false;
+                    }
+
 					bookingDataManager.update ();
 					data = bookingDataManager.getData ();
 					if ( user.isCustomer () )
 					{
 						onRefreshHandler.sendEmptyMessage ( 0 );
 					}
+                    controller.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            controller.hideLoader();
+                        }
+                    });
 					return data;
 				}
 			} );

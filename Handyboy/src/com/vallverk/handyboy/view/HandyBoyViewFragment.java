@@ -335,9 +335,9 @@ public class HandyBoyViewFragment extends BaseFragment
 
 	protected void loadPhotos () throws Exception
 	{
-		galleryItems = new ArrayList < GalleryAPIObject > ();
 		String url = ServerManager.GET_GALLERY_URI + handyboy.getValue ( UserParams.SERVICE_ID ).toString ();
 		String responseText = ServerManager.getRequest ( url );
+        galleryItems = new ArrayList<GalleryAPIObject>();
 		if ( responseText.isEmpty () )
 		{
 			throw new Exception ();
@@ -547,22 +547,6 @@ public class HandyBoyViewFragment extends BaseFragment
 			//defaultSliderView.image ( mediaString );
 			//mDemoSlider.addSlider ( defaultSliderView );
 
-            JSONObject jsonGalleryAPIObject = new JSONObject();
-            try {
-                jsonGalleryAPIObject.put(GalleryAPIParams.URL.toString(), mediaString);
-                jsonGalleryAPIObject.put(GalleryAPIParams.TYPE.toString(), "image");
-                jsonGalleryAPIObject.put(GalleryAPIParams.STATUS.toString(), "approved");
-
-                GalleryAPIObject galleryAPIObject = new GalleryAPIObject(jsonGalleryAPIObject);
-                galleryItems.add(0, galleryAPIObject);
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-
 			for ( GalleryAPIObject galleryItem : galleryItems )
 			{
 				if ( galleryItem.getValue ( GalleryAPIParams.STATUS ).toString ().equals ( "approved" ) )
@@ -597,7 +581,22 @@ public class HandyBoyViewFragment extends BaseFragment
 				}
 			}
 
-			mDemoSlider.setPresetTransformer ( SliderLayout.Transformer.ZoomOutSlide );
+            try {
+                JSONObject jsonGalleryAPIObject = new JSONObject();
+                jsonGalleryAPIObject.put(GalleryAPIParams.URL.toString(), mediaString);
+                jsonGalleryAPIObject.put(GalleryAPIParams.TYPE.toString(), "image");
+                jsonGalleryAPIObject.put(GalleryAPIParams.STATUS.toString(), "approved");
+
+                GalleryAPIObject galleryAPIObject = new GalleryAPIObject(jsonGalleryAPIObject);
+                galleryItems.add(0, galleryAPIObject);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            mDemoSlider.setPresetTransformer ( SliderLayout.Transformer.ZoomOutSlide );
 			mDemoSlider.setPresetIndicator ( SliderLayout.PresetIndicators.Center_Bottom );
 
 			mDemoSlider.setCustomAnimation ( new DescriptionAnimation () );

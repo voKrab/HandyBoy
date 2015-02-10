@@ -57,6 +57,7 @@ public class GigViewOnClickListener implements View.OnClickListener
 				}
 				case APPROVED:
 				{
+
 					break;
 				}
 				case PERFORMED:
@@ -71,7 +72,7 @@ public class GigViewOnClickListener implements View.OnClickListener
 			{
 				case PENDING:
 				{
-					customerRequestedOnClick ();
+					customerRequestedOnClick();
 					break;
 				}
 				case DECLINED:
@@ -91,11 +92,12 @@ public class GigViewOnClickListener implements View.OnClickListener
 				}
 				case APPROVED:
 				{
+                    controller.setState(ViewStateController.VIEW_STATE.GIG_COMPLETED);
 					break;
 				}
 				case PERFORMED:
 				{
-                    customerPerformedOnClick ();
+                    customerPerformedOnClick();
 					break;
 				}
 			}

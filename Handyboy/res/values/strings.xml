@@ -589,4 +589,6 @@
     <string name="delete_account">Delete account</string>
     <string name="delete_account_dialog_title">Delete account? Are you serious?</string>
     <string name="setup_work_out_location">Setup work out location</string>
+    <string name="current">Current</string>
+    <string name="past">Past</string>
 </resources>
