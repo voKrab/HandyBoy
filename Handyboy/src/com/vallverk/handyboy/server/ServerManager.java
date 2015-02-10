@@ -24,7 +24,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +125,7 @@ public class ServerManager
     public static final String DELETE_USER_ACCOUNT = PROTOCOL + HOST  + "/user/delete";
 
     public static final String CHANGE_PHONE_NUMBER = PROTOCOL + HOST  + "/user/changenumber";
+    public static final String HB_PAGE_FACADE_LOAD = PROTOCOL + HOST  + "/facade/service?id=1";
 
     public static String getRequest ( String uriString ) throws Exception
     {

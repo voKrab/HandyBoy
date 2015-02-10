@@ -1,16 +1,5 @@
 package com.vallverk.handyboy.model.api;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -21,6 +10,17 @@ import com.vallverk.handyboy.model.CommunicationManager;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.server.ServerErrors;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Communication with server api, caching requested data 
@@ -282,16 +282,21 @@ public class APIManager implements Serializable
 		{
 			throw new Exception ( resultStatus );
 		}
-
-		JSONArray arrayData = new JSONArray ( responseObject.getString ( "list" ) );
-		for ( int i = 0; i < arrayData.length (); i++ )
-		{
-			JSONObject jsonObject = new JSONObject ( arrayData.getString ( i ) );
-			TypeJobServiceAPIObject typejob = new TypeJobServiceAPIObject ( jsonObject );
-			typejobs.add ( typejob );
-		}
-		return typejobs;
+        typejobs = getTypeJobs ( new JSONArray ( responseObject.getString ( "list" ) ) );
+        return  typejobs;
 	}
+
+    public List < TypeJobServiceAPIObject > getTypeJobs ( JSONArray arrayData ) throws Exception
+    {
+        List < TypeJobServiceAPIObject > typejobs = new ArrayList < TypeJobServiceAPIObject > ();
+        for ( int i = 0; i < arrayData.length (); i++ )
+        {
+            JSONObject jsonObject = new JSONObject ( arrayData.getString ( i ) );
+            TypeJobServiceAPIObject typejob = new TypeJobServiceAPIObject ( jsonObject );
+            typejobs.add ( typejob );
+        }
+        return typejobs;
+    }
 
 	public List loadList ( String url, Class type ) throws Exception
 	{

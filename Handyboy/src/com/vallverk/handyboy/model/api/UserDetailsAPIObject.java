@@ -1,9 +1,10 @@
 package com.vallverk.handyboy.model.api;
 
-import java.io.Serializable;
-
-import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONObject;
+
+import java.io.Serializable;
 
 public class UserDetailsAPIObject extends APIObject implements Serializable
 {
@@ -74,4 +75,9 @@ public class UserDetailsAPIObject extends APIObject implements Serializable
 	{
 		return UserDetailsParams.values ();
 	}
+
+    public UserDetailsAPIObject ( JSONObject jsonObject ) throws Exception
+    {
+        update ( jsonObject );
+    }
 }

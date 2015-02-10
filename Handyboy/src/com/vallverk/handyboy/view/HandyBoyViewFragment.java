@@ -216,12 +216,26 @@ public class HandyBoyViewFragment extends BaseFragment
 				String result = "";
 				try
 				{
-					handyboy.fetch ( ServerManager.USER_FETCH_URI.replace ( "id=1", "id=" + handyboy.getId () ) );
-					serviceDetails = ( UserDetailsAPIObject ) apiManager.getAPIObject ( handyboy.getId (), UserDetailsAPIObject.class, ServerManager.USER_DETAILS_FETCH_URI );
-					typejobs = APIManager.getInstance ().getTypeJobs ( handyboy );
-					loadPhotos ();
-					loadDiscount ();
-				} catch ( Exception ex )
+					// handyboy.fetch ( ServerManager.USER_FETCH_URI.replace (
+					// "id=1", "id=" + handyboy.getId () ) );
+					// serviceDetails = ( UserDetailsAPIObject )
+					// apiManager.getAPIObject ( handyboy.getId (),
+					// UserDetailsAPIObject.class,
+					// ServerManager.USER_DETAILS_FETCH_URI );
+					// typejobs = APIManager.getInstance ().getTypeJobs (
+					// handyboy );
+					// loadPhotos ();
+					// loadDiscount ();
+
+					// faster version
+					String responceText = ServerManager.getRequest ( ServerManager.HB_PAGE_FACADE_LOAD.replace ( "id=1", "id=" + handyboy.getId () ) );
+					JSONObject responceJSON = ServerManager.getObject ( responceText );
+					handyboy.update ( responceJSON.getJSONObject ( "user" ) );
+					serviceDetails = new UserDetailsAPIObject ( responceJSON.getJSONObject ( "service" ) );
+					typejobs = APIManager.getInstance ().getTypeJobs ( new JSONArray ( responceJSON.getString ( "joblist" ) ) );
+					loadDiscount ( responceJSON );
+                    loadPhotos ( responceJSON );
+                } catch ( Exception ex )
 				{
 					result = ex.getMessage ();
 					ex.printStackTrace ();
@@ -229,6 +243,19 @@ public class HandyBoyViewFragment extends BaseFragment
 				return result;
 			}
 		}.execute ();
+	}
+
+	protected void loadDiscount ( JSONObject jsonObject )
+	{
+		try
+		{
+			this.discountAPIObject = null;
+			DiscountAPIObject discountAPIObject = new DiscountAPIObject ( jsonObject.getJSONObject ( "discount" ) );
+			this.discountAPIObject = discountAPIObject;
+		} catch ( Exception ex )
+		{
+			// ignore
+		}
 	}
 
 	protected void loadDiscount ()
@@ -357,6 +384,18 @@ public class HandyBoyViewFragment extends BaseFragment
 				GalleryAPIObject galleryItem = new GalleryAPIObject ( jsonObject );
 				galleryItems.add ( galleryItem );
 			}
+		}
+	}
+
+	protected void loadPhotos ( JSONObject json ) throws Exception
+	{
+        galleryItems = new ArrayList < GalleryAPIObject > ();
+		JSONArray arrayData = new JSONArray ( json.getString ( "gallery" ) );
+		for ( int i = 0; i < arrayData.length (); i++ )
+		{
+			JSONObject jsonObject = arrayData.getJSONObject ( i );
+			GalleryAPIObject galleryItem = new GalleryAPIObject ( jsonObject );
+			galleryItems.add ( galleryItem );
 		}
 	}
 
@@ -657,12 +696,12 @@ public class HandyBoyViewFragment extends BaseFragment
 		if ( rating == 0 )
 		{
 			ratingContainer.setVisibility ( View.INVISIBLE );
-            freshMeatTextView.setVisibility ( View.VISIBLE );
+			freshMeatTextView.setVisibility ( View.VISIBLE );
 		} else
-        {
-            ratingContainer.setVisibility ( View.VISIBLE );
-            ratingView.setRating ( rating );
-        }
+		{
+			ratingContainer.setVisibility ( View.VISIBLE );
+			ratingView.setRating ( rating );
+		}
 		float reliability = Float.parseFloat ( serviceDetails.getString ( UserDetailsParams.RELIABILITY ) );
 		flakeOMeterView.setRating ( reliability );
 		String parameters = createParameters ();
