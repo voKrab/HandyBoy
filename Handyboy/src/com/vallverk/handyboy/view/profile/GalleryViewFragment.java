@@ -60,7 +60,13 @@ public class GalleryViewFragment extends BaseFragment {
 
     @Override
     protected void init() {
-        updateGalery();
+        galleryItems = (List<GalleryAPIObject>)controller.getCommunicationValue("galleryItems");
+        if(galleryItems != null){
+            updateGaleryPhotos(galleryItems);
+            crossImageView.setVisibility(View.GONE);
+        }else{
+            updateGalery();
+        }
     }
 
     private void updateGaleryPhotos(List<GalleryAPIObject> galleryItems) {

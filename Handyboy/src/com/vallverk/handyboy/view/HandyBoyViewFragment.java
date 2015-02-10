@@ -57,6 +57,7 @@ import com.vallverk.handyboy.view.booking.ReviewsClientViewFragment.ReviewsListA
 import com.vallverk.handyboy.view.custom.FlakeOMeterView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -535,14 +536,32 @@ public class HandyBoyViewFragment extends BaseFragment
 
 	private void updateComponents ()
 	{
-		String mediaString = ( String ) handyboy.getValue ( UserParams.AVATAR );
+		final String mediaString = ( String ) handyboy.getValue ( UserParams.AVATAR );
 
 		if ( galleryItems.size () > 0 )
 		{
 			mDemoSlider.removeAllSliders ();
-			DefaultSliderView defaultSliderView = new DefaultSliderView ( controller );
-			defaultSliderView.image ( mediaString );
-			mDemoSlider.addSlider ( defaultSliderView );
+
+
+            //DefaultSliderView defaultSliderView = new DefaultSliderView ( controller );
+			//defaultSliderView.image ( mediaString );
+			//mDemoSlider.addSlider ( defaultSliderView );
+
+            JSONObject jsonGalleryAPIObject = new JSONObject();
+            try {
+                jsonGalleryAPIObject.put(GalleryAPIParams.URL.toString(), mediaString);
+                jsonGalleryAPIObject.put(GalleryAPIParams.TYPE.toString(), "image");
+                jsonGalleryAPIObject.put(GalleryAPIParams.STATUS.toString(), "approved");
+
+                GalleryAPIObject galleryAPIObject = new GalleryAPIObject(jsonGalleryAPIObject);
+                galleryItems.add(0, galleryAPIObject);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
 
 			for ( GalleryAPIObject galleryItem : galleryItems )
 			{
@@ -551,12 +570,26 @@ public class HandyBoyViewFragment extends BaseFragment
 					isShowGallery = true;
 					if ( galleryItem.getString ( GalleryAPIParams.TYPE ).equals ( "image" ) )
 					{
-						defaultSliderView = new DefaultSliderView ( controller );
+                        DefaultSliderView defaultSliderView = new DefaultSliderView ( controller );
 						defaultSliderView.image ( galleryItem.getString ( GalleryAPIParams.URL ) );
+                        defaultSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                            @Override
+                            public void onSliderClick(BaseSliderView slider) {
+                                controller.setCommunicationValue("galleryItems", galleryItems);
+                                controller.setState(VIEW_STATE.GALLERY);
+                            }
+                        });
 						mDemoSlider.addSlider ( defaultSliderView );
 					} else
 					{
 						YouTubeSliderView youTubeSliderView = new YouTubeSliderView ( controller );
+                        youTubeSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                            @Override
+                            public void onSliderClick(BaseSliderView slider) {
+                                controller.setCommunicationValue("galleryItems", galleryItems);
+                                controller.setState(VIEW_STATE.GALLERY);
+                            }
+                        });
 						youTubeSliderView.image ( Tools.getVideoImagePreview ( galleryItem.getString ( GalleryAPIParams.URL ) ) );
 						youTubeSliderView.setYoutubeId ( galleryItem.getString ( GalleryAPIParams.URL ) );
 						mDemoSlider.addSlider ( youTubeSliderView );
@@ -577,6 +610,29 @@ public class HandyBoyViewFragment extends BaseFragment
 			ImageLoader.getInstance ().displayImage ( mediaString, mainAvatarImageView, avatarLoadOptions );
 			mainAvatarImageView.setVisibility ( View.VISIBLE );
 			mDemoSlider.setVisibility ( View.GONE );
+
+            mainAvatarImageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JSONObject jsonGalleryAPIObject = new JSONObject();
+                    try {
+                        jsonGalleryAPIObject.put(GalleryAPIParams.URL.toString(), mediaString);
+                        jsonGalleryAPIObject.put(GalleryAPIParams.TYPE.toString(), "image");
+                        jsonGalleryAPIObject.put(GalleryAPIParams.STATUS.toString(), "approved");
+
+                        GalleryAPIObject galleryAPIObject = new GalleryAPIObject(jsonGalleryAPIObject);
+                        List<GalleryAPIObject> galleryAPIObjectList = new ArrayList<GalleryAPIObject>();
+                        galleryAPIObjectList.add(galleryAPIObject);
+                        controller.setCommunicationValue("galleryItems", galleryAPIObjectList);
+                        controller.setState(VIEW_STATE.GALLERY);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
 		}
 
 		String name = handyboy.getString ( UserParams.FIRST_NAME ) + " " + handyboy.getString ( UserParams.LAST_NAME );
