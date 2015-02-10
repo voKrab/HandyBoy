@@ -221,6 +221,8 @@ public class EditAccountViewFragment extends BaseFragment
 
 		emailEditText.setHint ( user.getValue ( UserParams.EMAIL ).toString () );
 		phoneEditText.setText ( user.getValue ( UserParams.PHONE_NUMBER ).toString () );
+
+        pushNotificationTogglebutton.setChecked(SettingsManager.getBoolean (SettingsManager.Params.IS_PUSH_NOTIFICATION, true, controller));
 	}
 
 	protected void addListeners ()

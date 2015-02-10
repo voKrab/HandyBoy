@@ -279,7 +279,7 @@ public class YourMoneyViewFragment extends BaseFragment
 
             ( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_HUMAN ));
             ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_DAY_HUMAN ));
-            ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText ( myMoneyAPIObject.getString ( MyMoneyParams.TOTAL_HOURS ));
+            ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText ( myMoneyAPIObject.getString ( MyMoneyParams.TOTAL_HOURS ).replace(".50", ".30"));
             ( ( TextView ) view.findViewById ( R.id.priceTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ));
 
             view.setOnClickListener(new OnClickListener() {
