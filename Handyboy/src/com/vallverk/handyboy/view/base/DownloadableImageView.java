@@ -1,18 +1,26 @@
 package com.vallverk.handyboy.view.base;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.api.APIManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 
 public class DownloadableImageView extends ImageView
 {
 	private Bitmap bitmap;
-	
-	public enum Quality
+    private DisplayImageOptions avatarLoadOptions = new DisplayImageOptions.Builder ().showImageOnFail (  R.drawable.avatar ).showImageForEmptyUri ( R.drawable.avatar ).cacheInMemory ( true ).cacheOnDisc ().build ();
+
+
+    public enum Quality
 	{
 		ORIGINAL, MEDIUM, LOW
 	}
@@ -37,7 +45,27 @@ public class DownloadableImageView extends ImageView
 	
 	public void update ( final String url, final Quality quality )
 	{
-		System.out.println ( "update" );
+        String urlWithQuality = createUrl ( url, quality );
+        ImageLoader.getInstance().displayImage(urlWithQuality, this, avatarLoadOptions, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                DownloadableImageView.this.bitmap = null;
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                DownloadableImageView.this.bitmap = bitmap;
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+            }
+        });
+		/*System.out.println ( "update" );
 		new AsyncTask < Void, Void, String > ()
 		{
 			private Bitmap bitmap;
@@ -67,7 +95,7 @@ public class DownloadableImageView extends ImageView
 				}
 				return result;
 			}
-		}.execute ();
+		}.execute ();*/
 	}
 
 	private String createUrl ( String url, Quality quality )
@@ -93,12 +121,11 @@ public class DownloadableImageView extends ImageView
 		}
 	}
 
-	@Override
-	public void setImageBitmap ( Bitmap bitmap )
+	/*public void setImageBitmap ( Bitmap bitmap )
 	{
 		this.bitmap = bitmap;
 		super.setImageBitmap ( bitmap );
-	}
+	}*/
 	
 	public Bitmap getBitmap ()
 	{
