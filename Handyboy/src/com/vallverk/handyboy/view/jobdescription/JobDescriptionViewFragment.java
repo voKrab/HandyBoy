@@ -1,14 +1,5 @@
 package com.vallverk.handyboy.view.jobdescription;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,13 +26,21 @@ import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject.TypeJobServiceParams;
-import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.model.job.JobTypeManager;
 import com.vallverk.handyboy.model.job.TypeJob;
 import com.vallverk.handyboy.model.job.TypeJobEnum;
 import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class JobDescriptionViewFragment extends BaseFragment
 {
@@ -52,6 +51,7 @@ public class JobDescriptionViewFragment extends BaseFragment
 	private View additionalInfoContainer;
 	private int[] resources;
 	private int[] selectedResources;
+    private int[] disabledResources;
 	private TextView jobTypeTextView;
 	private Button chooseFileButton;
 	private View showHelpTextView;
@@ -161,24 +161,13 @@ public class JobDescriptionViewFragment extends BaseFragment
 		user = APIManager.getInstance ().getUser ();
 		resources = new int[] { R.drawable.dumbbels_na, R.drawable.circle_na, R.drawable.man_na, R.drawable.martini_na, R.drawable.hand_na, R.drawable.venik_na, R.drawable.grass_na, R.drawable.foodcover_na, R.drawable.panties_na, R.drawable.car_na };
 		selectedResources = new int[] { R.drawable.dumbbels_a, R.drawable.circle_a, R.drawable.man_a, R.drawable.martini_a, R.drawable.hand_a, R.drawable.venik_a, R.drawable.grass_a, R.drawable.foodcover_a, R.drawable.panties_a, R.drawable.car_a };
-	}
+        disabledResources = new int[] { R.drawable.dumbbels_nona, R.drawable.circle_nona, R.drawable.man_nona, R.drawable.martini_nona, R.drawable.hand_nona, R.drawable.venik_nona, R.drawable.grass_nona, R.drawable.foodcover_nona, R.drawable.panties_nona, R.drawable.car_nona };
+    }
 
 	private void updateComponents ()
 	{
 		updateJobTypesIndicators ();
 		updateJobsContainer ();
-		// updateJobTypesComponents ();
-		// if ( jobType != null )
-		// {
-		// this.proofFile = controller.getApproveFile ();
-		// updateProofFileComponents ();
-		// int price = controller.getServicePrice ();
-		// priceSeekBar.setProgress ( price - jobType.getMinCost () );
-		// descriptionEditText.setText ( controller.getServiceDescription () );
-		// priceTextView.setText ( "" + price + "$" );
-		// priceRangeTextView.setText ( jobType.getMinCost () + "$" + " - " +
-		// jobType.getMaxCost () + "$" );
-		// }
 	}
 
 	private void addJobTypeIndicatorsListeners ()
@@ -191,76 +180,82 @@ public class JobDescriptionViewFragment extends BaseFragment
 				@Override
 				public void onClick ( View v )
 				{
-					// if ( currentController != null )
-					// {
-					// currentController.hideDetails ();
-					// }
-					if ( contains ( defaultJobs, jobTypeKey ) )
-					{
-						if ( currentController != null )
-						{
-							currentController.hideDetails ();
-						}
-						if ( defaultJobs.size () == 1 )
-						{
-							Toast.makeText ( controller, R.string.you_can_not_delete_the_last_type_of_work, Toast.LENGTH_LONG ).show ();
-							return;
-						}
-						DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener ()
-						{
-							@Override
-							public void onClick ( DialogInterface dialog, int which )
-							{
-								switch ( which )
-								{
-									case DialogInterface.BUTTON_POSITIVE:
-									{
-										removeJob ( get ( defaultJobs, jobTypeKey ) );
-										break;
-									}
-									// Yes button clicked
-
-									case DialogInterface.BUTTON_NEGATIVE:
-									{
-										// No button clicked
-										break;
-									}
-								}
-							}
-						};
-						AlertDialog.Builder builder = new AlertDialog.Builder ( controller );
-						builder.setMessage ( R.string.remove_job ).setPositiveButton ( "Yes", dialogClickListener ).setNegativeButton ( "No", dialogClickListener ).show ();
-					} else
-					{
-						if ( !enabledTypejobs.contains ( "" + jobTypeKey.getId () ) )
-						{
-							Toast.makeText ( controller, R.string.this_type_of_work_is_not_available_to_you, Toast.LENGTH_LONG ).show ();
-							return;
-						}
-						if ( currentController != null && currentController.getTypeJob () == jobTypeKey && currentController.isNewJob () )
-						{
-							currentController.hideDetails ();
-						} else
-						{
-							if ( currentController != null )
-							{
-								currentController.hideDetails ();
-							}
-							final LayoutInflater inflater = ( LayoutInflater ) controller.getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
-							BaseController viewController = ControllerFactory.create ( null, jobTypeKey );
-							final View view = viewController.createView ( inflater, JobDescriptionViewFragment.this );
-							jobsContainer.addView ( view );
-							jobDetailsMap.put ( jobTypeKey, view );
-							viewController.showDetails ();
-						}
-					}
-					updateJobTypesIndicators ();
+					clickOnJob ( jobTypeKey );
 				}
 			} );
 		}
 	}
 
-	private void removeJob ( final TypeJobServiceAPIObject job )
+    private void clickOnJob ( final TypeJob jobTypeKey )
+    {
+        if ( containsInDefaultOnJobs ( defaultJobs, jobTypeKey ) )
+        {
+            if ( currentController != null )
+            {
+                currentController.hideDetails ();
+            }
+            if ( defaultJobs.size () == 1 )
+            {
+                Toast.makeText ( controller, R.string.you_can_not_delete_the_last_type_of_work, Toast.LENGTH_LONG ).show ();
+                return;
+            }
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener ()
+            {
+                @Override
+                public void onClick ( DialogInterface dialog, int which )
+                {
+                    switch ( which )
+                    {
+                        case DialogInterface.BUTTON_POSITIVE:
+                        {
+                            removeJob ( get ( defaultJobs, jobTypeKey ) );
+                            break;
+                        }
+                        // Yes button clicked
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                        {
+                            // No button clicked
+                            break;
+                        }
+                    }
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder ( controller );
+            builder.setMessage ( R.string.remove_job ).setPositiveButton ( "Yes", dialogClickListener ).setNegativeButton ( "No", dialogClickListener ).show ();
+        } else
+        {
+            if ( !isEnabledJob ( jobTypeKey ) )
+            {
+                Toast.makeText ( controller, R.string.this_type_of_work_is_not_available_to_you, Toast.LENGTH_LONG ).show ();
+                return;
+            }
+            if ( currentController != null && currentController.getTypeJob () == jobTypeKey && currentController.isNewJob () )
+            {
+                currentController.hideDetails ();
+            } else
+            {
+                if ( currentController != null )
+                {
+                    currentController.hideDetails ();
+                }
+                final LayoutInflater inflater = ( LayoutInflater ) controller.getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
+                TypeJobServiceAPIObject jobApiObject = get ( defaultJobs, jobTypeKey );
+                if ( jobApiObject != null )
+                {
+                    jobApiObject.restore ();
+                }
+                BaseController viewController = ControllerFactory.create ( jobApiObject, jobTypeKey );
+                final View view = viewController.createView ( inflater, JobDescriptionViewFragment.this );
+                jobsContainer.addView ( view );
+                jobDetailsMap.put ( jobTypeKey, view );
+                viewController.showDetails ();
+            }
+        }
+        updateJobTypesIndicators ();
+    }
+
+    private void removeJob ( final TypeJobServiceAPIObject job )
 	{
 		final TypeJob typejob = job.getTypeJob ();
 		new AsyncTask < Void, Void, String > ()
@@ -277,7 +272,7 @@ public class JobDescriptionViewFragment extends BaseFragment
 				controller.hideLoader ();
 				if ( result.isEmpty () )
 				{
-					defaultJobs.remove ( job );
+//					defaultJobs.remove ( job );
 					removeJob ( typejob );
 					updateJobTypesIndicators ();
 				} else
@@ -294,7 +289,8 @@ public class JobDescriptionViewFragment extends BaseFragment
 				{
 					APIManager apiManager = APIManager.getInstance ();
 					UserAPIObject user = apiManager.getUser ();
-					apiManager.delete ( job );
+                    job.off ();
+					job.update ( ServerManager.TYPE_JOB_SERVICE_SAVE );
 				} catch ( Exception ex )
 				{
 					ex.printStackTrace ();
@@ -319,11 +315,15 @@ public class JobDescriptionViewFragment extends BaseFragment
 		{
 			int index = Arrays.asList ( TypeJobEnum.values () ).indexOf ( jobTypeKey.getEnumValue () );
 			ImageView imageView = jobTypesMap.get ( jobTypeKey );
-			imageView.setImageResource ( resources[index] );
+            imageView.setImageResource ( isEnabledJob ( jobTypeKey ) ? resources[index] : disabledResources[index] );
 		}
 		for ( TypeJobServiceAPIObject jobAPIObject : defaultJobs )
 		{
-			TypeJob jobType = jobTypeManager.getJobType ( jobAPIObject.getString ( TypeJobServiceParams.TYPEJOB_ID ) );
+            if ( jobAPIObject.isOff () || jobAPIObject.isRestore () )
+            {
+                continue;
+            }
+            TypeJob jobType = jobTypeManager.getJobType ( jobAPIObject.getString ( TypeJobServiceParams.TYPEJOB_ID ) );
 			int selectedIndex = Arrays.asList ( TypeJobEnum.values () ).indexOf ( jobType.getEnumValue () );
 			ImageView imageView = jobTypesMap.get ( jobType );
 			imageView.setImageResource ( selectedResources[selectedIndex] );
@@ -337,7 +337,12 @@ public class JobDescriptionViewFragment extends BaseFragment
 		}
 	}
 
-	protected TypeJobServiceAPIObject get ( List < TypeJobServiceAPIObject > list, TypeJob typejob )
+    private boolean isEnabledJob ( TypeJob jobTypeKey )
+    {
+        return enabledTypejobs.contains ( "" + jobTypeKey.getId () );
+    }
+
+    protected TypeJobServiceAPIObject get ( List < TypeJobServiceAPIObject > list, TypeJob typejob )
 	{
 		for ( TypeJobServiceAPIObject job : list )
 		{
@@ -349,10 +354,14 @@ public class JobDescriptionViewFragment extends BaseFragment
 		return null;
 	}
 
-	protected boolean contains ( List < TypeJobServiceAPIObject > list, TypeJob typejob )
+	protected boolean containsInDefaultOnJobs ( List < TypeJobServiceAPIObject > list, TypeJob typejob )
 	{
 		for ( TypeJobServiceAPIObject job : list )
 		{
+            if ( job.isOff () || job.isRestore () )
+            {
+                continue;
+            }
 			if ( job.getTypeJob () == typejob )
 			{
 				return true;
@@ -369,6 +378,10 @@ public class JobDescriptionViewFragment extends BaseFragment
 		final LayoutInflater inflater = ( LayoutInflater ) controller.getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
 		for ( TypeJobServiceAPIObject jobAPIObject : defaultJobs )
 		{
+            if ( jobAPIObject.isOff () )
+            {
+                continue;
+            }
 			TypeJob jobType = jobAPIObject.getTypeJob ();
 			BaseController viewController = ControllerFactory.create ( jobAPIObject, jobType );
 			final View view = viewController.createView ( inflater, this );

@@ -385,7 +385,7 @@
     <string name="filter">Filter</string>
     <string name="search_hint">User, Body Type, Location, Etc</string>
     <string name="unblock">Unblock</string>
-    <string name="remove_job">Remove job, are you sure?</string>
+    <string name="remove_job">Remove this job! Are you sure?</string>
     <string name="weekly_availability">Weekly Availability</string>
     <string name="save_lower_case">Save</string>
     <string name="customize">Customize</string>

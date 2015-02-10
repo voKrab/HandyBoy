@@ -1,20 +1,48 @@
 package com.vallverk.handyboy.model.api;
 
-import org.json.JSONObject;
-
 import com.vallverk.handyboy.R;
-import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.model.job.JobTypeManager;
 import com.vallverk.handyboy.model.job.TypeJob;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONObject;
 
 public class TypeJobServiceAPIObject extends APIObject
 {
 	private static final long serialVersionUID = 1L;
 
+    public enum TypeJobServiceState
+    {
+        ON ( 1 ), OFF ( 0 ), RESTORE ( 2 );
+
+        int value;
+
+        TypeJobServiceState ( int value )
+        {
+            this.value = value;
+        }
+
+        public String toString ()
+        {
+            return "" + value;
+        }
+
+        public static TypeJobServiceState fromString ( String text )
+        {
+            for ( TypeJobServiceState enumValue : TypeJobServiceState.values () )
+            {
+                if ( enumValue.toString ().equals ( text ) )
+                {
+                    return enumValue;
+                }
+            }
+            return null;
+        }
+    }
+
 	public enum TypeJobServiceParams
 	{
-		DESCRIPTION ( "description" ), SERVICE_ID ( "serviceId" ), TYPEJOB_ID ( "typeJobId" ), PRICE ( "price" ), /*PRICE_DISTANCE ( "priceDistance" ),*/ LEVEL ( "level" ), APROVE_FILE ( "aproveFile" );
+		DESCRIPTION ( "description" ), SERVICE_ID ( "serviceId" ), TYPEJOB_ID ( "typeJobId" ), PRICE ( "price" ), /*PRICE_DISTANCE ( "priceDistance" ),*/ LEVEL ( "level" ), APROVE_FILE ( "aproveFile" ), TURN_ON ( "turnon" );
 
 		String name;
 
@@ -138,4 +166,34 @@ public class TypeJobServiceAPIObject extends APIObject
 	{
 		return TypeJobServiceParams.values ();
 	}
+
+    public boolean isOn ()
+    {
+        return TypeJobServiceState.fromString ( getString ( TypeJobServiceParams.TURN_ON ) ) == TypeJobServiceState.ON;
+    }
+
+    public boolean isOff ()
+    {
+        return TypeJobServiceState.fromString ( getString ( TypeJobServiceParams.TURN_ON ) ) == TypeJobServiceState.OFF;
+    }
+
+    public void on ()
+    {
+        putValue ( TypeJobServiceParams.TURN_ON, TypeJobServiceState.ON.toString () );
+    }
+
+    public boolean isRestore ()
+    {
+        return TypeJobServiceState.fromString ( getString ( TypeJobServiceParams.TURN_ON ) ) == TypeJobServiceState.RESTORE;
+    }
+
+    public void off ()
+    {
+        putValue ( TypeJobServiceParams.TURN_ON, TypeJobServiceState.OFF.toString () );
+    }
+
+    public void restore ()
+    {
+        putValue ( TypeJobServiceParams.TURN_ON, TypeJobServiceState.RESTORE.toString () );
+    }
 }

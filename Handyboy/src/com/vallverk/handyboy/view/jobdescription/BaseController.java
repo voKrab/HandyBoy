@@ -1,8 +1,5 @@
 package com.vallverk.handyboy.view.jobdescription;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.animation.LayoutTransition;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -30,6 +27,9 @@ import com.vallverk.handyboy.model.job.JobTypeManager;
 import com.vallverk.handyboy.model.job.TypeJob;
 import com.vallverk.handyboy.model.job.TypejobLevel;
 import com.vallverk.handyboy.server.ServerManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public abstract class BaseController
 {
@@ -157,7 +157,7 @@ public abstract class BaseController
 	private void updateComponents ()
 	{
 		jobTypeManager = JobTypeManager.getInstance ();
-		if ( isNewJob () )
+		if ( job == null )
 		{
 			return;
 		}
@@ -310,7 +310,7 @@ public abstract class BaseController
 //					}
 
 					isNewJob = isNewJob ();
-					if ( isNewJob )
+					if ( job == null )
 					{
 						job = new TypeJobServiceAPIObject ();
 					}
@@ -321,6 +321,7 @@ public abstract class BaseController
 					//job.putValue ( TypeJobServiceParams.PRICE_DISTANCE, distancePriceView.getPrice () );
 					job.putValue ( TypeJobServiceParams.APROVE_FILE, proofUri );
 					job.putValue ( TypeJobServiceParams.LEVEL, jobLevelView.toString () );
+                    job.on ();
 					if ( isNewJob )
 					{
 						result = apiManager.insert ( job, ServerManager.TYPE_JOB_SERVICE_SAVE );
@@ -367,6 +368,10 @@ public abstract class BaseController
 
 	public void hideDetails ()
 	{
+//        if ( job != null && job.isRestore() )
+//        {
+//            job.off ();
+//        }
 		detailsContainer.setVisibility ( View.GONE );
 		fragment.setCurrentController ( null );
 	}
@@ -379,7 +384,7 @@ public abstract class BaseController
 
 	public boolean isNewJob ()
 	{
-		return job == null;
+		return job == null || job.isRestore ();
 	}
 
 	public TypeJob getTypeJob ()
