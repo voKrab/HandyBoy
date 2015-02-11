@@ -405,6 +405,10 @@
     <string name="what_license_number_massage">Please fill out the following License Number field</string>
     <string name="what_account_number_massage">Please fill out the following Account Number field</string>
     <string name="what_routing_number_massage">Please fill out the following Routing Number field</string>
+    <string name="what_routing_ssn_massage">Please fill out the following SSN Number field</string>
+    <string name="what_address_massage">Please fill out the following Address field</string>
+    <string name="what_city_massage">Please fill out the following City field</string>
+    <string name="what_zip_massage">Please fill out the following Zip field</string>
 
     <!-- filter -->
     <string name="where_at">Where at?</string>
