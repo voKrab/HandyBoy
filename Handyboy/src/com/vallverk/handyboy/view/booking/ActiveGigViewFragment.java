@@ -150,7 +150,8 @@ public class ActiveGigViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-				cancelGig ();
+				//cancelGig ();
+                controller.setState(VIEW_STATE.PROBLEM_SERVICE );
 			}
 		} );
 

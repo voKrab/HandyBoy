@@ -59,6 +59,15 @@
             android:layout_margin="24dp"
             android:orientation="vertical" >
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bank_account_title"
+                android:gravity="center"
+                android:textColor="@color/dark_blue"
+                android:paddingBottom="12dp"
+                android:textSize="16sp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -267,7 +276,14 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/you_home_address"
                 android:textColor="@color/dark_blue"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bank_account_address_description"
+                android:textColor="@color/dark_blue"
+                android:textSize="8sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -403,6 +403,8 @@
     <string name="what_date_massage">Please fill out the following Expiration Date from Massage field</string>
     <string name="what_date_personal_trainer">Please fill out the following Expiration Date from Personal Trainer field</string>
     <string name="what_license_number_massage">Please fill out the following License Number field</string>
+    <string name="what_account_number_massage">Please fill out the following Account Number field</string>
+    <string name="what_routing_number_massage">Please fill out the following Routing Number field</string>
 
     <!-- filter -->
     <string name="where_at">Where at?</string>
@@ -593,4 +595,7 @@
     <string name="past">Past</string>
     <string name="freah_meat">FRESH MEAT</string>
     <string name="hr">HR</string>
+
+    <string name="bank_account_title">Money earned should automatically \n transfer in about 3-7 business days\n(depending on your bank)</string>
+    <string name="bank_account_address_description">(must match the address on file with your bank)</string>
 </resources>

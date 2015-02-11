@@ -129,7 +129,7 @@
                 android:drawablePadding="12dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:text="@string/i_need_to_cancel"
+                android:text="@string/report_problem"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
