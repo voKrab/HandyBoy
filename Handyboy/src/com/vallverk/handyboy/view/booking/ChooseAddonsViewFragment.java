@@ -303,7 +303,7 @@ public class ChooseAddonsViewFragment extends BaseFragment
 
 		selectImageView.setVisibility ( View.GONE );
 
-		int maxCount = 10;
+		int maxCount = 5;
 		final int minCount = 1;
 
 		bathRoomsSeekBar.setMax ( maxCount - minCount );

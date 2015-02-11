@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
@@ -148,7 +149,7 @@ public class BookingViewFragment extends BaseFragment
 
         if ( suggestionHours > selectedHours )
         {
-            Toast.makeText ( controller, "We suggest " + suggestionHours + " hours. Booking for less may result in incomplete services!", Toast.LENGTH_LONG ).show ();
+            Toast.makeText ( controller, "We suggest " + Tools.toAlertText ( suggestionHours ) + " hours. Booking for less may result in incomplete services!", Toast.LENGTH_LONG ).show ();
         }
     }
 

@@ -600,4 +600,11 @@ public class Tools
     {
         return height / 12;
     }
+
+    public static String toAlertText ( float hours )
+    {
+        String hoursString = "" + hours;
+        hoursString = hoursString.replace ( ".5", ".30" );
+        return hoursString;
+    }
 }
