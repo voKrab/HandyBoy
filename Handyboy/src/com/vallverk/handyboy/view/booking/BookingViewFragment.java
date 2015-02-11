@@ -1,10 +1,5 @@
 package com.vallverk.handyboy.view.booking;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +22,11 @@ import com.vallverk.handyboy.model.api.CreditCardAPIObject.CreditCardParams;
 import com.vallverk.handyboy.model.schedule.BookingTime;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.controller.BookingController;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class BookingViewFragment extends BaseFragment
 {
@@ -134,9 +134,24 @@ public class BookingViewFragment extends BaseFragment
 		updateAddressContainer ();
 		updateTimeContainer ();
 		updateCreditCardContainer ();
+        checkSuggestionHours ();
 	}
 
-	private void updateCreditCardContainer ()
+    private void checkSuggestionHours ()
+    {
+        float selectedHours = bookingController.getHours();
+        if ( selectedHours == 0 )
+        {
+            return;
+        }
+        float suggestionHours = bookingController.getSuggestionHours ();
+        if ( suggestionHours > selectedHours )
+        {
+            Toast.makeText ( controller, "We suggest " + suggestionHours + " hours. Booking for less may result in incomplete services!", Toast.LENGTH_LONG ).show ();
+        }
+    }
+
+    private void updateCreditCardContainer ()
 	{
 		CreditCardAPIObject creditCard = bookingController.getCreditCard ();
 		if ( creditCard == null )

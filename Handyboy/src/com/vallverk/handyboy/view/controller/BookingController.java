@@ -19,6 +19,7 @@ import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject.TypeJobServicePar
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.model.job.AddonId;
+import com.vallverk.handyboy.model.job.TypeJob;
 import com.vallverk.handyboy.model.job.TypeJobEnum;
 import com.vallverk.handyboy.model.schedule.BookingTime;
 import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
@@ -46,39 +47,58 @@ public class BookingController
 	private DiscountAPIObject discountAPIObject;
 	private String specialRequest;
 	private TempData tempData;
-    private LawnMovingType lawnMovingType;
+	private LawnMovingType lawnMovingType;
 
-    private int countRooms;
-    private int countBathRooms;
+	private int countRooms;
+	private int countBathRooms;
 
-    public void setLawnMovingType(LawnMovingType lawnMovingType) {
-        this.lawnMovingType = lawnMovingType;
-    }
+	public void setLawnMovingType ( LawnMovingType lawnMovingType )
+	{
+		this.lawnMovingType = lawnMovingType;
+	}
 
-    public LawnMovingType getLawnMovingType() {
-        return lawnMovingType;
-    }
+	public LawnMovingType getLawnMovingType ()
+	{
+		return lawnMovingType;
+	}
 
-    public int getCountBathRooms() {
-        return countBathRooms;
-    }
+	public int getCountBathRooms ()
+	{
+		return countBathRooms;
+	}
 
-    public void setCountBathRooms(int countBathRooms) {
-        this.countBathRooms = countBathRooms;
-    }
+	public void setCountBathRooms ( int countBathRooms )
+	{
+		this.countBathRooms = countBathRooms;
+	}
 
-    public int getCountRooms() {
-        return countRooms;
-    }
+	public int getCountRooms ()
+	{
+		return countRooms;
+	}
 
-    public void setCountRooms(int countRooms) {
-        this.countRooms = countRooms;
-    }
+	public void setCountRooms ( int countRooms )
+	{
+		this.countRooms = countRooms;
+	}
 
-    public enum LawnMovingType
-    {
-        SMALL, MEDIUM, LARGE, EXTRA_LARGE;
-    }
+	public float getHours ()
+	{
+		return bookingTime == null ? 0 : bookingTime.getHours ();
+	}
+
+	public float getSuggestionHours ()
+	{
+        float suggestionTime = 0;
+        TypeJob typeJob = job.getTypeJob ();
+        suggestionTime = typeJob.getMinTime () / 60f;
+		return suggestionTime;
+	}
+
+	public enum LawnMovingType
+	{
+		SMALL, MEDIUM, LARGE, EXTRA_LARGE;
+	}
 
 	public class TempData
 	{
@@ -302,29 +322,36 @@ public class BookingController
 		return bookingTime;
 	}
 
-    public String getBookingComment(){
-        if(isHouseKeeper()) {
-            if (getCountBathRooms() > 0 && getCountRooms() > 0) {
-                return "Count BathRooms " + getCountBathRooms() + " and " + "Count Rooms " + getCountRooms();
-            } else if (getCountBathRooms() > 0) {
-                return "Count BathRooms " + getCountBathRooms();
-            } else if (getCountRooms() > 0) {
-                return "Count Rooms " + getCountRooms();
-            }
-        }else if(isYardWorker()){
-             switch (getLawnMovingType()){
-                 case LARGE:
-                     return controller.getString(R.string.lawm_moving_large);
-                 case MEDIUM:
-                     return controller.getString(R.string.lawm_moving_medium);
-                 case SMALL:
-                     return controller.getString(R.string.lawm_moving_small);
-                 case EXTRA_LARGE:
-                     return controller.getString(R.string.lawm_moving_extra_large);
-             }
-        }
-        return "";
-    }
+	public String getBookingComment ()
+	{
+		if ( isHouseKeeper () )
+		{
+			if ( getCountBathRooms () > 0 && getCountRooms () > 0 )
+			{
+				return "Count BathRooms " + getCountBathRooms () + " and " + "Count Rooms " + getCountRooms ();
+			} else if ( getCountBathRooms () > 0 )
+			{
+				return "Count BathRooms " + getCountBathRooms ();
+			} else if ( getCountRooms () > 0 )
+			{
+				return "Count Rooms " + getCountRooms ();
+			}
+		} else if ( isYardWorker () )
+		{
+			switch ( getLawnMovingType () )
+			{
+				case LARGE:
+					return controller.getString ( R.string.lawm_moving_large );
+				case MEDIUM:
+					return controller.getString ( R.string.lawm_moving_medium );
+				case SMALL:
+					return controller.getString ( R.string.lawm_moving_small );
+				case EXTRA_LARGE:
+					return controller.getString ( R.string.lawm_moving_extra_large );
+			}
+		}
+		return "";
+	}
 
 	public void booking () throws Exception
 	{
@@ -352,7 +379,7 @@ public class BookingController
 		bookingAPIObject.putValue ( BookingAPIParams.TOTAL_HOURS, bookingTime.getHours () );
 		bookingAPIObject.putValue ( BookingAPIParams.STATUS, "" + BookingStatusEnum.PENDING.toInt () );
 		bookingAPIObject.putValue ( BookingAPIParams.SPECIAL_REQUEST, specialRequest );
-        bookingAPIObject.putValue(BookingAPIParams.COMMENT, getBookingComment());
+		bookingAPIObject.putValue ( BookingAPIParams.COMMENT, getBookingComment () );
 
 		JSONObject jsonObject = bookingAPIObject.createJSON ( null );
 		if ( addons != null )
@@ -423,15 +450,15 @@ public class BookingController
 		return job.getTypeJob ().getEnumValue () == TypeJobEnum.PERSONAL_TRAINER;
 	}
 
-    public boolean isHouseKeeper ()
-    {
-        return job.getTypeJob ().getEnumValue () == TypeJobEnum.HOUSEKEEPER;
-    }
-    public boolean isYardWorker ()
-    {
-        return job.getTypeJob ().getEnumValue () == TypeJobEnum.YARD_WORK;
-    }
+	public boolean isHouseKeeper ()
+	{
+		return job.getTypeJob ().getEnumValue () == TypeJobEnum.HOUSEKEEPER;
+	}
 
+	public boolean isYardWorker ()
+	{
+		return job.getTypeJob ().getEnumValue () == TypeJobEnum.YARD_WORK;
+	}
 
 	private AddonServiceAPIObject getAddon ( List < AddonServiceAPIObject > allAddons, int addonId )
 	{
