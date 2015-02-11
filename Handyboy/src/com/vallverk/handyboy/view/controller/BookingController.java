@@ -92,13 +92,35 @@ public class BookingController
         float suggestionTime = 0;
         TypeJob typeJob = job.getTypeJob ();
         suggestionTime = typeJob.getMinTime () / 60f;
+
+        //houskeeper
+        suggestionTime += getCountBathRooms ();
+        suggestionTime += getCountRooms () * 0.5f;
+
+        //yardworker
+        suggestionTime += lawnMovingType == null ? 0 : lawnMovingType.getTime ();
+
 		return suggestionTime;
 	}
 
 	public enum LawnMovingType
 	{
-		SMALL, MEDIUM, LARGE, EXTRA_LARGE;
-	}
+		SMALL ( 0f ), MEDIUM ( 0.5f ), LARGE ( 1f ), EXTRA_LARGE ( 1.5f );
+
+        float time;
+
+        LawnMovingType ( float time )
+        {
+            this.time = time;
+        }
+
+        public float getTime ()
+        {
+            return time;
+        }
+    }
+
+
 
 	public class TempData
 	{

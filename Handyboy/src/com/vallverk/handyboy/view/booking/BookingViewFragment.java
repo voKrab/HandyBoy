@@ -145,6 +145,7 @@ public class BookingViewFragment extends BaseFragment
             return;
         }
         float suggestionHours = bookingController.getSuggestionHours ();
+
         if ( suggestionHours > selectedHours )
         {
             Toast.makeText ( controller, "We suggest " + suggestionHours + " hours. Booking for less may result in incomplete services!", Toast.LENGTH_LONG ).show ();

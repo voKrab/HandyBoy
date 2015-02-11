@@ -211,13 +211,13 @@ public class ChooseAddonsViewFragment extends BaseFragment
 		if ( bookingController.getCountBathRooms () > 0 && bathroomsTextView != null )
 		{
 			bathroomsTextView.performClick ();
-			bathRoomsSeekBar.setProgress ( bookingController.getCountBathRooms () );
+			bathRoomsSeekBar.setProgress ( bookingController.getCountBathRooms () - 1 );
 		}
 
 		if ( bookingController.getCountRooms () > 0 && roomsTextView != null )
 		{
 			roomsTextView.performClick ();
-			roomsSeekBar.setProgress ( bookingController.getCountRooms () );
+			roomsSeekBar.setProgress ( bookingController.getCountRooms () - 1 );
 		}
 
 	}
@@ -237,7 +237,7 @@ public class ChooseAddonsViewFragment extends BaseFragment
 
 		selectImageView.setVisibility ( View.GONE );
 
-		int maxCount = 10;
+		int maxCount = 5;
 		final int minCount = 1;
 
 		roomsSeekBar.setMax ( maxCount - minCount );
@@ -509,14 +509,14 @@ public class ChooseAddonsViewFragment extends BaseFragment
 				bookingController.setLawnMovingType ( getSelectedLawnMoving () );
 				if ( isBathRoomsChecked )
 				{
-					bookingController.setCountBathRooms ( bathRoomsSeekBar.getProgress () );
+					bookingController.setCountBathRooms ( bathRoomsSeekBar.getProgress () + 1 );
 				} else
 				{
 					bookingController.setCountBathRooms ( 0 );
 				}
 				if ( isRoomsChecked )
 				{
-					bookingController.setCountRooms ( roomsSeekBar.getProgress () );
+					bookingController.setCountRooms ( roomsSeekBar.getProgress () + 1 );
 				} else
 				{
 					bookingController.setCountRooms ( 0 );
