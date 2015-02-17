@@ -264,7 +264,8 @@ public class ChatViewFragment extends BaseFragment
 						return;
 					}
 					FragmentTransaction ft = getActivity ().getSupportFragmentManager ().beginTransaction ();
-					DialogFragment newFragment = new BitmapPreviewDialogFragment ( bitmap );
+                    controller.setCommunicationValue ( "bitmap", bitmap );
+					DialogFragment newFragment = new BitmapPreviewDialogFragment ();
 					newFragment.show ( ft, null );
 				}
 			} );

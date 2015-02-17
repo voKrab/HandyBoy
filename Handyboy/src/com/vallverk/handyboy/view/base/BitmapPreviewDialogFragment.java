@@ -9,11 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 
+import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 
 public class BitmapPreviewDialogFragment extends DialogFragment
@@ -22,11 +23,6 @@ public class BitmapPreviewDialogFragment extends DialogFragment
 	private ImageView closeImageView;
 	private Bitmap bitmap;
 
-	public BitmapPreviewDialogFragment ( Bitmap bitmap )
-	{
-		this.bitmap = bitmap;
-	}
-	
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -48,7 +44,9 @@ public class BitmapPreviewDialogFragment extends DialogFragment
 		window.setBackgroundDrawable ( new ColorDrawable ( Color.TRANSPARENT ) );
 		window.setLayout ( LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT );
 		//window.setDimAmount ( 0 );
-		
+
+        bitmap = ( Bitmap ) MainActivity.getInstance ().getCommunicationValue ( "bitmap" );
+
 		updateComponents ();
 		addListeners ();
 	}

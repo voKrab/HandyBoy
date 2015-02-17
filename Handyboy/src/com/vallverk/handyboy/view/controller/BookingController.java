@@ -100,7 +100,7 @@ public class BookingController
         //yardworker
         suggestionTime += lawnMovingType == null ? 0 : lawnMovingType.getTime ();
 
-		return suggestionTime;
+        return suggestionTime;
 	}
 
 	public enum LawnMovingType

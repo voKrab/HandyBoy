@@ -384,7 +384,7 @@ public class ViewStateController implements Serializable
 			{
 				currentFragment = getFragment ( DashboardViewFragment.class, newState );
 				//currentFragment = new ChargesViewFragment();
-				
+
 				FragmentTransaction fragmentTransaction = manager.beginTransaction ();
 				if ( controller.isMenuOpen () )
 				{
@@ -1069,7 +1069,7 @@ public class ViewStateController implements Serializable
 			{
 				return VIEW_STATE.EXIT;
 			}
-            
+
 			case FORGOT_PASSWORD:
 			case FACEBOOK_REGISTRATION:
 			case REGISTRATION:
@@ -1124,7 +1124,7 @@ public class ViewStateController implements Serializable
 			case JOB_DESCRIPTIONS:
 			case CHAT:
 			case TRANSACTION_HISTORY:
-			case REVIEWS_CLIENT:	
+			case REVIEWS_CLIENT:
 			case BLOCK_LIST:
             case ADD_CHARGES:
 			{

@@ -217,26 +217,20 @@ public class HandyBoyViewFragment extends BaseFragment
 				try
 				{
 					// old version
-					handyboy.fetch ( ServerManager.USER_FETCH_URI.replace ( "id=1", "id=" + handyboy.getId () ) );
-					serviceDetails = ( UserDetailsAPIObject ) apiManager.getAPIObject ( handyboy.getId (), UserDetailsAPIObject.class, ServerManager.USER_DETAILS_FETCH_URI );
-					typejobs = APIManager.getInstance ().getTypeJobs ( handyboy );
-					loadPhotos ();
-					loadDiscount ();
+//					handyboy.fetch ( ServerManager.USER_FETCH_URI.replace ( "id=1", "id=" + handyboy.getId () ) );
+//					serviceDetails = ( UserDetailsAPIObject ) apiManager.getAPIObject ( handyboy.getId (), UserDetailsAPIObject.class, ServerManager.USER_DETAILS_FETCH_URI );
+//					typejobs = APIManager.getInstance ().getTypeJobs ( handyboy );
+//					loadPhotos ();
+//					loadDiscount ();
 
 					// faster version
-					// String responceText = ServerManager.getRequest (
-					// ServerManager.HB_PAGE_FACADE_LOAD.replace ( "id=1", "id="
-					// + handyboy.getId () ) );
-					// JSONObject responceJSON = ServerManager.getObject (
-					// responceText );
-					// handyboy.update ( responceJSON.getJSONObject ( "user" )
-					// );
-					// serviceDetails = new UserDetailsAPIObject (
-					// responceJSON.getJSONObject ( "service" ) );
-					// typejobs = APIManager.getInstance ().getTypeJobs ( new
-					// JSONArray ( responceJSON.getString ( "joblist" ) ) );
-					// loadDiscount ( responceJSON );
-					// loadPhotos ( responceJSON );
+					String responceText = ServerManager.getRequest ( ServerManager.HB_PAGE_FACADE_LOAD.replace ( "id=1", "id=" + handyboy.getId () ) );
+					JSONObject responceJSON = ServerManager.getObject ( responceText );
+					handyboy.update ( responceJSON.getJSONObject ( "user" ) );
+					serviceDetails = new UserDetailsAPIObject ( responceJSON.getJSONObject ( "service" ) );
+					typejobs = APIManager.getInstance ().getTypeJobs ( new JSONArray ( responceJSON.getString ( "joblist" ) ) );
+					loadDiscount ( responceJSON );
+					loadPhotos ( responceJSON );
 				} catch ( Exception ex )
 				{
 					result = ex.getMessage ();

@@ -1,12 +1,5 @@
 package com.vallverk.handyboy.view.registration;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,8 +9,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,9 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
@@ -35,16 +28,18 @@ import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
-import com.vallverk.handyboy.model.api.UserDetailsAPIObject;
-import com.vallverk.handyboy.model.api.UserDetailsAPIObject.UserDetailsParams;
 import com.vallverk.handyboy.model.job.JobTypeManager;
 import com.vallverk.handyboy.model.job.TypeJob;
 import com.vallverk.handyboy.model.job.TypeJobEnum;
 import com.vallverk.handyboy.model.job.TypejobLevel;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.BitmapPreviewDialogFragment;
-import com.vallverk.handyboy.view.base.BitmapUtils;
 import com.vallverk.handyboy.view.controller.RegistrationController;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationJobDescriptionViewFragment extends BaseFragment
 {
@@ -121,7 +116,7 @@ public class RegistrationJobDescriptionViewFragment extends BaseFragment
 		addListeners ();
 	}
 
-	private class HelpDialogFragment extends DialogFragment
+	public static class HelpDialogFragment extends DialogFragment
 	{
 		@Override
 		public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
@@ -201,7 +196,8 @@ public class RegistrationJobDescriptionViewFragment extends BaseFragment
 			public void onClick ( View v )
 			{
 				FragmentTransaction ft = getActivity ().getSupportFragmentManager ().beginTransaction ();
-				DialogFragment newFragment = new BitmapPreviewDialogFragment ( proofFile );
+                MainActivity.getInstance ().setCommunicationValue ( "bitmap", proofFile );
+				DialogFragment newFragment = new BitmapPreviewDialogFragment ();
 				newFragment.show ( ft, null );
 			}
 		});

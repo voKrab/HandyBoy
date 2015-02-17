@@ -1,7 +1,5 @@
 package com.vallverk.handyboy.view.registration;
 
-import java.io.IOException;
-import java.util.Calendar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Bitmap;
@@ -14,12 +12,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
+
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
@@ -29,6 +28,9 @@ import com.vallverk.handyboy.view.base.BitmapPreviewDialogFragment;
 import com.vallverk.handyboy.view.base.SingleChoiceSpinner;
 import com.vallverk.handyboy.view.controller.RegistrationController;
 import com.vallverk.handyboy.view.jobdescription.HelpDialogFragment;
+
+import java.io.IOException;
+import java.util.Calendar;
 
 public class RegistrationLicenseViewFragment extends BaseFragment
 {
@@ -310,7 +312,8 @@ public class RegistrationLicenseViewFragment extends BaseFragment
 			public void onClick ( View v )
 			{
 				FragmentTransaction ft = MainActivity.getInstance ().getSupportFragmentManager ().beginTransaction ();
-				DialogFragment newFragment = new BitmapPreviewDialogFragment ( proofFile );
+                MainActivity.getInstance ().setCommunicationValue ( "bitmap", proofFile );
+                DialogFragment newFragment = new BitmapPreviewDialogFragment ();
 				newFragment.show ( ft, null );
 			}
 		} );

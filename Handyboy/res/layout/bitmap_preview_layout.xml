@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="false"
-    tools:context=".TutorialWelcomeViewFragment" >
+    >
 
     <ImageView
         android:id="@+id/bitmapImageView"
@@ -24,4 +24,5 @@
         android:padding="15dp"
         android:src="@drawable/com_facebook_close" />
 
-</RelativeLayout>
+
+</RelativeLayout>
