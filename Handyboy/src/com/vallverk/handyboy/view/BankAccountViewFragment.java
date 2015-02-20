@@ -14,9 +14,15 @@ import android.widget.Toast;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AddressAPIObject;
+import com.vallverk.handyboy.model.api.BankAccountAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.model.api.UserDetailsAPIObject;
+import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.base.SingleChoiceSpinner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class BankAccountViewFragment extends BaseFragment {
     private APIManager apiManager;
@@ -146,12 +152,35 @@ public class BankAccountViewFragment extends BaseFragment {
 
             public void onPostExecute(String result) {
                 super.onPostExecute(result);
-                updateComponents();
+                if(result.isEmpty()){
+                    //updateComponents();
+                }else {
+                    Toast.makeText(controller, result, Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
             protected String doInBackground(Void... params) {
                 String result = "";
+                JSONObject postParams = new JSONObject();
+                try {
+                    postParams.put(BankAccountAPIObject.BankAccountParams.FIRST_NAME.toString(), firstName);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.LAST_NAME.toString(), lastName);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.ACCOUNT_NUMBER.toString(), accountNumber);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.ROUTING_NUMBER.toString(), routingNumber);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.SSN.toString(), ssnNumber);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.STREET_ADDRESS.toString(), address);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.LOCALITY.toString(), city);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.POSTAL_CODE.toString(), zip);
+                    postParams.put(BankAccountAPIObject.BankAccountParams.REGION.toString(), stateSpinner.getSelectedItem().toString());
+                    postParams.put("userId", user.getId().toString());
+
+                    JSONObject request = new JSONObject(ServerManager.postRequest(ServerManager.GET_BANK_ACCOUNT, postParams.toString()));
+                    result = request.getString("parameters");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //Toast.makeText(controller, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
                 return result;
             }
         }.execute();
@@ -188,7 +217,7 @@ public class BankAccountViewFragment extends BaseFragment {
         saveButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                saveBankAccount();
             }
         });
 

@@ -320,7 +320,7 @@
     <string name="update_address_title">Update address</string>
     <string name="bank_account">Bank account</string>
     <string name="shirtless">Shirtless</string>
-    <string name="lawm_moving">Lawn moving</string>
+    <string name="lawm_moving">Lawn size</string>
     <string name="lawm_moving_small">Small Lawn &lt; 1000 sq. ft</string>
     <string name="lawm_moving_medium">Medium 1000-1999 sq. ft</string>
     <string name="lawm_moving_large">Large 2000-2999 sq. ft</string>
@@ -424,14 +424,14 @@
     <string name="bodyType">Body type</string>
     <string name="where_at_hint">Enter a City or Zip</string>
     <string name="customize_your_calendar">Customize your calendar</string>
-    <string name="custom_schedule_description">Going on Vacation? Got a hot date? Use the calendar below to de-select times or days you\'re not available to work.</string>
+    <string name="custom_schedule_description">Going on vacation? Got a hot date? Choose the day you need to adjust and select your new hours. The custom calendar overrides your weekly schedule. Want to take a day off? Just select ‘black out this day.’ Want to work away from home? Enter in your new zip code for the day.</string>
     <string name="working_out_to_town">Working out to town?</string>
     <string name="available_at_certain_time">Available at certain time (date and/or time)</string>
     <string name="reviews">Reviews</string>
     <string name="flag_him">Flag Him</string>
     <string name="available_right_now">Available Right Now</string>
     <string name="discount_off">%1$d%% off!</string>
-    <string name="book_him_now">Book Him Now</string>
+    <string name="book_him_now">Book Him</string>
     <string name="book_him_again">Book him again!</string>
     <string name="you_flagged_this_handy_boy">You Flagged this Handy Boy</string>
 
@@ -532,7 +532,7 @@
     <string name="no_thanks_continue">No Thanks, Continue</string>
     <string name="leave">Leave</string>
     <string name="add_charges">Add charges</string>
-    <string name="addition_charges">Additional charges</string>
+    <string name="addition_charges">Additional Charges</string>
     <string name="add_time">Add time</string>
     <string name="reason_charge">Reason for charge</string>
     <string name="reason_charge_hint">Long drive, Shirtless, Etc.</string>
@@ -546,7 +546,7 @@
     <string name="leave_tip">Leave Tip</string>
     <string name="add_charges_text">We highly suggest you discuss additional charges with your client before sending this request</string>
     <string name="send_request">Send Request</string>
-    <string name="has_asked">Has asked you to approve</string>
+    <string name="has_asked">has asked you to approve</string>
     <string name="finish">Finish</string>
     <string name="reschedule_him">Reschedule Him</string>
     <string name="new_total">For a NEW total of $75</string>
@@ -581,7 +581,7 @@
 
     <string name="account_number">Account number</string>
     <string name="routing_number">Routing number</string>
-    <string name="last_ssn_digits">Last 4 digits of you SSN?</string>
+    <string name="last_ssn_digits">SSN</string>
     <string name="number">Number</string>
     <string name="you_home_address">You Home Address:</string>
     <string name="zip">Zip</string>
@@ -602,4 +602,9 @@
 
     <string name="bank_account_title">Money earned should automatically \n transfer in about 3-7 business days\n(depending on your bank)</string>
     <string name="bank_account_address_description">(must match the address on file with your bank)</string>
+    <string name="share">Share</string>
+    <string name="to_your">to your</string>
+    <string name="city_field">City</string>
+    <string name="special_request_hint">Have a request for your HandyBoy? From a special outfit to specific instructions, you can let him know here.</string>
+    <string name="enter_zip">Enter a Zip</string>
 </resources>

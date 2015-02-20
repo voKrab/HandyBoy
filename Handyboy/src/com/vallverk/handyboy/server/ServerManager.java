@@ -126,6 +126,7 @@ public class ServerManager
 
     public static final String CHANGE_PHONE_NUMBER = PROTOCOL + HOST  + "/user/changenumber";
     public static final String HB_PAGE_FACADE_LOAD = PROTOCOL + HOST  + "/facade/service?id=1";
+    public static final String GET_BANK_ACCOUNT = PROTOCOL + HOST  + "/payment/bankaccount";
 
     public static String getRequest ( String uriString ) throws Exception
     {

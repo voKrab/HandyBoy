@@ -109,7 +109,7 @@
                 android:layout_marginLeft="13dp"
                 android:layout_marginRight="13dp"
                 android:background="@drawable/edit_text_selector"
-                android:hint="@string/additional_charges_hint"
+                android:hint="@string/special_request_hint"
                 android:inputType="textMultiLine"
                 android:visibility="gone"
                 android:paddingTop="15dp"

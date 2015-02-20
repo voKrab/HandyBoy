@@ -175,6 +175,7 @@ public class GigsViewFragment extends BaseFragment
 			TextView gigIdTextView;
 			TextView hourTextView;
 			TextView gigStatusTextView;
+            TextView hoursTypeTextView;
 		}
 
 		@Override
@@ -195,6 +196,7 @@ public class GigsViewFragment extends BaseFragment
 				viewHolder.gigIdTextView = ( TextView ) view.findViewById ( R.id.gigIdTextView );
 				viewHolder.hourTextView = ( TextView ) view.findViewById ( R.id.hourTextView );
 				viewHolder.gigStatusTextView = ( TextView ) view.findViewById ( R.id.gigStatusTextView );
+                viewHolder.hoursTypeTextView = (TextView) view.findViewById(R.id.hoursTypeTextView);
 				view.setTag ( viewHolder );
 			} else
 			{
@@ -218,10 +220,18 @@ public class GigsViewFragment extends BaseFragment
 			}
 
 			viewHolder.gigJobNameTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
-			viewHolder.gigDateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ) ) );
+			viewHolder.gigDateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ), "MMMM, dd yyyy" ) );
 			viewHolder.gigIdTextView.setText ( "GIG#" + bookingDataObject.getBookingAPIObject ().getId ().toString () );
             String hours = bookingDataObject.getBookingAPIObject ().getTextTotalHours ();
-            viewHolder.hourTextView.setText ( hours );
+
+            String sHours =  getHours(hours);
+            viewHolder.hourTextView.setText (sHours );
+
+            if("1".equals(sHours) || "0.5".equals(sHours)){
+                viewHolder.hoursTypeTextView.setText("HR");
+            }else{
+                viewHolder.hoursTypeTextView.setText("Hrs");
+            }
 			BookingStatusEnum status = bookingDataObject.getSatus ();
 			updateStatusComponents ( viewHolder, status );
 			CommunicationManager.getInstance ().addListener ( CommunicationAction.BOOKING_STATUS, new Handler ()
@@ -244,6 +254,17 @@ public class GigsViewFragment extends BaseFragment
 			viewHolder.gigStatusTextView.setBackgroundColor ( BookingAPIObject.getStatusColor ( status ) );
 		}
 	}
+
+    public String getHours(String hours){
+        do{
+            hours = hours.substring(0, hours.length()-1);
+        }while (hours.length() > 0 && hours.charAt(hours.length()-1)=='0');
+
+        if (hours.length() > 0 && hours.charAt(hours.length()-1)=='.') {
+            hours = hours.substring(0, hours.length()-1);
+        }
+        return  hours;
+    }
 
 	private OnClickListener onGigTypeClickListener = new OnClickListener ()
 	{

@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.view.base.BaseFragment;
 
@@ -16,16 +18,19 @@ public class BookAgainViewFragment extends BaseFragment
 {
 	private ImageView backImageView;
 	private TextView backTextView;
+    private View cancelButton;
+    private View bookHimAgainButton;
 	private APIManager apiManager;
 	private UserAPIObject user;
+    private BookingDataManager bookingDataManager;
 	
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		if ( view == null )
 		{
 			view = inflater.inflate ( R.layout.book_again_layout, container, false );
-			backImageView = ( ImageView ) view.findViewById ( R.id.backImageView );
-			backTextView = ( TextView ) view.findViewById ( R.id.backTextView );
+            cancelButton = view.findViewById(R.id.cancelButton);
+            bookHimAgainButton = view.findViewById(R.id.bookHimAgainButton);
 		} else
 		{
 			( ( ViewGroup ) view.getParent () ).removeView ( view );
@@ -39,6 +44,7 @@ public class BookAgainViewFragment extends BaseFragment
 		super.onActivityCreated ( savedInstanceState );
 		apiManager = APIManager.getInstance ();
 		user = apiManager.getUser ();
+        bookingDataManager = BookingDataManager.getInstance ();
 		addListeners ();
 	}
 
@@ -53,7 +59,7 @@ public class BookAgainViewFragment extends BaseFragment
 
 	private void addListeners ()
 	{
-		backTextView.setOnClickListener ( new OnClickListener ()
+		/*backTextView.setOnClickListener ( new OnClickListener ()
 		{
 
 			@Override
@@ -61,9 +67,9 @@ public class BookAgainViewFragment extends BaseFragment
 			{
 				controller.onBackPressed ();
 			}
-		} );
+		} );*/
 
-		backImageView.setOnClickListener ( new OnClickListener ()
+		/*backImageView.setOnClickListener ( new OnClickListener ()
 		{
 
 			@Override
@@ -71,6 +77,21 @@ public class BookAgainViewFragment extends BaseFragment
 			{
 				controller.onBackPressed ();
 			}
-		} );
+		} );*/
+
+        bookHimAgainButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.setCommunicationValue(UserAPIObject.class.getSimpleName (), bookingDataManager.getActiveBooking ().getService() );
+                controller.setState(ViewStateController.VIEW_STATE.HANDY_BOY_PAGE);
+            }
+        });
+
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.setState(ViewStateController.VIEW_STATE.GIGS);
+            }
+        });
 	}
 }

@@ -510,17 +510,22 @@ public class Tools
 		return reportDate;
 	}
 
-	public static String toDateString ( Date date )
+	public static String toDateString ( Date date, String formatString )
 	{
-		SimpleDateFormat format = new SimpleDateFormat ( "EEEE, MMMM, dd" );
+		SimpleDateFormat format = new SimpleDateFormat ( formatString );
 		String reportDate = format.format ( date );
 		return reportDate;
 	}
 
 	public static String toDateString ( String dateString )
 	{
-		return toDateString ( fromStringToDate ( dateString ) );
+		return toDateString ( fromStringToDate ( dateString ), "EEEE, MMMM dd" );
 	}
+
+    public static String toDateString ( String dateString, String format)
+    {
+        return toDateString ( fromStringToDate ( dateString ), format );
+    }
 
 	public static Date fromStringToDate ( String dateString )
 	{

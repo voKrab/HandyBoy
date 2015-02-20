@@ -1,5 +1,6 @@
 package com.vallverk.handyboy.view.booking;
 
+import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.BookingDataManager;
@@ -30,4 +31,9 @@ public class CustomerReviewViewFragment extends ServiceReviewViewFragment
 			bookingDataObject.getBookingAPIObject ().changeStatus ( APIManager.getInstance ().getUser (), bookingDataObject.getService (), BookingStatusEnum.APPROVED );
 		}
 	}
+
+    @Override
+    protected void changeState(){
+        controller.setState ( ViewStateController.VIEW_STATE.BOOK_AGAIN );
+    }
 }

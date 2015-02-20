@@ -2,6 +2,8 @@ package com.vallverk.handyboy.view.booking;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -113,7 +115,37 @@ public class AddChargesViewFragment extends BaseFragment
 				send ();
 			}
 		} );
+
+        priceEditText.addTextChangedListener(priceTextWatcher);
 	}
+
+    private TextWatcher priceTextWatcher = new TextWatcher ()
+    {
+
+        @Override
+        public void onTextChanged ( CharSequence s, int start, int before, int count )
+        {
+        }
+
+        @Override
+        public void beforeTextChanged ( CharSequence s, int start, int count, int after )
+        {
+        }
+
+        @Override
+        public void afterTextChanged ( Editable s )
+        {
+            String phone = s.toString ().replace ( "$", "" ).trim ();
+            if ( phone != null && !phone.isEmpty () )
+            {
+                phone = "$" + phone;
+                priceEditText.removeTextChangedListener ( priceTextWatcher );
+                priceEditText.setText ( phone );
+                priceEditText.setSelection ( priceEditText.getText ().length () );
+                priceEditText.addTextChangedListener ( priceTextWatcher );
+            }
+        }
+    };
 
 	private void send ()
 	{
@@ -123,7 +155,7 @@ public class AddChargesViewFragment extends BaseFragment
             Toast.makeText ( controller, controller.getString(R.string.setup_reason ), Toast.LENGTH_LONG ).show ();
             return;
         }
-        final String price = priceEditText.getText().toString ().trim ();
+        final String price = priceEditText.getText().toString ().replace("$", "").trim ();
         if ( price.isEmpty () )
         {
             Toast.makeText ( controller, controller.getString(R.string.setup_price ), Toast.LENGTH_LONG ).show ();

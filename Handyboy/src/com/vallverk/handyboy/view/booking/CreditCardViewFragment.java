@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -311,7 +312,8 @@ public class CreditCardViewFragment extends BaseFragment
 			List < String > cardNamesList = new ArrayList < String > ();
 			for ( CreditCardAPIObject tempObject : listCreditCardAPIObject )
 			{
-				cardNamesList.add ( tempObject.getString ( CreditCardParams.CARD_NAME ) );
+                String cardNumber = tempObject.getString(CreditCardParams.CARD_NUMBER);
+				cardNamesList.add ( tempObject.getString ( CreditCardParams.CARD_NAME ) + " --" +cardNumber.substring(Math.max(cardNumber.length() - 2, 0)));
 			}
 			creditCardsSpinner.setData ( cardNamesList.toArray () );
             if(isBooking) {
@@ -478,6 +480,20 @@ public class CreditCardViewFragment extends BaseFragment
                 }
             });
         }
+
+        /*creditCardsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(isBooking) {
+                    controller.getBookingController().setCreditCard(listCreditCardAPIObject.get(creditCardsSpinner.getSelectedItemPosition()));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
 		cardExpDateEditText.setOnClickListener ( dateClickListener );
 		submitNewCardButton.setOnClickListener ( new OnClickListener ()
 		{

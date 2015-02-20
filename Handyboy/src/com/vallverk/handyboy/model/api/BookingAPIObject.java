@@ -79,7 +79,7 @@ public class BookingAPIObject extends APIObject implements Serializable
     public String getTextTotalHours ()
     {
         String hours = getValue ( BookingAPIParams.TOTAL_HOURS ).toString ();
-        hours = hours.replace ( ".50", ".30" );
+        hours = hours.replace ( ".30", ".50" );
         return hours;
     }
 

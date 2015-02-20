@@ -223,7 +223,7 @@ public class YourMoneyViewFragment extends BaseFragment
     {
         totalPrice = 0;
         for(Object tempObject: items){
-            totalPrice += Float.parseFloat(((MyMoneyAPIObject) tempObject).getString(MyMoneyParams.AMOUNT));
+            totalPrice += Float.parseFloat(((MyMoneyAPIObject) tempObject).getValue(MyMoneyParams.AMOUNT).toString());
         }
         totalPriceSet.sendEmptyMessage ( 0 );
     }
@@ -279,8 +279,8 @@ public class YourMoneyViewFragment extends BaseFragment
 
             ( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_HUMAN ));
             ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_DAY_HUMAN ));
-            ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText ( myMoneyAPIObject.getString ( MyMoneyParams.TOTAL_HOURS ).replace(".50", ".30"));
-            ( ( TextView ) view.findViewById ( R.id.priceTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ));
+            ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText ( myMoneyAPIObject.getValue ( MyMoneyParams.TOTAL_HOURS ).toString());
+            ( ( TextView ) view.findViewById ( R.id.priceTextView ) ).setText (myMoneyAPIObject.getValue ( MyMoneyParams.AMOUNT ).toString());
 
             view.setOnClickListener(new OnClickListener() {
                 @Override

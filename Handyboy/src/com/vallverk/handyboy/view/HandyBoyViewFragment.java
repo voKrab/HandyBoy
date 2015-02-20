@@ -105,6 +105,7 @@ public class HandyBoyViewFragment extends BaseFragment
 	private ArrayList < GalleryAPIObject > galleryItems;
 	private TextView discountTextView;
 	private DiscountAPIObject discountAPIObject;
+    private View bottomContainer;
 	static private List reviewsData;
 	private LayoutInflater layoutInflater;
 	private boolean isShowGallery;
@@ -153,6 +154,7 @@ public class HandyBoyViewFragment extends BaseFragment
 		reviewsContainer = ( LinearLayout ) view.findViewById ( R.id.reviewsContainer );
 		reviewsTitle = ( TextView ) view.findViewById ( R.id.reviewsTitle );
 		showMoreButton = view.findViewById ( R.id.showMoreButton );
+        bottomContainer = view.findViewById(R.id.bottomContainer);
 
 		mainAvatarImageView = ( ImageView ) view.findViewById ( R.id.mainAvatarImageView );
 		mainAvatarImageView.setVisibility ( View.GONE );
@@ -179,6 +181,12 @@ public class HandyBoyViewFragment extends BaseFragment
 		this.handyboy = newUser == null ? handyboy : newUser;
 		layoutInflater = LayoutInflater.from ( controller );
 		isMyUser = handyboy.getId ().equals ( apiManager.getUser ().getId () );
+        if(isMyUser){
+            bottomContainer.setVisibility(View.GONE);
+        }else{
+            bottomContainer.setVisibility(View.VISIBLE);
+        }
+
 	}
 
 	@Override
@@ -221,7 +229,7 @@ public class HandyBoyViewFragment extends BaseFragment
 //					serviceDetails = ( UserDetailsAPIObject ) apiManager.getAPIObject ( handyboy.getId (), UserDetailsAPIObject.class, ServerManager.USER_DETAILS_FETCH_URI );
 //					typejobs = APIManager.getInstance ().getTypeJobs ( handyboy );
 //					loadPhotos ();
-//					loadDiscount ();
+					loadDiscount ();
 
 					// faster version
 					String responceText = ServerManager.getRequest ( ServerManager.HB_PAGE_FACADE_LOAD.replace ( "id=1", "id=" + handyboy.getId () ) );
@@ -229,7 +237,7 @@ public class HandyBoyViewFragment extends BaseFragment
 					handyboy.update ( responceJSON.getJSONObject ( "user" ) );
 					serviceDetails = new UserDetailsAPIObject ( responceJSON.getJSONObject ( "service" ) );
 					typejobs = APIManager.getInstance ().getTypeJobs ( new JSONArray ( responceJSON.getString ( "joblist" ) ) );
-					loadDiscount ( responceJSON );
+					//loadDiscount ( responceJSON );
 					loadPhotos ( responceJSON );
 				} catch ( Exception ex )
 				{
@@ -580,15 +588,16 @@ public class HandyBoyViewFragment extends BaseFragment
 	{
 		final String mediaString = ( String ) handyboy.getValue ( UserParams.AVATAR );
 
+        isShowGallery = false;
+
 		if ( galleryItems.size () > 0 )
 		{
 			mDemoSlider.removeAllSliders ();
 
-			// DefaultSliderView defaultSliderView = new DefaultSliderView (
-			// controller );
-			// defaultSliderView.image ( mediaString );
-			// mDemoSlider.addSlider ( defaultSliderView );
-
+			 DefaultSliderView defaultSliderView = new DefaultSliderView (
+			 controller );
+			 defaultSliderView.image ( mediaString );
+			 mDemoSlider.addSlider ( defaultSliderView );
 			for ( GalleryAPIObject galleryItem : galleryItems )
 			{
 				if ( galleryItem.getValue ( GalleryAPIParams.STATUS ).toString ().equals ( "approved" ) )
@@ -596,7 +605,7 @@ public class HandyBoyViewFragment extends BaseFragment
 					isShowGallery = true;
 					if ( galleryItem.getString ( GalleryAPIParams.TYPE ).equals ( "image" ) )
 					{
-						DefaultSliderView defaultSliderView = new DefaultSliderView ( controller );
+						defaultSliderView = new DefaultSliderView ( controller );
 						defaultSliderView.image ( galleryItem.getString ( GalleryAPIParams.URL ) );
 						defaultSliderView.setOnSliderClickListener ( new BaseSliderView.OnSliderClickListener ()
 						{
@@ -636,13 +645,12 @@ public class HandyBoyViewFragment extends BaseFragment
 
 				GalleryAPIObject galleryAPIObject = new GalleryAPIObject ( jsonGalleryAPIObject );
 				galleryItems.add ( 0, galleryAPIObject );
-
 			} catch ( Exception e )
 			{
 				e.printStackTrace ();
 			}
 
-			mDemoSlider.setPresetTransformer ( SliderLayout.Transformer.ZoomOutSlide );
+			mDemoSlider.setPresetTransformer ( SliderLayout.Transformer.DepthPage );
 			mDemoSlider.setPresetIndicator ( SliderLayout.PresetIndicators.Center_Bottom );
 
 			mDemoSlider.setCustomAnimation ( new DescriptionAnimation () );
@@ -655,7 +663,6 @@ public class HandyBoyViewFragment extends BaseFragment
 			ImageLoader.getInstance ().displayImage ( mediaString, mainAvatarImageView, avatarLoadOptions );
 			mainAvatarImageView.setVisibility ( View.VISIBLE );
 			mDemoSlider.setVisibility ( View.GONE );
-
 			mainAvatarImageView.setOnClickListener ( new OnClickListener ()
 			{
 				@Override
@@ -678,10 +685,11 @@ public class HandyBoyViewFragment extends BaseFragment
 					{
 						e.printStackTrace ();
 					}
-
 				}
 			} );
 		}
+
+        isShowGallery = false;
 
 		String name = handyboy.getString ( UserParams.FIRST_NAME ) + " " + handyboy.getString ( UserParams.LAST_NAME );
 		nameTextView.setText ( name );

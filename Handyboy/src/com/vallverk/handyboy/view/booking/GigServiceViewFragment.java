@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.BookingStatusEnum;
@@ -80,7 +79,7 @@ public class GigServiceViewFragment extends BaseFragment
 		customer = bookingDataManager.getData ().get ( bookingDataManager.getActiveDataIndex () ).getCustomer ();
 		isIService = service.getId ().equals ( apiManager.getUser ().getId () );
 		bookingDetailsView.setData ( bookingDataManager.getData ().get ( bookingDataManager.getActiveDataIndex () ), user.isService () );
-		bookingDetailsView.setRaiting ( 4.0f );
+		//bookingDetailsView.setRaiting ( 4.0f);
 		bookingAPIObject = bookingDataObject.getBookingAPIObject ();
 	}
 

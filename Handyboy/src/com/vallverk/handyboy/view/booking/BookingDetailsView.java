@@ -16,6 +16,7 @@ import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
 import com.vallverk.handyboy.model.api.AddressAPIObject.AddressParams;
+import com.vallverk.handyboy.model.api.BookingAPIObject;
 import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
 import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.BookingDataObject.JobAddonDetailsObject;
@@ -26,6 +27,11 @@ import com.vallverk.handyboy.view.base.RatingView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BookingDetailsView extends FrameLayout
 {
@@ -41,6 +47,7 @@ public class BookingDetailsView extends FrameLayout
 	private TextView dateTextView;
 	private TextView periodTextView;
 	private TextView priceTextView;
+    private TextView totalPriceTextView;
 
 	private View commentContainer;
 	private TextView commentTextView;
@@ -84,6 +91,7 @@ public class BookingDetailsView extends FrameLayout
 		dateTextView = ( TextView ) view.findViewById ( R.id.dateTextView );
 		periodTextView = ( TextView ) view.findViewById ( R.id.periodTextView );
 		priceTextView = ( TextView ) view.findViewById ( R.id.priceTextView );
+        totalPriceTextView = (TextView) view.findViewById(R.id.totalPriceTextView);
 		addonsContainerLayout = ( LinearLayout ) view.findViewById ( R.id.addonsContainerLayout );
 
 		commentContainer = view.findViewById ( R.id.commentContainer );
@@ -121,6 +129,7 @@ public class BookingDetailsView extends FrameLayout
 		addressNameTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.DESCRIPTION ) );
 		addressTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.ADDRESS ) );
 		dateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ) ) );
+        totalPriceTextView.setText( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ).toString ());
 
 		String avatarUrl = "";
 		if ( isIService )
@@ -146,7 +155,9 @@ public class BookingDetailsView extends FrameLayout
 		{
 			e.printStackTrace ();
 		}
-		periodTextView.setText ( bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString () + " Hours, " + startPeriod + " to " + endPeriod );
+        String totalHours = bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ();
+
+		periodTextView.setText (  getHours(totalHours) + " Hours, " + getTime(startPeriod) + " to " + getTime(endPeriod) );
 		priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_PRICE ).toString () );
 		addonsContainerLayout.removeAllViews ();
 		for ( JobAddonDetailsObject jobAddonDetailsObject : bookingDataObject.getAddonsAPIObjects () )
@@ -203,4 +214,31 @@ public class BookingDetailsView extends FrameLayout
 		params.height = Tools.fromDPToPX ( 154, getContext () );
 		avatarImageView.setLayoutParams ( params );
 	}
+
+    public String getHours(String hours){
+       hours = hours.replace(".30", ".50");
+       do{
+           hours = hours.substring(0, hours.length()-1);
+       }while (hours.length() > 0 && hours.charAt(hours.length()-1)=='0');
+
+       if (hours.length() > 0 && hours.charAt(hours.length()-1)=='.') {
+            hours = hours.substring(0, hours.length()-1);
+       }
+       return  hours;
+    }
+
+    public String getTime(String time){
+        DateFormat sdf = new SimpleDateFormat("hh:mm");
+        try {
+            Date date = sdf.parse(time);
+            DateFormat format = new SimpleDateFormat( "h:mm a" );
+            String str = format.format( date.getTime() );
+            return  str;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //DateFormat formatter = new SimpleDateFormat("HH:mm");
+        return "";
+    }
 }

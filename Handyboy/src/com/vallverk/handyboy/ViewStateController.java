@@ -35,6 +35,7 @@ import com.vallverk.handyboy.view.address.AddressViewFragment;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.booking.ActiveGigViewFragment;
 import com.vallverk.handyboy.view.booking.AddChargesViewFragment;
+import com.vallverk.handyboy.view.booking.BookAgainViewFragment;
 import com.vallverk.handyboy.view.booking.BookAnotherViewFragment;
 import com.vallverk.handyboy.view.booking.BookingChooseDiscountTimeViewFragment;
 import com.vallverk.handyboy.view.booking.BookingChooseTimeViewFragment;
@@ -91,7 +92,7 @@ public class ViewStateController implements Serializable
 	 */
 	public enum VIEW_STATE
 	{
-		CHOOSE_ADDRESS, GALLERY, ADD_ADDRESS, REGISTRATION_SERVICE_LICENSE, REGISTRATION_SERVICE_VIDEO, REGISTRATION_SERVICE_TERMS, REGISTRATION_SERVICE_SELPHIE, EXIT, SPLASH, LOGIN, REGISTRATION, FACEBOOK_REGISTRATION, HOME, FORGOT_PASSWORD, CHOOSE_USER_TYPE, PROFILE, SERVICE_EDIT_PROFILE, CUSTOMER_EDIT_PROFILE, REGISTRATION_SERVICE_BIO, REGISTRATION_CUSTOMER_BIO, FAVORITES, CHATS, CALENDAR, CHOOSE_CATEGORY, FEED, DASHBOARD, CHOOSE_JOB_TYPE, HANDY_BOY_PAGE, CHAT, TERMS, CONTRACT, PRIVACY_POLICY, AVAILABLE_NOW, JOB_DESCRIPTIONS, WEEKLY_SCHEDULE, YOUR_MONEY, ACCOUNT, TRANSACTION_HISTORY, BLOCK_LIST, CUSTOM_SCHEDULE, FILTER, HELP, CHANGE_PHONE, WAITING_FOR_VALIDATION, BOOKING, CHOOSE_ADDONS, CREDIT_CARD, BOOKING_CHOOSE_TIME, BOOKING_CHECKOUT, GIGS, GIG_SERVICE, GIG_CUSTOMER, NEXT_GIG, ACTIVE_GIG, PROBLEM_CUSTOMER, PROBLEM_SERVICE, BOOK_ANOTHER, SERVICED, BOOKING_CHOOSE_DISCOUNT_TIME, ADD_CHARGES, CHARGES, SERVICE_REVIEW, LEAVE_TIP, CUSTOMER_REVIEW, REVIEWS_CLIENT, BANK_ACCOUNT, GIG_COMPLETED
+		CHOOSE_ADDRESS, GALLERY, ADD_ADDRESS, REGISTRATION_SERVICE_LICENSE, REGISTRATION_SERVICE_VIDEO, REGISTRATION_SERVICE_TERMS, REGISTRATION_SERVICE_SELPHIE, EXIT, SPLASH, LOGIN, REGISTRATION, FACEBOOK_REGISTRATION, HOME, FORGOT_PASSWORD, CHOOSE_USER_TYPE, PROFILE, SERVICE_EDIT_PROFILE, CUSTOMER_EDIT_PROFILE, REGISTRATION_SERVICE_BIO, REGISTRATION_CUSTOMER_BIO, FAVORITES, CHATS, CALENDAR, CHOOSE_CATEGORY, FEED, DASHBOARD, CHOOSE_JOB_TYPE, HANDY_BOY_PAGE, CHAT, TERMS, CONTRACT, PRIVACY_POLICY, AVAILABLE_NOW, JOB_DESCRIPTIONS, WEEKLY_SCHEDULE, YOUR_MONEY, ACCOUNT, TRANSACTION_HISTORY, BLOCK_LIST, CUSTOM_SCHEDULE, FILTER, HELP, CHANGE_PHONE, WAITING_FOR_VALIDATION, BOOKING, CHOOSE_ADDONS, CREDIT_CARD, BOOKING_CHOOSE_TIME, BOOKING_CHECKOUT, GIGS, GIG_SERVICE, GIG_CUSTOMER, NEXT_GIG, ACTIVE_GIG, PROBLEM_CUSTOMER, PROBLEM_SERVICE, BOOK_ANOTHER, SERVICED, BOOKING_CHOOSE_DISCOUNT_TIME, ADD_CHARGES, CHARGES, SERVICE_REVIEW, LEAVE_TIP, CUSTOMER_REVIEW, REVIEWS_CLIENT, BANK_ACCOUNT, GIG_COMPLETED, BOOK_AGAIN
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -383,7 +384,6 @@ public class ViewStateController implements Serializable
 			case DASHBOARD:
 			{
 				currentFragment = getFragment ( DashboardViewFragment.class, newState );
-				//currentFragment = new ChargesViewFragment();
 
 				FragmentTransaction fragmentTransaction = manager.beginTransaction ();
 				if ( controller.isMenuOpen () )
@@ -821,6 +821,17 @@ public class ViewStateController implements Serializable
 				break;
 			}
 
+
+            case BOOK_AGAIN:
+            {
+                currentFragment = new BookAgainViewFragment();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction ();
+                fragmentTransaction.setCustomAnimations ( R.anim.up_to_center, R.anim.center_to_down );
+
+                commitState ( fragmentTransaction );
+                break;
+            }
+
 			case GIGS:
 			{
 				currentFragment = getFragment ( GigsViewFragment.class, newState );
@@ -1094,6 +1105,7 @@ public class ViewStateController implements Serializable
 				return VIEW_STATE.DASHBOARD;
 			}
 
+            case BOOK_AGAIN:
             case GIG_COMPLETED:
             case CHARGES:
 			case ACTIVE_GIG:

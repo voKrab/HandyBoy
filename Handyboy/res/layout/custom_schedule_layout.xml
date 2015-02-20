@@ -152,7 +152,7 @@
                     android:layout_marginTop="13dp"
                     android:background="@drawable/edit_text_selector"
                     android:ems="10"
-                    android:hint="@string/location"
+                    android:hint="@string/enter_zip"
                     android:inputType="text"
                     android:paddingLeft="13dp"
                     android:paddingRight="13dp"

@@ -601,14 +601,14 @@ public class FeedViewFragment extends BaseFragment
 			{
                 filterManager.setSearchString ( "" );
                 filterManager.setJobId ( "" );
-                filterManager.setIsSearchByFilter ( false );
+                //filterManager.setIsSearchByFilter ( false );
 				searchTextView.setText ( "" );
 				searchGroupNameTextView.setText ( "" );
 				searchButton.performClick ();
 				boyTypeExpandableListView.setVisibility ( View.GONE );
 				arrowInsearchImageView.setActivated ( false );
 				gridFragment.refreshData ();
-                updateFilterButton();
+                //updateFilterButton();
 			}
 		} );
 

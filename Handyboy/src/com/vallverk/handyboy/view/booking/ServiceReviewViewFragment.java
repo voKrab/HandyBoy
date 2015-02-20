@@ -155,7 +155,7 @@ public class ServiceReviewViewFragment extends BaseFragment
 				if ( result.isEmpty () )
 				{
 					controller.setSwipeEnabled ( true );
-					controller.setState ( VIEW_STATE.GIGS );
+                    changeState();
 				} else
 				{
 					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
@@ -187,6 +187,11 @@ public class ServiceReviewViewFragment extends BaseFragment
 		// TODO Auto-generated method stub
 		
 	}
+
+    protected void changeState ()
+    {
+        controller.setState ( VIEW_STATE.GIGS );
+    }
 
 	protected ReviewAPIObject createReviewAPIObject ( BookingDataObject bookingDataObject, float rating, String review )
 	{
