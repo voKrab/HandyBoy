@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.view.base.BaseFragment;
 
@@ -93,6 +94,10 @@ public class LeaveViewFragment extends BaseFragment
 			}
 		} );
 	}
+
+    private void sendTips(){
+        BookingDataManager.getInstance().getActiveBooking().getBookingAPIObject().
+    }
 
 	protected void leaveTips ()
 	{

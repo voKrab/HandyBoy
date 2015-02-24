@@ -25,6 +25,7 @@ import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
 import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.MyMoneyAPIObject;
@@ -34,6 +35,7 @@ import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
 import com.vallverk.handyboy.model.api.BookingDataObject.JobAddonDetailsObject;
 import com.vallverk.handyboy.model.api.JobAddonsAPIObject.JobAddonsAPIParams;
 import com.vallverk.handyboy.model.api.MyMoneyAPIObject.MyMoneyParams;
+import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.AnimatedExpandableListView;
@@ -80,8 +82,14 @@ public class TransactionHistoryViewFragment extends BaseFragment
                     {
                         try{
                             GroupItem groupItem = new GroupItem();
-                            groupItem.moneyAPIObject = new MyMoneyAPIObject ( list.getJSONObject ( i ) );
-                            groupItem.bookingDataObject =  new BookingDataObject (list.getJSONObject ( i ).getJSONObject("booking"));
+                            groupItem.moneyAPIObject = new MyMoneyAPIObject ( list.getJSONObject(i) );
+                            JSONObject booking = list.getJSONObject ( i ).getJSONObject("booking");
+                            groupItem.bookingDataObject =  new BookingDataObject (booking);
+                            groupItem.additionalChargesList = new ArrayList<AdditionalChargesAPIObject>();
+                            JSONArray chargesList = booking.getJSONArray("addcharges"); // new JSONArray(booking.getJSONObject("addcharges"));
+                            for (int j = 0; j < chargesList.length(); j++){
+                                groupItem.additionalChargesList.add(new AdditionalChargesAPIObject(chargesList.getJSONObject(j)));
+                            }
                             groupItems.add ( groupItem );
                         }catch (Exception ex){
                             ex.printStackTrace ();
@@ -191,6 +199,7 @@ public class TransactionHistoryViewFragment extends BaseFragment
     {
         MyMoneyAPIObject moneyAPIObject;
         BookingDataObject bookingDataObject;
+        List<AdditionalChargesAPIObject> additionalChargesList;
     }
 
     private static class ChildHolder
@@ -228,9 +237,9 @@ public class TransactionHistoryViewFragment extends BaseFragment
         }
 
         @Override
-        public BookingDataObject getChild ( int groupPosition, int childPosition )
+        public GroupItem getChild ( int groupPosition, int childPosition )
         {
-            return items.get ( groupPosition ).bookingDataObject;
+            return items.get ( groupPosition );
         }
 
         @Override
@@ -250,7 +259,9 @@ public class TransactionHistoryViewFragment extends BaseFragment
 		TextView priceTextView;
 		LinearLayout addonsContainerLayout;*/
             ChildHolder holder;
-            BookingDataObject bookingDataObject = getChild ( groupPosition, childPosition );
+            BookingDataObject bookingDataObject = getChild ( groupPosition, childPosition ).bookingDataObject;
+            List<AdditionalChargesAPIObject> additionalChargesList = getChild ( groupPosition, childPosition ).additionalChargesList;
+
             if ( convertView == null )
             {
                 holder = new ChildHolder ();
@@ -286,7 +297,9 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 e.printStackTrace ();
             }
             holder.periodTextView.setText ( bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString () + " Hours, " + startPeriod + " to " + endPeriod );
-            holder.priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_PRICE ).toString () );
+            //holder.priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_PRICE ).toString () );
+            float priceByHour = Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ()) * Float.parseFloat(bookingDataObject.getTypeJobAPIObject().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.PRICE).toString());
+            holder.priceTextView.setText ( "$" +  priceByHour);
             holder.addonsContainerLayout.removeAllViews ();
             for ( JobAddonDetailsObject jobAddonDetailsObject : bookingDataObject.getAddonsAPIObjects () )
             {
@@ -295,6 +308,16 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
                 addonNameTextView.setText ( "+" + jobAddonDetailsObject.addonsAPIObject.getValue ( JobAddonsAPIParams.NAME ) );
                 addonPriceTextView.setText ( "$" + jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIParams.PRICE ) );
+                holder.addonsContainerLayout.addView ( addonItemView );
+            }
+
+            for ( AdditionalChargesAPIObject additionalChargesAPIObject : additionalChargesList )
+            {
+                View addonItemView = inflater.inflate ( R.layout.addon_item_view, null );
+                TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
+                TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
+                addonNameTextView.setText ( "+" + additionalChargesAPIObject.getValue ( AdditionalChargesAPIObject.AdditionalChargesParams.REASON ).toString() );
+                addonPriceTextView.setText ( "$" + additionalChargesAPIObject.getValue (AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString() );
                 holder.addonsContainerLayout.addView ( addonItemView );
             }
 
@@ -330,7 +353,7 @@ public class TransactionHistoryViewFragment extends BaseFragment
         {
             GroupHolder holder;
             MyMoneyAPIObject myMoneyAPIObject = getGroup ( groupPosition );
-            BookingDataObject bookingDataObject = getChild ( groupPosition, 0 );
+            BookingDataObject bookingDataObject = getChild ( groupPosition, 0 ).bookingDataObject;
             if ( convertView == null )
             {
                 holder = new GroupHolder ();
@@ -345,7 +368,7 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 holder = ( GroupHolder ) convertView.getTag ();
             }
 
-            holder.gigIdTextView.setText ( "GIG#" + myMoneyAPIObject.getString ("bookingId") );
+            holder.gigIdTextView.setText ( "GIG#" + bookingDataObject.getBookingAPIObject().getValue("bookingId") );
             holder.gigNameTextView.setText ( bookingDataObject.getService ().getShortName () );
             holder.gigSessionNameTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
             holder.gigPriceTextView.setText ( "$" + myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ) );
