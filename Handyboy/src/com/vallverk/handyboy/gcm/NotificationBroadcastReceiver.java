@@ -1,17 +1,16 @@
 package com.vallverk.handyboy.gcm;
 
-import org.json.JSONObject;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
+import org.json.JSONObject;
 
 public class NotificationBroadcastReceiver extends BroadcastReceiver
 {
@@ -29,6 +28,31 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver
 				ActionType actionType = ActionType.fromString ( jsonObject.getString ( "actionType" ) );
 				switch ( actionType )
 				{
+                    case BOOKING_ADD_CHARGES_ACCEPTED:
+                    {
+//                        String bookingId = jsonObject.getString ( "bid" );
+//                        manager.updateBooking ( bookingId );
+                        new AsyncTask<Void,Void,String>()
+                        {
+                            @Override
+                            protected String doInBackground(Void... params)
+                            {
+                                String result = "";
+                                try
+                                {
+                                    BookingDataManager manager = BookingDataManager.getInstance ();
+                                    manager.update ();
+                                } catch ( Exception ex )
+                                {
+                                    ex.printStackTrace ();
+                                    result = ex.getMessage ();
+                                }
+                                return result;
+                            }
+                        }.execute ();
+                        break;
+                    }
+
 					case BOOKING_STATUS:
 					{
 						String bookingId = jsonObject.getString ( "bookingId" );

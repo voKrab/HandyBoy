@@ -1,5 +1,7 @@
 package com.vallverk.handyboy.model.api;
 
+import android.os.AsyncTask;
+
 import com.vallverk.handyboy.FileManager;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.MainActivity.ApplicationAction;
@@ -23,8 +25,8 @@ public class BookingDataManager implements Serializable
 	private static BookingDataManager instance;
 	private int amountUnreadBooking;
 	private BookingFilter bookingType;
-	
-	public enum BookingFilter
+
+    public enum BookingFilter
 	{
 		CURRENT ( "current" ),
 		PAST ( "past" );
@@ -50,7 +52,7 @@ public class BookingDataManager implements Serializable
 		}
 		return instance;
 	}
-	
+
 	public BookingDataManager ()
 	{
 		data = new ArrayList < BookingDataObject > ();
@@ -96,6 +98,29 @@ public class BookingDataManager implements Serializable
 		}
 	}
 
+    public void updateBooking ( final String bookingId )
+    {
+        new AsyncTask<Void,Void,String>()
+        {
+            @Override
+            protected String doInBackground(Void... params)
+            {
+                String result = "";
+                try
+                {
+                    BookingAPIObject bookingAPIObject = getBookingDataObject ( bookingId ).getBookingAPIObject ();
+                    bookingAPIObject.fetch ( ServerManager.GET_BOOKING.replace ( "id=1", "id=" + bookingId ) );
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+
+    }
+
 	public BookingDataObject getActiveBooking ()
 	{
 		return data.get ( getActiveDataIndex () );
@@ -115,7 +140,7 @@ public class BookingDataManager implements Serializable
 	{
 		return getActiveBooking ().getCustomer ();
 	}
-	
+
 	public UserAPIObject getActiveService ()
 	{
 		return getActiveBooking ().getService ();
@@ -139,7 +164,7 @@ public class BookingDataManager implements Serializable
 //			}
 //		}
 //	}
-	
+
 	public void statusChanged ( String bookingId, BookingStatusEnum status )
 	{
 		BookingStatusEnum newStatus = status;
@@ -193,12 +218,12 @@ public class BookingDataManager implements Serializable
 		BookingDataObject bookingDataObject = getBookingDataObject ( bookingId );
 		setActiveDataIndex ( data.indexOf ( bookingDataObject ) );
 	}
-	
+
 	public int getAmountUnreadBooking ()
 	{
 		return amountUnreadBooking;
 	}
-	
+
 	public void setAmountUnreadBooking ( int newValue )
 	{
 		if ( amountUnreadBooking != newValue )
