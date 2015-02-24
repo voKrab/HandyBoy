@@ -299,6 +299,30 @@
             android:orientation="vertical" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/chargesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:text="Charges?"
+            android:textColor="@color/dark_blue"
+            android:textSize="9sp" />
+
+        <LinearLayout
+            android:id="@+id/chargesContainerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:orientation="vertical" />
+    </LinearLayout>
+
     <com.vallverk.handyboy.view.base.TextViewPlus
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

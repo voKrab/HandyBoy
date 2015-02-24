@@ -236,7 +236,7 @@ public class HandyBoyViewFragment extends BaseFragment
 					JSONObject responceJSON = ServerManager.getObject ( responceText );
 					handyboy.update ( responceJSON.getJSONObject ( "user" ) );
 					serviceDetails = new UserDetailsAPIObject ( responceJSON.getJSONObject ( "service" ) );
-					typejobs = APIManager.getInstance ().getTypeJobs ( new JSONArray ( responceJSON.getString ( "joblist" ) ) );
+					typejobs = APIManager.getInstance ().getOnOnlyTypeJobs ( new JSONArray ( responceJSON.getString ( "joblist" ) ) );
 					//loadDiscount ( responceJSON );
 					loadPhotos ( responceJSON );
 				} catch ( Exception ex )
@@ -737,30 +737,30 @@ public class HandyBoyViewFragment extends BaseFragment
 		jobsMap = new HashMap < TypeJobServiceAPIObject, ImageView > ();
 		typejobsContainer.setVisibility ( View.VISIBLE );
 		JobTypeManager manager = JobTypeManager.getInstance ();
+        int indexSelection = 0;
 		for ( final TypeJobServiceAPIObject typeJobObject : typejobs )
 		{
-			ImageView imageView = new ImageView ( controller );
-			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams ( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT );
-			lp.setMargins ( Tools.fromDPToPX ( 13, controller ), 0, 0, 0 );
-			imageView.setLayoutParams ( lp );
-			// imageView.setImageResource ( manager.getImageResource (
-			// typeJobObject.getString ( TypeJobServiceParams.TYPEJOB_ID ) ) );
-			imageView.setImageResource ( R.drawable.dumbbels_na );
-			typejobsContainer.addView ( imageView );
-			jobsMap.put ( typeJobObject, imageView );
-			imageView.setOnClickListener ( new OnClickListener ()
-			{
-				@Override
-				public void onClick ( View v )
-				{
-					if ( selectedJob == typeJobObject )
-					{
-						return;
-					}
-					selectedJob = typeJobObject;
-					updateJobSelection ();
-				}
-			} );
+
+                ImageView imageView = new ImageView(controller);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                lp.setMargins(Tools.fromDPToPX(13, controller), 0, 0, 0);
+                imageView.setLayoutParams(lp);
+                // imageView.setImageResource ( manager.getImageResource (
+                // typeJobObject.getString ( TypeJobServiceParams.TYPEJOB_ID ) ) );
+                imageView.setImageResource(R.drawable.dumbbels_na);
+                typejobsContainer.addView(imageView);
+                jobsMap.put(typeJobObject, imageView);
+                imageView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (selectedJob == typeJobObject) {
+                            return;
+                        }
+                        selectedJob = typeJobObject;
+                        updateJobSelection();
+                    }
+                });
+
 		}
 		selectedJob = typejobs.get ( 0 );
 		updateJobSelection ();

@@ -89,7 +89,7 @@ public class BaseFragment extends Fragment
 
 	}
 
-	public void onBackPressed ()
+    public void onBackPressed ()
 	{
 		controller.hideKeyboard ();
 	}

@@ -61,6 +61,13 @@ public class BookingAPIObject extends APIObject implements Serializable
         return null;
     }
 
+
+    public List<AdditionalChargesAPIObject> getAdditionalChargesList () throws Exception
+    {
+        List < AdditionalChargesAPIObject > list = APIManager.getInstance ().loadList ( ServerManager.BOOKING_GET_ADD_CHARGES.replace ( "bookingId=1", "bookingId=" + getId() ), AdditionalChargesAPIObject.class );
+        return  list;
+    }
+
     public boolean isAdditionalChargesState () throws Exception
     {
         String jsonString = ServerManager.getRequest ( ServerManager.IS_ADD_CHARGES_STATE.replace ( "bookingId=1", "bookingId=" + getId () ) );

@@ -259,6 +259,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@string/address_zip_field_title"
@@ -271,6 +272,7 @@
                     android:layout_height="34dp"
                     android:background="@drawable/edit_text_selector"
                     android:digits="1234567890"
+                    android:visibility="gone"
                     android:hint="@string/address_zip_field_hint"
                     android:inputType="number"
                     android:maxLength="10"

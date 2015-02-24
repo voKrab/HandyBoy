@@ -15,6 +15,11 @@ public class AdditionalChargesAPIObject extends APIObject implements Serializabl
         return AdditionalChargeStatusEnum.fromString ( getString ( AdditionalChargesParams.STATUS ) ) == AdditionalChargeStatusEnum.REQUESTED;
     }
 
+    public boolean isAccepted()
+    {
+        return AdditionalChargeStatusEnum.fromString ( getString ( AdditionalChargesParams.STATUS ) ) == AdditionalChargeStatusEnum.ACCEPTED;
+    }
+
     public enum AdditionalChargesParams
 	{
 		BOOKING_ID ( "bookingId" ), STATUS ( "status" ), REASON ( "reason" ), PRICE ( "price" );

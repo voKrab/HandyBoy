@@ -92,6 +92,7 @@ public class RegistrationViewFragment extends BaseFragment
 		{
 			setupTestData ();
 		}
+
 		updateComponents ();
 		addListeners ();
 	}
@@ -112,7 +113,7 @@ public class RegistrationViewFragment extends BaseFragment
 		lastEditText.setText ( "Barkov" );
 		emailEditText.setText ( "tuser@gmail.com" );
 		passwordEditText.setText ( "123456" );
-		phoneEditText.setText ( "+380637781903" );
+		phoneEditText.setText ( "+380637799999" );
         termsOfServicePrivacyPolicyCheckBox.setChecked ( true );
         servicesContractCheckBox.setChecked ( true );
 
@@ -165,7 +166,6 @@ public class RegistrationViewFragment extends BaseFragment
 				@Override
 				public void onClick ( View v )
 				{
-					//
 					String code = verificationCodeField.getText ().toString ().trim ();
 					if ( code.isEmpty () )
 					{
@@ -178,8 +178,6 @@ public class RegistrationViewFragment extends BaseFragment
 						codeVerificationDialog.dismiss ();
 						isVerificationOk = true;
 						registration ();
-						// phoneVerificationButton.setText (
-						// R.string.registration );
 					}
 				}
 			} );
@@ -230,7 +228,7 @@ public class RegistrationViewFragment extends BaseFragment
 
 						Calendar c = Calendar.getInstance ();
 						c.set ( year, month + 1, day );
-						date = c.getTimeInMillis () / 1000;
+						date = c.getTimeInMillis ();
 						monthTextView.setText ( "" + ( month + 1 ) );
 						dayTextView.setText ( "" + day );
 						yearTextView.setText ( "" + ( year ) );
@@ -408,7 +406,7 @@ public class RegistrationViewFragment extends BaseFragment
 			return;
 		}
 
-		if ( firstName.length () < 3 )
+		if ( firstName.length () < 2 )
 		{
 			Toast.makeText ( getActivity (), R.string.names_require, Toast.LENGTH_LONG ).show ();
 			return;
@@ -421,7 +419,7 @@ public class RegistrationViewFragment extends BaseFragment
 			return;
 		}
 
-		if ( lastName.length () < 3 )
+		if ( lastName.length () < 2 )
 		{
 			Toast.makeText ( getActivity (), R.string.names_require, Toast.LENGTH_LONG ).show ();
 			return;

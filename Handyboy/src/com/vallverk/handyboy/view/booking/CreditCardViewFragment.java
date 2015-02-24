@@ -63,7 +63,7 @@ public class CreditCardViewFragment extends BaseFragment
 	private TextView cardExpDateEditText;
 	private TextView cardNameEditText;
 	private TextView cvvEditText;
-	private TextView zipEditText;
+	//private TextView zipEditText;
 
 	private SingleChoiceSpinner creditCardsSpinner;
 	private long selectedDate;
@@ -91,7 +91,7 @@ public class CreditCardViewFragment extends BaseFragment
 			creditCardsSpinner = ( SingleChoiceSpinner ) view.findViewById ( R.id.creditCardsSpinner );
 			cardNameEditText = ( TextView ) view.findViewById ( R.id.cardNameEditText );
 			cvvEditText = ( TextView ) view.findViewById ( R.id.cvvEditText );
-			zipEditText = ( TextView ) view.findViewById ( R.id.zipEditText );
+			//zipEditText = ( TextView ) view.findViewById ( R.id.zipEditText );
 			saveButton = ( Button ) view.findViewById ( R.id.saveButton );
             deleteButton = ( Button ) view.findViewById ( R.id.deleteButton );
 
@@ -278,7 +278,7 @@ public class CreditCardViewFragment extends BaseFragment
 					cardNameEditText.setText ( "" );
 					cardExpDateEditText.setText ( "" );
 					cvvEditText.setText ( "" );
-					zipEditText.setText ( "" );
+					//zipEditText.setText ( "" );
 					getCreditCards ();
 				} else
 				{

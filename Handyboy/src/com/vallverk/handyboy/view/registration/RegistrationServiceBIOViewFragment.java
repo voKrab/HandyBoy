@@ -180,7 +180,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			// setupTestData ();
 		} else
 		{
-			int height = userDetails.getInt ( UserDetailsParams.HEIGHT );
+			int height =  Integer.parseInt(userDetails.getValue ( UserDetailsParams.HEIGHT ).toString());
 
             int inches = Tools.getInches ( height );
             int feets = Tools.getFeets ( height );
@@ -435,16 +435,33 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			Toast.makeText ( getActivity (), R.string.how_tall_are_you, Toast.LENGTH_LONG ).show ();
 			return;
 		}
+
+        if(hairColorSpinner.getSelectedItem() == null || hairColorSpinner.getSelectedItem().toString().isEmpty()){
+            Toast.makeText ( getActivity (), R.string.whats_your_hair_color, Toast.LENGTH_LONG ).show ();
+            return;
+        }
+
+        if(eyeColorSpinner.getSelectedItem() == null || eyeColorSpinner.getSelectedItem().toString().isEmpty()){
+            Toast.makeText ( getActivity (), R.string.whats_your_eye_color, Toast.LENGTH_LONG ).show ();
+            return;
+        }
+
+
+        if(weightSpinner.getSelectedItem() == null || weightSpinner.getSelectedItem().toString().isEmpty()){
+            Toast.makeText ( getActivity (), R.string.whats_your_weight, Toast.LENGTH_LONG ).show ();
+            return;
+        }
+
 		if ( bodyTypeSpinner.isEmpty () )
 		{
 			Toast.makeText ( getActivity (), R.string.what_is_your_body, Toast.LENGTH_LONG ).show ();
 			return;
 		}
-		/*if ( sexualitySpinner.isEmpty () )
+        if(sexualitySpinner.getSelectedItem() == null || sexualitySpinner.getSelectedItem().toString().isEmpty())
 		{
 			Toast.makeText ( getActivity (), R.string.what_is_your_sexuality, Toast.LENGTH_LONG ).show ();
 			return;
-		}*/
+		}
 		if ( ethentitySpinner.isEmpty () )
 		{
 			Toast.makeText ( getActivity (), R.string.what_is_your_ethentity, Toast.LENGTH_LONG ).show ();
@@ -472,8 +489,8 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 		UserDetailsAPIObject userDetails = service == null ? new UserDetailsAPIObject () : service;
         userDetails.putValue ( UserDetailsParams.HEIGHT, Integer.parseInt(feetEditText.getText ().toString ()) * 12 + Integer.parseInt(inchesEditText.getText ().toString ()) );
 		userDetails.putValue ( UserDetailsParams.WEIGHT, "" + weightSpinner.getSelectedItem () );
+        userDetails.putValue ( UserDetailsParams.EYE_COLOR, eyeColorSpinner.getSelectedItem ().toString () );
 		userDetails.putValue ( UserDetailsParams.HEIR_COLOR, hairColorSpinner.getSelectedItem ().toString () );
-		userDetails.putValue ( UserDetailsParams.EYE_COLOR, eyeColorSpinner.getSelectedItem ().toString () );
 		userDetails.putValue ( UserDetailsParams.BODY_TYPE, bodyTypeSpinner.getSelectedItems () );
 		userDetails.putValue ( UserDetailsParams.SEX, sexualitySpinner.getSelectedItem ().toString () );
 		userDetails.putValue ( UserDetailsParams.ETHNICITY, ethentitySpinner.getSelectedItems () );

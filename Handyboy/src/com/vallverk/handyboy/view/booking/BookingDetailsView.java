@@ -1,6 +1,7 @@
 package com.vallverk.handyboy.view.booking;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
+import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
 import com.vallverk.handyboy.model.api.AddressAPIObject.AddressParams;
 import com.vallverk.handyboy.model.api.BookingAPIObject;
@@ -32,6 +35,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class BookingDetailsView extends FrameLayout
 {
@@ -59,6 +63,12 @@ public class BookingDetailsView extends FrameLayout
 	private ImageView chatImageView;
 
 	private LinearLayout addonsContainerLayout;
+
+    private List<AdditionalChargesAPIObject> additionalChargesList;
+    private BookingDataObject bookingDataObject;
+
+    private View chargesContainer;
+    private LinearLayout chargesContainerLayout;
 
 	public BookingDetailsView ( Context context )
 	{
@@ -103,8 +113,67 @@ public class BookingDetailsView extends FrameLayout
 		ratingView = ( RatingView ) view.findViewById ( R.id.ratingView );
 		chatImageView = ( ImageView ) view.findViewById ( R.id.chatImageView );
 
+        chargesContainer = view.findViewById(R.id.chargesContainer);
+        chargesContainerLayout = (LinearLayout) view.findViewById(R.id.chargesContainerLayout);
+
 		addView ( view );
 	}
+
+    private void getAdditionalCharges(){
+        new AsyncTask< Void, Void, String >()
+        {
+            @Override
+            protected void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+
+                if (result.isEmpty () )
+                {
+                    if(additionalChargesList != null && additionalChargesList.size() > 0){
+                        chargesContainerLayout.removeAllViews ();
+                        for ( AdditionalChargesAPIObject object : additionalChargesList )
+                        {
+                            if ( object.isAccepted() )
+                            {
+                                //return object;
+
+
+                                 View addonItemView = inflater.inflate ( R.layout.addon_item_view, null );
+                                 TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
+                                 TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
+                                 addonNameTextView.setText ( "+" + object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.REASON).toString() );
+                                 addonPriceTextView.setText ( "$" +object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString() );
+                                chargesContainerLayout.addView ( addonItemView );
+                            }
+                        }
+
+                        //chargesContainer.setVisibility(VISIBLE);
+                        //chargesTextView.setText(additionalCharges.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.REASON).toString());
+                        //chargespriceTextView.setText("$" + additionalCharges.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString());
+                    }else{
+                        chargesContainer.setVisibility(GONE);
+                    }
+                }else{
+                    chargesContainer.setVisibility(GONE);
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    additionalChargesList = bookingDataObject.getBookingAPIObject ().getAdditionalChargesList();
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
 
 	public void setAvatar ( String url )
 	{
@@ -124,6 +193,7 @@ public class BookingDetailsView extends FrameLayout
 
 	public void setData ( BookingDataObject bookingDataObject, boolean isIService )
 	{
+        this.bookingDataObject = bookingDataObject;
 		gigTitleTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
 		userNameTextView.setText ( bookingDataObject.getService ().getShortName () );
 		addressNameTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.DESCRIPTION ) );
@@ -189,6 +259,8 @@ public class BookingDetailsView extends FrameLayout
 			specialReqeustTextView.setText ( specialRequest );
 			specialReqeustContainer.setVisibility ( VISIBLE );
 		}
+
+        getAdditionalCharges();
 	}
 
 	public void setRaiting ( float rating )

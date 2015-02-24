@@ -391,11 +391,14 @@
     <string name="customize">Customize</string>
 
     <!-- errors -->
-    <string name="names_require1">Names require at least 3 letters</string>
-    <string name="names_require">Names require at least 3 letters</string>
+    <string name="names_require1">Names require at least 2 letters</string>
+    <string name="names_require">Names require at least 2 letters</string>
     <string name="passwords_must_have">Passwords must have at least 6 characters</string>
     <string name="email_address_not_valid">Incorrect Email</string>
     <string name="whats_your_name">Please fill out the following Name field</string>
+    <string name="whats_your_weight">Please fill out the following Weight field</string>
+    <string name="whats_your_hair_color">Please fill out the following Hair Color field</string>
+    <string name="whats_your_eye_color">Please fill out the following Eye Color field</string>
     <string name="whats_your_email">Please fill out the following Email field</string>
     <string name="what_password_would_you_like_to_use">Please fill out the following Password field</string>
     <string name="how_old_are_you">How old are you?</string>

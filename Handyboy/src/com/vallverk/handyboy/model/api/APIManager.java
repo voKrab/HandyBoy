@@ -298,6 +298,24 @@ public class APIManager implements Serializable
         return typejobs;
     }
 
+
+    public List < TypeJobServiceAPIObject > getOnOnlyTypeJobs ( JSONArray arrayData ) throws Exception
+    {
+        List < TypeJobServiceAPIObject > typejobs = new ArrayList < TypeJobServiceAPIObject > ();
+        for ( int i = 0; i < arrayData.length (); i++ )
+        {
+            JSONObject jsonObject = new JSONObject ( arrayData.getString ( i ) );
+            TypeJobServiceAPIObject typejob = new TypeJobServiceAPIObject ( jsonObject );
+            if(typejob.isOn()) {
+                typejobs.add(typejob);
+            }
+        }
+        return typejobs;
+    }
+
+
+
+
 	public List loadList ( String url, Class type ) throws Exception
 	{
 		String responceString = ServerManager.getRequest ( url );

@@ -1023,10 +1023,10 @@ public class ViewStateController implements Serializable
 
 	public void onBackPressed ()
 	{
-		if ( currentFragment != null )
-		{
-			currentFragment.onBackPressed ();
-		}
+        if ( currentFragment != null )
+        {
+            currentFragment.onBackPressed ();
+        }
 		if ( isRegistrationControllerState () )
 		{
 			controller.getRegistrationController ().prevStep ();

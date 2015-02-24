@@ -10,6 +10,7 @@ import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.UserStatus;
 import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.GalleryAPIObject;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserDetailsAPIObject;
@@ -345,6 +346,10 @@ public class RegistrationController
 	 * save this file 2. Insert Service with jobType 3. Save avatar 4. Update
 	 * user. avatar, serviceId, status
 	 **/
+
+
+
+
 	private void createService ()
 	{
 		new AsyncTask < Void, Void, String > ()
@@ -391,6 +396,23 @@ public class RegistrationController
 					user.putValue ( UserParams.AVATAR, avatarUrl );
 					apiManager.update ( user, ServerManager.USER_UPDATE_URI );
 
+
+                    //save selfie
+                    String selphieUrl = "";
+
+                    if ( getSelphie() != null )
+                    {
+                        selphieUrl = apiManager.saveBitmap ( getSelphie() );
+                    }
+
+                    JSONObject jsonObject = new JSONObject ();
+                    jsonObject.accumulate ( GalleryAPIObject.GalleryAPIParams.SERVICE_ID.toString (), user.getValue ( UserParams.SERVICE_ID ).toString () );
+                    jsonObject.accumulate ( GalleryAPIObject.GalleryAPIParams.URL.toString (), selphieUrl );
+                    jsonObject.accumulate ( GalleryAPIObject.GalleryAPIParams.TYPE.toString (), "selfie" );
+                    jsonObject.accumulate ( GalleryAPIObject.GalleryAPIParams.STATUS.toString (), "" );
+                    GalleryAPIObject galleryAPIObject = new GalleryAPIObject ( jsonObject );
+                    result = apiManager.insert ( galleryAPIObject, ServerManager.ADD_GALLERY_URI );
+
 					
 					//Save license
 					if ( jobTypeApproveFile != null && trainerDate != 0 )
@@ -417,6 +439,8 @@ public class RegistrationController
 						licenceParams.accumulate ( "state", getUState () );
 						ServerManager.postRequest ( ServerManager.LICENSE_ADD, licenceParams );
 					}
+
+
 				} catch ( Exception ex )
 				{
 					ex.printStackTrace ();

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -194,7 +195,8 @@ public class JobDescriptionViewFragment extends BaseFragment
             {
                 currentController.hideDetails ();
             }
-            if ( defaultJobs.size () == 1 )
+          // if ( defaultJobs.size () == 1 )
+            if(getCountOnTypeJobs(defaultJobs) == 1 || getCountOnTypeJobs(defaultJobs) == 0)
             {
                 Toast.makeText ( controller, R.string.you_can_not_delete_the_last_type_of_work, Toast.LENGTH_LONG ).show ();
                 return;
@@ -303,7 +305,6 @@ public class JobDescriptionViewFragment extends BaseFragment
 	
 	protected void removeJob ( TypeJob typejob )
 	{
-
 		jobsContainer.removeView ( jobDetailsMap.get ( typejob ) );
 		jobDetailsMap.remove ( typejob );
 	}
@@ -369,6 +370,19 @@ public class JobDescriptionViewFragment extends BaseFragment
 		}
 		return false;
 	}
+
+    private int getCountOnTypeJobs(List < TypeJobServiceAPIObject > list){
+        int count = 0;
+        for(TypeJobServiceAPIObject tempTypeJob : list){
+            Log.d("Jobs", tempTypeJob.getName() + " " + tempTypeJob.isOn());
+            if(tempTypeJob.isOn())
+            {
+                count ++;
+            }
+        }
+        Log.d("Jobs", "=======" + count + "=======" );
+        return  count;
+    }
 
 	private void updateJobsContainer ()
 	{
@@ -481,7 +495,20 @@ public class JobDescriptionViewFragment extends BaseFragment
 
 	public void addToDefault ( TypeJobServiceAPIObject jobObject )
 	{
-		defaultJobs.add ( jobObject );
+        boolean isContains = false;
+        int index = 0;
+        for(TypeJobServiceAPIObject tempObject : defaultJobs){
+            if(tempObject.getId() == jobObject.getId()){
+                isContains  = true;
+                defaultJobs.set(index, jobObject);
+            }
+            index++;
+        }
+
+        if(!isContains){
+            defaultJobs.add (jobObject );
+        }
+
 		updateJobTypesIndicators ();
 	}
 }
