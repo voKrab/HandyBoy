@@ -51,7 +51,7 @@ public class GigsViewFragment extends BaseFragment
 
 	private List data;
 
-    private boolean isShowLoader = true;
+	private boolean isShowLoader = true;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -77,20 +77,22 @@ public class GigsViewFragment extends BaseFragment
 		@Override
 		public boolean handleMessage ( Message msg )
 		{
-                if ( data.isEmpty () )
-                {
-                    if(!pastGigLayout.isActivated()){
-                        mainContainer.setVisibility ( View.GONE );
-                        noBookingLayout.setVisibility ( View.VISIBLE );
-                    }else{
-                        mainContainer.setVisibility ( View.VISIBLE );
-                        noBookingLayout.setVisibility ( View.GONE );
-                    }
-                } else
-                {
-                    mainContainer.setVisibility ( View.VISIBLE );
-                    noBookingLayout.setVisibility ( View.GONE );
-                }
+			if ( data.isEmpty () )
+			{
+				if ( !pastGigLayout.isActivated () )
+				{
+					mainContainer.setVisibility ( View.GONE );
+					noBookingLayout.setVisibility ( View.VISIBLE );
+				} else
+				{
+					mainContainer.setVisibility ( View.VISIBLE );
+					noBookingLayout.setVisibility ( View.GONE );
+				}
+			} else
+			{
+				mainContainer.setVisibility ( View.VISIBLE );
+				noBookingLayout.setVisibility ( View.GONE );
+			}
 
 			return false;
 		}
@@ -117,15 +119,18 @@ public class GigsViewFragment extends BaseFragment
 				@Override
 				public List < Object > refresh () throws Exception
 				{
-                    if(isShowLoader){
-                        controller.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                controller.showLoader();
-                            }
-                        });
-                        isShowLoader = false;
-                    }
+					if ( isShowLoader )
+					{
+						controller.runOnUiThread ( new Runnable ()
+						{
+							@Override
+							public void run ()
+							{
+								controller.showLoader ();
+							}
+						} );
+						isShowLoader = false;
+					}
 
 					bookingDataManager.update ();
 					data = bookingDataManager.getData ();
@@ -133,12 +138,14 @@ public class GigsViewFragment extends BaseFragment
 					{
 						onRefreshHandler.sendEmptyMessage ( 0 );
 					}
-                    controller.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            controller.hideLoader();
-                        }
-                    });
+					controller.runOnUiThread ( new Runnable ()
+					{
+						@Override
+						public void run ()
+						{
+							controller.hideLoader ();
+						}
+					} );
 					return data;
 				}
 			} );
@@ -181,7 +188,7 @@ public class GigsViewFragment extends BaseFragment
 			TextView gigIdTextView;
 			TextView hourTextView;
 			TextView gigStatusTextView;
-            TextView hoursTypeTextView;
+			TextView hoursTypeTextView;
 		}
 
 		@Override
@@ -202,15 +209,15 @@ public class GigsViewFragment extends BaseFragment
 				viewHolder.gigIdTextView = ( TextView ) view.findViewById ( R.id.gigIdTextView );
 				viewHolder.hourTextView = ( TextView ) view.findViewById ( R.id.hourTextView );
 				viewHolder.gigStatusTextView = ( TextView ) view.findViewById ( R.id.gigStatusTextView );
-                viewHolder.hoursTypeTextView = (TextView) view.findViewById(R.id.hoursTypeTextView);
+				viewHolder.hoursTypeTextView = ( TextView ) view.findViewById ( R.id.hoursTypeTextView );
 				view.setTag ( viewHolder );
 			} else
 			{
 				viewHolder = ( ViewHolder ) view.getTag ();
 			}
 
-            GigViewOnClickListener listener = new GigViewOnClickListener ( controller, bookingDataManager, selectedPosition );
-            view.setOnClickListener ( listener );
+			GigViewOnClickListener listener = new GigViewOnClickListener ( controller, bookingDataManager, selectedPosition );
+			view.setOnClickListener ( listener );
 
 			ImageLoader.getInstance ().displayImage ( user.getString ( UserParams.AVATAR ), viewHolder.myAvatarImage, avatarLoadOptions );
 
@@ -228,16 +235,18 @@ public class GigsViewFragment extends BaseFragment
 			viewHolder.gigJobNameTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
 			viewHolder.gigDateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ), "MMMM, dd yyyy" ) );
 			viewHolder.gigIdTextView.setText ( "GIG#" + bookingDataObject.getBookingAPIObject ().getId ().toString () );
-            String hours = bookingDataObject.getBookingAPIObject ().getTextTotalHours ();
+			String hours = bookingDataObject.getBookingAPIObject ().getTextTotalHours ();
 
-            String sHours =  getHours(hours);
-            viewHolder.hourTextView.setText (sHours );
+			String sHours = getHours ( hours );
+			viewHolder.hourTextView.setText ( sHours );
 
-            if("1".equals(sHours) || "0.5".equals(sHours)){
-                viewHolder.hoursTypeTextView.setText("HR");
-            }else{
-                viewHolder.hoursTypeTextView.setText("Hrs");
-            }
+			if ( "1".equals ( sHours ) || "0.5".equals ( sHours ) )
+			{
+				viewHolder.hoursTypeTextView.setText ( "HR" );
+			} else
+			{
+				viewHolder.hoursTypeTextView.setText ( "Hrs" );
+			}
 			BookingStatusEnum status = bookingDataObject.getSatus ();
 			updateStatusComponents ( viewHolder, status );
 			CommunicationManager.getInstance ().addListener ( CommunicationAction.BOOKING_STATUS, new Handler ()
@@ -261,16 +270,19 @@ public class GigsViewFragment extends BaseFragment
 		}
 	}
 
-    public String getHours(String hours){
-        do{
-            hours = hours.substring(0, hours.length()-1);
-        }while (hours.length() > 0 && hours.charAt(hours.length()-1)=='0');
+	public String getHours ( String hours )
+	{
+		do
+		{
+			hours = hours.substring ( 0, hours.length () - 1 );
+		} while ( hours.length () > 0 && hours.charAt ( hours.length () - 1 ) == '0' );
 
-        if (hours.length() > 0 && hours.charAt(hours.length()-1)=='.') {
-            hours = hours.substring(0, hours.length()-1);
-        }
-        return  hours;
-    }
+		if ( hours.length () > 0 && hours.charAt ( hours.length () - 1 ) == '.' )
+		{
+			hours = hours.substring ( 0, hours.length () - 1 );
+		}
+		return hours;
+	}
 
 	private OnClickListener onGigTypeClickListener = new OnClickListener ()
 	{

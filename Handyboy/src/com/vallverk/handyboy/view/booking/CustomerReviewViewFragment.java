@@ -20,7 +20,7 @@ public class CustomerReviewViewFragment extends ServiceReviewViewFragment
 		reviewAPIObject.putValue ( ReviewParams.CONTENT, review );
 		return reviewAPIObject;
 	}
-	
+
 	@Override
 	protected void changeStatus () throws Exception
 	{
@@ -32,8 +32,13 @@ public class CustomerReviewViewFragment extends ServiceReviewViewFragment
 		}
 	}
 
-    @Override
-    protected void changeState(){
-        controller.setState ( ViewStateController.VIEW_STATE.BOOK_AGAIN );
-    }
+	@Override
+	protected void changeState ()
+	{
+        BookingStatusEnum bookingStatus = BookingDataManager.getInstance ().getActiveBookingStatus ();
+        if ( bookingStatus == BookingStatusEnum.APPROVED || bookingStatus == BookingStatusEnum.WAITING_FOR_REVIEW )
+        {
+            controller.setState ( ViewStateController.VIEW_STATE.BOOK_AGAIN );
+        }
+	}
 }

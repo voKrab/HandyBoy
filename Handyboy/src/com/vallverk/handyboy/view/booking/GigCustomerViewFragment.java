@@ -86,6 +86,7 @@ public class GigCustomerViewFragment extends BaseFragment
 		BookingStatusEnum status = bookingDataManager.getActiveBookingStatus ();
         switch ( status )
         {
+            case CANCELED_BY_HB:
             case PENDING:
             {
                 cancelButton.setVisibility ( View.GONE );

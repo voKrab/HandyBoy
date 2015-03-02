@@ -87,7 +87,7 @@ public class GigViewOnClickListener implements View.OnClickListener
 				}
 				case CANCELED_BY_HB:
 				{
-					controller.setState ( ViewStateController.VIEW_STATE.BOOK_ANOTHER );
+					controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
 					break;
 				}
 				case APPROVED:
