@@ -281,6 +281,7 @@ public class TransactionHistoryViewFragment extends BaseFragment
 
             holder.addressNameTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.DESCRIPTION ) );
             holder.addressTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.ADDRESS ) );
+            holder.dateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ) ) );
 
             JSONArray timeJsonArray;
             JSONObject timePeriod;
@@ -296,10 +297,15 @@ public class TransactionHistoryViewFragment extends BaseFragment
             {
                 e.printStackTrace ();
             }
-            holder.periodTextView.setText ( bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString () + " Hours, " + startPeriod + " to " + endPeriod );
+            float hours = Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ());
+            String sHours = " Hour";
+            if(hours > 1){
+                sHours = " Hours";
+            }
+            holder.periodTextView.setText ( Tools.decimalHoursFormat(hours) + sHours + ", " + Tools.getAmericanTime(startPeriod) + " to " + Tools.getAmericanTime(endPeriod));
             //holder.priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_PRICE ).toString () );
             float priceByHour = Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ()) * Float.parseFloat(bookingDataObject.getTypeJobAPIObject().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.PRICE).toString());
-            holder.priceTextView.setText ( "$" +  priceByHour);
+            holder.priceTextView.setText ( "$" +  Tools.decimalFormat(priceByHour));
             holder.addonsContainerLayout.removeAllViews ();
             for ( JobAddonDetailsObject jobAddonDetailsObject : bookingDataObject.getAddonsAPIObjects () )
             {
@@ -307,7 +313,8 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
                 TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
                 addonNameTextView.setText ( "+" + jobAddonDetailsObject.addonsAPIObject.getValue ( JobAddonsAPIParams.NAME ) );
-                addonPriceTextView.setText ( "$" + jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIParams.PRICE ) );
+                float price = Float.parseFloat(jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIParams.PRICE ).toString());
+                addonPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
                 holder.addonsContainerLayout.addView ( addonItemView );
             }
 
@@ -317,9 +324,18 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
                 TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
                 addonNameTextView.setText ( "+" + additionalChargesAPIObject.getValue ( AdditionalChargesAPIObject.AdditionalChargesParams.REASON ).toString() );
-                addonPriceTextView.setText ( "$" + additionalChargesAPIObject.getValue (AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString() );
+                float price = Float.parseFloat(additionalChargesAPIObject.getValue (AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString());
+                addonPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
                 holder.addonsContainerLayout.addView ( addonItemView );
             }
+
+            View addonItemView = inflater.inflate ( R.layout.addon_item_view, null );
+            TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
+            TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
+            addonNameTextView.setText ( "+tip");
+            float price = Float.parseFloat(bookingDataObject.getBookingAPIObject().getValue (BookingAPIParams.TIP).toString());
+            addonPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
+            holder.addonsContainerLayout.addView ( addonItemView );
 
             return convertView;
         }
@@ -371,8 +387,9 @@ public class TransactionHistoryViewFragment extends BaseFragment
             holder.gigIdTextView.setText ( "GIG#" + bookingDataObject.getBookingAPIObject().getValue("bookingId") );
             holder.gigNameTextView.setText ( bookingDataObject.getService ().getShortName () );
             holder.gigSessionNameTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
-            holder.gigPriceTextView.setText ( "$" + myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ) );
 
+            float price = Float.parseFloat(myMoneyAPIObject.getString ( MyMoneyParams.AMOUNT ).toString());
+            holder.gigPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
             return convertView;
         }
 

@@ -40,6 +40,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -611,5 +613,30 @@ public class Tools
         String hoursString = "" + hours;
         hoursString = hoursString.replace ( ".5", ".30" );
         return hoursString;
+    }
+
+    public static String getAmericanTime(String time){
+        java.text.DateFormat sdf = new SimpleDateFormat("hh:mm");
+        try {
+            Date date = sdf.parse(time);
+            java.text.DateFormat format = new SimpleDateFormat( "h:mm a" );
+            String str = format.format( date.getTime() );
+            return  str;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //DateFormat formatter = new SimpleDateFormat("HH:mm");
+        return "";
+    }
+
+    public static String decimalFormat(float f){
+        DecimalFormat form = new DecimalFormat("0.00");
+        return form.format(f);
+    }
+
+    public static String decimalHoursFormat(float f){
+        DecimalFormat form = new DecimalFormat("0.#");
+        return form.format(f);
     }
 }

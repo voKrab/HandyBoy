@@ -77,15 +77,21 @@ public class GigsViewFragment extends BaseFragment
 		@Override
 		public boolean handleMessage ( Message msg )
 		{
-			if ( data.isEmpty () )
-			{
-				mainContainer.setVisibility ( View.GONE );
-				noBookingLayout.setVisibility ( View.VISIBLE );
-			} else
-			{
-				mainContainer.setVisibility ( View.VISIBLE );
-				noBookingLayout.setVisibility ( View.GONE );
-			}
+                if ( data.isEmpty () )
+                {
+                    if(!pastGigLayout.isActivated()){
+                        mainContainer.setVisibility ( View.GONE );
+                        noBookingLayout.setVisibility ( View.VISIBLE );
+                    }else{
+                        mainContainer.setVisibility ( View.VISIBLE );
+                        noBookingLayout.setVisibility ( View.GONE );
+                    }
+                } else
+                {
+                    mainContainer.setVisibility ( View.VISIBLE );
+                    noBookingLayout.setVisibility ( View.GONE );
+                }
+
 			return false;
 		}
 	} );

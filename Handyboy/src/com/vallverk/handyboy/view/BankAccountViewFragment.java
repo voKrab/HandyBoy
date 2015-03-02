@@ -1,17 +1,21 @@
 package com.vallverk.handyboy.view;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AddressAPIObject;
 import com.vallverk.handyboy.model.api.BankAccountAPIObject;
@@ -41,8 +45,12 @@ public class BankAccountViewFragment extends BaseFragment {
     private EditText zipEditText;
     private TextView stateTextView;
 
+    private JSONObject individualInfo;
+    private Dialog acceptDialog;
+
     private SingleChoiceSpinner stateSpinner;
     private View saveButton;
+    private boolean isUpdate;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bank_account_layout, null);
@@ -67,23 +75,110 @@ public class BankAccountViewFragment extends BaseFragment {
         new AsyncTask<Void, Void, String>() {
             public void onPreExecute() {
                 super.onPreExecute();
+                controller.showLoader();
             }
 
             public void onPostExecute(String result) {
                 super.onPostExecute(result);
-                updateComponents();
+                controller.hideLoader();
+                if(result.isEmpty()){
+                    //Toast.makeText(controller, result, Toast.LENGTH_LONG).show();
+                    updateComponents();
+                    isUpdate = true;
+                }else{
+                    isUpdate = false;
+                }
             }
+
+
 
             @Override
             protected String doInBackground(Void... params) {
                 String result = "";
+                try{
+                    JSONObject request = new JSONObject(ServerManager.getRequest(ServerManager.GET_BANK_ACCOUNT + user.getId() ));
+                    request.getString("parameters");
+                    individualInfo = request.getJSONObject("object").getJSONObject("individual");
+                }catch (Exception ex){
+                    result = ex.getMessage();
+                    //Toast.makeText(controller, result, Toast.LENGTH_LONG).show();
+                }
+
                 return result;
             }
         }.execute();
     }
 
+    private void showAcceptDialog ()
+    {
+        if ( acceptDialog == null )
+        {
+            acceptDialog = new Dialog( getActivity () );
+            acceptDialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            acceptDialog.setContentView ( R.layout.available_dialog_layout );
+            TextView dialogTitleTextView = (TextView) acceptDialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText("Update bank account?");
+            TextView dialogBodyTextView = (TextView) acceptDialog.findViewById(R.id.dialogBodyTextView);
+            dialogBodyTextView.setText( controller.getString(R.string.re_entered_bank_account_info));
+            View noButton = acceptDialog.findViewById ( R.id.dialogNoButton );
+            View yesButton = acceptDialog.findViewById ( R.id.dialogYesButton );
+            noButton.setOnClickListener ( new OnClickListener ()
+            {
+                @Override
+                public void onClick ( View v )
+                {
+                    acceptDialog.dismiss ();
+                }
+            } );
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+                @Override
+                public void onClick ( View v )
+                {
+                    acceptDialog.dismiss ();
+                    accountNumberEditText.setText("");
+                    routingNumberEditText.setText("");
+                    ssnNumberEditText.setText("");
+
+                    firstEditText.setOnFocusChangeListener(null);
+                    lastNameEditText.setOnFocusChangeListener(null);
+                    accountNumberEditText.setOnFocusChangeListener(null);
+                    routingNumberEditText.setOnFocusChangeListener(null);
+                    ssnNumberEditText.setOnFocusChangeListener(null);
+                    ssnNumberEditText.setOnFocusChangeListener(null);
+                    addressEditText.setOnFocusChangeListener(null);
+                    cityEditText.setOnFocusChangeListener(null);
+                    zipEditText.setOnFocusChangeListener(null);
+                }
+            } );
+
+            acceptDialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        acceptDialog.show ();
+    }
+
     private void updateComponents(){
-        stateSpinner.setData ( getActivity ().getResources ().getStringArray ( R.array.states ) );
+
+        if(individualInfo != null){
+            try {
+                firstEditText.setText(individualInfo.getString("firstName").toString());
+                lastNameEditText.setText(individualInfo.getString("lastName").toString());
+                accountNumberEditText.setText("********");
+                routingNumberEditText.setText("********");
+                ssnNumberEditText.setText("********");
+
+                JSONObject addressData = individualInfo.getJSONObject("address");
+                addressEditText.setText(addressData.getString("streetAddress"));
+                cityEditText.setText(addressData.getString("locality"));
+                zipEditText.setText(addressData.getString("postalCode"));
+                stateTextView.setText(addressData.getString("region"));
+                stateSpinner.setSelected(addressData.getString("region"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         /*if ( selectedAddressAPIObject != null )
         {
             String[] address = selectedAddressAPIObject.getString ( AddressAPIObject.AddressParams.ADDRESS ).toString ().split ( "," );
@@ -148,14 +243,22 @@ public class BankAccountViewFragment extends BaseFragment {
         new AsyncTask<Void, Void, String>() {
             public void onPreExecute() {
                 super.onPreExecute();
+                controller.showLoader();
             }
 
             public void onPostExecute(String result) {
                 super.onPostExecute(result);
+                controller.hideLoader();
                 if(result.isEmpty()){
                     //updateComponents();
+                    controller.setState(ViewStateController.VIEW_STATE.YOUR_MONEY);
                 }else {
-                    Toast.makeText(controller, result, Toast.LENGTH_LONG).show();
+                    if( controller.getString(R.string.re_entered_bank_account_info).equals(result)){
+                        showAcceptDialog();
+                    }else{
+                        Toast.makeText(controller, result, Toast.LENGTH_LONG).show();
+                    }
+
                 }
             }
 
@@ -175,11 +278,23 @@ public class BankAccountViewFragment extends BaseFragment {
                     postParams.put(BankAccountAPIObject.BankAccountParams.REGION.toString(), stateSpinner.getSelectedItem().toString());
                     postParams.put("userId", user.getId().toString());
 
-                    JSONObject request = new JSONObject(ServerManager.postRequest(ServerManager.GET_BANK_ACCOUNT, postParams.toString()));
-                    result = request.getString("parameters");
+                    JSONObject request;
+                    if(isUpdate){
+                        if(accountNumberEditText.getText().toString().equals("********")){
+                            result = controller.getString(R.string.re_entered_bank_account_info);
+                        }else{
+                            request = new JSONObject(ServerManager.postRequest(ServerManager.UPDATE_BANK_ACCOUNT, postParams.toString()));
+                            result = request.getString("parameters");
+                        }
+
+                    }else {
+                        request = new JSONObject(ServerManager.postRequest(ServerManager.SAVE_BANK_ACCOUNT, postParams.toString()));
+                        result = request.getString("parameters");
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
-                    //Toast.makeText(controller, e.getMessage(), Toast.LENGTH_LONG).show();
+                    result = e.getMessage();
                 }
                 return result;
             }
@@ -192,12 +307,20 @@ public class BankAccountViewFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         apiManager = APIManager.getInstance();
         user = apiManager.getUser();
-
+        stateSpinner.setData ( getActivity ().getResources ().getStringArray ( R.array.states ) );
         addListeners();
     }
+
+    private View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus && isUpdate){
+                showAcceptDialog();
+            }
+        }
+    };
 
     protected void addListeners() {
         backImageView.setOnClickListener(new OnClickListener() {
@@ -226,6 +349,9 @@ public class BankAccountViewFragment extends BaseFragment {
             @Override
             public void onItemSelected ( AdapterView < ? > adapter, View view, int selected, long l )
             {
+                //if(isUpdate){
+                   // showAcceptDialog();
+               // }
                 stateTextView.setText ( adapter.getAdapter ().getItem ( selected ).toString () );
             }
 
@@ -235,6 +361,16 @@ public class BankAccountViewFragment extends BaseFragment {
             }
 
         } );
+
+        firstEditText.setOnFocusChangeListener(onFocusChangeListener);
+        lastNameEditText.setOnFocusChangeListener(onFocusChangeListener);
+        accountNumberEditText.setOnFocusChangeListener(onFocusChangeListener);
+        routingNumberEditText.setOnFocusChangeListener(onFocusChangeListener);
+        ssnNumberEditText.setOnFocusChangeListener(onFocusChangeListener);
+        ssnNumberEditText.setOnFocusChangeListener(onFocusChangeListener);
+        addressEditText.setOnFocusChangeListener(onFocusChangeListener);
+        cityEditText.setOnFocusChangeListener(onFocusChangeListener);
+        zipEditText.setOnFocusChangeListener(onFocusChangeListener);
 
     }
 }

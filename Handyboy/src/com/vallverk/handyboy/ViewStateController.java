@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 
 import com.vallverk.handyboy.view.AvailableNowViewFragment;
+import com.vallverk.handyboy.view.BOTViewFragment;
 import com.vallverk.handyboy.view.BankAccountViewFragment;
 import com.vallverk.handyboy.view.ChatViewFragment;
 import com.vallverk.handyboy.view.ChatsViewFragment;
@@ -384,7 +385,7 @@ public class ViewStateController implements Serializable
 			case DASHBOARD:
 			{
 				currentFragment = getFragment ( DashboardViewFragment.class, newState );
-
+                //currentFragment = new BOTViewFragment();
 				FragmentTransaction fragmentTransaction = manager.beginTransaction ();
 				if ( controller.isMenuOpen () )
 				{

@@ -123,7 +123,12 @@ public class BookingDataManager implements Serializable
 
 	public BookingDataObject getActiveBooking ()
 	{
-		return data.get ( getActiveDataIndex () );
+      if(getActiveDataIndex () <= data.size() - 1){
+         return data.get ( getActiveDataIndex () );
+      }else{
+         setActiveDataIndex(0);
+         return data.get ( getActiveDataIndex() );
+      }
 	}
 
     public BookingAPIObject getActiveBookingAPIObject ()

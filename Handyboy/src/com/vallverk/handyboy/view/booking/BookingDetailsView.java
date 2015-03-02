@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
+import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
 import com.vallverk.handyboy.model.api.AddressAPIObject.AddressParams;
 import com.vallverk.handyboy.model.api.BookingAPIObject;
@@ -24,6 +25,7 @@ import com.vallverk.handyboy.model.api.BookingAPIObject.BookingAPIParams;
 import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.BookingDataObject.JobAddonDetailsObject;
 import com.vallverk.handyboy.model.api.JobAddonsAPIObject.JobAddonsAPIParams;
+import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.view.base.RatingView;
 
@@ -51,6 +53,7 @@ public class BookingDetailsView extends FrameLayout
 	private TextView dateTextView;
 	private TextView periodTextView;
 	private TextView priceTextView;
+    private TextView priceByHoorTextView;
     private TextView totalPriceTextView;
 
 	private View commentContainer;
@@ -69,6 +72,8 @@ public class BookingDetailsView extends FrameLayout
 
     private View chargesContainer;
     private LinearLayout chargesContainerLayout;
+
+    private float totalPrice = 0f;
 
 	public BookingDetailsView ( Context context )
 	{
@@ -101,6 +106,7 @@ public class BookingDetailsView extends FrameLayout
 		dateTextView = ( TextView ) view.findViewById ( R.id.dateTextView );
 		periodTextView = ( TextView ) view.findViewById ( R.id.periodTextView );
 		priceTextView = ( TextView ) view.findViewById ( R.id.priceTextView );
+        priceByHoorTextView =(TextView) view.findViewById(R.id.priceByHoorTextView);
         totalPriceTextView = (TextView) view.findViewById(R.id.totalPriceTextView);
 		addonsContainerLayout = ( LinearLayout ) view.findViewById ( R.id.addonsContainerLayout );
 
@@ -131,6 +137,7 @@ public class BookingDetailsView extends FrameLayout
                 {
                     if(additionalChargesList != null && additionalChargesList.size() > 0){
                         chargesContainerLayout.removeAllViews ();
+                        chargesContainer.setVisibility(View.VISIBLE);
                         for ( AdditionalChargesAPIObject object : additionalChargesList )
                         {
                             if ( object.isAccepted() )
@@ -142,7 +149,12 @@ public class BookingDetailsView extends FrameLayout
                                  TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
                                  TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
                                  addonNameTextView.setText ( "+" + object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.REASON).toString() );
-                                 addonPriceTextView.setText ( "$" +object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString() );
+                                 //addonPriceTextView.setText ( "$" +object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString() );
+
+                                float price = Float.parseFloat(object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString());
+                                addToTotal(price);
+
+                                addonPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
                                 chargesContainerLayout.addView ( addonItemView );
                             }
                         }
@@ -199,7 +211,7 @@ public class BookingDetailsView extends FrameLayout
 		addressNameTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.DESCRIPTION ) );
 		addressTextView.setText ( bookingDataObject.getAddress ().getString ( AddressParams.ADDRESS ) );
 		dateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ) ) );
-        totalPriceTextView.setText( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ).toString ());
+        //totalPriceTextView.setText( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ).toString ());
 
 		String avatarUrl = "";
 		if ( isIService )
@@ -227,16 +239,36 @@ public class BookingDetailsView extends FrameLayout
 		}
         String totalHours = bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ();
 
-		periodTextView.setText (  getHours(totalHours) + " Hours, " + getTime(startPeriod) + " to " + getTime(endPeriod) );
-		priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_PRICE ).toString () );
-		addonsContainerLayout.removeAllViews ();
+        float hours = Float.parseFloat(getHours(totalHours));
+        String sHours = " Hour";
+        if(hours > 1){
+            sHours = " Hours";
+        }
+		periodTextView.setText ( Tools.decimalHoursFormat(hours) + sHours + ", " + Tools.getAmericanTime(startPeriod) + " to " + Tools.getAmericanTime(endPeriod) );
+
+		//priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_PRICE ).toString () );
+        //float priceByHour = Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ()) * Float.parseFloat(bookingDataObject.getTypeJobAPIObject().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.PRICE).toString());
+        //priceTextView.setText("$" + priceByHour);
+
+        //float priceByHour = Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_HOURS ).toString ()) * Float.parseFloat(bookingDataObject.getTypeJobAPIObject().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.PRICE).toString());
+        float priceByHour = Float.parseFloat(bookingDataObject.getTypeJobAPIObject().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.PRICE).toString());
+        priceByHoorTextView.setText("$" + Tools.decimalFormat(priceByHour) + "/hr");
+
+        float price = priceByHour *  Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ());
+        priceTextView.setText("$" + Tools.decimalFormat(price));
+        addToTotal(price);
+
+
+		addonsContainerLayout.removeAllViews();
 		for ( JobAddonDetailsObject jobAddonDetailsObject : bookingDataObject.getAddonsAPIObjects () )
 		{
 			View addonItemView = inflater.inflate ( R.layout.addon_item_view, null );
 			TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
 			TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
 			addonNameTextView.setText ( "+" + jobAddonDetailsObject.addonsAPIObject.getValue ( JobAddonsAPIParams.NAME ) );
-			addonPriceTextView.setText ( "$" + jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIParams.PRICE ) );
+            float addonPrice = Float.parseFloat(jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIObject.AddonServiceAPIParams.PRICE ).toString());
+            addToTotal(addonPrice);
+            addonPriceTextView.setText ( "$" +  Tools.decimalFormat(addonPrice));
 			addonsContainerLayout.addView ( addonItemView );
 		}
 
@@ -299,7 +331,12 @@ public class BookingDetailsView extends FrameLayout
        return  hours;
     }
 
-    public String getTime(String time){
+    private void addToTotal(float price){
+        totalPrice += price;
+        totalPriceTextView.setText( "$" + Tools.decimalFormat(totalPrice));
+    }
+
+    /*public String getTime(String time){
         DateFormat sdf = new SimpleDateFormat("hh:mm");
         try {
             Date date = sdf.parse(time);
@@ -312,5 +349,5 @@ public class BookingDetailsView extends FrameLayout
 
         //DateFormat formatter = new SimpleDateFormat("HH:mm");
         return "";
-    }
+    }*/
 }

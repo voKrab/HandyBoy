@@ -242,7 +242,7 @@
     <string name="price_per_hour">Price per Hour</string>
     <string name="we_suggest_anywhere_between">We suggest anywhere between</string>
     <string name="describe_your_services">Describe your services</string>
-    <string name="describe_your_services_hint">Tell the client about your skills and experience. Please be as accurate and honest as possible</string>
+    <string name="describe_your_services_hint">Tell us about you - have fun and be yourself. This is the first thing a potential client will read about you! (300 characters max)</string>
     <string name="internet_connection_exception">Internet connection exception</string>
     <string name="choose_job_type">Choose job type</string>
     <string name="full_name">- Full Name</string>
@@ -383,7 +383,7 @@
     <string name="will_your_charge_a_location_fee">Will your charge a location fee?</string>
     <string name="extra_charge">Extra Charge</string>
     <string name="filter">Filter</string>
-    <string name="search_hint">User, Body Type, Location, Etc</string>
+    <string name="search_hint">User ID, Name</string>
     <string name="unblock">Unblock</string>
     <string name="remove_job">Remove this job! Are you sure?</string>
     <string name="weekly_availability">Weekly Availability</string>
@@ -428,7 +428,7 @@
     <string name="where_at_hint">Enter a City or Zip</string>
     <string name="customize_your_calendar">Customize your calendar</string>
     <string name="custom_schedule_description">Going on vacation? Got a hot date? Choose the day you need to adjust and select your new hours. The custom calendar overrides your weekly schedule. Want to take a day off? Just select ‘black out this day.’ Want to work away from home? Enter in your new zip code for the day.</string>
-    <string name="working_out_to_town">Working out to town?</string>
+    <string name="working_out_to_town">Working out of town?</string>
     <string name="available_at_certain_time">Available at certain time (date and/or time)</string>
     <string name="reviews">Reviews</string>
     <string name="flag_him">Flag Him</string>
@@ -447,7 +447,7 @@
     <string name="licence_number">License Number:</string>
     <string name="license_state">State:</string>
     <string name="certified_personal_trainer">You must be crtified and insured to be a Personal Trainer on HandyBoy</string>
-    <string name="certified_massage">You must be crtified and insured to be a Massage Therapist on HandyBoy</string>
+    <string name="certified_massage">You must be certified and insured to be a massage therapist on HandyBoy</string>
     <string name="this_type_of_work_is_not_available_to_you">This type of work is not available to you</string>
     <string name="submit">SUBMIT</string>
     <string name="okay">Okay!</string>
@@ -610,4 +610,5 @@
     <string name="city_field">City</string>
     <string name="special_request_hint">Have a request for your HandyBoy? From a special outfit to specific instructions, you can let him know here.</string>
     <string name="enter_zip">Enter a Zip</string>
+    <string name="re_entered_bank_account_info">You must re-enter the information for your account</string>
 </resources>

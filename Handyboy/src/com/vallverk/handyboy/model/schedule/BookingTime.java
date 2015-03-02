@@ -35,7 +35,7 @@ public class BookingTime extends ScheduleForDay
 
 	public void updateFromDiscount ( DiscountAPIObject discount )
 	{
-		long startedAt = ( long ) ( ( Integer ) discount.getValue ( DiscountParams.STARTED_AT ) * 1000 );
+        long startedAt = Long.parseLong( discount.getValue ( DiscountParams.STARTED_AT ).toString()) * 1000;
 
 		TimeZone tzSource = TimeZone.getTimeZone ( "EST" );
 		TimeZone tzTarget = TimeZone.getDefault ();

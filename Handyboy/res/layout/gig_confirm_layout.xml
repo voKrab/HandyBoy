@@ -377,8 +377,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+            </LinearLayout>
 
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                android:id="@+id/additionalChargesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="25dp"
+                android:paddingTop="2dp"
+                android:text="Charges?"
+                android:textColor="@color/dark_blue"
+                android:textSize="9sp"
+                android:visibility="gone"
+                app:customFont="REGULAR" />
 
+            <LinearLayout
+                android:id="@+id/chargesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <com.vallverk.handyboy.view.base.TextViewPlus
+                android:id="@+id/tipTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="25dp"
+                android:paddingTop="2dp"
+                android:text="Tips?"
+                android:textColor="@color/dark_blue"
+                android:textSize="9sp"
+                android:visibility="visible"
+                app:customFont="REGULAR" />
+
+            <LinearLayout
+                android:id="@+id/tipsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             </LinearLayout>
 
             <com.vallverk.handyboy.view.base.TextViewPlus

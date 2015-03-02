@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.vallverk.handyboy.FileManager;
@@ -336,6 +337,8 @@ public class EditAccountViewFragment extends BaseFragment
                 if(status.isEmpty()){
                     //controller.setState ( VIEW_STATE.EXIT );
                     controller.logout();
+                }else{
+                    Toast.makeText(controller, status, Toast.LENGTH_LONG).show();
                 }
             }
         }.execute ();

@@ -143,7 +143,7 @@ public class UserAPIObject extends APIObject implements Serializable
 		jsonObject.accumulate ( UserParams.PASSWORD.toString (), getValue ( UserParams.PASSWORD ) );
 		jsonObject.accumulate ( UserParams.EMAIL.toString (), getValue ( UserParams.EMAIL ) );
 		jsonObject.accumulate ( UserParams.PHONE_NUMBER.toString (), getValue ( UserParams.PHONE_NUMBER ) );
-		jsonObject.accumulate ( UserParams.DOB.toString (), ( Long ) getValue ( UserParams.DOB ) / 1000 );
+		jsonObject.accumulate ( UserParams.DOB.toString (), (( Long ) getValue ( UserParams.DOB )) / 1000 );
 		jsonObject.accumulate ( UserParams.STATUS.toString (), getString ( UserParams.STATUS ) );
 		String facebookId = ( String ) getValue ( UserParams.FACEBOOK_UID );
 		if ( facebookId != null && !facebookId.isEmpty () )

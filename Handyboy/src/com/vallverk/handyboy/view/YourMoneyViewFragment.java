@@ -41,6 +41,7 @@ public class YourMoneyViewFragment extends BaseFragment
     private ImageView strelkaImageView;
     private TextView totalPriceTextView;
     private View transferButton;
+    private View crossImageView;
 
     private BaseListFragment moneyListViewFragment;
 
@@ -59,6 +60,7 @@ public class YourMoneyViewFragment extends BaseFragment
             totalPriceTextView = (TextView) view.findViewById(R.id.totalPriceTextView);
             strelkaImageView = (ImageView) view.findViewById(R.id.strelkaImageView);
             transferButton = view.findViewById(R.id.transferButton);
+            crossImageView = view.findViewById(R.id.crossImageView);
         }
         else
         {
@@ -88,7 +90,7 @@ public class YourMoneyViewFragment extends BaseFragment
         @Override
         public boolean handleMessage ( Message msg )
         {
-            totalPriceTextView.setText ( "$" + totalPrice );
+            totalPriceTextView.setText ( "$" + Tools.decimalFormat(totalPrice) );
             return false;
         }
     } );
@@ -216,12 +218,13 @@ public class YourMoneyViewFragment extends BaseFragment
             }
         } );
         moneyListViewFragment.refreshData ();
+        transferButton.setVisibility(View.VISIBLE);
         addListeners ();
     }
 
     private void setTotal ()
     {
-        totalPrice = 0;
+        totalPrice = 0f;
         for(Object tempObject: items){
             totalPrice += Float.parseFloat(((MyMoneyAPIObject) tempObject).getValue(MyMoneyParams.AMOUNT).toString());
         }
@@ -253,6 +256,13 @@ public class YourMoneyViewFragment extends BaseFragment
                 controller.setState(ViewStateController.VIEW_STATE.BANK_ACCOUNT);
             }
         });
+        crossImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                transferButton.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     public class MoneyListAdapter extends ArrayAdapter < Object >
@@ -279,8 +289,12 @@ public class YourMoneyViewFragment extends BaseFragment
 
             ( ( TextView ) view.findViewById ( R.id.monthDayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_HUMAN ));
             ( ( TextView ) view.findViewById ( R.id.dayTextView ) ).setText (myMoneyAPIObject.getString ( MyMoneyParams.DATE_DAY_HUMAN ));
-            ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText ( myMoneyAPIObject.getValue ( MyMoneyParams.TOTAL_HOURS ).toString());
-            ( ( TextView ) view.findViewById ( R.id.priceTextView ) ).setText (myMoneyAPIObject.getValue ( MyMoneyParams.AMOUNT ).toString());
+
+            float hours = Float.parseFloat( myMoneyAPIObject.getValue ( MyMoneyParams.TOTAL_HOURS ).toString());
+            ( ( TextView ) view.findViewById ( R.id.hoursTextView ) ).setText (Tools.decimalHoursFormat(hours));
+
+             float price = Float.parseFloat(myMoneyAPIObject.getValue ( MyMoneyParams.AMOUNT ).toString());
+            ( ( TextView ) view.findViewById ( R.id.priceTextView ) ).setText (Tools.decimalFormat(price));
 
             view.setOnClickListener(new OnClickListener() {
                 @Override

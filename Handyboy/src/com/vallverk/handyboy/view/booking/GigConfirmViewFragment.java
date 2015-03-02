@@ -1,5 +1,6 @@
 package com.vallverk.handyboy.view.booking;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,14 @@ import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
 import com.vallverk.handyboy.model.api.AddressAPIObject;
 import com.vallverk.handyboy.model.api.BookingAPIObject;
 import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.JobAddonsAPIObject;
+import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
 import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 import com.vallverk.handyboy.view.base.BaseFragment;
@@ -27,6 +30,8 @@ import com.vallverk.handyboy.view.base.BaseFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class GigConfirmViewFragment extends BaseFragment
 {
@@ -63,12 +68,20 @@ public class GigConfirmViewFragment extends BaseFragment
     private View specialReqeustTitle;
     private TextView specialReqeustTextView;
 
-	
+    private View additionalChargesTitle;
+    private LinearLayout chargesContainer;
+    private List<AdditionalChargesAPIObject> additionalChargesList;
+
+    private View tipTitle;
+    private LinearLayout tipsContainer;
+
 	private BookingDataManager bookingDataManager;
 	private BookingDataObject bookingDataObject;
 	private DisplayImageOptions avatarLoadOptions = new DisplayImageOptions.Builder ().showImageOnFail ( R.drawable.avatar ).showImageForEmptyUri ( R.drawable.avatar ).cacheInMemory ( true ).cacheOnDisc ().build ();
 
     private LayoutInflater inflater;
+
+    private float totalPrice = 0f;
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		if ( view == null )
@@ -101,7 +114,11 @@ public class GigConfirmViewFragment extends BaseFragment
             specialReqeustTitle = view.findViewById(R.id.specialReqeustTitle);
             specialReqeustTextView = (TextView) view.findViewById(R.id.specialReqeustTextView);
 
+            additionalChargesTitle = view.findViewById(R.id.additionalChargesTitle);
+            chargesContainer = (LinearLayout) view.findViewById(R.id.chargesContainer);
 
+            tipTitle = view.findViewById(R.id.tipTitle);
+            tipsContainer = (LinearLayout) view.findViewById(R.id.tipsContainer);
 
 		} else
 		{
@@ -109,6 +126,75 @@ public class GigConfirmViewFragment extends BaseFragment
 		}
 		return view;
 	}
+
+    private void getAdditionalCharges(){
+        new AsyncTask< Void, Void, String >()
+        {
+            @Override
+            protected void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+
+                if (result.isEmpty () )
+                {
+                    if(additionalChargesList != null && additionalChargesList.size() > 0){
+                        chargesContainer.removeAllViews ();
+                        additionalChargesTitle.setVisibility(View.VISIBLE);
+                        chargesContainer.setVisibility(View.VISIBLE);
+                        for ( AdditionalChargesAPIObject object : additionalChargesList )
+                        {
+                            if ( object.isAccepted() )
+                            {
+                                //return object;
+
+
+                                /*View addonItemView = inflater.inflate ( R.layout.addon_item_view, null );
+                                TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
+                                TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
+                                addonNameTextView.setText ( "+" + object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.REASON).toString() );
+                                addonPriceTextView.setText ( "$" +object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString() );*/
+
+                                View addonItemView = inflater.inflate ( R.layout.addon_confirm_item_view, null );
+                                TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
+                                TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
+                                addonNameTextView.setText ( object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.REASON).toString()  );
+
+                                float price = Float.parseFloat(object.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString());
+                                addToTotal(price);
+                                addonPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
+                                chargesContainer.addView ( addonItemView );
+                            }
+                        }
+
+                        //chargesContainer.setVisibility(VISIBLE);
+                        //chargesTextView.setText(additionalCharges.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.REASON).toString());
+                        //chargespriceTextView.setText("$" + additionalCharges.getValue(AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString());
+                    }else{
+                        chargesContainer.setVisibility(View.GONE);
+                        additionalChargesTitle.setVisibility(View.GONE);
+                    }
+                }else{
+                    chargesContainer.setVisibility(View.GONE);
+                    additionalChargesTitle.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    additionalChargesList = bookingDataObject.getBookingAPIObject ().getAdditionalChargesList();
+                } catch ( Exception ex )
+                {
+                    ex.printStackTrace ();
+                    result = ex.getMessage ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
 	
 	@Override
 	protected void init ()
@@ -141,7 +227,12 @@ public class GigConfirmViewFragment extends BaseFragment
 
         hoursTextView.setText(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_HOURS ).toString ());
         sessionTitle.setText( bookingDataObject.getTypeJobAPIObject ().getName () + " Session");
-        priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ).toString () );
+
+        //priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ).toString () );
+        float priceByHour = Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_HOURS ).toString ()) * Float.parseFloat(bookingDataObject.getTypeJobAPIObject().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.PRICE).toString());
+        priceTextView.setText("$" + Tools.decimalFormat(priceByHour));
+        addToTotal(priceByHour);
+
         addressNameTextView.setText ( bookingDataObject.getAddress ().getString ( AddressAPIObject.AddressParams.DESCRIPTION ) );
         addressTextView.setText ( bookingDataObject.getAddress ().getString ( AddressAPIObject.AddressParams.ADDRESS ) );
 
@@ -161,9 +252,9 @@ public class GigConfirmViewFragment extends BaseFragment
         {
             e.printStackTrace ();
         }
-        timeToTextView.setText(endPeriod);
-        timeFromTextView.setText(startPeriod);
-        totalPriceTextView.setText( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ).toString ());
+        timeToTextView.setText(Tools.getAmericanTime(endPeriod));
+        timeFromTextView.setText((Tools.getAmericanTime(startPeriod)));
+        //totalPriceTextView.setText( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIObject.BookingAPIParams.TOTAL_PRICE ).toString ());
 
         addonContainer.removeAllViews ();
 
@@ -179,7 +270,9 @@ public class GigConfirmViewFragment extends BaseFragment
             TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
             TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
             addonNameTextView.setText ( jobAddonDetailsObject.addonsAPIObject.getValue ( JobAddonsAPIObject.JobAddonsAPIParams.NAME ).toString() );
-            addonPriceTextView.setText ( "$" + jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIObject.AddonServiceAPIParams.PRICE ) );
+            float addonPrice = Float.parseFloat(jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIObject.AddonServiceAPIParams.PRICE ).toString());
+            addToTotal(addonPrice);
+            addonPriceTextView.setText ( "$" +  Tools.decimalFormat(addonPrice));
             addonContainer.addView ( addonItemView );
         }
 
@@ -207,8 +300,27 @@ public class GigConfirmViewFragment extends BaseFragment
             specialReqeustTextView.setVisibility ( View.VISIBLE );
         }
 
+        tipsContainer.removeAllViews();
+
+        View addonItemView = inflater.inflate ( R.layout.addon_confirm_item_view, null );
+        TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
+        TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
+        addonNameTextView.setText ("Tip");
+
+        float tipPrice = Float.parseFloat(bookingDataObject.getBookingAPIObject().getValue(BookingAPIObject.BookingAPIParams.TIP).toString());
+        addToTotal(tipPrice);
+        addonPriceTextView.setText ("$" + Tools.decimalFormat(tipPrice));
+        tipsContainer.addView ( addonItemView );
+
+        getAdditionalCharges();
+
         addListeners();
 	}
+
+    private void addToTotal(float price){
+        totalPrice += price;
+        totalPriceTextView.setText( "$" + Tools.decimalFormat(totalPrice));
+    }
 	
 	private void addListeners ()
 	{

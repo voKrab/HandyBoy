@@ -1,5 +1,6 @@
 package com.vallverk.handyboy.view.booking;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,13 @@ import android.widget.Toast;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.APIManager;
+import com.vallverk.handyboy.model.api.BookingAPIObject;
 import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
+
+import org.json.JSONObject;
 
 public class LeaveViewFragment extends BaseFragment
 {
@@ -95,8 +100,42 @@ public class LeaveViewFragment extends BaseFragment
 		} );
 	}
 
-    private void sendTips(){
-        BookingDataManager.getInstance().getActiveBooking().getBookingAPIObject().
+    private void sendTips(final String tip){
+
+        new AsyncTask< Void, Void, String >()
+        {
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader();
+                controller.setState ( VIEW_STATE.CUSTOMER_REVIEW );
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    BookingAPIObject bookingAPIObject =  BookingDataManager.getInstance().getActiveBooking().getBookingAPIObject();
+                    bookingAPIObject.putValue(BookingAPIObject.BookingAPIParams.TIP, tip );
+                    bookingAPIObject.update (ServerManager.BOOKING_SAVE);
+                } catch ( Exception ex )
+                {
+                    result = ex.getMessage ();
+                    ex.printStackTrace ();
+                }
+                return result;
+            }
+        }.execute ();
+
+
     }
 
 	protected void leaveTips ()
@@ -107,6 +146,6 @@ public class LeaveViewFragment extends BaseFragment
 			Toast.makeText ( controller, "Please leave tip", Toast.LENGTH_LONG ).show ();
 			return;
 		}
-		controller.setState ( VIEW_STATE.CUSTOMER_REVIEW );
+        sendTips(tips);
 	}
 }

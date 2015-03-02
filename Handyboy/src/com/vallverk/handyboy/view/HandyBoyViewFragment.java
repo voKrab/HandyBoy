@@ -854,7 +854,7 @@ public class HandyBoyViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				controller.setCommunicationValue ( UserAPIObject.class.getSimpleName (), handyboy );
+				controller.setCommunicationValue ("chatOpponent", handyboy.getId().toString() );
 				controller.setState ( VIEW_STATE.CHAT );
 			}
 		} );

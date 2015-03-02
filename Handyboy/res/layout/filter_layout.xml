@@ -363,7 +363,7 @@
                     android:layout_marginRight="38dp"
                     android:layout_marginTop="18dp"
                     android:gravity="center"
-                    android:text="@string/price"
+                    android:text="Price/hr"
                     android:textColor="@color/dark_blue_pressed"
                     android:textSize="10sp" />
 

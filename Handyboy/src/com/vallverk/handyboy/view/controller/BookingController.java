@@ -281,7 +281,7 @@ public class BookingController
 	public String getPriceString ()
 	{
 		price = getPrice ();
-		return "$" + price + "0";
+		return "$" + Tools.decimalFormat(price);
 	}
 
 	private float getPrice ()
@@ -296,6 +296,7 @@ public class BookingController
 		int discount = isHasDiscount () ? Integer.parseInt ( getDiscount ().getString ( DiscountAPIObject.DiscountParams.DISCOUNT ) ) : 0;
 		price = hours * pricePerHour * ( 1 - discount / 100f ) + addonPrice;
 		// price = hours * pricePerHour + addonPrice;
+
 		return price;
 	}
 
@@ -354,23 +355,23 @@ public class BookingController
 			} else if ( getCountBathRooms () > 0 )
 			{
 				return "Count BathRooms " + getCountBathRooms ();
-			} else if ( getCountRooms () > 0 )
-			{
-				return "Count Rooms " + getCountRooms ();
-			}
+			} else if ( getCountRooms () > 0 ) {
+                return "Count Rooms " + getCountRooms();
+            }
 		} else if ( isYardWorker () )
 		{
-			switch ( getLawnMovingType () )
-			{
-				case LARGE:
-					return controller.getString ( R.string.lawm_moving_large );
-				case MEDIUM:
-					return controller.getString ( R.string.lawm_moving_medium );
-				case SMALL:
-					return controller.getString ( R.string.lawm_moving_small );
-				case EXTRA_LARGE:
-					return controller.getString ( R.string.lawm_moving_extra_large );
-			}
+            if(getLawnMovingType () != null) {
+                switch (getLawnMovingType()) {
+                    case LARGE:
+                        return controller.getString(R.string.lawm_moving_large);
+                    case MEDIUM:
+                        return controller.getString(R.string.lawm_moving_medium);
+                    case SMALL:
+                        return controller.getString(R.string.lawm_moving_small);
+                    case EXTRA_LARGE:
+                        return controller.getString(R.string.lawm_moving_extra_large);
+                }
+            }
 		}
 		return "";
 	}

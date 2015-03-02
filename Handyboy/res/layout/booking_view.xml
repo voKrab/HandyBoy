@@ -77,12 +77,11 @@
             android:gravity="center_vertical"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="Tommy P"
             android:textColor="@color/dark_blue"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/priceTextView"
+            android:id="@+id/priceByHoorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -123,7 +122,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingTop="5dp"
-                android:text="Home"
                 android:textColor="@color/dark_blue"
                 android:textSize="14sp" />
 
@@ -133,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingBottom="5dp"
-                android:text="Adress st, 34443"
                 android:textColor="@color/dark_blue"
                 android:textSize="9sp" />
         </LinearLayout>
@@ -179,7 +176,6 @@
             android:gravity="center_vertical"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="Saturday the 18th, 2014"
             android:textColor="@color/dark_blue"
             android:textSize="14sp" />
     </LinearLayout>
@@ -208,7 +204,19 @@
             android:gravity="center_vertical"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="1 Hour, 10:00 to 11:00"
+            android:textColor="@color/dark_blue"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/priceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:layout_marginRight="25dp"
+            android:paddingTop="5dp"
+            android:text="$115"
             android:textColor="@color/dark_blue"
             android:textSize="14sp" />
     </LinearLayout>
@@ -270,7 +278,6 @@
             android:gravity="center_vertical"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="1 Hour, 10:00 to 11:00"
             android:textColor="@color/dark_blue"
             android:textSize="14sp" />
     </LinearLayout>
@@ -303,15 +310,16 @@
         android:id="@+id/chargesContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="horizontal" >
 
         <TextView
             android:layout_width="70dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingLeft="15dp"
             android:paddingTop="5dp"
-            android:text="Charges?"
+            android:text="Additional\nCharges?"
             android:textColor="@color/dark_blue"
             android:textSize="9sp" />
 
