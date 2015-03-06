@@ -105,6 +105,7 @@ public class GcmIntentService extends IntentService
 		ActionType actionType = ActionType.fromString ( jsonObject.getString ( "actionType" ) );
 		System.out.println ( jsonObject.toString () );
 		boolean isPushNotificationEnabled = SettingsManager.getBoolean ( Params.IS_PUSH_NOTIFICATION, true, ctx ) && SettingsManager.getBoolean ( Params.IS_LOGIN, false, ctx );
+        System.out.println ( "GcmBroadcastReceiver:isShow=" + isPushNotificationEnabled );
 		if ( !isPushNotificationEnabled )
 		{
 			return false;

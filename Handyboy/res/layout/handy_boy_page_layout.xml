@@ -118,42 +118,39 @@
                         android:animateLayoutChanges="true"
                         android:layout_weight="1">
 
-                        <TextView
-                            android:id="@+id/freshMeatTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/freah_meat"
-                            android:visibility="invisible"
-                            android:layout_gravity="center"
-                            android:textColor="@color/red"
-                            android:textStyle="bold" />
-
-                        <RelativeLayout
+                        <LinearLayout
                             android:id="@+id/ratingContainer"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:visibility="invisible"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            android:orientation="vertical"
                             android:layout_gravity="center">
 
                             <TextView
-                                android:id="@+id/textView2"
+                                android:id="@+id/freshMeatTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignLeft="@+id/ratingView"
-                                android:layout_below="@+id/ratingView"
-                                android:text="@string/average_raiting"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="8sp" />
+                                android:text="@string/freah_meat"
+                                android:visibility="visible"
+                                android:textColor="@color/red"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
 
                             <com.vallverk.handyboy.view.base.RatingView xmlns:app="http://schemas.android.com/apk/res/com.vallverk.handyboy"
                                 android:id="@+id/ratingView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="-1dp"
+                                android:layout_gravity="center"
                                 app:rating="4.23"></com.vallverk.handyboy.view.base.RatingView>
 
-                        </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/average_raiting"
+                                android:textColor="@color/dark_blue"
+                                android:textSize="8sp" />
+                        </LinearLayout>
                     </FrameLayout>
 
                     <View

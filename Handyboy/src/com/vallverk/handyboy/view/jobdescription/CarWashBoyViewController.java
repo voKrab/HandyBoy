@@ -104,12 +104,15 @@ public class CarWashBoyViewController extends BaseController
 	{
 		truckSuvView = ( AddonPriceViewBase ) view.findViewById ( R.id.truckSuvView );
 		truckSuvView.setTag ( controller.getAddon ( AddonId.TRUCK_SUV ) );
+        truckSuvView.updateAddonsPrices( controller.getAddon ( AddonId.TRUCK_SUV ) );
 		
 		waxView = ( AddonPriceViewBase ) view.findViewById ( R.id.waxView );
 		waxView.setTag ( controller.getAddon ( AddonId.WAX ) );
+        waxView.updateAddonsPrices( controller.getAddon ( AddonId.WAX ) );
 		
 		tireDressingAddonPriceView = ( AddonPriceViewBase ) view.findViewById ( R.id.tireDressingAddonPriceView );
 		tireDressingAddonPriceView.setTag ( controller.getAddon ( AddonId.TIRE_DRESSING ) );
+        tireDressingAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.TIRE_DRESSING ) );
 		
 		detailingView = ( AddonPriceViewBase ) view.findViewById ( R.id.detailingView );
 //		detailingView.setTag ( controller.getAddon ( AddonId.DETAILING ) );
@@ -120,18 +123,22 @@ public class CarWashBoyViewController extends BaseController
 
 		shirtlessView = ( AddonPriceViewBase ) view.findViewById ( R.id.shirtlessView );
 		shirtlessView.setTag ( controller.getAddon ( AddonId.SHIRTLESS_3 ) );
+        shirtlessView.updateAddonsPrices( controller.getAddon ( AddonId.SHIRTLESS_3 ) );
 		
 		bathingSuitCheckBox = ( CheckBox ) view.findViewById ( R.id.bathingSuitCheckBox );
 		bathingSuitDetailsContainer = view.findViewById ( R.id.bathingSuitContainer );
 		
 		boardShortsAddonPriceView = ( AddonPriceViewBase ) view.findViewById ( R.id.boardShortsAddonPriceView );
 		boardShortsAddonPriceView.setTag ( controller.getAddon ( AddonId.BOARD_SHORTS_1 ) );
+        boardShortsAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.BOARD_SHORTS_1 ) );
 
 		trunksAddonPriceView = ( AddonPriceViewBase ) view.findViewById ( R.id.trunksAddonPriceView );
 		trunksAddonPriceView.setTag ( controller.getAddon ( AddonId.TRUNKS_1 ) );
+        trunksAddonPriceView.updateAddonsPrices(  controller.getAddon ( AddonId.TRUNKS_1 ) );
 
 		speedoAddonPriceSelectorView = ( AddonPriceViewBase ) view.findViewById ( R.id.speedoView );
 		speedoAddonPriceSelectorView.setTag ( controller.getAddon ( AddonId.SPEEDO_1 ) );
+        speedoAddonPriceSelectorView.updateAddonsPrices( controller.getAddon ( AddonId.SPEEDO_1 ) );
 	}
 
 	@Override

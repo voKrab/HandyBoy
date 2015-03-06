@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
@@ -52,6 +53,7 @@ public class RegistrationCustomerBIOViewFragment extends BaseFragment
 	private RegistrationController controller;
 	private View backImageView;
 	private View backTextView;
+    private String avatarUrl;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -100,29 +102,24 @@ public class RegistrationCustomerBIOViewFragment extends BaseFragment
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Bitmap avatar = controller.getAvatar ();
-		if ( avatar != null )
-		{
-			this.avatar = avatar;
-			avatarImageView.setImageBitmap ( avatar );
-		}
-	}
+//		Bitmap avatar = controller.getAvatar ();
+//		if ( avatar != null )
+//		{
+//			this.avatar = avatar;
+//			avatarImageView.setImageBitmap ( avatar );
+//		}
 
-	private void setupTestData ()
-	{
-		firstEditText.setText ( "Oleg" );
-		lastEditText.setText ( "Barkov" );
-		Geocoder gcd = new Geocoder ( MainActivity.getInstance ().getBaseContext (), Locale.getDefault () );
-		try
-		{
-			location = gcd.getFromLocationName ( "Kharkov", 10 ).get ( 0 );
-			AddressWraper wraper = new AddressWraper ( location );
-			locationEditText.setText ( wraper.toString () );
-		} catch ( IOException e )
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        avatarUrl = user.getString(UserParams.AVATAR);
+        if(avatarUrl != null && !avatarUrl.isEmpty()){
+            ImageLoader.getInstance().displayImage(avatarUrl, avatarImageView);
+        }else{
+            Bitmap avatar = controller.getAvatar ();
+            if ( avatar != null )
+            {
+                this.avatar = avatar;
+                avatarImageView.setImageBitmap ( avatar );
+            }
+        }
 	}
 
 	protected void addListeners ()
@@ -173,7 +170,7 @@ public class RegistrationCustomerBIOViewFragment extends BaseFragment
 
 	protected void next ()
 	{
-		if ( avatar == null )
+        if ( avatar == null && (avatarUrl == null && avatarUrl.isEmpty()))
 		{
 			Toast.makeText ( getActivity (), R.string.choose_avatar, Toast.LENGTH_LONG ).show ();
 			return;

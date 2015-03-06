@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
@@ -76,6 +77,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 
 	private Integer[] weightArray;
 	private int defaultWeight = 150;
+    private String avatarUrl;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -168,12 +170,20 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			// TODO Auto-generated catch block
 			e.printStackTrace ();
 		}
-		Bitmap avatar = controller.getAvatar ();
-		if ( avatar != null )
-		{
-			this.avatar = avatar;
-			avatarImageView.setImageBitmap ( avatar );
-		}
+
+        avatarUrl = user.getString(UserParams.AVATAR);
+        if(avatarUrl != null && !avatarUrl.isEmpty()){
+            ImageLoader.getInstance().displayImage(avatarUrl, avatarImageView);
+        }else{
+            Bitmap avatar = controller.getAvatar ();
+            if ( avatar != null )
+            {
+                this.avatar = avatar;
+                avatarImageView.setImageBitmap ( avatar );
+            }
+        }
+
+
 		UserDetailsAPIObject userDetails = controller.getUserDetails ();
 		if ( userDetails == null )
 		{
@@ -411,11 +421,18 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 	{
 		//avatar = BitmapFactory.decodeResource(getActivity ().getResources(), R.drawable.your_money_button_a);
 	
-		if ( avatar == null )
+		/*if ( avatar == null || (avatarUrl == null || avatarUrl.isEmpty()))
 		{
 			Toast.makeText ( getActivity (), R.string.choose_avatar, Toast.LENGTH_LONG ).show ();
 			return;
-		}
+		}*/
+
+        if ( avatar == null && (avatarUrl == null && avatarUrl.isEmpty()))
+        {
+            Toast.makeText ( getActivity (), R.string.choose_avatar, Toast.LENGTH_LONG ).show ();
+            return;
+        }
+
 		final String firstName = firstEditText.getText ().toString ().trim ();
 		if ( firstName.isEmpty () )
 		{

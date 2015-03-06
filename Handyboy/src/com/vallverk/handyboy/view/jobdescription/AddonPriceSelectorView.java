@@ -4,6 +4,7 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,27 +153,27 @@ public class AddonPriceSelectorView extends AddonPriceViewBase
 	@Override
 	public void updateComponents ( final AddonServiceAPIObject addonService )
 	{
-		post ( new Runnable ()
-		{
-			@Override
-			public void run ()
-			{
-				if ( addonService == null )
-				{
-					return;
-				}
-				
-				int newPrice = Integer.parseInt ( addonService.getString ( AddonServiceAPIParams.PRICE ) );
-				JobAddonsAPIObject addonsAPIObject = MainActivity.getInstance ().getAddon ( addonService.getString (  AddonServiceAPIParams.JOB_ADDONS_ID ) );
-				maxCost = addonsAPIObject.getInt (JobAddonsAPIParams.MAX_COST);
-				minCost = addonsAPIObject.getInt (JobAddonsAPIParams.MIN_COST);
-				priceRangeTextView.setText ( "$" + minCost + " - $" + maxCost );
-				priceSeekBar.setMax ( maxCost - minCost );
-				setPrice ( newPrice );
-				setChecked ( true );
-			}
-		} );
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (addonService == null) {
+                    return;
+                }
+
+                int newPrice = Integer.parseInt(addonService.getString(AddonServiceAPIParams.PRICE));
+                setPrice(newPrice);
+                setChecked(true);
+            }
+        });
 	}
+
+    @Override
+    public void updateAddonsPrices(JobAddonsAPIObject addonsAPIObject) {
+        maxCost = addonsAPIObject.getInt(JobAddonsAPIParams.MAX_COST);
+        minCost = addonsAPIObject.getInt(JobAddonsAPIParams.MIN_COST);
+        //priceRangeTextView.setText("$" + minCost + " - $" + maxCost);
+        priceSeekBar.setMax(maxCost - minCost);
+    }
 
 	public void setPrice ( int newPrice )
 	{

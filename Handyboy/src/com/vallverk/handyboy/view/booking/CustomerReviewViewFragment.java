@@ -39,6 +39,9 @@ public class CustomerReviewViewFragment extends ServiceReviewViewFragment
         if ( bookingStatus == BookingStatusEnum.APPROVED || bookingStatus == BookingStatusEnum.WAITING_FOR_REVIEW )
         {
             controller.setState ( ViewStateController.VIEW_STATE.BOOK_AGAIN );
+        } else
+        {
+            controller.setState ( ViewStateController.VIEW_STATE.GIGS );
         }
 	}
 }

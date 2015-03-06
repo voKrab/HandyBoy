@@ -52,15 +52,20 @@ public class PoolBoyViewController extends BaseController
 
 		shirtlessView = ( AddonPriceViewBase ) view.findViewById ( R.id.shirtlessView );
 		shirtlessView.setTag ( controller.getAddon ( AddonId.SHIRTLESS_6 ) );
+        shirtlessView.updateAddonsPrices( controller.getAddon ( AddonId.SHIRTLESS_6 ));
+
 
 		boardShortsAddonPriceView = ( AddonPriceViewBase ) view.findViewById ( R.id.boardShortsAddonPriceView );
 		boardShortsAddonPriceView.setTag ( controller.getAddon ( AddonId.BOARD_SHORTS_2 ) );
+        boardShortsAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.BOARD_SHORTS_2 ) );
 
 		trunksAddonPriceView = ( AddonPriceViewBase ) view.findViewById ( R.id.trunksAddonPriceView );
 		trunksAddonPriceView.setTag ( controller.getAddon ( AddonId.TRUNKS_2 ) );
+        trunksAddonPriceView.updateAddonsPrices(  controller.getAddon ( AddonId.TRUNKS_2 ) );
 
 		speedoAddonPriceSelectorView = ( AddonPriceViewBase ) view.findViewById ( R.id.speedoAddonPriceSelectorView );
 		speedoAddonPriceSelectorView.setTag ( controller.getAddon ( AddonId.SPEEDO_2 ) );
+        speedoAddonPriceSelectorView.updateAddonsPrices(   controller.getAddon ( AddonId.SPEEDO_2 ) );
 	}
 
 	private void addListeners ()

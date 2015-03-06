@@ -72,12 +72,15 @@ public class GoGoBoyViewController extends BaseController
 		
 		boxersAddonPriceView = ( AddonPriceViewBase ) view.findViewById ( R.id.boxersAddonPriceView );
 		boxersAddonPriceView.setTag ( controller.getAddon ( AddonId.BOXERS ) );
+        boxersAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.BOXERS ));
 		
 		briefsView = ( AddonPriceViewBase ) view.findViewById ( R.id.briefsView );
 		briefsView.setTag ( controller.getAddon ( AddonId.BRIEFS ) );
+        briefsView.updateAddonsPrices( controller.getAddon ( AddonId.BRIEFS ));
 		
 		jockstrapView = ( AddonPriceViewBase ) view.findViewById ( R.id.jockstrapView );
 		jockstrapView.setTag ( controller.getAddon ( AddonId.JOCKSTRAP ) );
+        jockstrapView.updateAddonsPrices( controller.getAddon ( AddonId.JOCKSTRAP ));
 	}
 
 	@Override

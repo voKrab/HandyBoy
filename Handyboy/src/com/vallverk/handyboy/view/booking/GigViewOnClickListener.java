@@ -82,7 +82,9 @@ public class GigViewOnClickListener implements View.OnClickListener
 				}
 				case CONFIRMED:
 				{
-					controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                    //TODO modified
+					//controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                    controller.setState ( ViewStateController.VIEW_STATE.GIG_COMPLETED );
                     break;
 				}
 				case CANCELED_BY_HB:
@@ -90,6 +92,11 @@ public class GigViewOnClickListener implements View.OnClickListener
 					controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
 					break;
 				}
+                case CANCELED_BY_CUSTOMER:
+                {
+                    controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                    break;
+                }
 				case APPROVED:
 				{
                     controller.setState(ViewStateController.VIEW_STATE.GIG_COMPLETED);
@@ -180,7 +187,9 @@ public class GigViewOnClickListener implements View.OnClickListener
 						controller.setState ( ViewStateController.VIEW_STATE.CHARGES );
 					} else
 					{
-						controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                        //TODO modified
+						//controller.setState ( ViewStateController.VIEW_STATE.GIG_CUSTOMER );
+                        controller.setState ( ViewStateController.VIEW_STATE.GIG_COMPLETED );
 					}
 				} else
 				{

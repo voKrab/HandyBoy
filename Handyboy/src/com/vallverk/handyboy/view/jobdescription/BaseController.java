@@ -157,7 +157,11 @@ public abstract class BaseController
 	private void updateComponents ()
 	{
 		jobTypeManager = JobTypeManager.getInstance ();
-		if ( job == null )
+        pricePerHourView.setRecommendPrice ( typejob.getRecommendMinCost (),  typejob.getRecommendMaxCost () );
+        pricePerHourView.setMinMaxPrice ( typejob.getMinCost (), typejob.getMaxCost () );
+        pricePerHourView.setPrice(typejob.getRecommendCost());
+
+        if ( job == null )
 		{
 			return;
 		}
@@ -169,13 +173,8 @@ public abstract class BaseController
 		descriptionEditText.setText ( job.getString ( TypeJobServiceParams.DESCRIPTION ) );
 		TypejobLevel jobLevel = TypejobLevel.fromString ( job.getString ( TypeJobServiceParams.LEVEL ) );
 		jobLevelView.setLevel ( jobLevel );
-		
-		
-		TypeJob typeJob = jobTypeManager.getJobType (  job.getString ( TypeJobServiceParams.TYPEJOB_ID ) );
-		pricePerHourView.setRecommendPrice ( typeJob.getRecommendMinCost (),  typeJob.getRecommendMaxCost () );
-		pricePerHourView.setMinMaxPrice ( typeJob.getMinCost (), typeJob.getMaxCost () );
-		pricePerHourView.setPrice ( Integer.parseInt ( job.getString ( TypeJobServiceParams.PRICE ) ) );
-		
+		pricePerHourView.setPrice ( Integer.parseInt ( job.getValue ( TypeJobServiceParams.PRICE ).toString() ) );
+
 		
 		updatePriceAddons ();
 	}
@@ -187,6 +186,7 @@ public abstract class BaseController
 		{
 			return;
 		}
+
 		for ( AddonPriceViewBase addonView : priceAddons )
 		{
 			JobAddonsAPIObject addon = ( JobAddonsAPIObject ) addonView.getTag ();

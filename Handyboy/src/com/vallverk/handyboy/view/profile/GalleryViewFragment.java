@@ -75,7 +75,7 @@ public class GalleryViewFragment extends BaseFragment {
             if (apiObject.getString(GalleryAPIParams.TYPE).equals("image")) {
                 items.add(apiObject.getString(GalleryAPIParams.URL));
             } else {
-                items.add(Tools.getVideoImagePreview(apiObject.getString(GalleryAPIParams.URL)));
+                items.add(Tools.getVideoImagePreview( Tools.getYouTubeId(apiObject.getString(GalleryAPIParams.URL))));
             }
 
         }
@@ -202,8 +202,8 @@ public class GalleryViewFragment extends BaseFragment {
         isVideoImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String videoId = galleryItems.get(mViewPager.getCurrentItem()).getString(GalleryAPIParams.URL);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + videoId));
+                String videoUrl = galleryItems.get(mViewPager.getCurrentItem()).getString(GalleryAPIParams.URL);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + Tools.getYouTubeId(videoUrl)));
                 startActivity(intent);
             }
         });

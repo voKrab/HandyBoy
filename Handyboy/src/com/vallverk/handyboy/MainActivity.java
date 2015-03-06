@@ -696,6 +696,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 					PushNotification.unSubscribe ();
 					apiManager.logout ();
 					viewStateController.clearBackStateStack ();
+                    registrationController = null;
                     SettingsManager.setBoolean ( Params.IS_PUSH_NOTIFICATION, true, instance );
 				} catch ( Exception ex )
 				{

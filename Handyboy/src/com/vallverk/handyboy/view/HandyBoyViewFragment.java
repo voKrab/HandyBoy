@@ -353,11 +353,15 @@ public class HandyBoyViewFragment extends BaseFragment
 					requestJsonArray = new JSONArray ( requestJsonObject.getString ( "list" ) );
 					for ( int i = 0; i < requestJsonArray.length (); i++ )
 					{
-						JSONObject tempJsonObject = requestJsonArray.getJSONObject ( i );
-						ReviewItemUserObject reviewItemUserObject = new ReviewItemUserObject ();
-						reviewItemUserObject.userAPIObject = new UserAPIObject ( tempJsonObject.getJSONObject ( "reviewer" ) );
-						reviewItemUserObject.reviewAPIObject = new ReviewAPIObject ( tempJsonObject );
-						reviewsData.add ( reviewItemUserObject );
+                        try {
+                            JSONObject tempJsonObject = requestJsonArray.getJSONObject(i);
+                            ReviewItemUserObject reviewItemUserObject = new ReviewItemUserObject();
+                            reviewItemUserObject.userAPIObject = new UserAPIObject(tempJsonObject.getJSONObject("reviewer"));
+                            reviewItemUserObject.reviewAPIObject = new ReviewAPIObject(tempJsonObject);
+                            reviewsData.add(reviewItemUserObject);
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
 					}
 				} catch ( Exception ex )
 				{
@@ -580,7 +584,7 @@ public class HandyBoyViewFragment extends BaseFragment
 		typejobNameTextView.setVisibility ( View.INVISIBLE );
 		typejobDescriptionTextView.setText ( "" );
 		availableNowContainer.setVisibility ( View.GONE );
-		ratingContainer.setVisibility ( View.INVISIBLE );
+		//ratingContainer.setVisibility ( View.INVISIBLE );
 		freshMeatTextView.setVisibility ( View.GONE );
 	}
 
@@ -688,24 +692,23 @@ public class HandyBoyViewFragment extends BaseFragment
 				}
 			} );
 		}
-
         isShowGallery = false;
 
-		String name = handyboy.getString ( UserParams.FIRST_NAME ) + " " + handyboy.getString ( UserParams.LAST_NAME );
-		nameTextView.setText ( name );
+		//String name = handyboy.getString ( UserParams.FIRST_NAME ) + " " + handyboy.getString ( UserParams.LAST_NAME );
+		nameTextView.setText ( handyboy.getShortName() + "." );
 		chatImageView.setVisibility ( isMyUser ? View.GONE : View.VISIBLE );
 		blockImageView.setVisibility ( isMyUser ? View.GONE : View.VISIBLE );
 		likeImageView.setVisibility ( isMyUser ? View.GONE : View.VISIBLE );
 		float rating = Float.parseFloat ( serviceDetails.getString ( UserDetailsParams.RATING ) );
 		if ( rating == 0 )
 		{
-			ratingContainer.setVisibility ( View.INVISIBLE );
 			freshMeatTextView.setVisibility ( View.VISIBLE );
 		} else
 		{
-			ratingContainer.setVisibility ( View.VISIBLE );
-			ratingView.setRating ( rating );
+            freshMeatTextView.setVisibility ( View.GONE );
 		}
+        ratingView.setRating ( rating );
+
 		float reliability = Float.parseFloat ( serviceDetails.getString ( UserDetailsParams.RELIABILITY ) );
 		flakeOMeterView.setRating ( reliability );
 		String parameters = createParameters ();
@@ -806,7 +809,16 @@ public class HandyBoyViewFragment extends BaseFragment
 			parameters += serviceDetails.getString ( UserDetailsParams.EYE_COLOR ) + ", ";
 			parameters += serviceDetails.getString ( UserDetailsParams.BODY_TYPE ) + ", ";
 			String location = handyboy.getLocationText ();
-			parameters += serviceDetails.getString ( UserDetailsParams.SEX ) + ( location.isEmpty () ? "" : ", " + location );
+            String sex = serviceDetails.getString ( UserDetailsParams.SEX );
+            if("Unspecified".equals(sex)){
+                sex = "";
+            }
+            if(sex.isEmpty()){
+                parameters += sex + ( location.isEmpty () ? "" : "" + location );
+            }else{
+                parameters += sex + ( location.isEmpty () ? "" : ", " + location );
+            }
+
 		} catch ( Exception ex )
 		{
 			parameters = "Feet.Inches || 6,4 || weight without lbs. Пожалуйста уважайте другие платформы пишите данные по сервису в общем формате";

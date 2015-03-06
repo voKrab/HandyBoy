@@ -155,12 +155,15 @@ public class RegistrationController
 				return VIEW_STATE.REGISTRATION_SERVICE_VIDEO;
 			}*/
 			case REGISTRATION_SERVICE_VIDEO:
+            {
+                return VIEW_STATE.CHOOSE_USER_TYPE;
+            }
 				/*
 				 * case REGISTRATION_CUSTOMER_BIO: { return
 				 * VIEW_STATE.REGISTRATION_CREDIT_CARD; }
 				 */
 		}
-		return null;
+	    return null;
 	}
 
 	private boolean isNeedLicense ()
@@ -392,8 +395,10 @@ public class RegistrationController
 					UserAPIObject user = apiManager.getUser ();
 					user.putValue ( UserParams.SERVICE_ID, userDetails.getId () );
 					user.putValue ( UserParams.STATUS, userStatus.toString () );
-					String avatarUrl = apiManager.saveBitmap ( avatar );
-					user.putValue ( UserParams.AVATAR, avatarUrl );
+                    if(avatar != null) {
+                        String avatarUrl = apiManager.saveBitmap(avatar);
+                        user.putValue(UserParams.AVATAR, avatarUrl);
+                    }
 					apiManager.update ( user, ServerManager.USER_UPDATE_URI );
 
 
@@ -486,8 +491,10 @@ public class RegistrationController
 //					user.putValue ( UserParams.STATUS, userStatus.toString () ); // 23.12.2014 change
 					user.putValue ( UserParams.STATUS, UserStatus.NEW_CUSTOMER.toString () );
 					user.putValue ( UserParams.ROLE, UserStatus.ACCEPTED.toString () );
-					String avatarUrl = apiManager.saveBitmap ( avatar );
-					user.putValue ( UserParams.AVATAR, avatarUrl );
+                    if(avatar != null) {
+                        String avatarUrl = apiManager.saveBitmap(avatar);
+                        user.putValue(UserParams.AVATAR, avatarUrl);
+                    }
 					apiManager.update ( user, ServerManager.USER_UPDATE_URI );
 				} catch ( Exception ex )
 				{

@@ -145,6 +145,7 @@
 
     <string name="aviary_key">18d9a94cf8a7125f</string>
     <string name="aviary_secret">65dee2c76a62e2c7</string>
+    <string name="fb_app_id">1531252457117882</string>
     <string name="app_name">Handy Boy</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -187,7 +188,7 @@
     <string name="account">Account</string>
     <string name="help">Help</string>
     <string name="logout">Logout</string>
-    <string name="fb_app_id">1460655034217478</string>
+
     <string name="restore_password">Restore password</string>
     <string name="restore_password_text_1">Please enter Your Email address to retrieve password</string>
     <string name="forgot_password_text_2">When you press the \"Restore\" button. You will receive a new password to your email</string>
@@ -611,4 +612,5 @@
     <string name="special_request_hint">Have a request for your HandyBoy? From a special outfit to specific instructions, you can let him know here.</string>
     <string name="enter_zip">Enter a Zip</string>
     <string name="re_entered_bank_account_info">You must re-enter the information for your account</string>
+    <string name="alert_i_need_a_cancel_hb_nextgig">Unless there is a good reason, canceling on such short notice may result in negative reviews. Repeated cancellations may result in the suspension of your HandyBoy account.</string>
 </resources>

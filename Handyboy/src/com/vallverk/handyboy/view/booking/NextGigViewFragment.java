@@ -1,6 +1,8 @@
 package com.vallverk.handyboy.view.booking;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +42,7 @@ public class NextGigViewFragment extends BaseFragment
 	private BookingAPIObject bookingAPIObject;
 	private View cancelButton;
 	private Button showAddressButton;
+    private Dialog dialog;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -75,7 +79,7 @@ public class NextGigViewFragment extends BaseFragment
 		bookingDataManager = BookingDataManager.getInstance ();
 		bookingDetailsView.setData ( bookingDataManager.getActiveBooking(), service.isService () );
 		bookingDetailsView.setNavigationButton ( true );
-		bookingDetailsView.setChatEnabled ( true );
+		bookingDetailsView.setChatEnabled ( true,  bookingDataManager.getData ().get ( bookingDataManager.getActiveDataIndex () ).getCustomer ().getId().toString());
 		// bookingDetailsView.setAvatar (
 		// "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTZn0eoglnoSkQaUBLkC9qRkTEmyBjnkHGUsaPE7cKgMOb6Gkrk",
 		// false );
@@ -137,7 +141,8 @@ public class NextGigViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				cancelGig ();
+				//cancelGig ();
+                showDeclineDialog();
 			}
 		} );
 	}
@@ -196,6 +201,44 @@ public class NextGigViewFragment extends BaseFragment
 		Intent mapIntent = new Intent ( Intent.ACTION_VIEW, gmmIntentUri );
 		mapIntent.setPackage ( "com.google.android.apps.maps" );
 		startActivity ( mapIntent );
+    }
+
+    private void showDeclineDialog ()
+    {
+        if ( dialog == null )
+        {
+            dialog = new Dialog( getActivity () );
+            dialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            dialog.setContentView ( R.layout.available_dialog_layout );
+            TextView noButton = (TextView)dialog.findViewById ( R.id.dialogNoButton );
+            TextView yesButton = (TextView) dialog.findViewById ( R.id.dialogYesButton );
+            TextView bodyText = (TextView) dialog.findViewById(R.id.dialogBodyTextView);
+            TextView dialogTitleTextView = (TextView) dialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText("Are you Sure?");
+            bodyText.setText(controller.getString(R.string.alert_i_need_a_cancel_hb_nextgig));
+            noButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    dialog.dismiss ();
+                    cancelGig();
+                }
+            } );
+
+            dialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        dialog.show ();
     }
 
 	protected void cancelGig ()

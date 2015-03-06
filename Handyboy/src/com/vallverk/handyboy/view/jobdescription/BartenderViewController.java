@@ -32,6 +32,7 @@ public class BartenderViewController extends BaseController
 	{
 		shirtlessView = ( AddonPriceViewBase ) view.findViewById ( R.id.shirtlessView );
 		shirtlessView.setTag ( controller.getAddon ( AddonId.SHIRTLESS_1 ) );
+        shirtlessView.updateAddonsPrices( controller.getAddon ( AddonId.SHIRTLESS_1 ) );
 	}
 
 	@Override

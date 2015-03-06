@@ -1,11 +1,14 @@
 package com.vallverk.handyboy.view.booking;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +48,8 @@ public class GigServiceViewFragment extends BaseFragment
 	private View cancelButton;
 	private Button additionalChargesButton;
     private boolean isAddChargesRequested;
+
+    public  Dialog dialog;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -176,7 +181,8 @@ public class GigServiceViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				declineGig ();
+				//declineGig ();
+                showDeclineDialog();
 			}
 		} );
 
@@ -209,8 +215,47 @@ public class GigServiceViewFragment extends BaseFragment
 		} );
 	}
 
+    private void showDeclineDialog ()
+    {
+        if ( dialog == null )
+        {
+            dialog = new Dialog( getActivity () );
+            dialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            dialog.setContentView ( R.layout.available_dialog_layout );
+            View noButton = dialog.findViewById ( R.id.dialogNoButton );
+            View yesButton = dialog.findViewById ( R.id.dialogYesButton );
+            ((TextView)dialog.findViewById(R.id.dialogBodyTextView)).setVisibility(View.GONE);
+            TextView dialogTitleTextView = (TextView) dialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText("Are you sure you don’t want this booking!?");
+            noButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    dialog.dismiss ();
+                    declineGig();
+                }
+            } );
+
+            dialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        dialog.show ();
+    }
+
 	protected void declineGig ()
 	{
+
+
 		new AsyncTask < Void, Void, String > ()
 		{
 			public void onPreExecute ()

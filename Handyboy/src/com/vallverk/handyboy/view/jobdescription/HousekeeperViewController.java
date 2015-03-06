@@ -35,18 +35,23 @@ public class HousekeeperViewController extends BaseController
 	{
 		windowsAddonPriceView = ( AddonPriceView ) view.findViewById ( R.id.windowsAddonPriceView );
 		windowsAddonPriceView.setTag ( controller.getAddon ( AddonId.WINDOWS ) );
+        windowsAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.WINDOWS ));
 		
 		laundryAddonPriceView = ( AddonPriceView ) view.findViewById ( R.id.laundryAddonPriceView );
 		laundryAddonPriceView.setTag ( controller.getAddon ( AddonId.LAUNDRY ) );
+        laundryAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.LAUNDRY ));
 		
 		cleaningSuppliesAddonPriceView = ( AddonPriceView ) view.findViewById ( R.id.cleaningSuppliesAddonPriceView );
 		cleaningSuppliesAddonPriceView.setTag ( controller.getAddon ( AddonId.BRINGS_OWN_CLEANING_SUPPLIES ) );
+        cleaningSuppliesAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.BRINGS_OWN_CLEANING_SUPPLIES ));
 
 		ecoFriendlyAddonPriceView = ( AddonPriceView ) view.findViewById ( R.id.ecoFriendlyAddonPriceView );
 		ecoFriendlyAddonPriceView.setTag ( controller.getAddon ( AddonId.ECO_FRIENDLY ) );
+        ecoFriendlyAddonPriceView.updateAddonsPrices( controller.getAddon ( AddonId.ECO_FRIENDLY ));
 
 		shirtlessView = ( AddonPriceSelectorView ) view.findViewById ( R.id.shirtlessView );
 		shirtlessView.setTag ( controller.getAddon ( AddonId.SHIRTLESS_5 ) );
+        shirtlessView.updateAddonsPrices( controller.getAddon ( AddonId.SHIRTLESS_5 ));
 	}
 
 	@Override

@@ -1,16 +1,18 @@
 package com.vallverk.handyboy.view.booking;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.BookingStatusEnum;
@@ -40,6 +42,7 @@ public class GigCustomerViewFragment extends BaseFragment
 
 	private Button reportProblemOrRescheduleButton;
 	private boolean isDeclined;
+    private Dialog dialog;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -69,6 +72,7 @@ public class GigCustomerViewFragment extends BaseFragment
 		isIService = service.getId ().equals ( apiManager.getUser ().getId () );
 		bookingDetailsView.setData ( bookingDataManager.getData ().get ( bookingDataManager.getActiveDataIndex () ), user.isService () );
 		bookingDetailsView.setCustomerAvatarStyle ();
+        bookingDetailsView.setChatEnabled(true, service.getId().toString());
 		bookingAPIObject = bookingDataManager.getActiveBooking ().getBookingAPIObject ();
 		addListeners ();
 		updateComponents ();
@@ -87,6 +91,13 @@ public class GigCustomerViewFragment extends BaseFragment
         switch ( status )
         {
             case CANCELED_BY_HB:
+            {
+                cancelButton.setVisibility ( View.GONE );
+                reportProblemOrRescheduleButton.setVisibility ( View.VISIBLE );
+                reportProblemOrRescheduleButton.setText ( R.string.reschedule_him );
+                isDeclined = true;
+                break;
+            }
             case PENDING:
             {
                 cancelButton.setVisibility ( View.GONE );
@@ -94,6 +105,13 @@ public class GigCustomerViewFragment extends BaseFragment
                 break;
             }
             case CANCELED_BY_CUSTOMER:
+            {
+                cancelButton.setVisibility ( View.GONE );
+                reportProblemOrRescheduleButton.setVisibility ( View.VISIBLE );
+                reportProblemOrRescheduleButton.setText ( R.string.reschedule_him );
+                isDeclined = true;
+                break;
+            }
             case DECLINED:
             {
                 cancelButton.setVisibility ( View.GONE );
@@ -118,14 +136,83 @@ public class GigCustomerViewFragment extends BaseFragment
         }
 	}
 
-	@Override
-	protected void updateFonts ()
-	{
-		// FontUtils.getInstance ( controller ).applyStyle ( noFavoritesTitle,
-		// FontStyle.LIGHT );
-		// FontUtils.getInstance ( controller ).applyStyle ( noFavoritesBody,
-		// FontStyle.REGULAR );
-	}
+    private void showDeclineDialog ()
+    {
+        if ( dialog == null )
+        {
+            dialog = new Dialog( getActivity () );
+            dialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            dialog.setContentView ( R.layout.available_dialog_layout );
+            TextView noButton = (TextView)dialog.findViewById ( R.id.dialogNoButton );
+            TextView yesButton = (TextView) dialog.findViewById ( R.id.dialogYesButton );
+            TextView bodyText = (TextView) dialog.findViewById(R.id.dialogBodyTextView);
+            TextView dialogTitleTextView = (TextView) dialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText("Are you sure you want to cancel this booking?");
+            bodyText.setVisibility(View.GONE);
+            noButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    dialog.dismiss ();
+                    cancelGig();
+                }
+            } );
+
+            dialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        dialog.show ();
+    }
+
+    private  void cancelGig(){
+        new AsyncTask < Void, Void, String > ()
+        {
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    controller.setState ( VIEW_STATE.GIGS );
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    bookingAPIObject.changeStatus ( bookingDataManager.getActiveCustomer (), bookingDataManager.getActiveService (), BookingStatusEnum.CANCELED_BY_CUSTOMER );
+                    bookingDataManager.save ();
+                } catch ( Exception ex )
+                {
+                    result = ex.getMessage ();
+                    ex.printStackTrace ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
 
 	private void addListeners ()
 	{
@@ -172,44 +259,7 @@ public class GigCustomerViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-				new AsyncTask < Void, Void, String > ()
-				{
-					public void onPreExecute ()
-					{
-						super.onPreExecute ();
-						controller.showLoader ();
-					}
-
-					public void onPostExecute ( String result )
-					{
-						super.onPostExecute ( result );
-						controller.hideLoader ();
-						if ( result.isEmpty () )
-						{
-							controller.setState ( VIEW_STATE.GIGS );
-						} else
-						{
-							Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
-						}
-					}
-
-					@Override
-					protected String doInBackground ( Void... params )
-					{
-						String result = "";
-						try
-						{
-							bookingAPIObject.changeStatus ( bookingDataManager.getActiveCustomer (), bookingDataManager.getActiveService (), BookingStatusEnum.CANCELED_BY_CUSTOMER );
-							bookingDataManager.save ();
-						} catch ( Exception ex )
-						{
-							result = ex.getMessage ();
-							ex.printStackTrace ();
-						}
-						return result;
-					}
-				}.execute ();
-				
+                showDeclineDialog();
 			}
 		} );
 	}

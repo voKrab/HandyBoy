@@ -1,11 +1,14 @@
 package com.vallverk.handyboy.view.booking;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +27,18 @@ public class ProblemServiceViewFragment extends BaseFragment
 {
 	private ImageView backImageView;
 	private TextView backTextView;
-
 	private APIManager apiManager;
-
 	private UserAPIObject customer;
 	private BookingDataManager bookingDataManager;
 	private BookingDataObject bookingDataObject;
 	private BookingAPIObject bookingAPIObject;
 	private UserAPIObject service;
 	private View cancelButton;
+    private View isLateButton;
+
+    private Dialog cancelDialog;
+    private Dialog clientIsLateDialog;
+
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -42,6 +48,7 @@ public class ProblemServiceViewFragment extends BaseFragment
 			backImageView = ( ImageView ) view.findViewById ( R.id.backImageView );
 			backTextView = ( TextView ) view.findViewById ( R.id.backTextView );
 			cancelButton = view.findViewById ( R.id.cancelButton );
+            isLateButton = view.findViewById(R.id.isLateButton);
 		} else
 		{
 			( ( ViewGroup ) view.getParent () ).removeView ( view );
@@ -98,10 +105,93 @@ public class ProblemServiceViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View view )
 			{
-				cancelGig ();
+				showCancelDialog();
 			}
 		} );
+
+        isLateButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showClientIsLateDialog();
+            }
+        });
 	}
+
+    private void showCancelDialog ()
+    {
+        if ( cancelDialog == null )
+        {
+            cancelDialog = new Dialog( getActivity () );
+            cancelDialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            cancelDialog.setContentView ( R.layout.available_dialog_layout );
+            TextView noButton = (TextView)cancelDialog.findViewById ( R.id.dialogNoButton );
+            TextView yesButton = (TextView) cancelDialog.findViewById ( R.id.dialogYesButton );
+            TextView bodyText = (TextView) cancelDialog.findViewById(R.id.dialogBodyTextView);
+            TextView dialogTitleTextView = (TextView) cancelDialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText("Are you sure you want to cancel?");
+            bodyText.setText("You will not receive payment for this gig.");
+            noButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    cancelDialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    cancelDialog.dismiss ();
+                    cancelGig();
+                }
+            } );
+
+            cancelDialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        cancelDialog.show ();
+    }
+
+    private void showClientIsLateDialog ()
+    {
+        if ( clientIsLateDialog == null )
+        {
+            clientIsLateDialog = new Dialog( getActivity () );
+            clientIsLateDialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            clientIsLateDialog.setContentView ( R.layout.available_dialog_layout );
+            TextView noButton = (TextView)clientIsLateDialog.findViewById ( R.id.dialogNoButton );
+            TextView yesButton = (TextView) clientIsLateDialog.findViewById ( R.id.dialogYesButton );
+            TextView bodyText = (TextView) clientIsLateDialog.findViewById(R.id.dialogBodyTextView);
+            TextView dialogTitleTextView = (TextView) clientIsLateDialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText("Are you sure you want to report the client as a no-show?");
+            bodyText.setText("Please try and contact them first!");
+            noButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    clientIsLateDialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    clientIsLateDialog.dismiss ();
+                    cancelGig();
+                }
+            } );
+
+            clientIsLateDialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        clientIsLateDialog.show ();
+    }
 
 	protected void cancelGig ()
 	{

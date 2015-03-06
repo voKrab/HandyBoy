@@ -131,6 +131,8 @@ public class ServerManager
     public static final String GET_BANK_ACCOUNT = PROTOCOL + HOST  + "/payment/getbankaccount?userId=";
     public static final String GET_BOOKING = PROTOCOL + HOST  + "/booking/getbooking?id=1";
 
+    public static final String SEND_HB_ISLATE = PROTOCOL + HOST  + "/booking/getbooking?id=1";
+
     public static String getRequest ( String uriString ) throws Exception
     {
         URI uri = new URI ( uriString);

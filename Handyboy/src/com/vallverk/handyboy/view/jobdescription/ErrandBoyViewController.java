@@ -19,7 +19,7 @@ public class ErrandBoyViewController extends BaseController
 	{
 		this.fragment = fragment;
 		final View view = inflater.inflate ( R.layout.job_description_errand_boy_layout, null );
-		createView ( view );	
+		createView ( view );
 		return view;
 	}
 

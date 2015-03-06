@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.LoggingBehavior;
@@ -36,6 +37,7 @@ import com.sromku.simple.fb.SimpleFacebookConfiguration;
 import com.sromku.simple.fb.entities.Feed;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.UserAPIObject;
@@ -44,8 +46,11 @@ import com.vallverk.handyboy.model.api.UserAPIObject.UserParams;
 public class FacebookManager
 {
 	public final int REQUEST_LOGIN = 64206;
-	public static String APP_ID = "1460655034217478";
-	public static String APP_SECRET = "85e02fb7aea95f8eeb5b780a26f70385";
+	//public static String APP_ID = "1460655034217478";
+	//public static String APP_SECRET = "85e02fb7aea95f8eeb5b780a26f70385";
+
+    public static String APP_ID = "1531252457117882";
+    public static String APP_SECRET = "7c3436cfe436e861e26ba910a97b5878";
 	public static String APP_NAMESPACE = "handyboy";
 
 	private Session.StatusCallback statusCallback = new SessionStatusCallback ();
@@ -78,7 +83,11 @@ public class FacebookManager
 
 			if ( state == SessionState.OPENED )
 			{
-				Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest ( activity, Arrays.asList ( "publish_actions" ) );
+//                Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(
+//                        activity, Arrays.asList(
+//                        "user_location", "user_birthday",
+//                        "user_likes", "email"));
+				Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest ( activity, Arrays.asList ( "publish_actions", "user_location", "user_birthday","user_likes", "email" ) );
 				session.requestNewPublishPermissions ( newPermissionsRequest );
 			} else if ( state == SessionState.OPENED_TOKEN_UPDATED )
 			{
@@ -124,10 +133,17 @@ public class FacebookManager
 					}
 				}
 			};
-			session.openForRead ( new Session.OpenRequest ( fragment ).setCallback ( callback ) );
+            Session.OpenRequest openRequest = new Session.OpenRequest(fragment);
+            openRequest.setPermissions(Arrays.asList("user_location", "user_birthday", "email"));
+          //  openRequest.setCallback(callback);
+            //session = new Session(activity);
+            //Session.setActiveSession(session);
+            //session.openForRead(openRequest);
+			session.openForRead ( openRequest.setCallback(callback) );
 		}
 	}
 
+    //TODO
 	private Session createSession ()
 	{
 		Settings.addLoggingBehavior ( LoggingBehavior.INCLUDE_ACCESS_TOKENS );
@@ -178,6 +194,7 @@ public class FacebookManager
 		}
 	}
 
+    //TODO
 	public Session.StatusCallback getStatusCallback ()
 	{
 		return statusCallback;
@@ -224,12 +241,24 @@ public class FacebookManager
 				} else
 				{
 					user = new UserAPIObject ();
-					user.putValue ( UserParams.FIRST_NAME, fbUser.getFirstName () );
-					user.putValue ( UserParams.LAST_NAME, fbUser.getLastName () );
-					//String email = fbUser.getProperty ( "email" ).toString ();
-					//user.setEmail ( email );
-					user.putValue ( UserParams.FACEBOOK_UID, fbUser.getId () );
-					//System.out.println ( fbUser.getBirthday () );
+					String email = fbUser.getProperty ( "email" ).toString ();
+                    String birthday = fbUser.getProperty ( "birthday" ).toString();
+					user.putValue(UserParams.FACEBOOK_UID, fbUser.getId());
+                    user.putValue ( UserParams.FIRST_NAME, fbUser.getFirstName () );
+                    user.putValue ( UserParams.LAST_NAME, fbUser.getLastName () );
+                    user.putValue ( UserParams.AVATAR, "http://graph.facebook.com/"+ fbUser.getId () +"/picture?type=large" );
+                    Log.d("FACEBOOK_REGISTRATION", "birthday=" + birthday);
+                    if(birthday != null) {
+                        user.putValue(UserParams.DOB, Tools.fromStringToDate(birthday, "dd/MM/yyyy").getTime() / 1000);
+                    }else{
+                        user.putValue(UserParams.DOB, 0);
+                    }
+
+                    if(email != null){
+                        user.putValue ( UserParams.EMAIL, email );
+                    }
+
+
 					MainActivity.getInstance ().setCommunicationValue ( UserAPIObject.class.getSimpleName (), user );
 					MainActivity.getInstance ().setState ( VIEW_STATE.FACEBOOK_REGISTRATION );
 				}

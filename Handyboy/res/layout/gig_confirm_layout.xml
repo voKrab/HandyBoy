@@ -409,7 +409,7 @@
                 android:text="Tips?"
                 android:textColor="@color/dark_blue"
                 android:textSize="9sp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:customFont="REGULAR" />
 
             <LinearLayout
@@ -471,16 +471,16 @@
             <TextView
                 android:id="@+id/cancelButton"
                 android:layout_width="150dp"
+                android:visibility="visible"
                 android:layout_height="34dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="18dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/dark_blue_shape_selector"
                 android:drawableLeft="@drawable/cancel_circle2_icon"
                 android:drawablePadding="25dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:visibility="gone"
                 android:text="@string/cancel"
                 android:textColor="@color/white"
                 android:textSize="14sp" />

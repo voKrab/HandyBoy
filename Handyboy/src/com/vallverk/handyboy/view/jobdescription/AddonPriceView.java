@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
+import com.vallverk.handyboy.model.api.JobAddonsAPIObject;
 
 public class AddonPriceView extends AddonPriceViewBase
 {
@@ -118,15 +119,34 @@ public class AddonPriceView extends AddonPriceViewBase
 	}
 
 	@Override
-	public void updateComponents ( AddonServiceAPIObject addonService )
+	public void updateComponents ( final AddonServiceAPIObject addonService )
 	{
-		if ( addonService == null )
-		{
-			return;
-		}
-		price = Integer.parseInt ( addonService.getString ( AddonServiceAPIParams.PRICE ) );
-		setChecked ( true );
+        post(new Runnable() {
+            @Override
+            public void run() {
+
+
+
+                if ( addonService == null )
+                {
+                    return;
+                }
+                price = Integer.parseInt ( addonService.getString ( AddonServiceAPIParams.PRICE ) );
+                setChecked ( true );
+            }
+        });
+
 	}
+
+    @Override
+    public void updateAddonsPrices(JobAddonsAPIObject addonsAPIObject) {
+        int maxCost = addonsAPIObject.getInt(JobAddonsAPIObject.JobAddonsAPIParams.MAX_COST);
+        if(maxCost == 0){
+            priceTextView.setText ( "" );
+        }else{
+            priceTextView.setText ( "+$" + maxCost );
+        }
+    }
 
 	public void setChecked ( boolean isChecked )
 	{

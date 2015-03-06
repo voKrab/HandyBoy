@@ -202,7 +202,7 @@ public class ScheduleManager
 		customDaySchedule = new ScheduleForDay ();
 		UserAPIObject user = APIManager.getInstance ().getUser ();
 		String responseText = ServerManager.getRequest ( ServerManager.SCHEDULE_GET_CUSTOM_DAY.replaceAll ( "serviceId=1", "serviceId=" + user.getString ( UserParams.SERVICE_ID ) ).replaceAll ( "date=1", "date=" + Tools.toSimpleString ( customDate ) ) );
-		JSONObject responseObject = new JSONObject ( responseText );
+		JSONObject responseObject = new JSONObject ( responseText);
 		String parameters = responseObject.getString ( "parameters" );
 		if ( !parameters.isEmpty () )
 		{

@@ -1,18 +1,25 @@
 package com.vallverk.handyboy.view.booking;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
+import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.BookingStatusEnum;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
@@ -67,6 +74,7 @@ public class GigConfirmViewFragment extends BaseFragment
 
     private View specialReqeustTitle;
     private TextView specialReqeustTextView;
+    private View cancelButton;
 
     private View additionalChargesTitle;
     private LinearLayout chargesContainer;
@@ -82,6 +90,11 @@ public class GigConfirmViewFragment extends BaseFragment
     private LayoutInflater inflater;
 
     private float totalPrice = 0f;
+    protected BookingAPIObject bookingAPIObject;
+    private BookingStatusEnum status;
+
+
+    private Dialog dialog;
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		if ( view == null )
@@ -119,6 +132,7 @@ public class GigConfirmViewFragment extends BaseFragment
 
             tipTitle = view.findViewById(R.id.tipTitle);
             tipsContainer = (LinearLayout) view.findViewById(R.id.tipsContainer);
+            cancelButton = view.findViewById(R.id.cancelButton);
 
 		} else
 		{
@@ -195,33 +209,29 @@ public class GigConfirmViewFragment extends BaseFragment
             }
         }.execute ();
     }
-	
-	@Override
-	protected void init ()
-	{
-
-	}
 
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
-		super.onActivityCreated ( savedInstanceState );
+        super.onActivityCreated ( savedInstanceState );
 		apiManager = APIManager.getInstance ();
 		user = apiManager.getUser ();
 		bookingDataManager = BookingDataManager.getInstance ();
 		bookingDataObject = bookingDataManager.getData ().get ( bookingDataManager.getActiveDataIndex () );
+        bookingAPIObject = bookingDataManager.getActiveBooking ().getBookingAPIObject ();
+        status = bookingDataManager.getActiveBookingStatus ();
 		service = bookingDataObject.getService ();
 		userBooking =  bookingDataObject.getCustomer();
 		isIService =  service.getId ().equals ( apiManager.getUser ().getId () );
-
-        inflater = LayoutInflater.from(controller);
+        inflater = (LayoutInflater) controller.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        updateButtons();
 
 
         ImageLoader.getInstance ().displayImage ( user.getString ( UserParams.AVATAR ), myAvatarImage, avatarLoadOptions );
         ImageLoader.getInstance ().displayImage (service.getString ( UserParams.AVATAR ), handyBoyAvatarImage, avatarLoadOptions );
         gigTitleTextView.setText ( "YOU + " + service.getShortName ().toUpperCase () );
        // gigIdTextView.setText ( "GIG#" + bookingDataObject.getId ().toString () );
-        BookingStatusEnum status = bookingDataObject.getSatus ();
+        //BookingStatusEnum status = bookingDataObject.getSatus ();
         gigStatusTextView.setText ( status.name () );
         gigStatusTextView.setBackgroundColor ( BookingAPIObject.getStatusColor ( status ) );
 
@@ -302,15 +312,16 @@ public class GigConfirmViewFragment extends BaseFragment
 
         tipsContainer.removeAllViews();
 
-        View addonItemView = inflater.inflate ( R.layout.addon_confirm_item_view, null );
-        TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
-        TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
-        addonNameTextView.setText ("Tip");
-
-        float tipPrice = Float.parseFloat(bookingDataObject.getBookingAPIObject().getValue(BookingAPIObject.BookingAPIParams.TIP).toString());
-        addToTotal(tipPrice);
-        addonPriceTextView.setText ("$" + Tools.decimalFormat(tipPrice));
-        tipsContainer.addView ( addonItemView );
+        if(status == BookingStatusEnum.APPROVED) {
+            View addonItemView = inflater.inflate(R.layout.addon_confirm_item_view, null);
+            TextView addonNameTextView = (TextView) addonItemView.findViewById(R.id.addonNameTextView);
+            TextView addonPriceTextView = (TextView) addonItemView.findViewById(R.id.addonPriceTextView);
+            addonNameTextView.setText("Tip");
+            tipTitle.setVisibility(View.VISIBLE);
+            tipsContainer.addView(addonItemView);
+        }else{
+            tipTitle.setVisibility(View.GONE);
+        }
 
         getAdditionalCharges();
 
@@ -343,5 +354,111 @@ public class GigConfirmViewFragment extends BaseFragment
 				controller.onBackPressed ();
 			}
 		} );
+
+        cancelButton.setOnClickListener ( new OnClickListener ()
+        {
+
+            @Override
+            public void onClick ( View view )
+            {
+                showDeclineDialog();
+            }
+        } );
 	}
+
+    private void showDeclineDialog ()
+    {
+        if ( dialog == null )
+        {
+            dialog = new Dialog( getActivity () );
+            dialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+            dialog.setContentView ( R.layout.available_dialog_layout );
+            TextView noButton = (TextView)dialog.findViewById ( R.id.dialogNoButton );
+            TextView yesButton = (TextView) dialog.findViewById ( R.id.dialogYesButton );
+            TextView bodyText = (TextView) dialog.findViewById(R.id.dialogBodyTextView);
+            TextView dialogTitleTextView = (TextView) dialog.findViewById(R.id.dialogTitleTextView);
+            dialogTitleTextView.setText("Are you sure you want to cancel this booking?");
+            bodyText.setVisibility(View.GONE);
+            noButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener ( new OnClickListener ()
+            {
+
+                @Override
+                public void onClick ( View v )
+                {
+                    dialog.dismiss ();
+                    cancelGig();
+                }
+            } );
+
+            dialog.getWindow ().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+        }
+
+        dialog.show ();
+    }
+    private  void cancelGig(){
+        new AsyncTask < Void, Void, String > ()
+        {
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    controller.setState ( ViewStateController.VIEW_STATE.GIGS );
+                } else
+                {
+                    Toast.makeText(controller, result, Toast.LENGTH_LONG).show ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    bookingAPIObject.changeStatus ( bookingDataManager.getActiveCustomer (), bookingDataManager.getActiveService (), BookingStatusEnum.CANCELED_BY_CUSTOMER );
+                    bookingDataManager.save ();
+                } catch ( Exception ex )
+                {
+                    result = ex.getMessage ();
+                    ex.printStackTrace ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
+
+    private void updateButtons ()
+    {
+        switch ( status )
+        {
+            case PENDING:
+                cancelButton.setVisibility(View.VISIBLE);
+                break;
+
+            case DECLINED:
+                break;
+            case CONFIRMED:
+                cancelButton.setVisibility(View.VISIBLE);
+                break;
+            case PERFORMED:
+                break;
+            default: cancelButton.setVisibility(View.GONE);
+        }
+    }
 }

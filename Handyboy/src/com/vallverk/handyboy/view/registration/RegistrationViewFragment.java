@@ -317,7 +317,7 @@ public class RegistrationViewFragment extends BaseFragment
 		user.putValue ( UserParams.FIRST_NAME, firstName );
 		user.putValue ( UserParams.LAST_NAME, lastName );
 		user.putValue ( UserParams.PHONE_NUMBER, phone );
-		user.putValue ( UserParams.DOB, date );
+		user.putValue ( UserParams.DOB, date / 1000 );
 		user.putValue ( UserParams.STATUS, UserStatus.NEW.toString () );
 
 		new AsyncTask < Void, Void, String > ()

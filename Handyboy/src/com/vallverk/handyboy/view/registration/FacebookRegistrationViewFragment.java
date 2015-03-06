@@ -43,8 +43,6 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 	private CheckBox servicesContractCheckBox;
     private TextView contractTextView;
 	private Button phoneVerificationButton;
-
-	private long date;
 	private VerificationCode verificationCode;
 	private UserAPIObject user;
 	private TextView termsTextView;
@@ -261,9 +259,9 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 			user = new UserAPIObject ();
 		}
 		user.putValue ( UserParams.PHONE_NUMBER, phone );
-		user.putValue ( UserParams.DOB, date );
+		//user.putValue ( UserParams.DOB, date );
 		user.putValue ( UserParams.STATUS, UserStatus.NEW.toString () );
-		user.putValue ( UserParams.EMAIL, "generated" + new Random ().nextInt ( 1000 ) + "@gmail.com" );
+		//user.putValue ( UserParams.EMAIL, "generated" + new Random ().nextInt ( 1000 ) + "@gmail.com" );
 
 		new AsyncTask < Void, Void, String > ()
 		{
@@ -322,6 +320,19 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 			Toast.makeText ( getActivity (), R.string.your_must_accept_our_terms_of_service_and_privacy_policy, Toast.LENGTH_LONG ).show ();
 			return;
 		}
+        long date = Long.parseLong(user.getValue(UserParams.DOB).toString());
+        long time = System.currentTimeMillis ();
+        Calendar calendar = Calendar.getInstance ();
+        calendar.setTimeInMillis ( time );
+        int yearNow = calendar.get ( Calendar.YEAR );
+        calendar.setTimeInMillis ( date );
+        int old = yearNow - calendar.get ( Calendar.YEAR );
+        if ( old < 18 )
+        {
+            Toast.makeText ( getActivity (), R.string.you_are_still_young, Toast.LENGTH_LONG ).show ();
+            return;
+        }
+
 		if ( controller.isDebugMode () )
 		{
 			registration ();

@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
+import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.api.AdditionalChargesAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject.AddonServiceAPIParams;
@@ -301,11 +303,19 @@ public class BookingDetailsView extends FrameLayout
 		ratingView.setVisibility ( VISIBLE );
 	}
 
-	public void setChatEnabled ( boolean isVisible )
+	public void setChatEnabled ( boolean isVisible, final String chatUserId )
 	{
+
 		if ( isVisible )
 		{
-			chatImageView.setVisibility ( VISIBLE );
+			chatImageView.setVisibility(VISIBLE);
+            chatImageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity.getInstance().setCommunicationValue ("chatOpponent", chatUserId );
+                    MainActivity.getInstance().setState ( ViewStateController.VIEW_STATE.CHAT );
+                }
+            });
 		} else
 		{
 			chatImageView.setVisibility ( GONE );

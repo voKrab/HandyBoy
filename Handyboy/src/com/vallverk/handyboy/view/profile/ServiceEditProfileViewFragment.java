@@ -223,7 +223,7 @@ public class ServiceEditProfileViewFragment extends BaseFragment
 					addVideoDialog.dismiss ();
 					if ( youTubeLinkTextView.getText ().toString ().isEmpty () )
 					{
-						uploadToGallery ( null, youtubeId, "video" );
+						uploadToGallery ( null, Tools.getYoutubeVideoUrl(youtubeId), "video" );
 					}
 				}
 			} );
@@ -248,7 +248,7 @@ public class ServiceEditProfileViewFragment extends BaseFragment
 					youtubeId = Tools.getYouTubeId ( s.toString () );
 					if ( !youtubeId.isEmpty () )
 					{
-						ImageLoader.getInstance ().displayImage ( Tools.getVideoImagePreview ( youtubeId ), videoPreviewImageView, new ImageLoadingListener ()
+						ImageLoader.getInstance ().displayImage ( Tools.getVideoImagePreview ( youtubeId), videoPreviewImageView, new ImageLoadingListener ()
 						{
 							@Override
 							public void onLoadingStarted ( String s, View view )
@@ -395,6 +395,7 @@ public class ServiceEditProfileViewFragment extends BaseFragment
 
 	private void updateComponents ()
 	{
+        //list":["{\"time\":\"[{\\\"start\\\":\\\"0:0\\\",\\\"end\\\":\\\"23:30\\\"}]\",\"day\":\"7\"}","{\"time\":\"[{\\\"start\\\":\\\"0:0\\\",\\\"end\\\":\\\"23:30\\\"}]\",\"day\":\"3\"}","{\"time\":\"[{\\\"start\\\":\\\"0:0\\\",\\\"end\\\":\\\"23:30\\\"}]\",\"day\":\"4\"}","{\"time\":\"[{\\\"start\\\":\\\"0:0\\\",\\
 		Integer[] feetArray = new Integer[] { 4, 5, 6, 7, 8 };
 		feetSpinner.setData ( feetArray );
 		Integer[] ihchesArray = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
@@ -584,10 +585,10 @@ public class ServiceEditProfileViewFragment extends BaseFragment
 				isViedeoImageView.setVisibility ( View.GONE );
 			} else
 			{
-				String youTubeId = galleryAPIObject.getValue ( GalleryAPIParams.URL ).toString ();
-				ImageLoader.getInstance ().displayImage ( Tools.getVideoImagePreview ( youTubeId ), mediaImageView );
+				String youTubeUrl = galleryAPIObject.getValue ( GalleryAPIParams.URL ).toString ();
+				ImageLoader.getInstance ().displayImage ( Tools.getVideoImagePreview ( Tools.getYouTubeId(youTubeUrl) ), mediaImageView );
 				isViedeoImageView.setVisibility ( View.VISIBLE );
-				youTubeLinkTextView.setText ( Tools.getYoutubeVideoUrl ( youTubeId ) );
+				youTubeLinkTextView.setText ( youTubeUrl );
 
 			}
 			galleryItem.setOnClickListener ( new OnClickListener ()

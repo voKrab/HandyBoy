@@ -47,6 +47,7 @@ public class MasseurViewController extends BaseController
 	{
 		shirtlessView = ( AddonPriceViewBase ) view.findViewById ( R.id.shirtlessView );
 		shirtlessView.setTag ( controller.getAddon ( AddonId.SHIRTLESS_1 ) );
+        shirtlessView.updateAddonsPrices(controller.getAddon ( AddonId.SHIRTLESS_1 ));
 		shirtlessView.setVisibility ( View.GONE );
 
 		massageTypesSpinner = ( MultiChoiceSpinner ) view.findViewById ( R.id.massageTypesSpinner );
