@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.vallverk.handyboy.MainActivity;
@@ -17,6 +18,8 @@ import com.vallverk.handyboy.MainActivity.ApplicationState;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.SettingsManager;
 import com.vallverk.handyboy.SettingsManager.Params;
+import com.vallverk.handyboy.Tools;
+import com.vallverk.handyboy.ViewStateController;
 import com.vallverk.handyboy.model.ChatManager;
 import com.vallverk.handyboy.pubnub.PubnubManager.ActionType;
 
@@ -73,6 +76,8 @@ public class GcmIntentService extends IntentService
 			ActionType actionType = ActionType.fromString ( jsonObject.getString ( "actionType" ) );
 			updateApplication ( jsonObject );
 
+
+
 			Uri alarmSound = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
 			mNotificationManager = ( NotificationManager ) this.getSystemService ( Context.NOTIFICATION_SERVICE );
 
@@ -89,7 +94,7 @@ public class GcmIntentService extends IntentService
 			mBuilder.setContentIntent ( contentIntent );
 
 			mNotificationManager.notify ( NOTIFICATION_ID, mBuilder.build () );
-			Intent toApplicationIntent = new Intent ( ApplicationAction.GCM_NOTIFICATION.toString () );
+            Intent toApplicationIntent = new Intent ( ApplicationAction.GCM_NOTIFICATION.toString () );
 			toApplicationIntent.putExtra ( "message", jsonText );
 			sendBroadcast ( toApplicationIntent );
 		} catch ( Exception ex )
@@ -123,6 +128,16 @@ public class GcmIntentService extends IntentService
 				}
 				break;
 			}
+            case DOUBLE_SIGNIN:{
+                ApplicationState applicationState = ApplicationState.valueOf ( SettingsManager.getString ( Params.APPLICATION_STATE, ApplicationState.PAUSE.toString (), ctx ) );
+                if ( applicationState == ApplicationState.RESUME ){
+                    MainActivity.getInstance().logout();
+                }else{
+                    SettingsManager.setBoolean(Params.IS_LOGOUT, true, this);
+                }
+
+                break;
+            }
 		}
 		return true;
 	}

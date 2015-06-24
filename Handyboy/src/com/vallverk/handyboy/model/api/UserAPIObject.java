@@ -1,5 +1,8 @@
 package com.vallverk.handyboy.model.api;
 
+import android.content.Context;
+import android.provider.Settings;
+
 import java.io.Serializable;
 
 import org.json.JSONObject;
@@ -91,11 +94,18 @@ public class UserAPIObject extends APIObject implements Serializable
 		this.sessionId = sessionId;
 	}
 
-	public String login () throws Exception
+	public String login (Context context) throws Exception
 	{
+        String FACEBOOK_UID =  getString ( UserParams.FACEBOOK_UID );
+        if ( FACEBOOK_UID != null && !FACEBOOK_UID.isEmpty())
+        {
+            return loginWithFacebook();
+        }
 		JSONObject jsonObject = new JSONObject ();
 		jsonObject.accumulate ( UserParams.EMAIL.toString (), getValue ( UserParams.EMAIL ) );
 		jsonObject.accumulate ( UserParams.PASSWORD.toString (), getValue ( UserParams.PASSWORD ) );
+        String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        jsonObject.accumulate ( "uid",  android_id);
 		final String responseText = ServerManager.postRequest ( ServerManager.USER_AUTH_URI, jsonObject );
 		JSONObject responseObject = new JSONObject ( responseText );
 		String resultStatus = responseObject.getString ( "parameters" );

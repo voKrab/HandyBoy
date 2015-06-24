@@ -233,7 +233,7 @@ public class GigsViewFragment extends BaseFragment
 			}
 
 			viewHolder.gigJobNameTextView.setText ( bookingDataObject.getTypeJobAPIObject ().getName () + " Session" );
-			viewHolder.gigDateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ), "MMMM, dd yyyy" ) );
+			viewHolder.gigDateTextView.setText ( Tools.toDateString ( bookingDataObject.getBookingAPIObject ().getString ( BookingAPIParams.DATE ), "MMMM dd, yyyy" ) );
 			viewHolder.gigIdTextView.setText ( "GIG#" + bookingDataObject.getBookingAPIObject ().getId ().toString () );
 			String hours = bookingDataObject.getBookingAPIObject ().getTextTotalHours ();
 

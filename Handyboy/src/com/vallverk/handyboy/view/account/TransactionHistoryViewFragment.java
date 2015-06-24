@@ -1,6 +1,9 @@
 package com.vallverk.handyboy.view.account;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -114,6 +117,7 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 super.onPostExecute ( status );
                 if(status.isEmpty ()){
                     controller.hideLoader ();
+                    Collections.sort(groupItems, new CustomComparator());
                     transactionHistoryAdapter.setData ( groupItems );
                     transactionExpandableListView.setAdapter ( transactionHistoryAdapter );
                 }
@@ -200,6 +204,10 @@ public class TransactionHistoryViewFragment extends BaseFragment
         MyMoneyAPIObject moneyAPIObject;
         BookingDataObject bookingDataObject;
         List<AdditionalChargesAPIObject> additionalChargesList;
+
+        public Date getStartDate(){
+            return Tools.fromStringToDate(bookingDataObject.getBookingAPIObject().getString(BookingAPIParams.DATE));
+        }
     }
 
     private static class ChildHolder
@@ -305,6 +313,9 @@ public class TransactionHistoryViewFragment extends BaseFragment
             holder.periodTextView.setText ( Tools.decimalHoursFormat(hours) + sHours + ", " + Tools.getAmericanTime(startPeriod) + " to " + Tools.getAmericanTime(endPeriod));
             //holder.priceTextView.setText ( "$" + bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_PRICE ).toString () );
             float priceByHour = Float.parseFloat(bookingDataObject.getBookingAPIObject ().getValue ( BookingAPIParams.TOTAL_HOURS ).toString ()) * Float.parseFloat(bookingDataObject.getTypeJobAPIObject().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.PRICE).toString());
+            if(priceByHour < 0){
+                priceByHour *= -1;
+            }
             holder.priceTextView.setText ( "$" +  Tools.decimalFormat(priceByHour));
             holder.addonsContainerLayout.removeAllViews ();
             for ( JobAddonDetailsObject jobAddonDetailsObject : bookingDataObject.getAddonsAPIObjects () )
@@ -314,6 +325,9 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
                 addonNameTextView.setText ( "+" + jobAddonDetailsObject.addonsAPIObject.getValue ( JobAddonsAPIParams.NAME ) );
                 float price = Float.parseFloat(jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIParams.PRICE ).toString());
+                if(price < 0){
+                    price *= -1;
+                }
                 addonPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
                 holder.addonsContainerLayout.addView ( addonItemView );
             }
@@ -325,6 +339,9 @@ public class TransactionHistoryViewFragment extends BaseFragment
                 TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
                 addonNameTextView.setText ( "+" + additionalChargesAPIObject.getValue ( AdditionalChargesAPIObject.AdditionalChargesParams.REASON ).toString() );
                 float price = Float.parseFloat(additionalChargesAPIObject.getValue (AdditionalChargesAPIObject.AdditionalChargesParams.PRICE).toString());
+                if(price < 0){
+                    price *= -1;
+                }
                 addonPriceTextView.setText ( "$" + Tools.decimalFormat(price) );
                 holder.addonsContainerLayout.addView ( addonItemView );
             }
@@ -405,6 +422,13 @@ public class TransactionHistoryViewFragment extends BaseFragment
             return true;
         }
 
+    }
+
+    public class CustomComparator implements Comparator<GroupItem> {
+        @Override
+        public int compare(GroupItem o1, GroupItem o2) {
+            return o2.getStartDate().compareTo(o1.getStartDate());
+        }
     }
 
 }

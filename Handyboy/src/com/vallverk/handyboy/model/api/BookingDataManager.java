@@ -181,13 +181,13 @@ public class BookingDataManager implements Serializable
 			if ( newStatus == BookingStatusEnum.WAITING_FOR_REVIEW && isICustomer () )
 			{
 				MainActivity.getInstance ().setState ( VIEW_STATE.SERVICED );
-			} else if ( newStatus == BookingStatusEnum.CANCELED_BY_HB && isICustomer () )
+			}/* else if ( newStatus == BookingStatusEnum.CANCELED_BY_HB && isICustomer () )
 			{
 				MainActivity.getInstance ().setState ( VIEW_STATE.CUSTOMER_REVIEW );
 			} else if ( newStatus == BookingStatusEnum.CANCELED_BY_CUSTOMER && isIService () )
 			{
 				MainActivity.getInstance ().setState ( VIEW_STATE.SERVICE_REVIEW );
-			}
+			}*/
 		}
 	}
 

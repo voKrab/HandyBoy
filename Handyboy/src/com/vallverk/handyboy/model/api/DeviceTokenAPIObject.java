@@ -12,6 +12,7 @@ public class DeviceTokenAPIObject extends APIObject
 	{
 		USER_ID ( "user_id" ), 
 		TOKEN ( "token" ),
+        UID("uid"),
 		OS ( "os" );
 					
 		String name;
@@ -53,11 +54,12 @@ public class DeviceTokenAPIObject extends APIObject
 		update ( jsonItem );
 	}
 	
-	public DeviceTokenAPIObject ( String userId, String token, String os )
+	public DeviceTokenAPIObject ( String userId, String token, String os, String uid )
 	{
 		putValue ( DeviceTokenParams.USER_ID, userId );
 		putValue ( DeviceTokenParams.TOKEN, token );
 		putValue ( DeviceTokenParams.OS, os );
+        putValue ( DeviceTokenParams.UID, uid );
 	}
 
 	@Override

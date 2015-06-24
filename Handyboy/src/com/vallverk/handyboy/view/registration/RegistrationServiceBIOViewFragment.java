@@ -427,7 +427,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			return;
 		}*/
 
-        if ( avatar == null && (avatarUrl == null && avatarUrl.isEmpty()))
+        if ( avatar == null)
         {
             Toast.makeText ( getActivity (), R.string.choose_avatar, Toast.LENGTH_LONG ).show ();
             return;

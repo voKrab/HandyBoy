@@ -479,11 +479,11 @@ public class ServiceEditProfileViewFragment extends BaseFragment
 			sexualitySpinner.setSelected ( sexuality );
 		}
 
-		bodyTypeSpinner.setSelection ( ( String ) userDetails.getValue ( UserDetailsParams.BODY_TYPE ) );
+		bodyTypeSpinner.setSelection ( userDetails.getValue ( UserDetailsParams.BODY_TYPE ).toString() );
 		// sexualitySpinner.setSelection ( ( String ) userDetails.getValue (
 		// UserDetailsParams.SEX ) );
-		ethentitySpinner.setSelection ( ( String ) userDetails.getValue ( UserDetailsParams.ETHNICITY ) );
-		introduceYouselfEditText.setText ( ( String ) userDetails.getValue ( UserDetailsParams.DESCRIPTION ) );
+		ethentitySpinner.setSelection ( userDetails.getValue ( UserDetailsParams.ETHNICITY ).toString() );
+		introduceYouselfEditText.setText ( userDetails.getValue ( UserDetailsParams.DESCRIPTION ).toString() );
 	}
 
 	private void updateGaleryPhotos ( int total, List < GalleryAPIObject > galleryItems )

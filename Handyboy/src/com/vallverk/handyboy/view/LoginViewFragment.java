@@ -210,7 +210,7 @@ public class LoginViewFragment extends BaseFragment
 				try
 				{
 					user = new UserAPIObject ( password, email );
-					String loginResult = user.login ();
+					String loginResult = user.login (controller);
 					if ( !loginResult.isEmpty () )
 					{
 						result = loginResult;

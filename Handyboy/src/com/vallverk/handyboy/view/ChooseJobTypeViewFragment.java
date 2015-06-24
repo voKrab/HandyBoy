@@ -1,7 +1,9 @@
 package com.vallverk.handyboy.view;
 
 import java.util.List;
-import android.graphics.Typeface;
+
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,13 +12,14 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.vallverk.handyboy.MainActivity;
 import com.vallverk.handyboy.R;
+import com.vallverk.handyboy.SettingsManager;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
-import com.vallverk.handyboy.model.CommunicationManager;
 import com.vallverk.handyboy.model.FilterManager.SearchType;
 import com.vallverk.handyboy.model.job.JobCategory;
 import com.vallverk.handyboy.model.job.TypeJob;
@@ -29,6 +32,7 @@ public class ChooseJobTypeViewFragment extends BaseFragment
 	private LinearLayout container;
 	private JobCategory category;
 	private List < TypeJob > jobTypes;
+    private Dialog getPickyDialog;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -100,7 +104,12 @@ public class ChooseJobTypeViewFragment extends BaseFragment
 					communicationSearch.jobTypeId = String.valueOf ( jobType.getId () );
 					communicationSearch.jobTypeName = jobType.getName ();
 					controller.setCommunicationValue ( CommunicationSearch.class.getSimpleName (), communicationSearch );
+                    if(!SettingsManager.getBoolean(SettingsManager.Params.IS_PICKY_DIALOG_SHOW, false, controller)){
+                        SettingsManager.setBoolean(SettingsManager.Params.IS_PICKY_DIALOG_SHOW, true, controller);
+                        showGetPickyDialog();
+                    }
 					controller.setState ( VIEW_STATE.FEED );
+
 				}
 			} );
 
@@ -114,6 +123,40 @@ public class ChooseJobTypeViewFragment extends BaseFragment
             container.addView(deviderView);
 		}
 	}
+
+    private void showGetPickyDialog(){
+      
+            if ( getPickyDialog == null )
+            {
+                getPickyDialog = new Dialog( getActivity () );
+                getPickyDialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+                getPickyDialog.setContentView(R.layout.available_dialog_layout);
+                View noButton = getPickyDialog.findViewById ( R.id.dialogNoButton );
+
+                TextView dialogBodyTextView = (TextView) getPickyDialog.findViewById(R.id.dialogBodyTextView);
+                dialogBodyTextView.setText("Click FILTER to choose a HandyBoy based on his availability, price, or something else!");
+
+                TextView dialogTitleTextView = (TextView) getPickyDialog.findViewById(R.id.dialogTitleTextView);
+                dialogTitleTextView.setText("Get picky!");
+
+                noButton.setVisibility(View.GONE);
+                TextView okButton = (TextView)getPickyDialog.findViewById ( R.id.dialogYesButton );
+                okButton.setText("Ok");
+
+                okButton.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        getPickyDialog.dismiss();
+                    }
+                });
+
+                getPickyDialog.getWindow().setBackgroundDrawable ( new ColorDrawable( android.graphics.Color.TRANSPARENT ) );
+            }
+
+            getPickyDialog.show();
+        
+    }
 
 	private void addListeners ()
 	{

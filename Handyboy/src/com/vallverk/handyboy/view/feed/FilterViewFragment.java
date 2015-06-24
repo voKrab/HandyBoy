@@ -1,12 +1,17 @@
 package com.vallverk.handyboy.view.feed;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.location.Address;
 import android.os.Bundle;
@@ -22,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.AdapterView.OnItemClickListener;
@@ -69,8 +75,11 @@ public class FilterViewFragment extends BaseFragment
 	private long selectedDate;
 	private TextView fromTimeTextView;
 	private TextView toTimeTextView;
-	private TimePickerDialog fromTimePickerDialog;
-	private TimePickerDialog toTimePickerDialog;
+	private CustomTimePickerDialog fromTimePickerDialog;
+	private CustomTimePickerDialog toTimePickerDialog;
+
+    private String timeFrom= "";
+    private String timeTo = "";
 	
 	private FilterManager filterManager;
 	
@@ -122,7 +131,12 @@ public class FilterViewFragment extends BaseFragment
 	{
 		public void onTimeSet ( TimePicker view, int hourOfDay, int minute )
 		{
-			fromTimeTextView.setText ( hourOfDay + ":" +  minute);
+            if(minute < 10) {
+                timeFrom = hourOfDay + ":0" + minute;
+            }else{
+                timeFrom = hourOfDay + ":" + minute;
+            }
+            fromTimeTextView.setText(Tools.getAmericanTime(timeFrom));
 		}
 	};
 	
@@ -130,7 +144,12 @@ public class FilterViewFragment extends BaseFragment
 	{
 		public void onTimeSet ( TimePicker view, int hourOfDay, int minute )
 		{
-			toTimeTextView.setText ( hourOfDay + ":" +  minute);
+            if(minute < 10) {
+                timeTo = hourOfDay + ":0" + minute;
+            }else{
+                timeTo = hourOfDay + ":" + minute;
+            }
+            toTimeTextView.setText(Tools.getAmericanTime(timeTo));
 		}
 	};
 
@@ -237,8 +256,8 @@ public class FilterViewFragment extends BaseFragment
             sexSpinner.setSelection(filterManager.getSex());
         }
 		
-		fromTimePickerDialog = new TimePickerDialog ( controller, fromTimeCallBack, START_HOUR, START_HOUR, true );
-		toTimePickerDialog = new TimePickerDialog ( controller, toTimeCallBack, START_HOUR, START_MINUTE, true );
+		fromTimePickerDialog = new CustomTimePickerDialog ( controller, fromTimeCallBack, START_HOUR, START_HOUR, false );
+		toTimePickerDialog = new CustomTimePickerDialog ( controller, toTimeCallBack, START_HOUR, START_MINUTE, false );
 
         Address address = filterManager.getAddress();
         if(address != null){
@@ -349,12 +368,65 @@ public class FilterViewFragment extends BaseFragment
                     filterManager.setDate(selectedDate);
                 }
 
-                filterManager.setTimeFrom(fromTimeTextView.getText().toString());
-                filterManager.setTimeTo(toTimeTextView.getText().toString());
+                filterManager.setTimeFrom(timeFrom);
+                filterManager.setTimeTo(timeTo);
 
                 filterManager.setIsSearchByFilter ( true );
 				controller.setState ( VIEW_STATE.FEED );
 			}
 		} );
 	}
+
+    public class CustomTimePickerDialog extends TimePickerDialog {
+
+        private final static int TIME_PICKER_INTERVAL = 30;
+        private TimePicker timePicker;
+        private final OnTimeSetListener callback;
+
+        public CustomTimePickerDialog(Context context, OnTimeSetListener callBack, int hourOfDay, int minute, boolean is24HourView) {
+            super(context, TimePickerDialog.THEME_HOLO_LIGHT, callBack, hourOfDay, minute / TIME_PICKER_INTERVAL,
+                    is24HourView);
+            this.callback = callBack;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (callback != null && timePicker != null) {
+                timePicker.clearFocus();
+                callback.onTimeSet(timePicker, timePicker.getCurrentHour(),
+                        timePicker.getCurrentMinute() * TIME_PICKER_INTERVAL);
+            }
+        }
+
+        @Override
+        protected void onStop() {
+        }
+
+        @Override
+        public void onAttachedToWindow() {
+            super.onAttachedToWindow();
+            try {
+                Class<?> classForid = Class.forName("com.android.internal.R$id");
+                Field timePickerField = classForid.getField("timePicker");
+                this.timePicker = (TimePicker) findViewById(timePickerField
+                        .getInt(null));
+                Field field = classForid.getField("minute");
+
+                NumberPicker mMinuteSpinner = (NumberPicker) timePicker
+                        .findViewById(field.getInt(null));
+                mMinuteSpinner.setMinValue(0);
+                mMinuteSpinner.setMaxValue((60 / TIME_PICKER_INTERVAL) - 1);
+                List<String> displayedValues = new ArrayList<String>();
+                for (int i = 0; i < 60; i += TIME_PICKER_INTERVAL) {
+                    displayedValues.add(String.format("%02d", i));
+                }
+                mMinuteSpinner.setDisplayedValues(displayedValues
+                        .toArray(new String[0]));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
 }

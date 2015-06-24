@@ -20,7 +20,7 @@ public class SmsSender
 
 	/* Find your sid and token at twilio.com/user/account */
 	public static final String ACCOUNT_SID = "ACf41156763a2f01ad9b005da6793ce31b";
-	public static final String AUTH_TOKEN = "bb45bc11b6710410dd6da2da277f473d";
+	public static final String AUTH_TOKEN = "3e9cb5f90016fd6e69c048433cf35849";
 	public static final String NUMBER = "+13238922279"; 
 	public static int SMS_LIMIT_PER_DAY = 10000;
 	

@@ -333,23 +333,50 @@ public class APIManager implements Serializable
 	}
 
 	public BookingStatusAPIObject getBooingStatus () throws Exception
-	{
-		BookingStatusAPIObject bookingStatusAPIObject = null;
-		String responseText = ServerManager.getRequest ( ServerManager.GET_BOOKING_STATE.replace ( "userId=1", "userId=" + user.getId () ) );
-		try
-		{
-			ServerManager.checkErrors ( responseText );
-			bookingStatusAPIObject = new BookingStatusAPIObject ();
-			JSONObject jsonObject = ServerManager.getObject ( responseText );
-			bookingStatusAPIObject.update ( jsonObject );
-		} catch ( Exception ex )
-		{
-			//ignore
-		}
-		if ( bookingStatusAPIObject.getId () == null )//TODO Kostyan govnyk 
-		{
-			bookingStatusAPIObject = null;
-		}
-		return bookingStatusAPIObject;
-	}
+{
+    BookingStatusAPIObject bookingStatusAPIObject = null;
+    String responseText = ServerManager.getRequest ( ServerManager.GET_BOOKING_STATE.replace ( "userId=1", "userId=" + user.getId () ) );
+    JSONObject responseJSON;
+    try
+    {
+        responseJSON = new JSONObject(responseText);
+        ServerManager.checkErrors ( responseText );
+        bookingStatusAPIObject = new BookingStatusAPIObject ();
+        JSONObject jsonObject = ServerManager.getObject ( responseText );
+        bookingStatusAPIObject.setIsActive(responseJSON.getString("isActive"));
+        bookingStatusAPIObject.update ( jsonObject );
+    } catch ( Exception ex )
+    {
+        //ignore
+    }
+    if ( bookingStatusAPIObject.getId () == null )//TODO Kostyan govnyk
+    {
+        bookingStatusAPIObject = null;
+    }
+    return bookingStatusAPIObject;
+}
+
+    public BookingStatusAPIObject getBooingStatus (String uid) throws Exception
+    {
+        BookingStatusAPIObject bookingStatusAPIObject = null;
+        String responseText = ServerManager.getRequest ( ServerManager.GET_BOOKING_STATE.replace ( "userId=1", "userId=" + user.getId () ) + "&uid=" + uid );
+        JSONObject responseJSON;
+        try
+        {
+            responseJSON = new JSONObject(responseText);
+            ServerManager.checkErrors ( responseText );
+            bookingStatusAPIObject = new BookingStatusAPIObject ();
+            JSONObject jsonObject = ServerManager.getObject ( responseText );
+            bookingStatusAPIObject.setIsActive(responseJSON.getString("isActive"));
+            bookingStatusAPIObject.update ( jsonObject );
+        } catch ( Exception ex )
+        {
+            //ignore
+        }
+        if ( bookingStatusAPIObject.getId () == null )//TODO Kostyan govnyk
+        {
+            bookingStatusAPIObject = null;
+        }
+        return bookingStatusAPIObject;
+    }
 }

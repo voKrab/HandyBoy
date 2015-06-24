@@ -407,7 +407,7 @@
                     android:layout_below="@+id/ethentitySpinner"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="@string/select_job"
+                    android:text="@string/select_a_job_pick"
                     android:textColor="@color/dark_blue"
                     android:textSize="9sp" />
 
@@ -441,7 +441,7 @@
                     android:gravity="top"
                     android:layout_alignLeft="@+id/TextView09"
                     android:layout_below="@+id/TextView09"
-                    android:hint="@string/describe_your_services_hint"
+                    android:hint="@string/why_you_handy_boy_hint"
                     android:inputType="textMultiLine"
                     android:lines="5"
                     android:paddingBottom="5dp"

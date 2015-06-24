@@ -219,7 +219,6 @@ public class ChooseAddonsViewFragment extends BaseFragment
 			roomsTextView.performClick ();
 			roomsSeekBar.setProgress ( bookingController.getCountRooms () - 1 );
 		}
-
 	}
 
 	private void addRoomsSelector ()
@@ -285,7 +284,6 @@ public class ChooseAddonsViewFragment extends BaseFragment
 		} );
 		roomsSeekBar.setProgress ( minCount );
 		specialAddonsContainer.addView ( roomsView );
-
 	}
 
 	private void addBathRoomsSelector ()

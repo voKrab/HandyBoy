@@ -1,5 +1,6 @@
 package com.vallverk.handyboy;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.IntentFilter;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -316,7 +318,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		mNavigationDrawerFragment.setUp ( R.id.navigation_drawer, drawerLayout );
 
 		ImageLoader.getInstance ().init ( ImageLoaderConfiguration.createDefault ( this ) );
-		setState ( VIEW_STATE.SPLASH );
+        setState ( VIEW_STATE.SPLASH );
 	}
 
 	private boolean checkDataFromNotification ()
@@ -389,7 +391,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 
 	public void onResume ()
 	{
-		Log.d ( "Chat", "onResume" );
 		super.onResume ();
 		viewStateController.updateTabBar ();
 		try
@@ -406,6 +407,12 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 			setState ( VIEW_STATE.SPLASH );
 		}
 		setApplicationState ( ApplicationState.RESUME );
+        boolean isLogout = SettingsManager.getBoolean(Params.IS_LOGOUT, false, this);
+        if (isLogout){
+            SettingsManager.setBoolean(Params.IS_LOGOUT, false, this);
+            logout();
+        }
+
 	}
 
 	@Override
@@ -613,6 +620,10 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 							}
 						} else
 						{
+                            if(!bookingStatusAPIObject.checkIsActive()){
+                                logout();
+                                return;
+                            }
 							if ( bookingDataManager.getInstance ().isIService () )
 							{
 								setState ( VIEW_STATE.SERVICE_REVIEW );
@@ -645,7 +656,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 					jobTypeManager.save ();
 					loadFromServerJobAddons ();
 					bookingDataManager.update ();
-					bookingStatusAPIObject = apiManager.getBooingStatus ();
+                    String android_id = Settings.Secure.getString(MainActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID);
+					bookingStatusAPIObject = apiManager.getBooingStatus (android_id);
 					PushNotification.updateGcmID ();
 				} catch ( Exception ex )
 				{

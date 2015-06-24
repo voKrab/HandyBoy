@@ -63,6 +63,7 @@ public class CreditCardViewFragment extends BaseFragment
 	private TextView cardExpDateEditText;
 	private TextView cardNameEditText;
 	private TextView cvvEditText;
+    private TextView creditCardFreeTitle;
 	//private TextView zipEditText;
 
 	private SingleChoiceSpinner creditCardsSpinner;
@@ -79,6 +80,7 @@ public class CreditCardViewFragment extends BaseFragment
 			backImageView = ( ImageView ) view.findViewById ( R.id.backImageView );
 			backTextView = ( TextView ) view.findViewById ( R.id.backTextView );
 
+            creditCardFreeTitle = (TextView) view.findViewById(R.id.creditCardFreeTitle);
 			cvvTitleTextView = ( TextView ) view.findViewById ( R.id.cvvTitleTextView );
 			cvvDetailsImageView = ( ImageView ) view.findViewById ( R.id.cvvDetailsImageView );
 			openCardDetailsLayout = view.findViewById ( R.id.openCardDetailsLayout );
@@ -108,6 +110,11 @@ public class CreditCardViewFragment extends BaseFragment
 	protected void init ()
 	{
         isBooking = controller.isBookingState();
+        if(isBooking){
+            creditCardFreeTitle.setVisibility(View.VISIBLE);
+        }else{
+            creditCardFreeTitle.setVisibility(View.GONE);
+        }
 		getCreditCards();
 		updateComponents ();
 		addListeners ();

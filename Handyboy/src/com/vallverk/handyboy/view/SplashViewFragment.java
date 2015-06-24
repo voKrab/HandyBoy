@@ -68,14 +68,14 @@ public class SplashViewFragment extends BaseFragment
 				try
 				{
 					UserAPIObject user = APIManager.getInstance ().getUser ();
-					String loginResult = user.login ();
+					String loginResult = user.login (controller);
 					if ( !loginResult.isEmpty () )
 					{
 						result = loginResult;
 					}
 				} catch ( Exception ex )
 				{
-					result = getActivity ().getString ( R.string.error );
+					result = controller.getString ( R.string.error );
 					ex.printStackTrace ();
 				}
 				return result;

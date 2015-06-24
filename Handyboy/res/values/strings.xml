@@ -17,6 +17,7 @@
         <item>Gray</item>
         <item>Hazel</item>
         <item>Violet</item>
+        <item>Green</item>
     </string-array>
     <string-array name="body_types">
         <item>Toned</item>
@@ -217,6 +218,7 @@
     <string name="ethentity">Ethnicity</string>
     <string name="select_job">Select job</string>
     <string name="why_you_handy_boy">Why do you want to be a HandyBoy</string>
+    <string name="why_you_handy_boy_hint">Please detail your work experience and background (this information is just for us and won’t be posted on your profile)</string>
     <string name="save_information">Save Information</string>
     <string name="choose_avatar">Choose avatar</string>
     <string name="how_tall_are_you">How tall are you?</string>
@@ -289,7 +291,7 @@
     <string name="your_sms_limit_per_day_is_maxed">Your sms limit per day is maxed</string>
     <string name="selphie">Selfie</string>
     <string name="please_make_selphie">Please make selphie</string>
-    <string name="have_fun_and_be_yourself">This will not show up on \n You profile</string>
+    <string name="have_fun_and_be_yourself">This will not show up on \n your profile</string>
     <string name="contract">Contract</string>
     <string name="terms_text_1">BY APPLYING TO BECOME A HANDYBOY YOU AGREE TO:</string>
     <string name="terms_text_2">FC Dynamo Kyiv player Jeremain Lens is getting ready for two forthcoming fixtures with the Netherlands national team. The White-Blues Congolese striker Dieumerci Mbokani keeps reconditioning after knee injury in France. Kyivans’ doctor Andriy Shmorhun followed the player’s rehabilitation for some time. He has told Dynamo official web site when one should expect the forward’s return to Kyiv: - Mbokani’s recovery runs to plan. He’ll keep undergoing treatment in France till October 15. After that he’ll consult the doctor</string>
@@ -303,7 +305,7 @@
     <string name="privacy_policy_underline"><u>Privacy Policy</u></string>
     <string name="terms">Terms</string>
     <string name="you_use_illegal_characters">Вы ввели недопустимые символы</string>
-    <string name="you_are_still_young">You are still young</string>
+    <string name="you_are_still_young">You are too young</string>
     <string name="available_now">Available now</string>
     <string name="are_you_available_now">Are you available now?</string>
     <string name="by_clicking_accept_you_agree_to">By clicking accept, you agree to:</string>
@@ -376,7 +378,7 @@
     <string name="errand_boy">Errand Boy</string>
     <string name="gardener">Gardener</string>
     <string name="dialog_delete_title">Do you want to delete this favorite item?</string>
-    <string name="dialog_delete_from_block_list_title">Do you want to delete user from block list?</string>
+    <string name="dialog_delete_from_block_list_title">Are you sure you want to unblock this user?</string>
     <string name="favs">Fav\'s</string>
     <string name="no_favs_title">No favorites?!?!</string>
     <string name="no_favs_body">GO NAB ONE!</string>
@@ -579,7 +581,7 @@
     <string name="bathrooms">Bathrooms</string>
     <string name="bathrooms_count">Bathrooms count (1-5+)</string>
     <string name="waiting_for_customer_decision_about_your_add_charges_request">Waiting for customer decision about your additional charges request</string>
-    <string name="add_youtube_video_title">Add YouTube video?</string>
+    <string name="add_youtube_video_title">Check video guidelines here</string>
     <string name="ok">Ok</string>
     <string name="connect_facebook">Connect with facebook</string>
 
@@ -613,4 +615,5 @@
     <string name="enter_zip">Enter a Zip</string>
     <string name="re_entered_bank_account_info">You must re-enter the information for your account</string>
     <string name="alert_i_need_a_cancel_hb_nextgig">Unless there is a good reason, canceling on such short notice may result in negative reviews. Repeated cancellations may result in the suspension of your HandyBoy account.</string>
+    <string name="select_a_job_pick">Select a job (pick as many as you want)</string>
 </resources>

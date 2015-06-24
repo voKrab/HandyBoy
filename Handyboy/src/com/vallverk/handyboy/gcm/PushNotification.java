@@ -14,6 +14,8 @@ import org.json.JSONObject;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.vallverk.handyboy.MainActivity;
@@ -72,10 +74,12 @@ public class PushNotification
 
 	public static void updateGcmID () throws Exception
 	{
+        MainActivity controller = MainActivity.getInstance ();
 		APIManager apiManager = APIManager.getInstance ();
 		UserAPIObject user = apiManager.getUser ();
 		String gcmId = GoogleCloudMessaging.getInstance ( MainActivity.getInstance () ).register ( SENDER_ID );
-		DeviceTokenAPIObject deviceTokenAPIObject = new DeviceTokenAPIObject ( user.getId (), gcmId, OperatingSystemEnum.ANDROID.toString () );
+        String android_id = Settings.Secure.getString(controller.getContentResolver(), Settings.Secure.ANDROID_ID);
+		DeviceTokenAPIObject deviceTokenAPIObject = new DeviceTokenAPIObject ( user.getId (), gcmId, OperatingSystemEnum.ANDROID.toString (), android_id );
 		apiManager.insert ( deviceTokenAPIObject, ServerManager.SAVE_DEVICE_TOKEN );
 	}
 
@@ -89,9 +93,12 @@ public class PushNotification
 
 	public static void unSubscribe () throws Exception
 	{
-		MainActivity controller = MainActivity.getInstance ();
-		UserAPIObject user = APIManager.getInstance ().getUser ();
+        MainActivity controller = MainActivity.getInstance ();
+        UserAPIObject user = APIManager.getInstance ().getUser ();
+        String gcmId = GoogleCloudMessaging.getInstance ( MainActivity.getInstance () ).register ( SENDER_ID );
+        String android_id = Settings.Secure.getString(controller.getContentResolver(), Settings.Secure.ANDROID_ID);
+        ServerManager.getRequest ( ServerManager.DELETE_DEVICE_TOKEN.replace ( "userId=1", "userId=" + user.getId () + "&token=" + gcmId + "&uid=" + android_id ) );
+        Log.d("GCMHandy", "unSubscribe=" + ServerManager.DELETE_DEVICE_TOKEN.replace ( "userId=1", "userId=" + user.getId () + "&token=" + gcmId ));
 		GoogleCloudMessaging.getInstance ( controller ).unregister ();
-		ServerManager.getRequest ( ServerManager.DELETE_DEVICE_TOKEN.replace ( "userId=1", "userId=" + user.getId () ) );
 	}
 }

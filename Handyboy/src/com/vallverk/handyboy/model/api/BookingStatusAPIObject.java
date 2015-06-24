@@ -10,8 +10,25 @@ public class BookingStatusAPIObject extends APIObject
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+    private String isActive;
 
-	public enum BookingStateEnum
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
+    }
+
+    public boolean checkIsActive(){
+        if(getIsActive() != null){
+            if(getIsActive().equals("YES")) return true;
+            else  return false;
+        }
+        return false;
+    }
+
+    public enum BookingStateEnum
 	{
 		NORMAL ( "0" ), 
 		WAITING_FOR_REVIEW ( "1" );

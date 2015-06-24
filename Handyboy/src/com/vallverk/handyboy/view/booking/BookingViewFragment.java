@@ -24,6 +24,9 @@ import com.vallverk.handyboy.model.schedule.BookingTime;
 import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.controller.BookingController;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -165,7 +168,9 @@ public class BookingViewFragment extends BaseFragment
 			creditCardTextView.setVisibility ( View.INVISIBLE );
 			choosedCreditCardFrameLayout.setVisibility ( View.VISIBLE );
 			choosedCreditCardNameTextView.setText ( creditCard.getString ( CreditCardParams.CARD_NAME ) );
-			choosedCreditCardDateTextView.setText ( creditCard.getString ( CreditCardParams.EXP_DATE ) );
+			//choosedCreditCardDateTextView.setText ( creditCard.getString ( CreditCardParams.EXP_DATE ) );
+            choosedCreditCardDateTextView.setText ( "+3% credit card fee" );
+
 		}
 	}
 
@@ -184,7 +189,21 @@ public class BookingViewFragment extends BaseFragment
 			Calendar calendar = Calendar.getInstance ();
 			calendar.setTime ( date );
 			choosedDayTextView.setText ( calendar.getDisplayName ( Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US ) );
-			choosedDateTextView.setText ( calendar.getDisplayName ( Calendar.MONTH, Calendar.LONG, Locale.US ) + ", " + calendar.get ( Calendar.DAY_OF_MONTH ) );
+
+            JSONArray timeJsonArray;
+            JSONObject timePeriod;
+            String startPeriod = "";
+            String endPeriod = "";
+            try {
+                timeJsonArray = bookingTime.createTimeJSONArray();
+                timePeriod = timeJsonArray.getJSONObject ( 0 );
+                startPeriod = timePeriod.getString ( "start" );
+                endPeriod = timePeriod.getString ( "end" );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            choosedDateTextView.setText ( calendar.getDisplayName ( Calendar.MONTH, Calendar.LONG, Locale.US ) + " " + calendar.get ( Calendar.DAY_OF_MONTH ) + ", " + calendar.get(Calendar.YEAR) + " " + (Tools.getAmericanTime(startPeriod).replace(" ", "")) + "-" + Tools.getAmericanTime(endPeriod).replace(" ", "") );
 		}
 	}
 

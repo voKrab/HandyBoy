@@ -88,7 +88,7 @@ public class HelpViewFragment extends BaseFragment
 	
 	private void updateComponents ()
 	{
-		webview.loadUrl ( "https://handyboy.zendesk.com/hc/en-us/categories/200210955-FAQ" );
+		webview.loadUrl ( "https://handyboy.zendesk.com" );
 	}
 
 	private void addListeners ()

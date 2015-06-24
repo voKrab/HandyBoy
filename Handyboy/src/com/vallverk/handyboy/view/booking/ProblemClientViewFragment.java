@@ -9,6 +9,7 @@ import com.vallverk.handyboy.model.api.BookingAPIObject;
 import com.vallverk.handyboy.model.api.BookingDataManager;
 import com.vallverk.handyboy.model.api.BookingDataObject;
 import com.vallverk.handyboy.model.api.UserAPIObject;
+import com.vallverk.handyboy.server.ServerManager;
 import com.vallverk.handyboy.view.base.BaseFragment;
 
 import android.app.Dialog;
@@ -23,6 +24,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 public class ProblemClientViewFragment extends BaseFragment
 {
@@ -181,7 +184,9 @@ public class ProblemClientViewFragment extends BaseFragment
                 public void onClick ( View v )
                 {
                     hbIsLateDialog.dismiss ();
-                    cancelGig();
+                    //cancelGig();
+                    hbIsLate();
+
                 }
             } );
 
@@ -190,8 +195,54 @@ public class ProblemClientViewFragment extends BaseFragment
 
         hbIsLateDialog.show ();
     }
-	
-	protected void cancelGig ()
+
+    private void hbIsLate(){
+        new AsyncTask < Void, Void, String > ()
+        {
+            public void onPreExecute ()
+            {
+                super.onPreExecute ();
+                controller.showLoader ();
+            }
+
+            public void onPostExecute ( String result )
+            {
+                super.onPostExecute ( result );
+                controller.hideLoader ();
+                if ( result.isEmpty () )
+                {
+                    controller.setState ( VIEW_STATE.BOOK_ANOTHER );
+                } else
+                {
+                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+                }
+            }
+
+            @Override
+            protected String doInBackground ( Void... params )
+            {
+                String result = "";
+                try
+                {
+                    String request = ServerManager.getRequest(ServerManager.SEND_HB_ISLATE + bookingAPIObject.getId());
+                    JSONObject jsonRequest = new JSONObject(request);
+                    result = jsonRequest.getString("parameters");
+                    if(result.isEmpty()){
+                        result = jsonRequest.getString("message");
+                    }
+
+                } catch ( Exception ex )
+                {
+                    result = ex.getMessage ();
+                    ex.printStackTrace ();
+                }
+                return result;
+            }
+        }.execute ();
+    }
+
+
+    protected void cancelGig ()
 	{
 		new AsyncTask < Void, Void, String > ()
 		{
@@ -230,44 +281,4 @@ public class ProblemClientViewFragment extends BaseFragment
 			}
 		}.execute ();
 	}
-
-    protected void sendHBIsLate ()
-    {
-        new AsyncTask < Void, Void, String > ()
-        {
-            public void onPreExecute ()
-            {
-                super.onPreExecute ();
-                controller.showLoader ();
-            }
-
-            public void onPostExecute ( String result )
-            {
-                super.onPostExecute ( result );
-                controller.hideLoader ();
-                if ( result.isEmpty () )
-                {
-                    controller.setState ( VIEW_STATE.GIGS );
-                } else
-                {
-                    Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
-                }
-            }
-
-            @Override
-            protected String doInBackground ( Void... params )
-            {
-                String result = "";
-                try
-                {
-                    bookingAPIObject.changeStatus ( user, service, BookingStatusEnum.CANCELED_BY_CUSTOMER );
-                } catch ( Exception ex )
-                {
-                    result = ex.getMessage ();
-                    ex.printStackTrace ();
-                }
-                return result;
-            }
-        }.execute ();
-    }
 }
