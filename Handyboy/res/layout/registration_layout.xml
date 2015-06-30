@@ -172,18 +172,32 @@
                 android:textSize="9sp"
                 app:customFont="SEMIBOLD" />
 
-            <com.vallverk.handyboy.view.base.EditTextPlus
-                app:customFont="SEMIBOLD"
-                android:id="@+id/passwordEditText"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:textColor="@color/dark_blue"
-                android:textColorHint="@color/text_hint"
-                android:background="@drawable/password_edit_text_selector"
-                android:ems="10"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:textSize="13sp" />
+                android:layout_height="wrap_content">
+
+                <com.vallverk.handyboy.view.base.EditTextPlus
+                    app:customFont="SEMIBOLD"
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:textColor="@color/dark_blue"
+                    android:textColorHint="@color/text_hint"
+                    android:background="@drawable/password_edit_text_selector"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:textSize="13sp" />
+
+                <View
+                    android:id="@+id/eyeButton"
+                    android:layout_width="34dp"
+                    android:layout_gravity="right"
+                    android:layout_height="34dp"></View>
+
+            </FrameLayout>
+
+
 
             <com.vallverk.handyboy.view.base.TextViewPlus
                 android:id="@+id/TextView03"

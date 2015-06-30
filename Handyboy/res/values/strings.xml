@@ -581,7 +581,8 @@
     <string name="bathrooms">Bathrooms</string>
     <string name="bathrooms_count">Bathrooms count (1-5+)</string>
     <string name="waiting_for_customer_decision_about_your_add_charges_request">Waiting for customer decision about your additional charges request</string>
-    <string name="add_youtube_video_title">Check video guidelines here</string>
+    <string name="add_youtube_video_title">Add a YouTube video?</string>
+    <string name="add_youtube_sub_video_title">(<u>check video guidelines here)</u></string>
     <string name="ok">Ok</string>
     <string name="connect_facebook">Connect with facebook</string>
 

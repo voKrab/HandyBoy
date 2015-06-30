@@ -1,6 +1,7 @@
 package com.vallverk.handyboy.view.profile;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -203,6 +204,16 @@ public class ServiceEditProfileViewFragment extends BaseFragment
 			View noButton = addVideoDialog.findViewById ( R.id.dialogNoButton );
 			final View yesButton = addVideoDialog.findViewById ( R.id.dialogYesButton );
 			youTubeLinkEditText = ( EditText ) addVideoDialog.findViewById ( R.id.youTubeLinkEditText );
+
+			TextView dialogSubTitleTextView = (TextView) addVideoDialog.findViewById(R.id.dialogSubTitleTextView);
+			dialogSubTitleTextView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://handyboy.zendesk.com/hc/en-us/articles/203165889-What-are-the-photo-and-video-guidelines-"));
+					startActivity(browserIntent);
+				}
+			});
+
 			final ImageView videoPreviewImageView = ( ImageView ) addVideoDialog.findViewById ( R.id.videoPreviewImageView );
 			noButton.setOnClickListener ( new OnClickListener ()
 			{

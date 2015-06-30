@@ -66,12 +66,12 @@ public class CustomerEditProfileViewFragment extends BaseFragment
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
-		super.onActivityCreated ( savedInstanceState );
+		super.onActivityCreated(savedInstanceState);
 		apiManager = APIManager.getInstance ();
 		user = apiManager.getUser ();
 
-		updateComponents ();
-		addListeners ();
+		updateComponents();
+		addListeners();
 	}
 
 	private void updateComponents ()
@@ -81,7 +81,11 @@ public class CustomerEditProfileViewFragment extends BaseFragment
 		firstEditText.setText ( user.getValue ( UserParams.FIRST_NAME ).toString () );
 		lastEditText.setText ( user.getValue ( UserParams.LAST_NAME ).toString () );
 		locationEditText.setText ( user.getLocationText () );
-		avatarImageView.update ( user.getValue ( UserParams.AVATAR ).toString (), Quality.MEDIUM );
+		try {
+			avatarImageView.update(user.getValue(UserParams.AVATAR).toString(), Quality.MEDIUM);
+		}catch (Exception ex){
+			//avatar is null
+		}
 	}
 
 	protected void addListeners ()

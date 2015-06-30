@@ -57,22 +57,36 @@
                     <requestFocus />
                 </com.vallverk.handyboy.view.base.EditTextPlus>
 
-                <com.vallverk.handyboy.view.base.EditTextPlus
+                <FrameLayout
                     android:id="@+id/passwordEditText"
                     android:layout_width="wrap_content"
-                    android:layout_height="42dp"
                     android:layout_alignLeft="@+id/emailEditText"
                     android:layout_alignRight="@+id/emailEditText"
                     android:layout_below="@+id/emailEditText"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/password_edit_text_selector"
-                    android:ems="10"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:textColor="@drawable/login_text_color_selector"
-                    android:textColorHint="@color/text_hint"
-                    android:textSize="13sp"
-                    app:customFont="REGULAR" />
+                    android:layout_height="wrap_content">
+
+                    <com.vallverk.handyboy.view.base.EditTextPlus
+                        android:id="@+id/passwordEditTextContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/password_edit_text_selector"
+                        android:ems="10"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:textColor="@drawable/login_text_color_selector"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="13sp"
+                        app:customFont="REGULAR" />
+                    <View
+                        android:id="@+id/eyeButton"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="42dp"
+                        android:layout_gravity="right"
+                        android:layout_height="42dp"></View>
+
+                </FrameLayout>
+
 
                 <TextView
                     android:id="@+id/forgotPasswordTextView"

@@ -1,5 +1,6 @@
 package com.vallverk.handyboy.view;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,6 +36,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.Tools;
 import com.vallverk.handyboy.ViewStateController.VIEW_STATE;
+import com.vallverk.handyboy.model.FilterManager;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.DiscountAPIObject;
 import com.vallverk.handyboy.model.api.DiscountAPIObject.DiscountParams;
@@ -113,6 +115,8 @@ public class HandyBoyViewFragment extends BaseFragment
 	private DisplayImageOptions avatarLoadOptions = new DisplayImageOptions.Builder ().showImageOnFail ( R.drawable.avatar ).showImageForEmptyUri ( R.drawable.avatar ).cacheInMemory ( true ).cacheOnDisc ().build ();
 	private View ratingContainer;
 	private View freshMeatTextView;
+
+	private Dialog flagHimDialog;
 
 	public interface Refresher
 	{
@@ -412,7 +416,7 @@ public class HandyBoyViewFragment extends BaseFragment
 	{
 		updateLike ( likeImageView.isActivated () );
 		updateBlock ( blockImageView.isActivated () );
-		super.onPause ();
+		super.onPause();
 	}
 
 	private void checkLike ()
@@ -439,7 +443,7 @@ public class HandyBoyViewFragment extends BaseFragment
 					String url = ServerManager.CHECK_FAVORITE_URI;
 					JSONObject favoriteObject = new JSONObject ();
 					favoriteObject.put ( "userId", apiManager.getUser ().getId () );
-					favoriteObject.put ( "serviceId", handyboy.getValue ( UserParams.SERVICE_ID ).toString () );
+					favoriteObject.put ( "serviceId", handyboy.getValue ( UserParams.SERVICE_ID ).toString() );
 					String responseText = ServerManager.postRequest ( url, favoriteObject );
 					if ( responseText != null && !responseText.isEmpty () )
 					{
@@ -482,7 +486,7 @@ public class HandyBoyViewFragment extends BaseFragment
 					favoriteObject.put ( "userId", apiManager.getUser ().getId () );
 					// favoriteObject.put ( "blockUserId", user.getValue (
 					// UserParams.SERVICE_ID ).toString () );
-					favoriteObject.put ( "blockUserId", handyboy.getId () );
+					favoriteObject.put ( "blockUserId", handyboy.getId() );
 					String responseText = ServerManager.postRequest ( url, favoriteObject );
 					if ( responseText != null && !responseText.isEmpty () )
 					{
@@ -520,7 +524,7 @@ public class HandyBoyViewFragment extends BaseFragment
 
 					JSONObject favoriteObject = new JSONObject ();
 					favoriteObject.put ( "userId", apiManager.getUser ().getId () );
-					favoriteObject.put ( "serviceId", handyboy.getValue ( UserParams.SERVICE_ID ).toString () );
+					favoriteObject.put ( "serviceId", handyboy.getValue ( UserParams.SERVICE_ID ).toString() );
 					ServerManager.postRequest ( url, favoriteObject );
 				} catch ( Exception ex )
 				{
@@ -571,21 +575,21 @@ public class HandyBoyViewFragment extends BaseFragment
 
 	protected void clearFields ()
 	{
-		ratingView.setRating ( 0 );
-		flakeOMeterView.setRating ( 0 );
+		ratingView.setRating(0);
+		flakeOMeterView.setRating(0);
 		minPriceTextView.setVisibility ( View.INVISIBLE );
 		parametersTextView.setText ( "" );
-		descriptionTextView.setText ( "" );
-		parametersTextView.setVisibility ( View.INVISIBLE );
-		descriptionTextView.setVisibility ( View.INVISIBLE );
-		typejobsContainer.removeAllViews ();
-		typejobsContainer.setVisibility ( View.GONE );
+		descriptionTextView.setText("");
+		parametersTextView.setVisibility(View.INVISIBLE);
+		descriptionTextView.setVisibility(View.INVISIBLE);
+		typejobsContainer.removeAllViews();
+		typejobsContainer.setVisibility(View.GONE);
 		priceContainer.setVisibility ( View.INVISIBLE );
-		typejobNameTextView.setVisibility ( View.INVISIBLE );
-		typejobDescriptionTextView.setText ( "" );
-		availableNowContainer.setVisibility ( View.GONE );
+		typejobNameTextView.setVisibility(View.INVISIBLE);
+		typejobDescriptionTextView.setText("");
+		availableNowContainer.setVisibility(View.GONE);
 		//ratingContainer.setVisibility ( View.INVISIBLE );
-		freshMeatTextView.setVisibility ( View.GONE );
+		freshMeatTextView.setVisibility(View.GONE);
 	}
 
 	private void updateComponents ()
@@ -765,7 +769,15 @@ public class HandyBoyViewFragment extends BaseFragment
                 });
 
 		}
-		selectedJob = typejobs.get ( 0 );
+		for ( final TypeJobServiceAPIObject typeJobObject : typejobs ){
+			if(typeJobObject.getValue(TypeJobServiceParams.TYPEJOB_ID).equals(FilterManager.getInstance().getJobid())){
+				//selectedJob = typejobs.get ( 0 );
+				selectedJob = typeJobObject;
+			}
+		}
+		if(selectedJob == null) {
+			selectedJob = typejobs.get(0);
+		}
 		updateJobSelection ();
 	}
 
@@ -858,7 +870,8 @@ public class HandyBoyViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				flagHim ();
+				//flagHim ();
+				showFlagHimDialog();
 			}
 		} );
 		chatImageView.setOnClickListener ( new OnClickListener ()
@@ -1160,5 +1173,49 @@ public class HandyBoyViewFragment extends BaseFragment
 		{
 			this.youtubeId = youtubeId;
 		}
+	}
+
+	private void showFlagHimDialog ()
+	{
+		if ( flagHimDialog == null )
+		{
+			flagHimDialog = new Dialog( getActivity () );
+			flagHimDialog.requestWindowFeature ( Window.FEATURE_NO_TITLE );
+			flagHimDialog.setContentView ( R.layout.available_dialog_layout );
+			View noButton = flagHimDialog.findViewById ( R.id.dialogNoButton );
+			View yesButton = flagHimDialog.findViewById ( R.id.dialogYesButton );
+
+			View dialogTitleTextView = flagHimDialog.findViewById(R.id.dialogTitleTextView);
+			dialogTitleTextView.setVisibility(View.GONE);
+
+			TextView dialogBodyTextView = (TextView)flagHimDialog.findViewById(R.id.dialogBodyTextView);
+			dialogBodyTextView.setText("Are you sure you want to Flag this profile for inappropriate content?");
+
+
+			noButton.setOnClickListener ( new OnClickListener ()
+			{
+
+				@Override
+				public void onClick ( View v )
+				{
+					flagHimDialog.dismiss();
+				}
+			} );
+
+			yesButton.setOnClickListener ( new OnClickListener ()
+			{
+
+				@Override
+				public void onClick ( View v )
+				{
+					flagHimDialog.dismiss();
+					flagHim();
+				}
+			} );
+
+			flagHimDialog.getWindow ().setBackgroundDrawable ( new ColorDrawable ( android.graphics.Color.TRANSPARENT ) );
+		}
+
+		flagHimDialog.show ();
 	}
 }

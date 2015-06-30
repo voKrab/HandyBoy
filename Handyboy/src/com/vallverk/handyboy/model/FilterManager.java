@@ -114,6 +114,10 @@ public class FilterManager
 		this.jobid = jobId;
 	}
 
+	public String getJobid(){
+		return this.jobid;
+	}
+
 	public void setJobName ( String jobName )
 	{
 		this.jobName = jobName;

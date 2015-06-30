@@ -14,6 +14,7 @@ import com.vallverk.handyboy.view.base.AutocompleteAdapter;
 
 public class AddressAutocompleteAdapter extends AutocompleteAdapter
 {
+	private static final int START_AFTER  = 5;
 	public AddressAutocompleteAdapter ( Activity context, String nameFilter )
 	{
 		super ( context, nameFilter );
@@ -23,23 +24,21 @@ public class AddressAutocompleteAdapter extends AutocompleteAdapter
 	@Override
 	protected List getData ( String constraint )
 	{
-		Geocoder gcd = new Geocoder ( MainActivity.getInstance ().getBaseContext (), Locale.getDefault () );
-		List findedData = new ArrayList ();
-		try
-		{
-			List < Address > addresses = gcd.getFromLocationName ( constraint, MAX_RESULTS );
-			for ( Address address : addresses )
-			{
-				AddressWraper addressWraper = new AddressWraper ( address );
-				if ( addressWraper.isValid () )
-				{
-					findedData.add ( addressWraper );
+		List findedData = new ArrayList();
+		if(constraint.length() >= 5) {
+			Geocoder gcd = new Geocoder(MainActivity.getInstance().getBaseContext(), Locale.getDefault());
+
+			try {
+				List<Address> addresses = gcd.getFromLocationName(constraint, MAX_RESULTS);
+				for (Address address : addresses) {
+					AddressWraper addressWraper = new AddressWraper(address);
+					if (addressWraper.isValid()) {
+						findedData.add(addressWraper);
+					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch ( Exception e )
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return findedData;
 	}

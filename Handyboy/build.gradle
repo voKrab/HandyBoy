@@ -17,7 +17,7 @@ android {
     buildToolsVersion "21.1.2"
 
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "1g"
         jumboMode true
     }
 

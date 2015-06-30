@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,9 +34,11 @@ public class LoginViewFragment extends BaseFragment
 	private Button skipButton;
 	private FacebookManager facebook;
 	private View mainContainer;
+	private View eyeButton;
 
 	int i = 0;
     private Bundle savedInstanceState;
+	private boolean isVisible;
 
     public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -43,12 +46,13 @@ public class LoginViewFragment extends BaseFragment
 
 		loginWithFacebookButton = ( Button ) view.findViewById ( R.id.loginWithFacebookButton );
 		emailEditText = ( EditText ) view.findViewById ( R.id.emailEditText );
-		passwordEditText = ( EditText ) view.findViewById ( R.id.passwordEditText );
+		passwordEditText = ( EditText ) view.findViewById ( R.id.passwordEditTextContainer );
 		forgotPasswordTextView = ( TextView ) view.findViewById ( R.id.forgotPasswordTextView );
 		signinButton = ( Button ) view.findViewById ( R.id.signinButton );
 		registrationButton = ( Button ) view.findViewById ( R.id.registrationButton );
 		skipButton = ( Button ) view.findViewById ( R.id.skipButton );
 		mainContainer = view.findViewById ( R.id.mainContainer );
+		eyeButton = view.findViewById(R.id.eyeButton);
 
 		return view;
 	}
@@ -57,7 +61,7 @@ public class LoginViewFragment extends BaseFragment
 	protected void init ()
 	{
 		facebook = new FacebookManager ();
-		facebook.init ( savedInstanceState, this );
+		facebook.init(savedInstanceState, this);
 
 		addListeners ();
 	}
@@ -65,7 +69,7 @@ public class LoginViewFragment extends BaseFragment
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
-		super.onActivityCreated ( savedInstanceState );
+		super.onActivityCreated(savedInstanceState);
         this.savedInstanceState = savedInstanceState;
 	}
 
@@ -83,58 +87,50 @@ public class LoginViewFragment extends BaseFragment
 			}
 		} );
 
-		getView ().setOnClickListener ( new OnClickListener ()
-		{
+		getView ().setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick ( View v )
-			{
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				i++;
-				Handler handler = new Handler ();
-				Runnable r = new Runnable ()
-				{
+				Handler handler = new Handler();
+				Runnable r = new Runnable() {
 
 					@Override
-					public void run ()
-					{
+					public void run() {
 						i = 0;
 					}
 				};
 
-				if ( i == 1 )
-				{
+				if (i == 1) {
 					// Single click
-					handler.postDelayed ( r, 250 );
+					handler.postDelayed(r, 250);
 
-				} else if ( i == 2 )
-				{
+				} else if (i == 2) {
 					// Double click
 					i = 0;
 
-					emailEditText.setText ( "timm.kasianov@gmail.com" );
-					passwordEditText.setText ( "qwerty" );
-					controller.setDebugMode ( true );
+					emailEditText.setText("timm.kasianov@gmail.com");
+					passwordEditText.setText("qwerty");
+					controller.setDebugMode(true);
 				}
 
 			}
-		} );
+		});
 
-		mainContainer.setOnClickListener ( new OnClickListener ()
-		{
+		mainContainer.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick ( View v )
-			{
-				controller.hideKeyboard ();
+			public void onClick(View v) {
+				controller.hideKeyboard();
 			}
-		} );
+		});
 
 		forgotPasswordTextView.setOnClickListener ( new OnClickListener ()
 		{
 			@Override
 			public void onClick ( View v )
 			{
-				MainActivity.getInstance ().setState ( VIEW_STATE.FORGOT_PASSWORD );
+				MainActivity.getInstance ().setState(VIEW_STATE.FORGOT_PASSWORD);
 			}
 		} );
 		loginWithFacebookButton.setOnClickListener ( new OnClickListener ()
@@ -142,7 +138,7 @@ public class LoginViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				facebook.login ();
+				facebook.login();
 			}
 		} );
 		signinButton.setOnClickListener ( new OnClickListener ()
@@ -150,7 +146,7 @@ public class LoginViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				login ();
+				login();
 			}
 		} );
 		registrationButton.setOnClickListener ( new OnClickListener ()
@@ -158,9 +154,22 @@ public class LoginViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				MainActivity.getInstance ().setState ( VIEW_STATE.REGISTRATION );
+				MainActivity.getInstance ().setState(VIEW_STATE.REGISTRATION);
 			}
 		} );
+
+		eyeButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(isVisible){
+					passwordEditText.setInputType(129);
+					isVisible = false;
+				}else{
+					passwordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+					isVisible = true;
+				}
+			}
+		});
 	}
 
 	protected void login ()

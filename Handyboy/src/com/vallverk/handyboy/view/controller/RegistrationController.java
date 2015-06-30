@@ -93,7 +93,7 @@ public class RegistrationController
 	public void nextStep ()
 	{
 		prevState = currentState;
-		currentState = getNextStep ();
+		currentState = getNextStep();
 		applyState ();
 	}
 
@@ -104,7 +104,7 @@ public class RegistrationController
 	{
 		currentState = prevState;
 		prevState = getPrevStep ();
-		applyState ();
+		applyState();
 	}
 
 	/**
@@ -112,13 +112,15 @@ public class RegistrationController
 	 */
 	private void applyState ()
 	{
-		if ( currentState == VIEW_STATE.CHOOSE_USER_TYPE )
-		{
-			prevState = null;
-			userStatus = UserStatus.NEW;
-			// userDetails = null;
+		try {
+			if (currentState == VIEW_STATE.CHOOSE_USER_TYPE) {
+				prevState = null;
+				userStatus = UserStatus.NEW;
+				// userDetails = null;
+			}
+			controller.setState(currentState);
+		}catch (Exception e){
 		}
-		controller.setState ( currentState );
 	}
 
 	private VIEW_STATE getNextStep ()
@@ -131,7 +133,14 @@ public class RegistrationController
 		{
 			case CHOOSE_USER_TYPE:
 			{
-				return userStatus == UserStatus.NEW_SERVICE ? VIEW_STATE.REGISTRATION_SERVICE_BIO : VIEW_STATE.REGISTRATION_CUSTOMER_BIO;
+				if( userStatus == UserStatus.NEW_SERVICE){
+					return VIEW_STATE.REGISTRATION_SERVICE_BIO;
+				}else{
+					//createCustomer();
+					finish();
+				}
+				break;
+				//return userStatus == UserStatus.NEW_SERVICE ? VIEW_STATE.REGISTRATION_SERVICE_BIO : VIEW_STATE.REGISTRATION_CUSTOMER_BIO;
 			}
 			case REGISTRATION_SERVICE_BIO:
 			{
@@ -192,7 +201,7 @@ public class RegistrationController
 			{
 				return null;
 			}
-			case REGISTRATION_CUSTOMER_BIO:
+			//case REGISTRATION_CUSTOMER_BIO: //TODO
 			case REGISTRATION_SERVICE_BIO:
 			{
 				return VIEW_STATE.CHOOSE_USER_TYPE;

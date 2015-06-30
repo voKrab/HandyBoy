@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
@@ -59,8 +60,10 @@ public class RegistrationViewFragment extends BaseFragment
 	private TextView privacyPolicyTextView;
     private TextView contractTextView;
 	private Dialog codeVerificationDialog;
+	private View eyeButton;
 
 	private boolean isVerificationOk = false;
+	private boolean isVisible;
 
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
@@ -81,6 +84,8 @@ public class RegistrationViewFragment extends BaseFragment
         contractTextView = (TextView) view.findViewById(R.id.contractTextView);
 		termsTextView = ( TextView ) view.findViewById ( R.id.termsTextView );
 		privacyPolicyTextView = ( TextView ) view.findViewById ( R.id.privacyPolicyTextView );
+		eyeButton = view.findViewById(R.id.eyeButton);
+
 		return view;
 	}
 
@@ -258,7 +263,7 @@ public class RegistrationViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
-				getActivity ().onBackPressed ();
+				getActivity ().onBackPressed();
 			}
 		} );
 		backTextView.setOnClickListener ( new OnClickListener ()
@@ -270,7 +275,20 @@ public class RegistrationViewFragment extends BaseFragment
 			}
 		} );
 
-		phoneEditText.addTextChangedListener ( phoneTextWatcher );
+		phoneEditText.addTextChangedListener(phoneTextWatcher);
+
+		eyeButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (isVisible) {
+					passwordEditText.setInputType(129);
+					isVisible = false;
+				} else {
+					passwordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+					isVisible = true;
+				}
+			}
+		});
 	}
 
 	private TextWatcher phoneTextWatcher = new TextWatcher ()
