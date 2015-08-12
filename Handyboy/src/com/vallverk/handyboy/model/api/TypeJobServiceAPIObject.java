@@ -42,7 +42,7 @@ public class TypeJobServiceAPIObject extends APIObject
 
 	public enum TypeJobServiceParams
 	{
-		DESCRIPTION ( "description" ), SERVICE_ID ( "serviceId" ), TYPEJOB_ID ( "typeJobId" ), PRICE ( "price" ), /*PRICE_DISTANCE ( "priceDistance" ),*/ LEVEL ( "level" ), APROVE_FILE ( "aproveFile" ), TURN_ON ( "turnon" );
+        CUSTOM_DESCRIPTION("description"), DESCRIPTION ( "customDescription" ), SERVICE_ID ( "serviceId" ), TYPEJOB_ID ( "typeJobId" ), PRICE ( "price" ), /*PRICE_DISTANCE ( "priceDistance" ),*/ LEVEL ( "level" ), APROVE_FILE ( "aproveFile" ), TURN_ON ( "turnon" );
 
 		String name;
 

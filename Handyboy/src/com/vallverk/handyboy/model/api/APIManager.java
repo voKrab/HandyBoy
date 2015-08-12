@@ -313,9 +313,6 @@ public class APIManager implements Serializable
         return typejobs;
     }
 
-
-
-
 	public List loadList ( String url, Class type ) throws Exception
 	{
 		String responceString = ServerManager.getRequest ( url );

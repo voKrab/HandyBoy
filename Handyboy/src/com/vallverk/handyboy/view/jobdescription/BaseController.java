@@ -360,8 +360,12 @@ public abstract class BaseController
 			jsonObject.put ( AddonServiceAPIParams.TYPE_JOB_SERVICE_ID.toString (), job.getId () );
 			jsonObject.put ( AddonServiceAPIParams.JOB_ADDONS_ID.toString (), addonItem.getId () );
 			jsonObject.put ( "isChecked", item.isChecked () );
-			jsonObject.put ( AddonServiceAPIParams.PRICE.toString (), item.getPrice () );
-			jsonArray.put ( jsonObject );
+            if(item.getPrice () > 0) {
+                jsonObject.put(AddonServiceAPIParams.PRICE.toString(), item.getPrice());
+            }else {
+                jsonObject.put(AddonServiceAPIParams.PRICE.toString(), "");
+            }
+			jsonArray.put(jsonObject);
 		}
 		ServerManager.postRequest ( ServerManager.ADDONS_SERVICE_SET, jsonArray );
 	}
@@ -396,6 +400,10 @@ public abstract class BaseController
 	{
 		detailsContainer.setVisibility ( View.GONE );
 	}
+
+    public TypeJobServiceAPIObject getJob(){
+        return job;
+    }
 	
 	protected AddonPriceViewBase[] getPriceAddons ()
 	{

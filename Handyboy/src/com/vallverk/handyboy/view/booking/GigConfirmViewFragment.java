@@ -136,7 +136,7 @@ public class GigConfirmViewFragment extends BaseFragment
 
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}
@@ -280,7 +280,12 @@ public class GigConfirmViewFragment extends BaseFragment
             TextView addonNameTextView = ( TextView ) addonItemView.findViewById ( R.id.addonNameTextView );
             TextView addonPriceTextView = ( TextView ) addonItemView.findViewById ( R.id.addonPriceTextView );
             addonNameTextView.setText ( jobAddonDetailsObject.addonsAPIObject.getValue ( JobAddonsAPIObject.JobAddonsAPIParams.NAME ).toString() );
-            float addonPrice = Float.parseFloat(jobAddonDetailsObject.addonServiceAPIObject.getValue ( AddonServiceAPIObject.AddonServiceAPIParams.PRICE ).toString());
+            float addonPrice = 0;
+            try {
+                addonPrice = Float.parseFloat(jobAddonDetailsObject.addonServiceAPIObject.getValue(AddonServiceAPIObject.AddonServiceAPIParams.PRICE).toString());
+            }catch (Exception ex){
+                addonPrice = 0;
+            }
             addToTotal(addonPrice);
             addonPriceTextView.setText ( "$" +  Tools.decimalFormat(addonPrice));
             addonContainer.addView ( addonItemView );

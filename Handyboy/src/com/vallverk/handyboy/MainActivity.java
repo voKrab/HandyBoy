@@ -3,6 +3,7 @@ package com.vallverk.handyboy;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcel;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
@@ -26,6 +28,10 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+//import com.braintreepayments.api.Braintree;
+//import com.braintreepayments.api.dropin.BraintreePaymentActivity;
+//import com.braintreepayments.api.models.CardBuilder;
+//import com.braintreepayments.api.models.PaymentMethod;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -186,6 +192,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 	private BookingStatusAPIObject bookingStatusAPIObject;
 	private NotificationBroadcastReceiver notificationBroadcastReceiver;
 
+    //private Braintree braintree;
+
 	// Define a DialogFragment that displays the error dialog
 	public static class ErrorDialogFragment extends DialogFragment
 	{
@@ -318,8 +326,66 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerCa
 		mNavigationDrawerFragment.setUp ( R.id.navigation_drawer, drawerLayout );
 
 		ImageLoader.getInstance ().init ( ImageLoaderConfiguration.createDefault ( this ) );
+
+        //onBraintreeSubmit();
+
+       /* String clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiIwMWY4OWQ1MTc3Zjk0ZjQ4MGI4NWE0YjU1ODVmOWZjYjc5OTQ3MjA4Zjg0MGM2ZDYyZTQwOTFjNmRhMmM3ZjMwfGNyZWF0ZWRfYXQ9MjAxNS0wNy0xNlQxMDozMzo0Ni45ODMyMzkzMDUrMDAwMFx1MDAyNm1lcmNoYW50X2lkPXFrNGNudzZnaDJzNTIzaDhcdTAwMjZwdWJsaWNfa2V5PXpmNWR4d3F2bnkzamhxdmsiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvcWs0Y253NmdoMnM1MjNoOC9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3FrNGNudzZnaDJzNTIzaDgvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsInRocmVlRFNlY3VyZSI6eyJsb29rdXBVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvcWs0Y253NmdoMnM1MjNoOC90aHJlZV9kX3NlY3VyZS9sb29rdXAifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiSG9tb3dvcmtzIExMQyIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwibWVyY2hhbnRBY2NvdW50SWQiOiJoYl9zYW5kYm94X21lcmNoYW50IiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn0sImNvaW5iYXNlRW5hYmxlZCI6ZmFsc2UsIm1lcmNoYW50SWQiOiJxazRjbnc2Z2gyczUyM2g4IiwidmVubW8iOiJvZmYifQ==";
+
+        Braintree.setup(this, clientToken, new Braintree.BraintreeSetupFinishedListener() {
+            @Override
+            public void onBraintreeSetupFinished(boolean setupSuccessful, Braintree braintree, String errorMessage, Exception exception) {
+                if (setupSuccessful) {
+                    // braintree is now setup and available for use
+                    Toast.makeText(MainActivity.this, "Braintree is now setup and available for use", Toast.LENGTH_LONG).show();
+                    MainActivity.this.braintree = braintree;
+                    setupCreditCards();
+
+                } else {
+                    // Braintree could not be initialized, check errors and try again
+                    // This is usually a result of a network connectivity error
+                    Toast.makeText(MainActivity.this, "Braintree could not be initialized", Toast.LENGTH_LONG).show();
+                }
+            }
+        });*/
+
         setState ( VIEW_STATE.SPLASH );
 	}
+
+    /*public void setupCreditCards(){
+        if(braintree != null) {
+            braintree.addListener(new Braintree.PaymentMethodNonceListener() {
+                public void onPaymentMethodNonce(String paymentMethodNonce) {
+                    Toast.makeText(MainActivity.this, "paymentMethodNonce = " + paymentMethodNonce, Toast.LENGTH_LONG).show();
+                }
+            });
+
+            CardBuilder cardBuilder = new CardBuilder()
+                    .cardNumber("4111111111111111")
+                    .expirationDate("09/2018");
+
+            braintree.tokenize(cardBuilder);
+
+        }else{
+            Toast.makeText(MainActivity.this, "Braintree could not be initialized", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void onBraintreeSubmit() {
+        Intent intent = new Intent(MainActivity.this, BraintreePaymentActivity.class);
+        intent.putExtra(BraintreePaymentActivity.EXTRA_CLIENT_TOKEN, "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiIwMWY4OWQ1MTc3Zjk0ZjQ4MGI4NWE0YjU1ODVmOWZjYjc5OTQ3MjA4Zjg0MGM2ZDYyZTQwOTFjNmRhMmM3ZjMwfGNyZWF0ZWRfYXQ9MjAxNS0wNy0xNlQxMDozMzo0Ni45ODMyMzkzMDUrMDAwMFx1MDAyNm1lcmNoYW50X2lkPXFrNGNudzZnaDJzNTIzaDhcdTAwMjZwdWJsaWNfa2V5PXpmNWR4d3F2bnkzamhxdmsiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvcWs0Y253NmdoMnM1MjNoOC9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3FrNGNudzZnaDJzNTIzaDgvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsInRocmVlRFNlY3VyZSI6eyJsb29rdXBVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvcWs0Y253NmdoMnM1MjNoOC90aHJlZV9kX3NlY3VyZS9sb29rdXAifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiSG9tb3dvcmtzIExMQyIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwibWVyY2hhbnRBY2NvdW50SWQiOiJoYl9zYW5kYm94X21lcmNoYW50IiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn0sImNvaW5iYXNlRW5hYmxlZCI6ZmFsc2UsIm1lcmNoYW50SWQiOiJxazRjbnc2Z2gyczUyM2g4IiwidmVubW8iOiJvZmYifQ==");
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+            if (resultCode == BraintreePaymentActivity.RESULT_OK) {
+                String paymentMethodNonce = data.getStringExtra(BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE);
+                Toast.makeText(MainActivity.this, paymentMethodNonce, Toast.LENGTH_LONG).show();
+                //postNonceToServer(paymentMethodNonce);
+            }
+
+    }*/
 
 	private boolean checkDataFromNotification ()
 	{

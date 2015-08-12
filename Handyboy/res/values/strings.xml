@@ -343,7 +343,7 @@
     <string name="tire_dressing">Tire Dressing?</string>
     <string name="windows">Windows</string>
     <string name="laundry">Laundry</string>
-    <string name="brings_own_cleaning_supplies">Brings own cleaning supplies</string>
+    <string name="brings_own_cleaning_supplies">Cleaning supplies</string>
     <string name="eco_friendly">Eco-friendly</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -398,23 +398,23 @@
     <string name="names_require">Names require at least 2 letters</string>
     <string name="passwords_must_have">Passwords must have at least 6 characters</string>
     <string name="email_address_not_valid">Incorrect Email</string>
-    <string name="whats_your_name">Please fill out the following Name field</string>
-    <string name="whats_your_weight">Please fill out the following Weight field</string>
-    <string name="whats_your_hair_color">Please fill out the following Hair Color field</string>
-    <string name="whats_your_eye_color">Please fill out the following Eye Color field</string>
-    <string name="whats_your_email">Please fill out the following Email field</string>
-    <string name="what_password_would_you_like_to_use">Please fill out the following Password field</string>
+    <string name="whats_your_name">Please fill out the following: Name field</string>
+    <string name="whats_your_weight">Please fill out the following: Weight field</string>
+    <string name="whats_your_hair_color">Please fill out the following: Hair Color field</string>
+    <string name="whats_your_eye_color">Please fill out the following: Eye Color field</string>
+    <string name="whats_your_email">Please fill out the following: Email field</string>
+    <string name="what_password_would_you_like_to_use">Please fill out the following: Password field</string>
     <string name="how_old_are_you">How old are you?</string>
-    <string name="whats_your_cell_number">Please fill out the following Cell Number field</string>
-    <string name="what_date_massage">Please fill out the following Expiration Date from Massage field</string>
-    <string name="what_date_personal_trainer">Please fill out the following Expiration Date from Personal Trainer field</string>
-    <string name="what_license_number_massage">Please fill out the following License Number field</string>
-    <string name="what_account_number_massage">Please fill out the following Account Number field</string>
-    <string name="what_routing_number_massage">Please fill out the following Routing Number field</string>
-    <string name="what_routing_ssn_massage">Please fill out the following SSN Number field</string>
-    <string name="what_address_massage">Please fill out the following Address field</string>
-    <string name="what_city_massage">Please fill out the following City field</string>
-    <string name="what_zip_massage">Please fill out the following Zip field</string>
+    <string name="whats_your_cell_number">Please fill out the following: Cell Number field</string>
+    <string name="what_date_massage">Please fill out the following: Expiration Date from Massage field</string>
+    <string name="what_date_personal_trainer">Please fill out the following: Expiration Date from Personal Trainer field</string>
+    <string name="what_license_number_massage">Please fill out the following: License Number field</string>
+    <string name="what_account_number_massage">Please fill out the following: Account Number field</string>
+    <string name="what_routing_number_massage">Please fill out the following: Routing Number field</string>
+    <string name="what_routing_ssn_massage">Please fill out the following: SSN Number field</string>
+    <string name="what_address_massage">Please fill out the following: Address field</string>
+    <string name="what_city_massage">Please fill out the following: City field</string>
+    <string name="what_zip_massage">Please fill out the following: Zip field</string>
 
     <!-- filter -->
     <string name="where_at">Where at?</string>
@@ -617,4 +617,18 @@
     <string name="re_entered_bank_account_info">You must re-enter the information for your account</string>
     <string name="alert_i_need_a_cancel_hb_nextgig">Unless there is a good reason, canceling on such short notice may result in negative reviews. Repeated cancellations may result in the suspension of your HandyBoy account.</string>
     <string name="select_a_job_pick">Select a job (pick as many as you want)</string>
+    <string name="decline">Decline</string>
+
+    <string name="gogo_boy_description">Dancing, prancing and romancing! (haha jk) Dancing, flirting, entertaining. You know you\'ve always wanted to try it!</string>
+    <string name="masseur_boy_description">Do we need to explain? Step up to the table and rub away your client\'s tension with a strong touch (and an unparalleled knowledge of the human musculoskeletal system) You must be licensed (and just plain SUPER!) to provide these services.</string>
+    <string name="personal_trainer_boy_description">Molding boys into men, one quadricep at at time. Personal trainers provide various types of specialized fitness training/butt kicking for the client. You must be insured to provide these lovingly painful services.</string>
+    <string name="housekeeper_boy_description">Mopping, vacuuming, sweeping, dusting or any other house work your client may need. You will need to provide the supplies for this service, unless otherwise noted.</string>
+    <string name="pool_boy_description">Skimming, vacuuming or any other pool related services your client requests. Client provides supplies and tools for this service unless otherwise negotiated.</string>
+    <string name="yard_work_boy_description">Mowing lawns, planting, trimming, edging, blowing or any other yard work your client may need. Client provides tools for these jobs unless otherwise stated or negotiated</string>
+    <string name="car_wash_boy_description">You, a garden hose, and a cleanup towel. And it\'s not what you think. Washing, waxing, polishing, vacuuming, and any other vehicle cleaning services your client needs. You will need to bring your own supplies for this job, including a hose shut off nozzle. And be sure and get a little wet. Seriously, that\'s kinda the whole point.</string>
+    <string name="errand_boy_description">Performing any one of a number of miscellanous tasks your client may ask for. From picking up some groceries at the store to dropping off his dry cleaning. Client will provide details.</string>
+    <string name="bartender_boy_description">Making, mixing and serving up cocktails, beer and wine. Possibly some setup and breakdown services, depending on your client\'s needs.</string>
+    <string name="server_waiter_boy_description">Provide various wait services, depending on your client\'s needs. Can include light bartending or cleanup as well.</string>
+
+
 </resources>

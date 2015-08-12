@@ -43,9 +43,20 @@ public class BaseListFragment extends BaseFragment
 		if ( view == null )
 		{
 			view = inflater.inflate ( R.layout.base_list_layout, null );
+//            if ( listViewPTR == null )
+//            {
+                emptyTextView = ( TextView ) view.findViewById ( R.id.emptyTextView );
+                emptyTextView.setVisibility ( View.GONE );
+
+                listViewPTR = ( PullToRefreshListView ) view.findViewById ( R.id.baseListView );
+                listView = listViewPTR.getRefreshableView ();
+                listView.setDivider ( null );
+                setAdapter ( getAdapter () );
+                addListeners ();
+//            }
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}
@@ -55,26 +66,13 @@ public class BaseListFragment extends BaseFragment
 		this.isShowEmpty = isShowEmpty;
 	}
 
+    @Override
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
-
-		// objects = new ArrayList<ParseObject> ();
-
-		if ( listViewPTR == null )
-		{
-			emptyTextView = ( TextView ) getView ().findViewById ( R.id.emptyTextView );
-			emptyTextView.setVisibility ( View.GONE );
-
-			listViewPTR = ( PullToRefreshListView ) getView ().findViewById ( R.id.baseListView );
-			listView = listViewPTR.getRefreshableView ();
-			listView.setDivider ( null );
-			setAdapter ( getAdapter () );
-			addListeners ();
-		}
 	}
 
-	protected ArrayAdapter getAdapter ()
+    protected ArrayAdapter getAdapter ()
 	{
 		return new GridViewAdapter ( getActivity () );
 	}

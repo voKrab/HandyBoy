@@ -64,7 +64,7 @@ public class YourMoneyViewFragment extends BaseFragment
         }
         else
         {
-            ( ( ViewGroup ) view.getParent () ).removeView ( view );
+            //( ( ViewGroup ) view.getParent () ).removeView ( view );
         }
         return view;
     }
@@ -203,21 +203,20 @@ public class YourMoneyViewFragment extends BaseFragment
 
         apiManager = APIManager.getInstance ();
         user = apiManager.getUser ();
-
-        moneyListViewFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.moneyListViewFragment );
-        moneyListViewFragment.setIsShowEmpty ( false );
-        moneyListViewFragment.setAdapter ( new MoneyListAdapter ( controller ) );
-        moneyListViewFragment.setRefresher ( new Refresher ()
-        {
-            @Override
-            public List < Object > refresh () throws Exception
-            {
-                items = APIManager.getInstance ().loadList ( ServerManager.GET_MY_MONEY + user.getId (), MyMoneyAPIObject.class );
-                setTotal();
-                return items;
-            }
-        } );
-        moneyListViewFragment.refreshData ();
+        if(moneyListViewFragment == null) {
+            moneyListViewFragment = (BaseListFragment) getChildFragmentManager().findFragmentById(R.id.moneyListViewFragment);
+            moneyListViewFragment.setIsShowEmpty(false);
+            moneyListViewFragment.setAdapter(new MoneyListAdapter(controller));
+            moneyListViewFragment.setRefresher(new Refresher() {
+                @Override
+                public List<Object> refresh() throws Exception {
+                    items = APIManager.getInstance().loadList(ServerManager.GET_MY_MONEY + user.getId(), MyMoneyAPIObject.class);
+                    setTotal();
+                    return items;
+                }
+            });
+            moneyListViewFragment.refreshData();
+        }
         transferButton.setVisibility(View.VISIBLE);
         addListeners ();
     }

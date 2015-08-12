@@ -67,7 +67,7 @@ public class GigsViewFragment extends BaseFragment
 
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}
@@ -113,7 +113,7 @@ public class GigsViewFragment extends BaseFragment
 		bookingDataManager = BookingDataManager.getInstance ();
 		if ( listFragment == null )
 		{
-			listFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.baseListViewFragment );
+			listFragment = ( BaseListFragment ) getChildFragmentManager().findFragmentById ( R.id.baseListViewFragment );
 			listFragment.setRefresher ( new Refresher ()
 			{
 				@Override

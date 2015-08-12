@@ -48,7 +48,7 @@ public class ChatsViewFragment extends BaseFragment
 		} else
 		{
 			// container.removeView ( view );
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}
@@ -60,7 +60,7 @@ public class ChatsViewFragment extends BaseFragment
 
 		if ( chatsListViewFragment == null )
 		{
-			chatsListViewFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.chatsListViewFragment );
+			chatsListViewFragment = ( BaseListFragment ) getChildFragmentManager ().findFragmentById ( R.id.chatsListViewFragment );
 			chatsListViewFragment.setAdapter ( new ChatsListAdapter ( controller ) );
 			chatsListViewFragment.setRefresher ( new Refresher ()
 			{

@@ -53,7 +53,7 @@ public class ProblemClientViewFragment extends BaseFragment
             isLateButton = view.findViewById(R.id.isLateButton);
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

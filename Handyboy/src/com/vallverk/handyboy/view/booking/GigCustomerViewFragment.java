@@ -56,7 +56,7 @@ public class GigCustomerViewFragment extends BaseFragment
 			reportProblemOrRescheduleButton = ( Button ) view.findViewById ( R.id.reportProblemButton );
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

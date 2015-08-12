@@ -65,6 +65,19 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical" >
 
+            <TextView
+                android:layout_marginTop="4dp"
+                android:id="@+id/descriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="2dp"
+                android:text="@string/gogo_boy_description"
+                android:textColor="@color/dark_blue"
+                />
+
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
@@ -111,11 +124,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:animateLayoutChanges="true"
-                    app:cost="5"
                     app:headerLeftPadding="0dp" >
                 </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
 
-                <com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView
+               <!-- <com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView
                     android:id="@+id/briefsView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,7 +137,17 @@
                     app:maxCost="10"
                     app:minCost="5"
                     app:titleText="@string/briefs" >
-                </com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView>
+                </com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView>-->
+                <com.vallverk.handyboy.view.jobdescription.AddonPriceView
+                    android:id="@+id/briefsView"
+                    app:name="@string/briefs"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="21dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:animateLayoutChanges="true"
+                    app:headerLeftPadding="0dp" >
+                </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
 
                 <com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView
                     android:id="@+id/jockstrapView"

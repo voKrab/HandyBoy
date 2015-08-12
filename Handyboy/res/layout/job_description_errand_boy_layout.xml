@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/temp1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="true" >
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:layout_width="256dp"
@@ -15,7 +15,7 @@
         android:background="@color/white"
         android:clickable="false"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/headerContainer"
@@ -23,7 +23,7 @@
             android:layout_height="34dp"
             android:background="@android:color/transparent"
             android:clickable="false"
-            tools:context=".TutorialWelcomeViewFragment" >
+            tools:context=".TutorialWelcomeViewFragment">
 
             <TextView
                 android:id="@+id/nameTextView"
@@ -63,7 +63,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/errand_boy_description"
+                android:textColor="@color/dark_blue" />
+
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -74,8 +87,7 @@
                 android:layout_below="@+id/jobTypeTextView"
                 android:layout_marginTop="3dp"
                 android:background="@color/dark_grey"
-                android:orientation="horizontal" >
-            </LinearLayout>
+                android:orientation="horizontal"></LinearLayout>
 
             <com.vallverk.handyboy.view.jobdescription.PricePerHourView
                 android:id="@+id/pricePerHourView1"
@@ -83,15 +95,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 app:maxPrice="30"
-                app:minPrice="15" >
-            </com.vallverk.handyboy.view.jobdescription.PricePerHourView>
+                app:minPrice="15"></com.vallverk.handyboy.view.jobdescription.PricePerHourView>
 
             <include
                 android:id="@+id/baseComponents"
+                layout="@layout/job_description_base_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="34dp"
-                layout="@layout/job_description_base_layout" />
+                android:layout_marginTop="34dp" />
         </LinearLayout>
     </LinearLayout>
 

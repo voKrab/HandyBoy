@@ -634,6 +634,7 @@ public class ViewStateController implements Serializable
 			case FAVORITES:
 			{
 				currentFragment = getFragment ( FavoritesViewFragment.class, newState );
+                //currentFragment = new FavoritesViewFragment();
 				FragmentTransaction fragmentTransaction = manager.beginTransaction ();
 				// fragmentTransaction.setCustomAnimations (
 				// R.anim.card_flip_left_in, R.anim.card_flip_left_out );

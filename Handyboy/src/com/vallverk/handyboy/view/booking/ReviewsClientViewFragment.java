@@ -56,7 +56,7 @@ public class ReviewsClientViewFragment extends BaseFragment
 
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}
@@ -69,7 +69,7 @@ public class ReviewsClientViewFragment extends BaseFragment
 		customer = bookingDataManager.getData ().get ( bookingDataManager.getActiveDataIndex () ).getCustomer ();
 		if ( listFragment == null )
 		{
-			listFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.reviewsListViewFragment );
+			listFragment = ( BaseListFragment ) getChildFragmentManager ().findFragmentById ( R.id.reviewsListViewFragment );
 			listFragment.setRefresher ( new Refresher ()
 			{
 				@Override

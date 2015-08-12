@@ -50,7 +50,7 @@ public class AddChargesViewFragment extends BaseFragment
 			cancelButton = ( TextView ) view.findViewById ( R.id.cancelButton );
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

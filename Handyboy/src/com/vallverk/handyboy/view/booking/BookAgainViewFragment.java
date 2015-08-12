@@ -33,7 +33,7 @@ public class BookAgainViewFragment extends BaseFragment
             bookHimAgainButton = view.findViewById(R.id.bookHimAgainButton);
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

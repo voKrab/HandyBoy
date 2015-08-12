@@ -611,7 +611,8 @@ public class Tools
     public static String toAlertText ( float hours )
     {
         String hoursString = "" + hours;
-        hoursString = hoursString.replace ( ".5", ".30" );
+        hoursString = hoursString.replace ( ".30", ".5" );
+        hoursString = hoursString.replace(".0", "");
         return hoursString;
     }
 

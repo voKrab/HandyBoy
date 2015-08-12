@@ -53,7 +53,7 @@ public class ServiceReviewViewFragment extends BaseFragment
 			bookingDataManager = BookingDataManager.getInstance ();
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

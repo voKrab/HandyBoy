@@ -124,7 +124,7 @@ public class FeedViewFragment extends BaseFragment
 
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}
@@ -146,7 +146,7 @@ public class FeedViewFragment extends BaseFragment
 		filterManager = FilterManager.getInstance ();
 		if ( gridFragment == null )
 		{
-			gridFragment = ( BaseGridFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.baseGridViewFragment );
+			gridFragment = ( BaseGridFragment ) getChildFragmentManager().findFragmentById ( R.id.baseGridViewFragment );
 			gridFragment.setRefresher ( new Refresher ( 25 )
 			{
 				@Override

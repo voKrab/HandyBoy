@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -63,7 +64,7 @@ public class FavoritesViewFragment extends BaseFragment
 
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}
@@ -89,37 +90,36 @@ public class FavoritesViewFragment extends BaseFragment
 	public void onActivityCreated ( Bundle savedInstanceState )
 	{
 		super.onActivityCreated ( savedInstanceState );
+        //getChildFragmentManager().beginTransaction().add( R.id.favoritesListViewFragment, new BaseListFragment(), "favoritesListViewFragment").commit();
+        if ( favoritesListViewFragment == null ) {
+            favoritesListViewFragment = (BaseListFragment) getChildFragmentManager().findFragmentById(R.id.favoritesListViewFragment);
+            favoritesListViewFragment.setIsShowEmpty(false);
+            favoritesListViewFragment.setAdapter(new FavsListAdapter(controller));
+            favoritesListViewFragment.setRefresher(new Refresher() {
+                @Override
+                public List<Object> refresh() throws Exception {
+                    String uri = ServerManager.FAVS_GET_BY_USER_URI + controller.getUserId();
+                    String requestString = ServerManager.getRequest(uri);
+                    JSONObject requestJSON = new JSONObject(requestString);
 
-		favoritesListViewFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.favoritesListViewFragment );
-		favoritesListViewFragment.setIsShowEmpty ( false );
-		favoritesListViewFragment.setAdapter ( new FavsListAdapter ( controller ) );
-		favoritesListViewFragment.setRefresher ( new Refresher ()
-		{
-			@Override
-			public List < Object > refresh () throws Exception
-			{
-				String uri = ServerManager.FAVS_GET_BY_USER_URI + controller.getUserId ();
-				String requestString = ServerManager.getRequest ( uri );
-				JSONObject requestJSON = new JSONObject ( requestString );
+                    String dataString = requestJSON.getString("object");
+                    favs = new ArrayList();
+                    if (!dataString.equals("null")) {
+                        JSONArray jsonArray = new JSONArray(dataString);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject item = new JSONObject(jsonArray.getString(i));
+                            UserAPIObject favObject = new UserAPIObject(item);
+                            favs.add(favObject);
+                        }
+                    }
+                    onRefreshHandler.sendEmptyMessage(0);
 
-				String dataString = requestJSON.getString ( "object" );
-				favs = new ArrayList ();
-				if ( !dataString.equals ( "null" ) )
-				{
-					JSONArray jsonArray = new JSONArray ( dataString );
-					for ( int i = 0; i < jsonArray.length (); i++ )
-					{
-						JSONObject item = new JSONObject ( jsonArray.getString ( i ) );
-						UserAPIObject favObject = new UserAPIObject ( item );
-						favs.add ( favObject );
-					}
-				}
-				onRefreshHandler.sendEmptyMessage ( 0 );
+                    return favs;
+                }
+            });
+            favoritesListViewFragment.refreshData ();
+        }
 
-				return favs;
-			}
-		} );
-		favoritesListViewFragment.refreshData ();
 
 		updateComponents ();
 		addListeners ();

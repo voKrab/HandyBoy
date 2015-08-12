@@ -133,7 +133,14 @@ public class FacebookRegistrationViewFragment extends BaseFragment
         String phone = phoneEditText.getText ().toString ().trim ();
         if ( phoneNumberValidation ( phone ) )
         {
-            sendSms ( "+" + phone );
+            if(phone.indexOf("+1") == 0){
+                sendSms ( phone );
+            }else{
+                if(phone.indexOf("1") != 0){
+                    phone = "1" + phone;
+                }
+                sendSms ( "+" + phone );
+            }
             codeVerificationDialog.show ();
         }
     }
@@ -239,7 +246,7 @@ public class FacebookRegistrationViewFragment extends BaseFragment
         @Override
         public void afterTextChanged ( Editable s )
         {
-            String phone = s.toString ().replace ( "+", "" ).trim ();
+            /*String phone = s.toString ().replace ( "+", "" ).trim ();
             if ( phone != null && !phone.isEmpty () )
             {
                 phone = "+" + phone;
@@ -247,7 +254,7 @@ public class FacebookRegistrationViewFragment extends BaseFragment
                 phoneEditText.setText ( phone );
                 phoneEditText.setSelection ( phoneEditText.getText ().length () );
                 phoneEditText.addTextChangedListener ( phoneTextWatcher );
-            }
+            }*/
         }
     };
 
@@ -348,7 +355,9 @@ public class FacebookRegistrationViewFragment extends BaseFragment
 
     private boolean phoneNumberValidation ( String phoneNumber )
     {
-        String regexStr = "^\\+[0-9]{10,13}$";
+       // String regexStr = "^\\+[0-9]{10,13}$";
+
+        String regexStr = "^(?:(?:\\+?1\\s*(?:[.-]\\s*)?)?(?:\\(\\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\\s*\\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\\s*(?:[.-]\\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\\s*(?:[.-]\\s*)?([0-9]{4})(?:\\s*(?:#|x\\.?|ext\\.?|extension)\\s*(\\d+))?$";
         if ( phoneNumber.matches ( regexStr ) == false )
         {
             Toast.makeText ( getActivity (), "Please enter valid phone number", Toast.LENGTH_SHORT ).show ();

@@ -3,6 +3,7 @@ package com.vallverk.handyboy.view.booking;
 import android.animation.LayoutTransition;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.api.APIManager;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
@@ -27,6 +27,8 @@ import com.vallverk.handyboy.view.base.BaseFragment;
 import com.vallverk.handyboy.view.controller.BookingController;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChooseAddonsViewFragment extends BaseFragment
@@ -89,20 +91,49 @@ public class ChooseAddonsViewFragment extends BaseFragment
 					addons = new ArrayList < AddonServiceAPIObject > ();
 					for ( AddonServiceAPIObject addon : allAddons )
 					{
-						if ( addon.getString ( AddonServiceAPIParams.TYPE_JOB_SERVICE_ID ).equals ( bookingController.getJob ().getId () ) )
-						{
-							if ( bookingController.getJob ().getTypeJob ().getEnumValue () == TypeJobEnum.PERSONAL_TRAINER )
-							{
-								if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.SHIRTLESS_8 ) )
+
+						if ( addon.getValue ( AddonServiceAPIParams.TYPE_JOB_SERVICE_ID ).toString().equals(bookingController.getJob().getId()) ) {
+                            Log.d("BokingAddons", controller.getAddonName(addon.getString(AddonServiceAPIParams.JOB_ADDONS_ID)) + " " + addon.getString(AddonServiceAPIParams.JOB_ADDONS_ID));
+                            if (bookingController.getJob().getTypeJob().getEnumValue() == TypeJobEnum.PERSONAL_TRAINER) {
+								/*if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.SHIRTLESS_8 ) )
 								{
 									addons.add ( addon );
-								}
-							} else
-							{
-								addons.add ( addon );
-							}
-						}
+								}*/
+                            } else {
+                                if (bookingController.isMasseur()) {
+                                    if (addon.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) != AddonId.WHAT_TYPE_OF_MASSAGE_DO_YOU_OFFER) {
+                                        addons.add(addon);
+                                    }
+                                } else if (bookingController.isGoGoBoy()) {
+                                    if (addon.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) != AddonId.ATTIRE_2) {
+                                        addons.add(addon);
+                                    }
+                                } else if (bookingController.isCarWash()) {
+                                    if (addon.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) != AddonId.ATTIRE_1 && addon.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) != AddonId.BATHING_SUIT_1 && addon.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) != AddonId.EXTERIOR) {
+                                        addons.add(addon);
+                                    }
+                                } else if (bookingController.isPoolBoy()) {
+                                    if (addon.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) != AddonId.BATHING_SUIT_2) { // costyl remove  Attire 25
+                                        addons.add(addon);
+                                    }
+                                } else {
+                                    addons.add(addon);
+                                }
+                            }
+                        }
 					}
+                    Collections.sort(addons, new Comparator<AddonServiceAPIObject>() {
+                        @Override
+                        public int compare(AddonServiceAPIObject addonServiceAPIObject, AddonServiceAPIObject addonServiceAPIObject2) {
+                            if(addonServiceAPIObject.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) >  addonServiceAPIObject2.getInt(AddonServiceAPIParams.JOB_ADDONS_ID)){
+                                return 1;
+                            }if(addonServiceAPIObject.getInt(AddonServiceAPIParams.JOB_ADDONS_ID) <  addonServiceAPIObject2.getInt(AddonServiceAPIParams.JOB_ADDONS_ID)){
+                                return -1;
+                            }else {
+                                return 0;
+                            }
+                        }
+                    });
 					selectedAddons = bookingController.getAddons ();
 				} catch ( Exception e )
 				{
@@ -143,6 +174,19 @@ public class ChooseAddonsViewFragment extends BaseFragment
 
 	private void updateComponents ()
 	{
+        if ( bookingController.isYardWorker () )
+        {
+            addLawnMoving ();
+            updateLawnMoving ();
+        }
+
+        if ( bookingController.isHouseKeeper () )
+        {
+            addRoomsSelector ();
+            addBathRoomsSelector ();
+            updateRooms ();
+        }
+
 		for ( AddonServiceAPIObject addon : addons )
 		{
 			final View view = inflater.inflate ( R.layout.choose_addons_row_layout, null );
@@ -152,7 +196,13 @@ public class ChooseAddonsViewFragment extends BaseFragment
 			ImageView selectImageView = ( ImageView ) view.findViewById ( R.id.selectImageView );
 			selectImageView.setVisibility ( View.GONE );
 			addonTextView.setText ( controller.getAddonName ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ) ) );
-            int price = addon.getInt ( AddonServiceAPIParams.PRICE );
+            int price = 0;
+            try{
+                price = addon.getInt ( AddonServiceAPIParams.PRICE );
+            }catch (Exception ex){
+                price = 0;
+            }
+
             priceTextView.setText ( price == 0 ? "" : "$" + price );
             plusTextView.setVisibility ( price == 0 ? View.GONE : View.VISIBLE );
 			view.setTag ( addon );
@@ -179,20 +229,6 @@ public class ChooseAddonsViewFragment extends BaseFragment
 			specialReqeustEditText.setVisibility ( View.VISIBLE );
 			specialReqeustEditText.setText ( specialRequest );
 		}
-
-		if ( bookingController.isYardWorker () )
-		{
-			addLawnMoving ();
-			updateLawnMoving ();
-		}
-
-		if ( bookingController.isHouseKeeper () )
-		{
-			addRoomsSelector ();
-			addBathRoomsSelector ();
-			updateRooms ();
-		}
-
 		updateSelectionComponents ();
 	}
 
@@ -476,14 +512,99 @@ public class ChooseAddonsViewFragment extends BaseFragment
 
 	protected void addonSelected ( AddonServiceAPIObject addon )
 	{
-		if ( selectedAddons.contains ( addon ) )
-		{
-			selectedAddons.remove ( addon );
-		} else
-		{
-			selectedAddons.add ( addon );
-		}
+        if ( selectedAddons.contains ( addon ) )
+        {
+            selectedAddons.remove ( addon );
+        } else
+        {
+            selectedAddons.add ( addon );
+        }
+        if(bookingController.isMasseur())
+        {
+            removeAllAddonExceptId( addon.getInt ( AddonServiceAPIParams.JOB_ADDONS_ID ));
+        } else
+        {
+            //Pool BOY
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.BOARD_SHORTS_2 ) )
+            {
+                removeAddonById(AddonId.TRUNKS_2);
+                removeAddonById(AddonId.SPEEDO_2);
+            }
+
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.TRUNKS_2 ) )
+            {
+                removeAddonById(AddonId.BOARD_SHORTS_2);
+                removeAddonById(AddonId.SPEEDO_2);
+            }
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.SPEEDO_2 ) )
+            {
+                removeAddonById(AddonId.TRUNKS_2);
+                removeAddonById(AddonId.BOARD_SHORTS_2);
+            }
+
+            //GoGo Boy
+
+            //int BOXERS = ATTIRE_2 + 1;									// 26
+            //int BRIEFS = BOXERS + 1;                                    // 27
+            // int JOCKSTRAP = BRIEFS + 1;                                 // 28
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.BOXERS ) )
+            {
+                removeAddonById(AddonId.BRIEFS);
+                removeAddonById(AddonId.JOCKSTRAP);
+            }
+
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.BRIEFS ) )
+            {
+                removeAddonById(AddonId.BOXERS);
+                removeAddonById(AddonId.JOCKSTRAP);
+            }
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.JOCKSTRAP ) )
+            {
+                removeAddonById(AddonId.BRIEFS);
+                removeAddonById(AddonId.BOXERS);
+            }
+
+            //Car Wash
+            //int BOARD_SHORTS_1 = BATHING_SUIT_1 + 1;					// 11
+            // int TRUNKS_1 = BOARD_SHORTS_1 + 1;							// 12
+            //int SPEEDO_1 = TRUNKS_1 + 1;								// 13
+
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.BOARD_SHORTS_1 ) )
+            {
+                removeAddonById(AddonId.TRUNKS_1);
+                removeAddonById(AddonId.SPEEDO_1);
+            }
+
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.TRUNKS_1 ) )
+            {
+                removeAddonById(AddonId.BOARD_SHORTS_1);
+                removeAddonById(AddonId.SPEEDO_1);
+            }
+            if ( addon.getString ( AddonServiceAPIParams.JOB_ADDONS_ID ).equals ( "" + AddonId.SPEEDO_1 ) )
+            {
+                removeAddonById(AddonId.TRUNKS_1);
+                removeAddonById(AddonId.BOARD_SHORTS_1);
+            }
+        }
 	}
+
+    protected void removeAddonById ( int id )
+    {
+        for(int i = 0; i < selectedAddons.size(); i++){
+            if(selectedAddons.get(i).getInt ( AddonServiceAPIParams.JOB_ADDONS_ID ) ==  id ){
+                selectedAddons.remove(i);
+            }
+        }
+    }
+
+    protected void removeAllAddonExceptId ( int id )
+    {
+        for(int i = 0; i < selectedAddons.size(); i++){
+            if(selectedAddons.get(i).getInt ( AddonServiceAPIParams.JOB_ADDONS_ID ) !=  id ){
+                selectedAddons.remove(i);
+            }
+        }
+    }
 
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )

@@ -60,7 +60,7 @@ public class BlockListViewFragment extends BaseFragment
 	{
 		super.onActivityCreated ( savedInstanceState );
 
-		blockListListViewFragment = ( BaseListFragment ) getActivity ().getSupportFragmentManager ().findFragmentById ( R.id.blockListViewFragment );
+		blockListListViewFragment = ( BaseListFragment ) getChildFragmentManager ().findFragmentById ( R.id.blockListViewFragment );
 		blockListListViewFragment.setIsShowEmpty ( true );
 		blockListListViewFragment.setAdapter ( new BlockListAdapter ( controller ) );
 		blockListListViewFragment.setRefresher ( new Refresher ()

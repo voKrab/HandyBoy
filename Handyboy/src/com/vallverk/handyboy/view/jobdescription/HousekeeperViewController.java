@@ -2,6 +2,8 @@ package com.vallverk.handyboy.view.jobdescription;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
+
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
 import com.vallverk.handyboy.model.job.AddonId;
@@ -13,7 +15,7 @@ public class HousekeeperViewController extends BaseController
 	private AddonPriceView laundryAddonPriceView;
 	private AddonPriceView cleaningSuppliesAddonPriceView;
 	private AddonPriceView ecoFriendlyAddonPriceView;
-
+    private TextView descriptionTextView;
 	private AddonPriceSelectorView shirtlessView;
 
 	public HousekeeperViewController ( TypeJobServiceAPIObject job, TypeJob typeJob )
@@ -26,6 +28,8 @@ public class HousekeeperViewController extends BaseController
 	{
 		this.fragment = fragment;
 		final View view = inflater.inflate ( R.layout.job_description_housekeeper_layout, null );
+        descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        //descriptionTextView.setText(getJob().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.CUSTOM_DESCRIPTION).toString());
 		setupAddons ( view );
 		createView ( view );
 		return view;

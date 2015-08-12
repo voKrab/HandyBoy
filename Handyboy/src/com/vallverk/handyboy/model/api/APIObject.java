@@ -47,8 +47,10 @@ public abstract class APIObject implements Serializable
         if ( withoutId )
         {
             jsonObject.remove ( "id" );
+
         }
-        String request = ServerManager.postRequest ( uri, jsonObject );
+        jsonObject.remove("description");
+        String request = ServerManager.postRequest ( uri, jsonObject.toString().replace("customDescription", "description") );
         return request;
     }
 

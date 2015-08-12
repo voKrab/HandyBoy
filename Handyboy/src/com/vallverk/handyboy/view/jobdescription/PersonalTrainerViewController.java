@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vallverk.handyboy.MainActivity;
@@ -33,6 +34,7 @@ public class PersonalTrainerViewController extends BaseController
 	private EditText addressEditText;
 	private CheckBox yourLocationCheckBox;
 	private AddonPriceSelectorView yourLocationShirtlessView;
+    private TextView descriptionTextView;
 
 	public PersonalTrainerViewController ( TypeJobServiceAPIObject job, TypeJob typeJob )
 	{
@@ -43,6 +45,8 @@ public class PersonalTrainerViewController extends BaseController
 	public View createView ( LayoutInflater inflater, final JobDescriptionViewFragment fragment )
 	{
 		final View view = inflater.inflate ( R.layout.job_description_personal_trainer_layout, null );
+        descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+       // descriptionTextView.setText(getJob().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.CUSTOM_DESCRIPTION).toString());
 		this.fragment = fragment;
 		setupAddons ( view );
 		createView ( view );

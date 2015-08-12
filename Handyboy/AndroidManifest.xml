@@ -3,11 +3,11 @@
     package="com.vallverk.handyboy"
     android:installLocation="preferExternal"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -22,11 +22,11 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-       
+        android:label="@string/app_name">
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -34,7 +34,8 @@
         <activity
             android:name="com.vallverk.handyboy.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,7 +67,7 @@
             android:name="com.aviary.android.feather.AlertActivity"
             android:launchMode="standard"
             android:noHistory="true"
-            android:theme="@style/AviaryTheme.Dialog" >
+            android:theme="@style/AviaryTheme.Dialog">
             <intent-filter>
                 <action android:name="aviary.intent.action.ALERT" />
 
@@ -77,7 +78,7 @@
         <service
             android:name="com.aviary.android.feather.cds.AviaryCdsService"
             android:exported="false"
-            android:process=":aviarycds" >
+            android:process=":aviarycds">
             <intent-filter>
                 <action android:name="aviary.intent.action.CDS_DOWNLOAD_START" />
                 <action android:name="aviary.intent.action.CDS_RESTORE_USER_ITEMS" />
@@ -93,7 +94,7 @@
 
         <receiver
             android:name="com.aviary.android.feather.cds.AviaryCdsReceiver"
-            android:process=":aviarycds" >
+            android:process=":aviarycds">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
@@ -101,7 +102,7 @@
 
         <receiver
             android:name="com.vallverk.handyboy.gcm.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="com.google.android.gcm.demo.app" />

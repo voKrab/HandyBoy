@@ -32,7 +32,7 @@ public class BookAnotherViewFragment extends BaseFragment
 			backTextView = ( TextView ) view.findViewById ( R.id.backTextView );
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

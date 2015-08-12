@@ -218,7 +218,7 @@ public class HandyBoyViewFragment extends BaseFragment
 				} else
 				{
 					controller.onBackPressed ();
-					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+					//Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
 				}
 			}
 
@@ -339,7 +339,7 @@ public class HandyBoyViewFragment extends BaseFragment
 					}
 				} else
 				{
-					Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
+					//Toast.makeText ( controller, result, Toast.LENGTH_LONG ).show ();
 				}
 			}
 
@@ -590,6 +590,11 @@ public class HandyBoyViewFragment extends BaseFragment
 		availableNowContainer.setVisibility(View.GONE);
 		//ratingContainer.setVisibility ( View.INVISIBLE );
 		freshMeatTextView.setVisibility(View.GONE);
+
+        priceTextView.setText("");
+        typejobNameTextView.setText("");
+
+        selectedJob = null;
 	}
 
 	private void updateComponents ()

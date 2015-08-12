@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TextView;
 
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.api.TypeJobServiceAPIObject;
@@ -19,6 +20,8 @@ public class PoolBoyViewController extends BaseController
 	private AddonPriceViewBase boardShortsAddonPriceView;
 	private AddonPriceViewBase trunksAddonPriceView;
 	private AddonPriceViewBase speedoAddonPriceSelectorView;
+    private TextView descriptionTextView;
+
 
 	public PoolBoyViewController ( TypeJobServiceAPIObject job, TypeJob typeJob )
 	{
@@ -30,6 +33,8 @@ public class PoolBoyViewController extends BaseController
 	{
 		this.fragment = fragment;
 		final View view = inflater.inflate ( R.layout.job_description_poolboy_layout, null );
+        descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        //descriptionTextView.setText(getJob().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.CUSTOM_DESCRIPTION).toString());
 		setupAddons ( view );
 		createView ( view );
 		addListeners ();

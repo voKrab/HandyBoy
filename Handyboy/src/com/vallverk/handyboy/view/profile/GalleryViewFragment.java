@@ -53,7 +53,7 @@ public class GalleryViewFragment extends BaseFragment {
             mViewPager = (GalleryViewPager) view.findViewById(R.id.viewer);
             isVideoImageView = (ImageView) view.findViewById(R.id.isVideoImageView);
         } else {
-            ((ViewGroup) view.getParent()).removeView(view);
+            //((ViewGroup) view.getParent()).removeView(view);
         }
         return view;
     }

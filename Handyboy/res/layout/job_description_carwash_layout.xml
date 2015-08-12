@@ -65,6 +65,20 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical" >
 
+            <TextView
+                android:layout_marginTop="4dp"
+                android:id="@+id/descriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="2dp"
+                android:text="@string/car_wash_boy_description"
+                android:textColor="@color/dark_blue"
+                />
+
+
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
@@ -79,8 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                app:maxPrice="30"
-                app:minPrice="15" >
+                app:maxPrice="20"
+                app:minPrice="10" >
             </com.vallverk.handyboy.view.jobdescription.PricePerHourView>
 
             <com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView
@@ -117,8 +131,8 @@
                 android:layout_marginTop="8dp"
                 android:animateLayoutChanges="true"
                 app:headerLeftPadding="0dp"
-                app:maxCost="15"
-                app:minCost="5"
+                app:maxCost="10"
+                app:minCost="1"
                 app:titleText="@string/wax" >
             </com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView>
 
@@ -175,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
                     app:headerLeftPadding="21dp"
-                    app:maxCost="10"
+                    app:maxCost="20"
                     app:minCost="5"
                     app:titleText="@string/shirtless" >
                 </com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView>
@@ -208,7 +222,6 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginLeft="42dp"
                         android:animateLayoutChanges="true"
-                        app:cost="5"
                         app:headerLeftPadding="0dp" >
                     </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
 
@@ -220,7 +233,6 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginLeft="42dp"
                         android:animateLayoutChanges="true"
-                        app:cost="5"
                         app:headerLeftPadding="0dp" >
                     </com.vallverk.handyboy.view.jobdescription.AddonPriceView>
 
@@ -231,7 +243,7 @@
                         android:layout_marginBottom="8dp"
                         android:animateLayoutChanges="true"
                         app:headerLeftPadding="42dp"
-                        app:maxCost="20"
+                        app:maxCost="75"
                         app:minCost="5"
                         app:titleText="@string/speedo" >
                     </com.vallverk.handyboy.view.jobdescription.AddonPriceSelectorView>

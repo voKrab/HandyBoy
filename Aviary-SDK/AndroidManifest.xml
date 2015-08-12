@@ -8,7 +8,9 @@
     minimum supported version by the Aviary-SDK is android-9
     target version must be android-19
      -->
-    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="21"/>
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="22" />
     
 	<!-- REQUIRED PERMISSIONS -->
     <!-- <uses-permission android:name="android.permission.INTERNET" /> -->

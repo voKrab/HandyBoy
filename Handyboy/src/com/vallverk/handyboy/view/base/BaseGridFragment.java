@@ -48,7 +48,7 @@ public class BaseGridFragment extends BaseFragment
 			view = inflater.inflate ( R.layout.base_grid_layout, null );
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

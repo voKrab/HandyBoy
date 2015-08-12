@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.vallverk.handyboy.R;
 import com.vallverk.handyboy.model.api.AddonServiceAPIObject;
@@ -27,6 +28,7 @@ public class MasseurViewController extends BaseController
 	private MultiChoiceSpinner massageTypesSpinner;
 	private List < String > messageTypes;
 	private ArrayList < JobAddonsAPIObject > messageTypeAddons;
+    private TextView descriptionTextView;
 
 	public MasseurViewController ( TypeJobServiceAPIObject job, TypeJob typeJob )
 	{
@@ -38,6 +40,8 @@ public class MasseurViewController extends BaseController
 	{
 		this.fragment = fragment;
 		final View view = inflater.inflate ( R.layout.job_description_masseur_layout, null );
+        descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        //descriptionTextView.setText(getJob().getValue(TypeJobServiceAPIObject.TypeJobServiceParams.CUSTOM_DESCRIPTION).toString());
 		setupAddons ( view );
 		createView ( view );
 		return view;

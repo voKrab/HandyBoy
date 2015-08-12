@@ -124,14 +124,16 @@ public class AddonPriceView extends AddonPriceViewBase
         post(new Runnable() {
             @Override
             public void run() {
-
-
-
                 if ( addonService == null )
                 {
                     return;
                 }
-                price = Integer.parseInt ( addonService.getString ( AddonServiceAPIParams.PRICE ) );
+                try{
+                    price = Integer.parseInt ( addonService.getString ( AddonServiceAPIParams.PRICE ) );
+                }catch (Exception ex){
+                   // price = 0;
+                }
+
                 setChecked ( true );
             }
         });

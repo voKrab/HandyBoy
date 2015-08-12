@@ -59,7 +59,7 @@ public class NextGigViewFragment extends BaseFragment
 			showAddressButton = ( Button ) view.findViewById ( R.id.navigationButton );
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

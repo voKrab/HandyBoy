@@ -73,6 +73,8 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 	private View backImageView;
 	private View backTextView;
 
+    private View registrationContatiner;
+
 	private EditText introduceYouselfEditText;
 
 	private Integer[] weightArray;
@@ -102,6 +104,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 		topbarContainer = view.findViewById ( R.id.topbarContainer );
 		backImageView = view.findViewById ( R.id.backImageView );
 		backTextView = view.findViewById ( R.id.backTextView );
+        registrationContatiner = view.findViewById(R.id.registrationContatiner);
 
 		introduceYouselfEditText = ( EditText ) view.findViewById ( R.id.introduceYouselfEditText );
 
@@ -274,6 +277,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View arg0 )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				chooseMedia ( MediaType.PHOTO );
 			}
 		} );
@@ -282,6 +286,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public void onItemSelected ( AdapterView < ? > adapter, View arg1, int selected, long arg3 )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				Integer newValue = ( Integer ) adapter.getAdapter ().getItem ( selected );
 				feetEditText.setText ( "" + newValue );
 			}
@@ -298,6 +303,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public void onItemSelected ( AdapterView < ? > adapter, View arg1, int selected, long arg3 )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				Integer newValue = ( Integer ) adapter.getAdapter ().getItem ( selected );
 				inchesEditText.setText ( "" + newValue );
 			}
@@ -323,6 +329,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				controller.prevStep ();
 			}
 		} );
@@ -333,6 +340,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View arg0 )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				feetSpinner.performClick ();
 			}
 		} );
@@ -343,6 +351,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public void onClick ( View v )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				inchesSpinner.performClick ();
 			}
 		} );
@@ -353,6 +362,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public boolean onTouch ( View arg0, MotionEvent motionEvent )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				if ( motionEvent.getAction () == MotionEvent.ACTION_UP )
 				{
 					if ( weightSpinner.getCount () == 1 )
@@ -371,6 +381,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public boolean onTouch ( View arg0, MotionEvent motionEvent )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				if ( motionEvent.getAction () == MotionEvent.ACTION_UP )
 				{
 					if ( hairColorSpinner.getCount () == 1 )
@@ -388,7 +399,8 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public boolean onTouch ( View arg0, MotionEvent motionEvent )
 			{
-				if ( motionEvent.getAction () == MotionEvent.ACTION_UP )
+                ((MainActivity)getActivity()).hideKeyboard();
+                if ( motionEvent.getAction () == MotionEvent.ACTION_UP )
 				{
 					if ( eyeColorSpinner.getCount () == 1 )
 					{
@@ -405,6 +417,7 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 			@Override
 			public boolean onTouch ( View arg0, MotionEvent motionEvent )
 			{
+                ((MainActivity)getActivity()).hideKeyboard();
 				if ( motionEvent.getAction () == MotionEvent.ACTION_UP )
 				{
 					if ( sexualitySpinner.getCount () == 1 )
@@ -415,6 +428,13 @@ public class RegistrationServiceBIOViewFragment extends BaseFragment
 				return false;
 			}
 		} );
+
+        registrationContatiner.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).hideKeyboard();
+            }
+        });
 	}
 
 	protected void next ()

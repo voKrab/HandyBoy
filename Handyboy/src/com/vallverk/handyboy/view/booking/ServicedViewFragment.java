@@ -51,7 +51,7 @@ public class ServicedViewFragment extends BaseFragment
             tipsEditText = ( EditText ) view.findViewById ( R.id.tipsEditText );
 		} else
 		{
-			( ( ViewGroup ) view.getParent () ).removeView ( view );
+			//( ( ViewGroup ) view.getParent () ).removeView ( view );
 		}
 		return view;
 	}

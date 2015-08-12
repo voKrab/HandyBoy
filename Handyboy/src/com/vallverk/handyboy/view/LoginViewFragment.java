@@ -81,7 +81,7 @@ public class LoginViewFragment extends BaseFragment
 			public boolean onLongClick ( View v )
 			{
 				emailEditText.setText ( "vokrab@gmail.com" );
-				passwordEditText.setText ( "123456" );
+				passwordEditText.setText ( "qwerty" );
 				controller.setDebugMode ( true );
 				return false;
 			}

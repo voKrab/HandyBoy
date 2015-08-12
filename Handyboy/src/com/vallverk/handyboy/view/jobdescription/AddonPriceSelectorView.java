@@ -159,9 +159,11 @@ public class AddonPriceSelectorView extends AddonPriceViewBase
                 if (addonService == null) {
                     return;
                 }
-
-                int newPrice = Integer.parseInt(addonService.getString(AddonServiceAPIParams.PRICE));
-                setPrice(newPrice);
+                try {
+                    int newPrice = Integer.parseInt(addonService.getString(AddonServiceAPIParams.PRICE));
+                    setPrice(newPrice);
+                }catch (Exception ex){ }
+               ;
                 setChecked(true);
             }
         });
@@ -178,6 +180,7 @@ public class AddonPriceSelectorView extends AddonPriceViewBase
 	public void setPrice ( int newPrice )
 	{
 		priceSeekBar.setProgress ( newPrice - minCost );
+        //priceSeekBar.setProgress ( newPrice);
 	}
 
 	@Override

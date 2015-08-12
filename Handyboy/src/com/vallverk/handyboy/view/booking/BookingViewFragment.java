@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,8 @@ public class BookingViewFragment extends BaseFragment
 	private TextView creditCardTextView;
 	private Button bookButton;
 
+    private View plusTextView;
+
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		View view = inflater.inflate ( R.layout.booking_layout, null );
@@ -85,6 +88,7 @@ public class BookingViewFragment extends BaseFragment
 		choosedAddonsContainer = view.findViewById ( R.id.choosedAddonsContainer );
 		addon1TextView = ( TextView ) view.findViewById ( R.id.addon1TextView );
 		addon2TextView = ( TextView ) view.findViewById ( R.id.addon2TextView );
+        plusTextView = view.findViewById(R.id.plusTextView);
 		addonsPriceTextView = ( TextView ) view.findViewById ( R.id.addonsPriceTextView );
 		addonsTextView = ( TextView ) view.findViewById ( R.id.addonsTextView );
 		bookButton = ( Button ) view.findViewById ( R.id.bookButton );
@@ -152,7 +156,15 @@ public class BookingViewFragment extends BaseFragment
 
         if ( suggestionHours > selectedHours )
         {
-            Toast.makeText ( controller, "We suggest " + Tools.toAlertText ( suggestionHours ) + " hours. Booking for less may result in incomplete services!", Toast.LENGTH_LONG ).show ();
+           // Toast.makeText ( controller, "We suggest " + Tools.toAlertText ( suggestionHours ) + " hours. Booking for less may result in incomplete services!", Toast.LENGTH_LONG ).show ();
+            //Warning! One second! We suggest 1 hour. Booking for less time might result in incomplete services!
+            String hourText;
+            if(suggestionHours == 1){
+                hourText = "hour";
+            }else{
+                hourText = "hours";
+            }
+            Toast.makeText ( controller, "One second! We suggest " + Tools.toAlertText ( suggestionHours ) + " " + hourText + ". Booking for less time might result in incomplete services!", Toast.LENGTH_LONG ).show ();
         }
     }
 
@@ -250,9 +262,50 @@ public class BookingViewFragment extends BaseFragment
 			{
 				addon2TextView.setVisibility ( View.GONE );
 			}
-			addonsPriceTextView.setText ( "$" + bookingController.getAddonsPrice () );
+
+            if( bookingController.getAddonsPrice () != 0){
+                plusTextView.setVisibility(View.VISIBLE);
+                addonsPriceTextView.setText ( "$" + bookingController.getAddonsPrice () );
+            }else{
+                addonsPriceTextView.setText ("" );
+                plusTextView.setVisibility(View.GONE);
+            }
 		}
 	}
+
+    private String getLawnMovingText ()
+    {
+        if (bookingController.getLawnMovingType () != null )
+        {
+            switch ( bookingController.getLawnMovingType () )
+            {
+                case SMALL:
+                {
+                   // ( (CheckBox) lawnContainer.findViewById ( R.id.lawmMovingSmall ) ).setChecked ( true );
+                    break;
+                }
+                case MEDIUM:
+                {
+                   // ( ( CheckBox ) lawnContainer.findViewById ( R.id.lawmMovingMedium ) ).setChecked ( true );
+                    break;
+                }
+                case LARGE:
+                {
+                    //( ( CheckBox ) lawnContainer.findViewById ( R.id.lawmMovingLarge ) ).setChecked ( true );
+                    break;
+                }
+                case EXTRA_LARGE:
+                {
+                    //( ( CheckBox ) lawnContainer.findViewById ( R.id.lawmMovingExtraLarge ) ).setChecked ( true );
+                    break;
+                }
+
+            }
+        }
+        return "";
+    }
+
+
 
 	@Override
 	public void onActivityCreated ( Bundle savedInstanceState )

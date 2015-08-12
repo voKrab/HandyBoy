@@ -32,7 +32,7 @@ public class ServerManager
 {
     // https://api.handyboy.com
     public static String PROTOCOL = "https://";
-    public static String HOST = "api.handyboy.com";
+    public static String HOST = "testapi.handyboy.com";
 
     public static String USER_AUTH_URI = PROTOCOL + HOST + "/user/auth";
     public static String USER_FACEBOOK_AUTH_URI = PROTOCOL + HOST + "/user/authfb";
